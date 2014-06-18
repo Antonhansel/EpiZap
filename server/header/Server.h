@@ -11,14 +11,30 @@
 #ifndef SERVER_H_
 # define SERVER_H_
 
+# include <sys/types.h>
+# include <sys/socket.h>
+# include <unistd.h>
+# include <string.h>
+# include <stdlib.h>
+# include <netdb.h>
+# include <netinet/in.h>
+# include <arpa/inet.h>
+# include "xfunctions.h"
+
 typedef struct 	Server
 {
-	int 		port;
-	void		(*accept_socket)(struct Server *);
-	/* data */
+	int 				port;
+	int 				width;
+	int 				height;
+	int					socket;
+	int 				nbPlayer;
+	int 				ctime;
+	struct protoent		*pe;
+  	struct sockaddr_in	sin;
+	void				(*accept_socket)(struct Server *);
 }				Server;
 
-void	serverInit(Server *, int);
+int		serverInit(Server *);
 void	serverDestroy(Server *);
 
 #endif /* SERVER_H_ */
