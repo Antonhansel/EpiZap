@@ -8,6 +8,7 @@
 ** Last update mer. juin  18 09:57:59 2014 jeremie taboada-alvarez
 */
 
+#include <stdio.h>
 #include "getInfos.h"
 
 char		*substr(char *av, int size)
@@ -23,6 +24,14 @@ int			getPort(char *av)
 {
 	int		port;
 
-	port = atoi(substr(av, 3));
+	port = atoi(av);
 	return (port);
+}
+
+int			getWidth(char *av)
+{
+	int		width;
+
+	width = atoi(av);
+	return (width);
 }

@@ -16,5 +16,6 @@
 # include <unistd.h>
 
 int		getPort(char *);
+int		getWidth(char *);
 
 #endif /* GETINFOS_H_ */

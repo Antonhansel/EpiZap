@@ -18,15 +18,33 @@ void	serverDestroy(Server *this)
 	this->port = 0;
 }
 
-void	serverInit(Server *this, int port)
+int 	serverInit(Server *this)
 {
-	this->port = port;
-	printf("--- SERVER INIT ON PORT %d ---\n", this->port);
+	int 	opt;
+
+	opt = 1;
+	printf("--- SERVER INIT ON PORT %d WITH WIDTH OF %d AND HEIGHT OF %d---\n", this->port, this->width, this->height);
 	this->accept_socket = &accept_socket;
-	(*this->accept_socket)(this);
+	if ((this->pe = getprotobyname("TCP")) == NULL)
+    {
+      printf("[ERROR]: error on getprotobyname\n");
+      return (1);
+    }
+	this->socket = xsocket(AF_INET, SOCK_STREAM, this->pe->p_proto);
+  	this->sin.sin_family = AF_INET;
+  	this->sin.sin_port = htons(this->port);
+  	this->sin.sin_addr.s_addr = INADDR_ANY;
+  	setsockopt(this->socket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+  	xbind(this->socket, &this->sin, sizeof(this->sin));
+  	xlisten(this->socket, 10);
+  	return (0);
 }
 
 static void	accept_socket(Server *s)
 {
 	printf("--- LISTEN ON PORT %d ---\n", s->port);
+  	int len = sizeof(s->sin);
+  	int fd = xaccept(s->socket, &(s->sin), (socklen_t *)&len);
+	printf("--- CLIENT ACCEPT ON FD : %d ---\n", fd);
+	write(fd, "IT'S WORK AS LIKE AS PENSATO\n", 29);
 }

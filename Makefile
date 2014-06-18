@@ -13,6 +13,7 @@ RM	= rm -rf
 
 FILE1	= server/srcs/Server.c \
 	  server/srcs/getInfos.c \
+	  server/srcs/xfunctions.c \
 	  server/srcs/main.c
 
 OBJS1	= $(FILE1:.c=.o)
@@ -25,7 +26,7 @@ OBJS2	= $(FILE2:.c=.o)
 
 NAME2	= client
 
-CFLAGS	= -Wextra -Wall -Werror -W -I ./server/header
+CFLAGS	= -Wextra -Wall -Werror -W -I ./server/header -g
 
 all: $(NAME1)
 
