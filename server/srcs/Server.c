@@ -12,7 +12,7 @@
 #include "Server.h"
 #include "checkFd.h"
 
-static void		accept_socket(Server *);
+static int		accept_socket(Server *);
 
 void	serverDestroy(Server *this)
 {
@@ -81,7 +81,7 @@ int 				serverLoop(Server *this)
 	return (0);
 }
 
-static void	accept_socket(Server *s)
+static int	accept_socket(Server *s)
 {
 	printf("--- LISTEN ON PORT %d ---\n", s->port);
 	int len = sizeof(s->sin);
@@ -92,14 +92,12 @@ static void	accept_socket(Server *s)
 		s->clients = memset(s->clients, 0, 100);
 	}
 	Client *c;
-	c = malloc(sizeof(Client));
-	if (c == NULL)
-		exit(1);
+	if (xmalloc((void**)&c, sizeof(Client)) == -1)
+		return (-1);
 	createClient(c, fd);
 	s->clients[fd] = c;
 	s->maxFd = fd;
-	//int i = 0;
-
 	printf("--- CLIENT ACCEPT ON FD : %d ---\n", fd);
 	write(fd, "--- SUCCESSLY CONNECT ---\n", 26);
+	return (0);
 }

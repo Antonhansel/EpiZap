@@ -35,7 +35,7 @@ typedef struct 			Server
 	struct protoent		*pe;
   	struct sockaddr_in	sin;
   	Client				**clients;
-	void				(*accept_socket)(struct Server *);
+	int				(*accept_socket)(struct Server *);
 	void				(*init_fd)(struct Server *, fd_set *);
 	void				(*check_fd)(struct Server *, fd_set *);
 }						Server;

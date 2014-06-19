@@ -50,7 +50,7 @@ void	check_fd(Server *this, fd_set *readfds)
 				}
 				else
 				{
-					printf("--- RECEIVE FROM FD %d ---\n%s", this->clients[i]->fd, buff);
+					printf("********************************************\n--- RECEIVE FROM FD %d ---\n%s\n", this->clients[i]->fd, buff);
 				}
 			}				
 			i++;

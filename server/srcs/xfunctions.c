@@ -76,3 +76,14 @@ int	xconnect(int sockfd, struct sockaddr_in *addr, socklen_t addrlen)
     }
   return (ret);
 }
+
+int xmalloc(void **obj, int size)
+{
+  *obj = malloc(size);
+  if (*obj == NULL)
+  {
+    printf("ERROR: [malloc] %p\n", *obj);
+    return (-1);
+  }
+  return (0);
+}
