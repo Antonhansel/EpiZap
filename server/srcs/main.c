@@ -64,6 +64,8 @@ int		main(int ac, char **av)
 			if (serverInit(&s) == 0)
 			{
 				(*s.accept_socket)(&s);
+				printf("--- MAIN ---\n");
+				(*s.accept_socket)(&s);
 				serverDestroy(&s);
 			}
 		}

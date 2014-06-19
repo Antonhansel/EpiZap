@@ -20,8 +20,9 @@
 # include <netinet/in.h>
 # include <arpa/inet.h>
 # include "xfunctions.h"
+# include "Client.h"
 
-typedef struct 	Server
+typedef struct 			Server
 {
 	int 				port;
 	int 				width;
@@ -29,10 +30,12 @@ typedef struct 	Server
 	int					socket;
 	int 				nbPlayer;
 	int 				ctime;
+	int 				nbPlayerCo;
 	struct protoent		*pe;
   	struct sockaddr_in	sin;
+  	Client				**clients;
 	void				(*accept_socket)(struct Server *);
-}				Server;
+}						Server;
 
 int		serverInit(Server *);
 void	serverDestroy(Server *);
