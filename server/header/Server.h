@@ -31,13 +31,16 @@ typedef struct 			Server
 	int 				nbPlayer;
 	int 				ctime;
 	int 				nbPlayerCo;
+	int 				maxFd;
 	struct protoent		*pe;
   	struct sockaddr_in	sin;
   	Client				**clients;
 	void				(*accept_socket)(struct Server *);
+	void				(*init_fd)(struct Server *, fd_set *);
 }						Server;
 
 int		serverInit(Server *);
 void	serverDestroy(Server *);
+int 	serverLoop(Server *);
 
 #endif /* SERVER_H_ */
