@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include "Server.h"
 
-static void		accept_socket(Server *);
+static int		accept_socket(Server *);
 static void 	init_fd(Server *, fd_set *);
 
 void	serverDestroy(Server *this)
@@ -79,11 +79,10 @@ static void 	init_fd(Server *this, fd_set *readfds)
 				FD_SET(this->clients[i]->fd, readfds);
 			i++;
 		}
-
 	}
 }
 
-static void	accept_socket(Server *s)
+static int	accept_socket(Server *s)
 {
 	printf("--- LISTEN ON PORT %d ---\n", s->port);
 	int len = sizeof(s->sin);
@@ -94,9 +93,8 @@ static void	accept_socket(Server *s)
 		s->clients = memset(s->clients, 0, 100);
 	}
 	Client *c;
-	c = malloc(sizeof(Client));
-	if (c == NULL)
-		exit(1);
+	if (xmalloc((void**)&c, sizeof(Client)) == -1)
+		return (-1);
 	createClient(c, fd);
 	s->clients[fd] = c;
 	int i = 0;
@@ -121,4 +119,5 @@ s->clients[fd]->nbRequest++;
 printf("--- ADDING REQUEST ON CLIENT WITH FD %d, TOTAL REQUEST %d\n", s->clients[fd]->fd, s->clients[fd]->nbRequest);
 i++;
 }*/
+	return (0);
 }

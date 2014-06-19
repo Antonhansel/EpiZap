@@ -28,5 +28,7 @@ int     xlisten(int, int);
 int     xaccept(int, struct sockaddr_in *, socklen_t *);
 int     xsocket(int, int, int);
 int     xbind(int , struct sockaddr_in *, socklen_t);
+int 	xmalloc(void **, int);
+
 
 #endif /* __XFUNCTIONS_H_ */
