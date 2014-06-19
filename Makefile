@@ -15,6 +15,7 @@ FILE1	= server/srcs/Server.c \
 	  server/srcs/getInfos.c \
 	  server/srcs/xfunctions.c \
 	  server/srcs/Client.c \
+	  server/srcs/checkFd.c \
 	  server/srcs/main.c
 
 OBJS1	= $(FILE1:.c=.o)

@@ -37,6 +37,7 @@ typedef struct 			Server
   	Client				**clients;
 	void				(*accept_socket)(struct Server *);
 	void				(*init_fd)(struct Server *, fd_set *);
+	void				(*check_fd)(struct Server *, fd_set *);
 }						Server;
 
 int		serverInit(Server *);

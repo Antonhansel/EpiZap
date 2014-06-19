@@ -10,9 +10,9 @@
 
 #include <stdio.h>
 #include "Server.h"
+#include "checkFd.h"
 
 static void		accept_socket(Server *);
-static void 	init_fd(Server *, fd_set *);
 
 void	serverDestroy(Server *this)
 {
@@ -29,6 +29,7 @@ int 	serverInit(Server *this)
 	printf("--- SERVER INIT ON PORT %d WITH WIDTH OF %d AND HEIGHT OF %d---\n", this->port, this->width, this->height);
 	this->accept_socket = &accept_socket;
 	this->init_fd = &init_fd;
+	this->check_fd = &check_fd;
 	if ((this->pe = getprotobyname("TCP")) == NULL)
 	{
 		printf("[ERROR]: error on getprotobyname\n");
@@ -61,26 +62,23 @@ int 				serverLoop(Server *this)
 		if (select(this->maxFd + 1, &readfds, NULL, NULL, &tv) == -1)
 			return (1);
 		else if (FD_ISSET(this->socket, &readfds))
-			(*this->accept_socket)(this);			
+		{
+			(*this->accept_socket)(this);
+			int i;
+			for (i = 0; i < 10; i++)
+			{
+				if (this->clients[i] != NULL)
+				{
+					printf("--- CLIENT ON FD %d WITH REAL FD %d---\n", i, this->clients[i]->fd);
+				}
+			}
+		}
+		else
+		{
+			(*this->check_fd)(this, &readfds);			
+		}
 	}
 	return (0);
-}
-
-static void 	init_fd(Server *this, fd_set *readfds)
-{
-	int 		i;
-
-	i = 0;
-	if (this->clients != NULL)
-	{
-		while (i < this->maxFd + 1)
-		{
-			if (this->clients[i] != NULL)
-				FD_SET(this->clients[i]->fd, readfds);
-			i++;
-		}
-
-	}
 }
 
 static void	accept_socket(Server *s)
@@ -99,26 +97,9 @@ static void	accept_socket(Server *s)
 		exit(1);
 	createClient(c, fd);
 	s->clients[fd] = c;
-	int i = 0;
-	for (i = 0; i < 10; i++)
-	{
-		if (s->clients[i] != NULL)
-		{
-			printf("--- CLIENT ON FD %d WITH REAL FD %d---\n", i, s->clients[i]->fd);
-		}
-	}
+	s->maxFd = fd;
+	//int i = 0;
+
 	printf("--- CLIENT ACCEPT ON FD : %d ---\n", fd);
 	write(fd, "--- SUCCESSLY CONNECT ---\n", 26);
-/*i = 0;
-char buff[512];
-int ret = 0;*/
-/*while (i < 10)
-{
-ret = read(s->clients[fd]->fd, buff, 400);
-if (ret == 0)
-i = 10;
-s->clients[fd]->nbRequest++;
-printf("--- ADDING REQUEST ON CLIENT WITH FD %d, TOTAL REQUEST %d\n", s->clients[fd]->fd, s->clients[fd]->nbRequest);
-i++;
-}*/
 }
