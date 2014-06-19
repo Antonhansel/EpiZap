@@ -45,8 +45,11 @@ void	check_fd(Server *this, fd_set *readfds)
 			{
 				if ((ret = read(this->clients[i]->fd, buff, 500)) == 0)
 				{
-					free(this->clients[i]);
-					this->clients[i] = NULL;
+					if (this->clients[i] != NULL)
+					{
+						free(this->clients[i]);
+						this->clients[i] = NULL;
+					}
 				}
 				else
 				{
