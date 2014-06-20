@@ -13,7 +13,6 @@
 
 typedef struct 	Client
 {
-	/* data */
 	int			fd;
 	int			nbRequest;
 	int			x;

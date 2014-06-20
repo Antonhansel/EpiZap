@@ -48,18 +48,25 @@ int 	serverInit(Server *this)
 int 				serverLoop(Server *this)
 {
 	int 			error;
+	int 			result;
+	int 			resultPrev;
 	fd_set 			readfds;
+	fd_set 			writefds;
 	struct timeval	tv;
 
 	tv.tv_usec = 100;
 	tv.tv_sec = 0;
 	error = 0;
+	result = 0;
+	resultPrev = 0;
 	while (!error)
 	{
 		FD_ZERO(&readfds);
+		FD_ZERO(&writefds);
 		FD_SET(this->socket, &readfds);
+		FD_SET(this->socket, &writefds);
 		(*this->init_fd)(this, &readfds);
-		if (select(this->maxFd + 1, &readfds, NULL, NULL, &tv) == -1)
+		if ((result = select(this->maxFd + 1, &readfds, NULL, NULL, &tv)) == -1)
 			return (1);
 		else if (FD_ISSET(this->socket, &readfds))
 		{
@@ -73,9 +80,10 @@ int 				serverLoop(Server *this)
 				}
 			}
 		}
-		else
+		else if (result != resultPrev)
 		{
-			(*this->check_fd)(this, &readfds);			
+			(*this->check_fd)(this, &readfds);
+			resultPrev = result;
 		}
 	}
 	return (0);
