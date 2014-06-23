@@ -28,11 +28,10 @@
 # include <QString>
 # include <QTime>
 # include <QTimer>
+# include <regex>
 # include <stdlib.h>
 # include "Network.hpp"
 # include "MainGUI.hpp"
-
-# include <unistd.h>
 
 class	MainUI: public	QWidget
 {
@@ -53,6 +52,7 @@ private:
   void  mailPreviewLayout();
   void  menuBar();
   void  initConnexionStuff();
+  bool  checkData(const QString &);
 protected:
   Network      *_network;
   MainGUI      *_mainGUI;
@@ -74,6 +74,7 @@ protected:
   QLineEdit     *_customer;
   QLabel        *_delayLabel;
   QLineEdit     *_delay;
+  bool          _start;
 };
 
 #endif /* MAIN_UI_HPP_ */

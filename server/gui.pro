@@ -6,6 +6,7 @@ TEMPLATE = app
 TARGET = gui
 INCLUDEPATH += . header
 QT += widgets
+CONFIG += c++11
 
 # Input
 HEADERS += header/MainUI.hpp header/MainGUI.hpp header/Network.hpp
