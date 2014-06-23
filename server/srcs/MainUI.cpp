@@ -51,9 +51,9 @@ void  MainUI::tryConnect()
   {
     if (checkData(_port->text()) && checkData(_width->text()) && checkData(_height->text()) &&
       checkData(_customer->text()) && checkData(_delay->text()))
-      _console->setHtml(_console->toHtml() + "<font color=\"Green\">*** TRYING TO CREATE SERVER ***\n</font>"); 
+      _console->setHtml(_console->toHtml() + "<font color=\"Green\">*** TRYING TO CREATE SERVER ***</font>"); 
     else
-      _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: Missing Arguments\n</font>"); 
+      _console->setHtml(_console->toHtml() + "<font color=\"Red\">*** [ERROR]: Missing Arguments***</font>"); 
   }
 }
 
@@ -130,7 +130,7 @@ bool  MainUI::checkData(const QString &data)
     if (rx.indexIn(data) != -1)
       return (true);
     else
-      _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: bad Value for\n</font>");
+      _console->setHtml(_console->toHtml() + "*** <font color=\"Red\">[ERROR]: bad Value for ***</font>");
   }
   return (false);
 }
