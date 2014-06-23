@@ -1,8 +1,8 @@
 #ifndef MAIN_UI_HPP_
 # define MAIN_UI__HPP_
 
-#define WIDTH 400
-#define HEIGHT 400
+#define WIDTH 600
+#define HEIGHT 600
 
 # include <sstream>
 # include <iostream>
@@ -28,8 +28,11 @@
 # include <QString>
 # include <QTime>
 # include <QTimer>
+# include <stdlib.h>
 # include "Network.hpp"
 # include "MainGUI.hpp"
+
+# include <unistd.h>
 
 class	MainUI: public	QWidget
 {
@@ -38,6 +41,7 @@ public:
   MainUI();
 public slots:
   void  tryConnect();
+  void  quit();
   void  showAbout() const;
 private:
   void  connectSlots();
@@ -52,16 +56,24 @@ private:
 protected:
   Network      *_network;
   MainGUI      *_mainGUI;
-  QLabel       *_ipLabel;
-  QLabel       *_portLabel;
   QPushButton  *_connect;
+  QPushButton  *_quit;
   QMenu        *_fileMenu;
   QAction	     *_exitAction;
   QAction	     *_about;
   QMenuBar	   *_menuBar;
   QGridLayout	 *_mainLayout;
-  QLineEdit    *_ip;
-  QLineEdit    *_port;
+  QTextEdit     *_console;
+  QLabel        *_portLabel;
+  QLineEdit     *_port;
+  QLabel        *_widthLabel;
+  QLineEdit     *_width;
+  QLabel        *_heightLabel;
+  QLineEdit     *_height;
+  QLabel        *_customerLabel;
+  QLineEdit     *_customer;
+  QLabel        *_delayLabel;
+  QLineEdit     *_delay;
 };
 
 #endif /* MAIN_UI_HPP_ */
