@@ -1,9 +1,11 @@
 #include "MainGUI.hpp"
 
-MainGUI::MainGUI(Network *network)
+MainGUI::MainGUI()
 {
-	_network = network;
+	
 }
 
 MainGUI::~MainGUI()
-{}
+{
+
+}

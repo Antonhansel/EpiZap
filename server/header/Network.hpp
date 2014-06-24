@@ -1,10 +1,6 @@
-#ifndef _MAINGUI_HPP_
-# define _MAINGUI_HPP_
+#ifndef _NETWORK_HPP_
+# define _NETWORK_HPP_
 
-# include <QtCore>
-# include <QFont>
-# include <QPainter>
-# include <QDesktopServices>
 # include <QtWidgets/QApplication>
 # include <QtWidgets/QPushButton>
 # include <QtWidgets/QLCDNumber>
@@ -20,14 +16,21 @@
 # include <QtWidgets/QMessageBox>
 # include <QLineEdit>
 # include <QTextEdit>
+# include <QString>
+# include <QTime>
+# include <QTimer>
 
-class MainGUI : public QWidget
+class Network : public QWidget
 {
 	Q_OBJECT
 public:
-	MainGUI();
-	~MainGUI();
+	Network();
+	~Network();
+	void  setConsoleText(const QString &data);
 private:
+	QWidget 	*_window;
+  	QTextEdit     *_console;
+  	QGridLayout 	*_mainLayout;
 };
 
-#endif /*_MAINGUI_HPP_*/
+#endif /* _NETWORK_HPP_ */

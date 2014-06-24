@@ -6,6 +6,8 @@ TEMPLATE = app
 TARGET = gui
 INCLUDEPATH += . header
 QT += widgets
+QT += opengl
+
 CONFIG += c++11
 
 # Input

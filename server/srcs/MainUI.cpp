@@ -29,23 +29,33 @@ void	MainUI::initLayouts()
 
 void	MainUI::initUi()
 {
+  _mainGUI = new MainGUI();
+  _leftLayout = new QGridLayout;
+  _rightLayout = new QGridLayout;
   _mainLayout = new QGridLayout;
+  _bottomLayout = new QGridLayout;
+  _topLayout = new QGridLayout;
   setWindowTitle(tr("Zappy Monitoring GUI"));
   _console = new QTextEdit(this);
   _console->setReadOnly(true);
-  _data = new QTextEdit(this);
-  _data->setReadOnly(true);
-  _data->setText("DISPLAY MAP");
+  _console->setFixedHeight(HEIGHT/6);
+  _console->setStyleSheet("color: green; background-color: black");
   _infos = new QTextEdit(this);
   _infos->setText("DISPLAY DATA SELECTED");
   _infos->setReadOnly(true);
+  _infos->setFixedWidth(WIDTH/6);
   _teams = new QTextEdit(this);
   _teams->setText("DISPLAY TEAMS");
   _teams->setReadOnly(true);
-  _mainLayout->addWidget(_data, 0, 1, 2, 1);
-  _mainLayout->addWidget(_infos, 0, 0, 1, 1);
-  _mainLayout->addWidget(_teams, 1, 0, 1, 1);
-  _mainLayout->addWidget(_console, 2, 0, 1, 2);
+  _teams->setFixedWidth(WIDTH/6);
+  _leftLayout->addWidget(_infos, 0, 0);
+  _leftLayout->addWidget(_teams, 1, 0);
+  _rightLayout->addWidget(_mainGUI, 0, 0);
+  _bottomLayout->addWidget(_console, 0, 0);
+  _topLayout->addLayout(_leftLayout, 0, 0);
+  _topLayout->addLayout(_rightLayout, 0, 1);
+  _mainLayout->addLayout(_topLayout, 0, 0);
+  _mainLayout->addLayout(_bottomLayout, 1, 0);
 }
 
 void            MainUI::showAbout() const
