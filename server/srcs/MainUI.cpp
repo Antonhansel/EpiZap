@@ -31,7 +31,6 @@ void	MainUI::initLayouts()
 void	MainUI::initUi()
 {
   _mainLayout = new QGridLayout;
-  setFixedSize(HEIGHT, WIDTH);
   setWindowTitle(tr("Zappy Monitoring GUI"));
 }
 

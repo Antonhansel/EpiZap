@@ -13,6 +13,7 @@ Network::Network()
   _console->setStyleSheet("color: green ; background-color: black");
   _mainLayout->addWidget(_console, 0, 0);
   _window->setLayout(_mainLayout);
+  _window->move(100, 100);
 }
 
 Network::~Network()
