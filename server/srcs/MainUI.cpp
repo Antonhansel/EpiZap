@@ -18,8 +18,7 @@ void  MainUI::menuBar()
 
 void  MainUI::initConnexionStuff()
 {
-  _network = new Network();
-  _connexion = new Connexion(this, _network);
+  _connexion = new Connexion(this);
 }
 
 void	MainUI::initLayouts()
@@ -35,7 +34,6 @@ void	MainUI::initUi()
   setWindowTitle(tr("Zappy Monitoring GUI"));
   _console = new QTextEdit(this);
   _console->setReadOnly(true);
-  _console->setEnabled(false);
   _data = new QTextEdit(this);
   _data->setReadOnly(true);
   _data->setText("DISPLAY MAP");
@@ -72,5 +70,10 @@ MainUI::MainUI() : QWidget()
 
 void  MainUI::setConsoleText(const QString &data)
 {
+  QTextCursor c;
+
   _console->setHtml(data);
+  c = _console->textCursor();
+  c.movePosition(QTextCursor::End);
+  _console->setTextCursor(c);
 }

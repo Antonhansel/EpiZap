@@ -1,9 +1,8 @@
 #include "Connexion.hpp"
 #include "MainUI.hpp"
 
-Connexion::Connexion(MainUI *mainui, Network *network)
+Connexion::Connexion(MainUI *mainui)
 {
-  _network = network;
   _mainUI = mainui;
   _window = new QWidget;
   _window->show();
@@ -39,16 +38,26 @@ void 	Connexion::quit()
 
 void 	Connexion::tryConnect()
 {
+   QTextCursor c;
+
+  _connect->setEnabled(false);
   if (checkData(_port->text()) && checkData(_width->text()) && checkData(_height->text()) &&
       checkData(_client->text()) && checkData(_delay->text()))
   {
     _console->setHtml(_console->toHtml() + "<font color=\"Green\">*** TRYING TO CREATE SERVER ***\n</font>");
-    _mainUI->setConsoleText(_console->toHtml());
-    _window->hide();
-    _mainUI->show();
+    if (isConnected())
+    {
+      _mainUI->setConsoleText(_console->toHtml());
+      _window->hide();
+      _mainUI->show();
+    }
   }
   else
-    _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: Missing Arguments\n</font>");
+     _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: Missing Arguments\n</font>");
+  c = _console->textCursor();
+  c.movePosition(QTextCursor::End);
+  _console->setTextCursor(c);
+  _connect->setEnabled(true);
 }
 
 void 	Connexion::setLayouts()
@@ -93,7 +102,6 @@ void 	Connexion::init()
    _quit->setText("Quit");
    _console = new QTextEdit();
    _console->setReadOnly(true);
-   _console->setEnabled(false);
 }
 
 bool  Connexion::checkData(const QString &data)
@@ -107,4 +115,21 @@ bool  Connexion::checkData(const QString &data)
       _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: bad Value for\n</font>");
   }
   return (false);
+}
+
+bool  Connexion::isConnected()
+{
+  QString res;
+  Server  server;
+
+  server.port = _port->text().toInt();
+  server.width = _width->text().toInt();
+  server.height = _height->text().toInt();
+  server.nbPlayer = _client->text().toInt();
+  server.ctime = _delay->text().toInt();
+  server.initialize = FALSE;
+  _server = &server;
+  res = serverInit(_server);
+  _console->setHtml(_console->toHtml() + res);
+  return (_server->initialize);
 }
