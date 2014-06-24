@@ -18,6 +18,7 @@ void  MainUI::menuBar()
 
 void  MainUI::initConnexionStuff()
 {
+  _network = new Network();
   _connexion = new Connexion(this, _network);
 }
 
