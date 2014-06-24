@@ -1,17 +1,26 @@
 #include <iostream>
 #include "NetworkC.hpp"
 
-NetworkC::NetworkC(Server *server) :
-	_server(server)
+NetworkC::NetworkC(Server *server, QTextEdit *console) :
+	_server(server), _console(console)
 {
+	QTimer *timer = new QTimer(this);
+	connect(timer, SIGNAL(timeout()), this, SLOT(updateInfos()));
+	timer->start(50);
 }
  
 NetworkC::~NetworkC()
 {
 }
  
-void NetworkC::doWork()
+void	NetworkC::doWork()
 {
-  	std::cout << "ADDR SERVER = " << _server << " && PORT NB = " << _server->socket << std::endl;
 	serverLoop(_server);
+}
+
+void	NetworkC::updateInfos()
+{
+	std::cout << "Update\n";
+	_console->append(_server->msg);
+	memset(((void*)(_server->msg)), 0, 256);
 }

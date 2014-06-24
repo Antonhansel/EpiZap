@@ -16,6 +16,7 @@ typedef struct 	Server
 	int 				nbPlayerCo;
 	int 				maxFd;
 	int 				initialize;
+	char				*msg;
 	struct protoent		*pe;
   	struct sockaddr_in	sin;
   	Client				**clients;

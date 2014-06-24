@@ -25,6 +25,8 @@ char 		*serverInit(Server *this)
 	xlisten(this->socket, 10);
 	this->initialize = TRUE;
 	this->maxFd = this->socket;
+	if ((this->msg = malloc(sizeof(char*) * 256)) == NULL)
+		return ("<font color=\"Red\">*** ERROR ON MALLOC ***</font>");
 	return ("<font color=\"Green\">*** SUCCESSLY INIT ***</font>");
 }
 
@@ -45,6 +47,7 @@ static int	accept_socket(Server *s)
 	s->clients[fd] = c;
 	if (s->maxFd < fd)
 		s->maxFd = fd;
+	s->msg = strcat(s->msg, "<font color=\"Green\">*** NEW CONNECTION ***</font>");
 	printf("--- CLIENT ACCEPT ON FD : %d ---\n", fd);
 	if (write(fd, "--- SUCCESSLY CONNECT ---\n", 26) <= 0)
 		return (1);
@@ -64,7 +67,6 @@ int 				serverLoop(Server *this)
 	error = 0;
 	result = 0;
 	resultPrev = 0;
-	printf("ADDR SERVER : %p && SOCKET FD = %d\n", this, this->socket);
 	while (!error)
 	{
 		FD_ZERO(&readfds);

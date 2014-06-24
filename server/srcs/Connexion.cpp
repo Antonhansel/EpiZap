@@ -47,7 +47,6 @@ void 	Connexion::tryConnect()
     _console->setHtml(_console->toHtml() + "<font color=\"Green\">*** TRYING TO CREATE SERVER ***\n</font>");
     if (isConnected())
     {
-      std::cout << "ADDR SERVER = " << &_server << " && PORT NB = " << _server.socket << std::endl;
       _mainUI->setServer(_server);
       _mainUI->setConsoleText(_console->toHtml());
       _window->hide();
