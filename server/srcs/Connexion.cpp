@@ -47,6 +47,7 @@ void 	Connexion::tryConnect()
     _console->setHtml(_console->toHtml() + "<font color=\"Green\">*** TRYING TO CREATE SERVER ***\n</font>");
     if (isConnected())
     {
+      std::cout << "ADDR SERVER = " << &_server << " && PORT NB = " << _server.socket << std::endl;
       _mainUI->setServer(_server);
       _mainUI->setConsoleText(_console->toHtml());
       _window->hide();
@@ -121,16 +122,14 @@ bool  Connexion::checkData(const QString &data)
 bool  Connexion::isConnected()
 {
   QString res;
-  Server  server;
 
-  server.port = _port->text().toInt();
-  server.width = _width->text().toInt();
-  server.height = _height->text().toInt();
-  server.nbPlayer = _client->text().toInt();
-  server.ctime = _delay->text().toInt();
-  server.initialize = FALSE;
-  _server = &server;
-  res = serverInit(_server);
+  _server.port = _port->text().toInt();
+  _server.width = _width->text().toInt();
+  _server.height = _height->text().toInt();
+  _server.nbPlayer = _client->text().toInt();
+  _server.ctime = _delay->text().toInt();
+  _server.initialize = FALSE;
+  res = serverInit(&_server);
   _console->setHtml(_console->toHtml() + res);
-  return (_server->initialize);
+  return (_server.initialize);
 }

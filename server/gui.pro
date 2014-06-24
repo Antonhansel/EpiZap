@@ -9,5 +9,5 @@ QT += widgets
 CONFIG += c++11
 
 # Input
-HEADERS += header/MainUI.hpp header/MainGUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp
-SOURCES += srcs/main.cpp srcs/MainUI.cpp srcs/MainGUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp
+HEADERS += header/MainUI.hpp header/MainGUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Client.h header/checkFd.h
+SOURCES += srcs/main.cpp srcs/MainUI.cpp srcs/MainGUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Client.c srcs/checkFd.c

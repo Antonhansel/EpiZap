@@ -51,7 +51,9 @@ SOURCES       = srcs/main.cpp \
 		srcs/Connexion.cpp \
 		srcs/Network.c \
 		srcs/Server.c \
-		srcs/NetworkC.cpp moc_MainUI.cpp \
+		srcs/NetworkC.cpp \
+		srcs/Client.c \
+		srcs/checkFd.c moc_MainUI.cpp \
 		moc_Connexion.cpp \
 		moc_NetworkC.cpp
 OBJECTS       = main.o \
@@ -61,6 +63,8 @@ OBJECTS       = main.o \
 		Network.o \
 		Server.o \
 		NetworkC.o \
+		Client.o \
+		checkFd.o \
 		moc_MainUI.o \
 		moc_Connexion.o \
 		moc_NetworkC.o
@@ -291,7 +295,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/gui1.0.0 || mkdir -p .tmp/gui1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/MainGUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp .tmp/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/MainGUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp .tmp/gui1.0.0/ && (cd `dirname .tmp/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .tmp/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/gui1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/MainGUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Client.h header/checkFd.h .tmp/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/MainGUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Client.c srcs/checkFd.c .tmp/gui1.0.0/ && (cd `dirname .tmp/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .tmp/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/gui1.0.0
 
 
 clean:compiler_clean 
@@ -590,6 +594,7 @@ moc_MainUI.cpp: /usr/include/qt5/QtCore/QtCore \
 		/usr/include/qt5/QtWidgets/QDesktopWidget \
 		header/Server.h \
 		header/Network.h \
+		header/Client.h \
 		header/NetworkC.hpp \
 		/usr/include/qt5/QtCore/QDebug \
 		/usr/include/qt5/QtCore/QThread \
@@ -760,6 +765,7 @@ moc_Connexion.cpp: /usr/include/qt5/QtWidgets/QApplication \
 		/usr/include/qt5/QtCore/qbasictimer.h \
 		header/Server.h \
 		header/Network.h \
+		header/Client.h \
 		header/Connexion.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include header/Connexion.hpp -o moc_Connexion.cpp
 
@@ -840,6 +846,9 @@ moc_NetworkC.cpp: /usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
 		/usr/include/qt5/QtCore/QThread \
 		/usr/include/qt5/QtCore/qthread.h \
+		header/Server.h \
+		header/Network.h \
+		header/Client.h \
 		header/NetworkC.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include header/NetworkC.hpp -o moc_NetworkC.cpp
 
@@ -1131,6 +1140,7 @@ main.o: srcs/main.cpp header/MainUI.hpp \
 		/usr/include/qt5/QtWidgets/QDesktopWidget \
 		header/Server.h \
 		header/Network.h \
+		header/Client.h \
 		header/NetworkC.hpp \
 		/usr/include/qt5/QtCore/QDebug \
 		/usr/include/qt5/QtCore/QThread
@@ -1410,6 +1420,7 @@ MainUI.o: srcs/MainUI.cpp header/MainUI.hpp \
 		/usr/include/qt5/QtWidgets/QDesktopWidget \
 		header/Server.h \
 		header/Network.h \
+		header/Client.h \
 		header/NetworkC.hpp \
 		/usr/include/qt5/QtCore/QDebug \
 		/usr/include/qt5/QtCore/QThread
@@ -1583,6 +1594,7 @@ Connexion.o: srcs/Connexion.cpp header/Connexion.hpp \
 		/usr/include/qt5/QtCore/qbasictimer.h \
 		header/Server.h \
 		header/Network.h \
+		header/Client.h \
 		header/MainUI.hpp \
 		/usr/include/qt5/QtCore/QtCore \
 		/usr/include/qt5/QtCore/QtCoreDepends \
@@ -1701,7 +1713,8 @@ Network.o: srcs/Network.c header/Network.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o Network.o srcs/Network.c
 
 Server.o: srcs/Server.c header/Server.h \
-		header/Network.h
+		header/Network.h \
+		header/Client.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o Server.o srcs/Server.c
 
 NetworkC.o: srcs/NetworkC.cpp header/NetworkC.hpp \
@@ -1781,8 +1794,20 @@ NetworkC.o: srcs/NetworkC.cpp header/NetworkC.hpp \
 		/usr/include/qt5/QtCore/qset.h \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
 		/usr/include/qt5/QtCore/QThread \
-		/usr/include/qt5/QtCore/qthread.h
+		/usr/include/qt5/QtCore/qthread.h \
+		header/Server.h \
+		header/Network.h \
+		header/Client.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o NetworkC.o srcs/NetworkC.cpp
+
+Client.o: srcs/Client.c header/Client.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o Client.o srcs/Client.c
+
+checkFd.o: srcs/checkFd.c header/checkFd.h \
+		header/Server.h \
+		header/Network.h \
+		header/Client.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o checkFd.o srcs/checkFd.c
 
 moc_MainUI.o: moc_MainUI.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainUI.o moc_MainUI.cpp

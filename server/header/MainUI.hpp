@@ -39,7 +39,7 @@ class	MainUI: public	QWidget
 public:
   MainUI();
   void  setConsoleText(const QString &);
-  void  setServer(Server *s);
+  void  setServer(Server &);
 public slots:
   void  showAbout() const;
 private:
