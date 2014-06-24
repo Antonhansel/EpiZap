@@ -6,7 +6,10 @@ TEMPLATE = app
 TARGET = gui
 INCLUDEPATH += . header
 QT += widgets
+QT += opengl
+
 CONFIG += c++11
+LIBS = -lglut -lGLU
 
 # Input
 HEADERS += header/MainUI.hpp header/MainGUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Client.h header/checkFd.h
