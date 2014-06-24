@@ -1,6 +1,7 @@
 #ifndef _NETWORK_HPP_
 # define _NETWORK_HPP_
 
+# include <QDesktopWidget>
 # include <QtWidgets/QApplication>
 # include <QtWidgets/QPushButton>
 # include <QtWidgets/QLCDNumber>
