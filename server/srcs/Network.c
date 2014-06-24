@@ -45,7 +45,7 @@ int	xaccept(int sockfd, struct sockaddr_in *addr, socklen_t *len)
 		close(sockfd);
 		return (FALSE);
 	}
-	return (TRUE);
+	return (ret);
 }
 
 int	xlisten(int sockfd, int backlog)
