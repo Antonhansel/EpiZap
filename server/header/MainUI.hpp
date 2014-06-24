@@ -32,6 +32,7 @@
 # include <stdlib.h>
 # include "Connexion.hpp"
 # include "MainGUI.hpp"
+# include "NetworkC.hpp"
 
 class	MainUI: public	QWidget
 {
@@ -39,6 +40,7 @@ class	MainUI: public	QWidget
 public:
   MainUI();
   void  setConsoleText(const QString &);
+  void  setServer(Server *s);
 public slots:
   void  showAbout() const;
 private:

@@ -47,6 +47,7 @@ void 	Connexion::tryConnect()
     _console->setHtml(_console->toHtml() + "<font color=\"Green\">*** TRYING TO CREATE SERVER ***\n</font>");
     if (isConnected())
     {
+      _mainUI->setServer(_server);
       _mainUI->setConsoleText(_console->toHtml());
       _window->hide();
       _mainUI->show();

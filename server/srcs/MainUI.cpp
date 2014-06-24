@@ -58,6 +58,15 @@ void	MainUI::initUi()
   _mainLayout->addLayout(_bottomLayout, 1, 0);
 }
 
+void            MainUI::setServer(Server *s)
+{
+  NetworkC  *net = new NetworkC(s);
+  QThread   *q = new QThread();
+  net->moveToThread(q);
+  connect(q, SIGNAL(started()), net, SLOT(doWork()));
+  q->start();
+}
+
 void            MainUI::showAbout() const
 {
   QMessageBox msgBox;
