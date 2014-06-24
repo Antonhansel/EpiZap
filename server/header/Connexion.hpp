@@ -61,7 +61,7 @@ private:
   QLineEdit     *_delay;
   QPushButton 	*_quit;
   QTextEdit     *_console;
-  Server        *_server;
+  Server        _server;
 };
 
 #endif /* _CONNEXION_HPP_ */

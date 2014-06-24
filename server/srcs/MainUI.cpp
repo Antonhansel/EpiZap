@@ -61,9 +61,10 @@ void	MainUI::initUi()
   _mainGUI = new MainGUI(_console);
 }
 
-void            MainUI::setServer(Server *s)
+void            MainUI::setServer(Server &s)
 {
-  NetworkC  *net = new NetworkC(s);
+  std::cout << "ADDR SERVER = " << &s << " && PORT NB = " << s.socket << std::endl;
+  NetworkC  *net = new NetworkC(&s);
   QThread   *q = new QThread();
   net->moveToThread(q);
   connect(q, SIGNAL(started()), net, SLOT(doWork()));

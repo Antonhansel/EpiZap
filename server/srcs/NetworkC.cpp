@@ -12,8 +12,6 @@ NetworkC::~NetworkC()
  
 void NetworkC::doWork()
 {
-	while (42)
-	{
-		std::cout << "Do Work\n";
-	}
+  	std::cout << "ADDR SERVER = " << _server << " && PORT NB = " << _server->socket << std::endl;
+	serverLoop(_server);
 }
