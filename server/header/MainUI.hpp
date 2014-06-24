@@ -57,6 +57,7 @@ protected:
   QAction	     *_about;
   QMenuBar	   *_menuBar;
   QGridLayout	 *_mainLayout;
+  QTextEdit     *_console;
   bool          _start;
 };
 

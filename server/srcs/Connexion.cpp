@@ -43,7 +43,7 @@ void 	Connexion::tryConnect()
       checkData(_client->text()) && checkData(_delay->text()))
   {
     _console->setHtml(_console->toHtml() + "<font color=\"Green\">*** TRYING TO CREATE SERVER ***\n</font>");
-    _network->setConsoleText(_console->toHtml());
+    _mainUI->setConsoleText(_console->toHtml());
     _window->hide();
     _mainUI->show();
   }
