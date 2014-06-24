@@ -21,6 +21,12 @@ Connexion::~Connexion()
 void 	Connexion::connectSlots()
 {
   QObject::connect(_connect, SIGNAL(clicked()), this,SLOT(tryConnect(void)));
+  QObject::connect(_quit, SIGNAL(clicked()), this,SLOT(quit(void)));
+}
+
+void 	Connexion::quit()
+{
+	_window->close();
 }
 
 void 	Connexion::tryConnect()
@@ -47,6 +53,7 @@ void 	Connexion::setLayouts()
     _mainLayout->addWidget(_delayLabel, 7, 0);
     _mainLayout->addWidget(_delay, 7, 1);
     _mainLayout->addWidget(_connect, 8, 1);
+    _mainLayout->addWidget(_quit, 9, 1);
 }
 
 void 	Connexion::init()
@@ -69,4 +76,6 @@ void 	Connexion::init()
    _delay = new QLineEdit();
    _delayLabel = new QLabel();
    _delayLabel->setText("Delay :");	
+   _quit = new QPushButton(_window);
+   _quit->setText("Quit");
 }

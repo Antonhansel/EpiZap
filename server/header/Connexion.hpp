@@ -35,6 +35,7 @@ public:
 	void 	init();
 	void 	connectSlots();
 public slots:
+	void 	quit();
 	void 	tryConnect();
 private:
   MainUI 		*_mainUI;
@@ -51,6 +52,7 @@ private:
   QLineEdit     *_client;
   QLabel        *_delayLabel;
   QLineEdit     *_delay;
+  QPushButton 	*_quit;
 };
 
 #endif /* _CONNEXION_HPP_ */
