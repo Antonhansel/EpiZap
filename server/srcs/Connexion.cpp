@@ -1,9 +1,8 @@
 #include "Connexion.hpp"
 #include "MainUI.hpp"
 
-Connexion::Connexion(MainUI *mainui, Network *network)
+Connexion::Connexion(MainUI *mainui)
 {
-  _network = network;
   _mainUI = mainui;
   _window = new QWidget;
   _window->show();
@@ -39,34 +38,44 @@ void 	Connexion::quit()
 
 void 	Connexion::tryConnect()
 {
+   QTextCursor c;
+
+  _connect->setEnabled(false);
   if (checkData(_port->text()) && checkData(_width->text()) && checkData(_height->text()) &&
       checkData(_client->text()) && checkData(_delay->text()))
   {
     _console->setHtml(_console->toHtml() + "<font color=\"Green\">*** TRYING TO CREATE SERVER ***\n</font>");
-    _network->setConsoleText(_console->toHtml());
-    _window->hide();
-    _mainUI->show();
+    if (isConnected())
+    {
+      _mainUI->setConsoleText(_console->toHtml());
+      _window->hide();
+      _mainUI->show();
+    }
   }
   else
-    _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: Missing Arguments\n</font>");
+     _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: Missing Arguments\n</font>");
+  c = _console->textCursor();
+  c.movePosition(QTextCursor::End);
+  _console->setTextCursor(c);
+  _connect->setEnabled(true);
 }
 
 void 	Connexion::setLayouts()
 {
     _connect->setText("Create");
-    _mainLayout->addWidget(_portLabel, 3, 0);
-    _mainLayout->addWidget(_port, 3, 1);
-    _mainLayout->addWidget(_widthLabel, 4, 0);
-    _mainLayout->addWidget(_width, 4, 1);
-    _mainLayout->addWidget(_heightLabel, 5, 0);
-    _mainLayout->addWidget(_height, 5, 1);
-    _mainLayout->addWidget(_clientLabel, 6, 0);
-    _mainLayout->addWidget(_client, 6, 1);
-    _mainLayout->addWidget(_delayLabel, 7, 0);
-    _mainLayout->addWidget(_delay, 7, 1);
-    _mainLayout->addWidget(_connect, 8, 1);
-    _mainLayout->addWidget(_quit, 9, 1);
-    _mainLayout->addWidget(_console, 10, 1);
+    _mainLayout->addWidget(_portLabel, 0, 0);
+    _mainLayout->addWidget(_port, 0, 1);
+    _mainLayout->addWidget(_widthLabel, 1, 0);
+    _mainLayout->addWidget(_width, 1, 1);
+    _mainLayout->addWidget(_heightLabel, 2, 0);
+    _mainLayout->addWidget(_height, 2, 1);
+    _mainLayout->addWidget(_clientLabel, 3, 0);
+    _mainLayout->addWidget(_client, 3, 1);
+    _mainLayout->addWidget(_delayLabel, 4, 0);
+    _mainLayout->addWidget(_delay, 4, 1);
+    _mainLayout->addWidget(_connect, 5, 0, 1, 2);
+    _mainLayout->addWidget(_quit, 6, 0, 1, 2);
+    _mainLayout->addWidget(_console, 7, 0, 1, 2);
 }
 
 void 	Connexion::init()
@@ -93,7 +102,6 @@ void 	Connexion::init()
    _quit->setText("Quit");
    _console = new QTextEdit();
    _console->setReadOnly(true);
-   _console->setEnabled(false);
 }
 
 bool  Connexion::checkData(const QString &data)
@@ -107,4 +115,21 @@ bool  Connexion::checkData(const QString &data)
       _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: bad Value for\n</font>");
   }
   return (false);
+}
+
+bool  Connexion::isConnected()
+{
+  QString res;
+  Server  server;
+
+  server.port = _port->text().toInt();
+  server.width = _width->text().toInt();
+  server.height = _height->text().toInt();
+  server.nbPlayer = _client->text().toInt();
+  server.ctime = _delay->text().toInt();
+  server.initialize = FALSE;
+  _server = &server;
+  res = serverInit(_server);
+  _console->setHtml(_console->toHtml() + res);
+  return (_server->initialize);
 }

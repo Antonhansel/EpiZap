@@ -18,8 +18,7 @@ void  MainUI::menuBar()
 
 void  MainUI::initConnexionStuff()
 {
-  _network = new Network();
-  _connexion = new Connexion(this, _network);
+  _connexion = new Connexion(this);
 }
 
 void	MainUI::initLayouts()
@@ -32,6 +31,21 @@ void	MainUI::initUi()
 {
   _mainLayout = new QGridLayout;
   setWindowTitle(tr("Zappy Monitoring GUI"));
+  _console = new QTextEdit(this);
+  _console->setReadOnly(true);
+  _data = new QTextEdit(this);
+  _data->setReadOnly(true);
+  _data->setText("DISPLAY MAP");
+  _infos = new QTextEdit(this);
+  _infos->setText("DISPLAY DATA SELECTED");
+  _infos->setReadOnly(true);
+  _teams = new QTextEdit(this);
+  _teams->setText("DISPLAY TEAMS");
+  _teams->setReadOnly(true);
+  _mainLayout->addWidget(_data, 0, 1, 2, 1);
+  _mainLayout->addWidget(_infos, 0, 0, 1, 1);
+  _mainLayout->addWidget(_teams, 1, 0, 1, 1);
+  _mainLayout->addWidget(_console, 2, 0, 1, 2);
 }
 
 void            MainUI::showAbout() const
@@ -53,3 +67,12 @@ MainUI::MainUI() : QWidget()
   setLayout(_mainLayout);
 }
 
+void  MainUI::setConsoleText(const QString &data)
+{
+  QTextCursor c;
+
+  _console->setHtml(data);
+  c = _console->textCursor();
+  c.movePosition(QTextCursor::End);
+  _console->setTextCursor(c);
+}

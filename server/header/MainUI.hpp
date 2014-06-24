@@ -49,7 +49,6 @@ private:
   void  initConnexionStuff();
 protected:
   Connexion    *_connexion;
-  Network      *_network;
 //  MainGUI      *_mainGUI;
   QPushButton  *_quit;
   QMenu        *_fileMenu;
@@ -57,6 +56,10 @@ protected:
   QAction	     *_about;
   QMenuBar	   *_menuBar;
   QGridLayout	 *_mainLayout;
+  QTextEdit     *_console;
+  QTextEdit     *_data;
+  QTextEdit     *_infos;
+  QTextEdit     *_teams;
   bool          _start;
 };
 

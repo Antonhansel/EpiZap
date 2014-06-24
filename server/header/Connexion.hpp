@@ -24,15 +24,14 @@
 # include <QTimer>
 # include <regex>
 # include <stdlib.h>
-# include "Network.hpp"
+# include "Server.h"
 
 class MainUI;
 class Connexion : public QWidget
 {
 	Q_OBJECT
-  
 public:
-	Connexion(MainUI *, Network *);
+	Connexion(MainUI *);
 	~Connexion();
 	void 	setLayouts();
 	void 	init();
@@ -42,8 +41,8 @@ public slots:
 	void 	tryConnect();
 private:
   bool  checkData(const QString &);
+  bool  isConnected();
 private:
-  Network     *_network;
   QGridLayout *_leftLayout;
   QGridLayout *_rightLayout;
   MainUI 		*_mainUI;
@@ -62,6 +61,7 @@ private:
   QLineEdit     *_delay;
   QPushButton 	*_quit;
   QTextEdit     *_console;
+  Server        *_server;
 };
 
 #endif /* _CONNEXION_HPP_ */
