@@ -26,6 +26,8 @@ class Network : public QWidget
 public:
 	Network();
 	~Network();
+private:
+	QWidget 	*_window;
 };
 
 #endif /* _NETWORK_HPP_ */

@@ -48,7 +48,7 @@ private:
   void  initConnexionStuff();
 protected:
   Connexion    *_connexion;
-//  Network      *_network;
+  Network      *_network;
 //  MainGUI      *_mainGUI;
   QPushButton  *_quit;
   QMenu        *_fileMenu;

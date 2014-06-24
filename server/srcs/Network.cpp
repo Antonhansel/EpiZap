@@ -2,9 +2,9 @@
 
 Network::Network()
 {
-	//QWidget *_window = new QWidget;
+	QWidget *_window = new QWidget;
 
-	// _window->show();
+	_window->show();
 	// if (_start)
  //  {
  //    _connect->setText("Create");

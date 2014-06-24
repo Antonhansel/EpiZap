@@ -1,8 +1,9 @@
 #include "Connexion.hpp"
 #include "MainUI.hpp"
 
-Connexion::Connexion(MainUI *mainui)
+Connexion::Connexion(MainUI *mainui, Network *network)
 {
+  _network = network;
   _mainUI = mainui;
   _window = new QWidget;
   _window->show();

@@ -6,6 +6,4 @@ MainGUI::MainGUI(Network *network)
 }
 
 MainGUI::~MainGUI()
-{
-	
-}
+{}

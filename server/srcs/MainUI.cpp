@@ -20,7 +20,8 @@ void  MainUI::menuBar()
 
 void  MainUI::initConnexionStuff()
 {
-  _connexion = new Connexion(this);
+  _network = new Network();
+  _connexion = new Connexion(this, _network);
 }
 
 void	MainUI::initLayouts()

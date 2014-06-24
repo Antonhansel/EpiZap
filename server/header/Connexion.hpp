@@ -24,13 +24,14 @@
 # include <QTimer>
 # include <regex>
 # include <stdlib.h>
+# include "Network.hpp"
 
 class MainUI;
 class Connexion : public QWidget
 {
 	Q_OBJECT
 public:
-	Connexion(MainUI *);
+	Connexion(MainUI *, Network *);
 	~Connexion();
 	void 	setLayouts();
 	void 	init();
@@ -39,6 +40,7 @@ public slots:
 	void 	quit();
 	void 	tryConnect();
 private:
+  Network 		*_network;
   MainUI 		*_mainUI;
   QPushButton	*_connect;
   QWidget 		*_window;
