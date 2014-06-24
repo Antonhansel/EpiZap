@@ -43,6 +43,9 @@ void	MainUI::initUi()
   int centerW = (width/2) - (mw/2);
   int centerH = (height/2) - (mh/2);
   move(centerW, centerH);
+  _console = new QTextEdit(this);
+  _console->setReadOnly(true);
+  _mainLayout->addWidget(_console, 3, 0);
   std::cout << centerW << " " << centerH << std::endl;
 }
 
@@ -63,4 +66,9 @@ MainUI::MainUI() : QWidget()
   applyLayouts();
   connectSlots();
   setLayout(_mainLayout);
+}
+
+void  MainUI::setConsoleText(const QString &data)
+{
+  _console->setHtml(data);
 }

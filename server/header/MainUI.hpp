@@ -37,6 +37,7 @@ class	MainUI: public	QWidget
   Q_OBJECT
 public:
   MainUI();
+  void  setConsoleText(const QString &);
 public slots:
   void  showAbout() const;
 private:
@@ -56,6 +57,7 @@ protected:
   QAction	     *_about;
   QMenuBar	   *_menuBar;
   QGridLayout	 *_mainLayout;
+  QTextEdit     *_console;
   bool          _start;
 };
 
