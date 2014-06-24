@@ -35,7 +35,19 @@ void	MainUI::initUi()
   _console = new QTextEdit(this);
   _console->setReadOnly(true);
   _console->setEnabled(false);
-  _mainLayout->addWidget(_console, 0, 0);
+  _data = new QTextEdit(this);
+  _data->setReadOnly(true);
+  _data->setText("DISPLAY MAP");
+  _infos = new QTextEdit(this);
+  _infos->setText("DISPLAY DATA SELECTED");
+  _infos->setReadOnly(true);
+  _teams = new QTextEdit(this);
+  _teams->setText("DISPLAY TEAMS");
+  _teams->setReadOnly(true);
+  _mainLayout->addWidget(_data, 0, 1, 2, 1);
+  _mainLayout->addWidget(_infos, 0, 0, 1, 1);
+  _mainLayout->addWidget(_teams, 1, 0, 1, 1);
+  _mainLayout->addWidget(_console, 2, 0, 1, 2);
 }
 
 void            MainUI::showAbout() const

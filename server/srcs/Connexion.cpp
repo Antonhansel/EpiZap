@@ -54,19 +54,19 @@ void 	Connexion::tryConnect()
 void 	Connexion::setLayouts()
 {
     _connect->setText("Create");
-    _mainLayout->addWidget(_portLabel, 3, 0);
-    _mainLayout->addWidget(_port, 3, 1);
-    _mainLayout->addWidget(_widthLabel, 4, 0);
-    _mainLayout->addWidget(_width, 4, 1);
-    _mainLayout->addWidget(_heightLabel, 5, 0);
-    _mainLayout->addWidget(_height, 5, 1);
-    _mainLayout->addWidget(_clientLabel, 6, 0);
-    _mainLayout->addWidget(_client, 6, 1);
-    _mainLayout->addWidget(_delayLabel, 7, 0);
-    _mainLayout->addWidget(_delay, 7, 1);
-    _mainLayout->addWidget(_connect, 8, 1);
-    _mainLayout->addWidget(_quit, 9, 1);
-    _mainLayout->addWidget(_console, 10, 1);
+    _mainLayout->addWidget(_portLabel, 0, 0);
+    _mainLayout->addWidget(_port, 0, 1);
+    _mainLayout->addWidget(_widthLabel, 1, 0);
+    _mainLayout->addWidget(_width, 1, 1);
+    _mainLayout->addWidget(_heightLabel, 2, 0);
+    _mainLayout->addWidget(_height, 2, 1);
+    _mainLayout->addWidget(_clientLabel, 3, 0);
+    _mainLayout->addWidget(_client, 3, 1);
+    _mainLayout->addWidget(_delayLabel, 4, 0);
+    _mainLayout->addWidget(_delay, 4, 1);
+    _mainLayout->addWidget(_connect, 5, 0, 1, 2);
+    _mainLayout->addWidget(_quit, 6, 0, 1, 2);
+    _mainLayout->addWidget(_console, 7, 0, 1, 2);
 }
 
 void 	Connexion::init()

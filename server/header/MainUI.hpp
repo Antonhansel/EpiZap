@@ -58,6 +58,9 @@ protected:
   QMenuBar	   *_menuBar;
   QGridLayout	 *_mainLayout;
   QTextEdit     *_console;
+  QTextEdit     *_data;
+  QTextEdit     *_infos;
+  QTextEdit     *_teams;
   bool          _start;
 };
 
