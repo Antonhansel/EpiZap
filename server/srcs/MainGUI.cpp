@@ -1,13 +1,14 @@
 #include "MainGUI.hpp"
 
-MainGUI::MainGUI()
+MainGUI::~MainGUI(){}
+
+MainGUI::MainGUI(QTextEdit *console)
 {
-	initializeGL();
-	resizeGL((1800/6)*5, (900/6)*5);
-	paintGL();
-	// _timer = new QTimer(this);
- //    connect(_timer, SIGNAL(timeout()), this, SLOT(updateGL()));
- //    _timer->start(1000/30);
+	_console = console;
+	_timer = new QTimer(this);
+    connect(_timer, SIGNAL(timeout()), this, SLOT(updateGL()));
+    _timer->start(1000/30);	
+    setFixedSize(1457, 707);
 }
 
 void 	MainGUI::resizeGL(int width, int height)
@@ -18,6 +19,17 @@ void 	MainGUI::resizeGL(int width, int height)
     gluPerspective(45.0f, (GLfloat)width/(GLfloat)height, 0.1f, 100.0f);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();	
+    logOutput("Resized");
+
+}
+
+void 	MainGUI::logOutput(QString input)
+{
+	QString test;
+
+	test = "[OpenGL]: ";
+	test += input;
+	_console->append(test);
 }
 
 void 	MainGUI::initializeGL()
@@ -28,6 +40,7 @@ void 	MainGUI::initializeGL()
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+    logOutput("Initialized");
 }
 
 void 	MainGUI::paintGL()
@@ -43,14 +56,12 @@ void 	MainGUI::paintGL()
     glEnd();
 
     glTranslatef(3.0f, 0.0f, -6.0f);
-
     glBegin(GL_QUADS);
         glVertex3f(-1.0f, 1.0f, 0.0f);
         glVertex3f(-1.0f, -1.0f, 0.0f);
         glVertex3f(1.0f, -1.0f, 0.0f);
         glVertex3d(1.0f, 1.0f, 0.0f);
     glEnd();
-
 }
 
 void 	MainGUI::updateGL()
@@ -58,7 +69,3 @@ void 	MainGUI::updateGL()
 	paintGL();
 }
 
-MainGUI::~MainGUI()
-{
-
-}

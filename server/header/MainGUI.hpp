@@ -28,14 +28,16 @@ class MainGUI : public QGLWidget
 {
 	Q_OBJECT
 public:
-	MainGUI();
+	MainGUI(QTextEdit *);
 	~MainGUI();
 	void initializeGL();
 	void resizeGL(int, int);
 	void  paintGL();
+	void 	logOutput(QString);
 public slots:
 	void 	updateGL();
 private:
+	QTextEdit *_console;
 	QTimer 	*_timer;
 };
 
