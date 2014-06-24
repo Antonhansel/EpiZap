@@ -1,10 +1,8 @@
 #include "MainUI.hpp"
 
-void	MainUI::applyLayouts()
-{}
+void	MainUI::applyLayouts(){}
 
-void MainUI::connectSlots()
-{}
+void MainUI::connectSlots(){}
 
 void  MainUI::menuBar()
 {
@@ -35,16 +33,6 @@ void	MainUI::initUi()
   _mainLayout = new QGridLayout;
   setFixedSize(HEIGHT, WIDTH);
   setWindowTitle(tr("Zappy Monitoring GUI"));
-  QSize size = sizeHint();
-  QDesktopWidget* desktop = QApplication::desktop();
-  int width = desktop->width();
-  int height = desktop->height();
-  int mw = size.width();
-  int mh = size.height();
-  int centerW = (width/2) - (mw/2);
-  int centerH = (height/2) - (mh/2);
-  move(centerW, centerH);
-  std::cout << centerW << " " << centerH << std::endl;
 }
 
 void            MainUI::showAbout() const
@@ -65,3 +53,4 @@ MainUI::MainUI() : QWidget()
   connectSlots();
   setLayout(_mainLayout);
 }
+

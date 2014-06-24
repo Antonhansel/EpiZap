@@ -37,6 +37,7 @@ class	MainUI: public	QWidget
   Q_OBJECT
 public:
   MainUI();
+  void  setConsoleText(const QString &);
 public slots:
   void  showAbout() const;
 private:

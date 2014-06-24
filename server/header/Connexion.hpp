@@ -30,6 +30,7 @@ class MainUI;
 class Connexion : public QWidget
 {
 	Q_OBJECT
+  
 public:
 	Connexion(MainUI *, Network *);
 	~Connexion();
@@ -40,7 +41,11 @@ public slots:
 	void 	quit();
 	void 	tryConnect();
 private:
-  Network 		*_network;
+  bool  checkData(const QString &);
+private:
+  Network     *_network;
+  QGridLayout *_leftLayout;
+  QGridLayout *_rightLayout;
   MainUI 		*_mainUI;
   QPushButton	*_connect;
   QWidget 		*_window;
@@ -56,6 +61,7 @@ private:
   QLabel        *_delayLabel;
   QLineEdit     *_delay;
   QPushButton 	*_quit;
+  QTextEdit     *_console;
 };
 
 #endif /* _CONNEXION_HPP_ */

@@ -26,8 +26,11 @@ class Network : public QWidget
 public:
 	Network();
 	~Network();
+	void  setConsoleText(const QString &data);
 private:
 	QWidget 	*_window;
+  	QTextEdit     *_console;
+  	QGridLayout 	*_mainLayout;
 };
 
 #endif /* _NETWORK_HPP_ */

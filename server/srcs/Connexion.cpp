@@ -7,9 +7,8 @@ Connexion::Connexion(MainUI *mainui, Network *network)
   _mainUI = mainui;
   _window = new QWidget;
   _window->show();
-  this->_window->setFixedSize(500, 400);
+  this->_window->setFixedSize(600, 600);
   this->_window->setWindowTitle(tr("Connexion"));
-  this->_window->setStyleSheet("color: #CFD6D7; background-color: #403075");
   init();
   setLayouts();
   connectSlots();
@@ -23,7 +22,6 @@ Connexion::Connexion(MainUI *mainui, Network *network)
   int centerW = (width/2) - (mw/2);
   int centerH = (height/2) - (mh/2);
   _window->move(centerW, centerH);
-  std::cout << centerW << " " << centerH << std::endl;
 }
 
 Connexion::~Connexion(){}
@@ -41,12 +39,16 @@ void 	Connexion::quit()
 
 void 	Connexion::tryConnect()
 {
-  // if (checkData(_port->text()) && checkData(_width->text()) && checkData(_height->text()) &&
-  //     checkData(_client->text()) && checkData(_delay->text()))
-  //   _console->setHtml(_console->toHtml() + "<font color=\"Green\">*** TRYING TO CREATE SERVER ***\n</font>"); 
-  // else
-  //   _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: Missing Arguments\n</font>");
-	_mainUI->show();
+  if (checkData(_port->text()) && checkData(_width->text()) && checkData(_height->text()) &&
+      checkData(_client->text()) && checkData(_delay->text()))
+  {
+    _console->setHtml(_console->toHtml() + "<font color=\"Green\">*** TRYING TO CREATE SERVER ***\n</font>");
+    _network->setConsoleText(_console->toHtml());
+    _window->hide();
+    _mainUI->show();
+  }
+  else
+    _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: Missing Arguments\n</font>");
 }
 
 void 	Connexion::setLayouts()
@@ -64,6 +66,7 @@ void 	Connexion::setLayouts()
     _mainLayout->addWidget(_delay, 7, 1);
     _mainLayout->addWidget(_connect, 8, 1);
     _mainLayout->addWidget(_quit, 9, 1);
+    _mainLayout->addWidget(_console, 10, 1);
 }
 
 void 	Connexion::init()
@@ -88,4 +91,20 @@ void 	Connexion::init()
    _delayLabel->setText("Delay :");	
    _quit = new QPushButton(_window);
    _quit->setText("Quit");
+   _console = new QTextEdit();
+   _console->setReadOnly(true);
+   _console->setEnabled(false);
+}
+
+bool  Connexion::checkData(const QString &data)
+{
+  if (data.size() > 0)
+  {
+    QRegExp rx("^\\+?\\d+$");
+    if (rx.indexIn(data) != -1)
+      return (true);
+    else
+      _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: bad Value for\n</font>");
+  }
+  return (false);
 }
