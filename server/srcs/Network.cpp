@@ -16,10 +16,7 @@ Network::Network()
   _window->move(100, 100);
 }
 
-Network::~Network()
-{
-	
-}
+Network::~Network(){}
 
 void  Network::setConsoleText(const QString &data)
 {

@@ -1,13 +1,6 @@
-#ifndef _MAINGUI_HPP_
-# define _MAINGUI_HPP_
+#ifndef _NETWORK_HPP_
+# define _NETWORK_HPP_
 
-# include <QtCore>
-# include <QtOpenGL>
-# include <QGLWidget>
-# include <QPainter>
-# include <GL/glu.h>
-# include <GL/glut.h>
-# include <QDesktopServices>
 # include <QtWidgets/QApplication>
 # include <QtWidgets/QPushButton>
 # include <QtWidgets/QLCDNumber>
@@ -23,24 +16,21 @@
 # include <QtWidgets/QMessageBox>
 # include <QLineEdit>
 # include <QTextEdit>
-# include <iostream>
+# include <QString>
+# include <QTime>
+# include <QTimer>
 
-class MainGUI : public QGLWidget
+class Network : public QWidget
 {
 	Q_OBJECT
 public:
-	MainGUI(QTextEdit *);
-	~MainGUI();
-	void initializeGL();
-	void resizeGL(int, int);
-	void  paintGL();
-	void 	logOutput(QString);
-public slots:
-	void 	updateGL();
+	Network();
+	~Network();
+	void  setConsoleText(const QString &data);
 private:
-	float 		_rotate;
-	QTextEdit *_console;
-	QTimer 	*_timer;
+	QWidget 	*_window;
+  	QTextEdit     *_console;
+  	QGridLayout 	*_mainLayout;
 };
 
-#endif /*_MAINGUI_HPP_*/
+#endif /* _NETWORK_HPP_ */
