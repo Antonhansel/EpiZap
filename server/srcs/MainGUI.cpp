@@ -5,9 +5,6 @@ MainGUI::MainGUI()
 	initializeGL();
 	resizeGL((1800/6)*5, (900/6)*5);
 	paintGL();
-	// _timer = new QTimer(this);
- //    connect(_timer, SIGNAL(timeout()), this, SLOT(updateGL()));
- //    _timer->start(1000/30);
 }
 
 void 	MainGUI::resizeGL(int width, int height)

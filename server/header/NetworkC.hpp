@@ -4,23 +4,27 @@
 # include <QObject>
 # include <QDebug>
 # include <QThread>
+# include <QTimer>
+# include <QTextEdit>
 # include "Server.h"
 
-class NetworkC : public QObject {
+class NetworkC : public QObject
+{
     Q_OBJECT
  
 public:
-    NetworkC(Server *);
+    NetworkC(Server *, QTextEdit *);
     ~NetworkC();
  
 public slots:
-    void doWork();
- 
+    void    doWork();
+    void    updateInfos();
 signals:
     void finished();
     void error(QString err);
  
 private:
-    Server  *_server;
+    Server      *_server;
+    QTextEdit   *_console;
 };
 #endif
