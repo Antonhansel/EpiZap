@@ -20,6 +20,6 @@ int		main(int argc, char **argv)
   int centerH = (height/2) - (mh/2);
   Client.setFixedSize(1800, 900);
   Client.move(centerW, centerH);
-  Client.show();
+  Client.show(); // to be removed
   return (app.exec());
 }
