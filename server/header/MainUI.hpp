@@ -30,8 +30,7 @@
 # include <QTimer>
 # include <regex>
 # include <stdlib.h>
-# include "Network.hpp"
-# include "MainGUI.hpp"
+# include "Connexion.hpp"
 
 class	MainUI: public	QWidget
 {
@@ -39,41 +38,24 @@ class	MainUI: public	QWidget
 public:
   MainUI();
 public slots:
-  void  tryConnect();
-  void  quit();
   void  showAbout() const;
 private:
   void  connectSlots();
   void  initLayouts();
-  void  foldersLayout();
   void  initUi();
   void  applyLayouts();
-  void  timeLayout();
-  void  mailPreviewLayout();
   void  menuBar();
   void  initConnexionStuff();
-  bool  checkData(const QString &);
 protected:
-  Network      *_network;
-  MainGUI      *_mainGUI;
-  QPushButton  *_connect;
+  Connexion    *_connexion;
+//  Network      *_network;
+//  MainGUI      *_mainGUI;
   QPushButton  *_quit;
   QMenu        *_fileMenu;
   QAction	     *_exitAction;
   QAction	     *_about;
   QMenuBar	   *_menuBar;
   QGridLayout	 *_mainLayout;
-  QTextEdit     *_console;
-  QLabel        *_portLabel;
-  QLineEdit     *_port;
-  QLabel        *_widthLabel;
-  QLineEdit     *_width;
-  QLabel        *_heightLabel;
-  QLineEdit     *_height;
-  QLabel        *_customerLabel;
-  QLineEdit     *_customer;
-  QLabel        *_delayLabel;
-  QLineEdit     *_delay;
   bool          _start;
 };
 
