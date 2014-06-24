@@ -9,6 +9,7 @@
 # include <QtWidgets/QColorDialog>
 # include <QtWidgets/QGridLayout>
 # include <QtWidgets/QHBoxLayout>
+# include <QDesktopWidget>
 # include <QtWidgets/QGroupBox>
 # include <QtWidgets/QDialog>
 # include <QtWidgets/QMenuBar>
