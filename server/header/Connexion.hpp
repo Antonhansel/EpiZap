@@ -1,5 +1,7 @@
-#ifndef _CONNEXION_HPP_
-# define _CONNEXION_HPP_
+#ifndef CONNEXION_HPP_
+# define CONNEXION_HPP_
+
+#pragma once
 
 # include <QtWidgets/QApplication>
 # include <QtWidgets/QPushButton>
@@ -22,10 +24,10 @@
 # include <regex>
 # include <stdlib.h>
 
-//# include "MainUI.hpp"
 class MainUI;
-class Connexion
+class Connexion : public QWidget
 {
+	Q_OBJECT
 public:
 	Connexion(MainUI *);
 	~Connexion();
@@ -37,7 +39,6 @@ public slots:
 private:
   MainUI 		*_mainUI;
   QPushButton	*_connect;
-  QPushButton	*_quit;
   QWidget 		*_window;
   QGridLayout	*_mainLayout;
   QLabel        *_portLabel;

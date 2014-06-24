@@ -1,21 +1,26 @@
 #include "Connexion.hpp"
+#include "MainUI.hpp"
 
 Connexion::Connexion(MainUI *mainui)
 {
   _mainUI = mainui;
-  _window = new QWidget();
+  _window = new QWidget;
   _window->show();
+  this->_window->setFixedSize(500, 400);
+  this->_window->setWindowTitle(tr("Connexion"));
+  this->_window->setStyleSheet("color: #CFD6D7; background-color: #403075");
   init();
   setLayouts();
   connectSlots();
-  tryConnect();
   _window->setLayout(_mainLayout);
 }
 
+Connexion::~Connexion()
+{}
+
 void 	Connexion::connectSlots()
 {
-  QObject::connect(_connect, SIGNAL(clicked()), _window,SLOT(tryConnect(void)));
-  QObject::connect(_quit, SIGNAL(clicked()), _window,SLOT(quit(void)));
+  QObject::connect(_connect, SIGNAL(clicked()), this,SLOT(tryConnect(void)));
 }
 
 void 	Connexion::tryConnect()
@@ -25,7 +30,7 @@ void 	Connexion::tryConnect()
   //   _console->setHtml(_console->toHtml() + "<font color=\"Green\">*** TRYING TO CREATE SERVER ***\n</font>"); 
   // else
   //   _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: Missing Arguments\n</font>");
-	//_mainUI->show();
+	_mainUI->show();
 }
 
 void 	Connexion::setLayouts()
@@ -41,16 +46,14 @@ void 	Connexion::setLayouts()
     _mainLayout->addWidget(_client, 6, 1);
     _mainLayout->addWidget(_delayLabel, 7, 0);
     _mainLayout->addWidget(_delay, 7, 1);
-    _mainLayout->addWidget(_quit, 8, 1);
+    _mainLayout->addWidget(_connect, 8, 1);
 }
 
 void 	Connexion::init()
 {
-	_mainLayout = new QGridLayout();
+   _mainLayout = new QGridLayout();
    _connect = new QPushButton(_window);
    _connect->setText("Start");
-   _quit = new QPushButton(_window);
-   _quit->setText("Quit");
    _port = new QLineEdit();
    _portLabel = new QLabel();
    _portLabel->setText("Port :");
@@ -67,6 +70,3 @@ void 	Connexion::init()
    _delayLabel = new QLabel();
    _delayLabel->setText("Delay :");	
 }
-
-Connexion::~Connexion()
-{}

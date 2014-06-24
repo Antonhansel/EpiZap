@@ -1,5 +1,4 @@
 #include "MainUI.hpp"
-#include "Connexion.hpp"
 
 void	MainUI::applyLayouts()
 {}
