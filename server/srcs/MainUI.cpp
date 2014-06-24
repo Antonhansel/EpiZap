@@ -49,6 +49,15 @@ void	MainUI::initUi()
   _mainLayout->addWidget(_console, 2, 0, 1, 2);
 }
 
+void            MainUI::setServer(Server *s)
+{
+  NetworkC  *net = new NetworkC(s);
+  QThread   *q = new QThread();
+  net->moveToThread(q);
+  connect(q, SIGNAL(started()), net, SLOT(doWork()));
+  q->start();
+}
+
 void            MainUI::showAbout() const
 {
   QMessageBox msgBox;

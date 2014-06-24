@@ -31,6 +31,7 @@
 # include <regex>
 # include <stdlib.h>
 # include "Connexion.hpp"
+# include "NetworkC.hpp"
 
 class	MainUI: public	QWidget
 {
@@ -38,6 +39,7 @@ class	MainUI: public	QWidget
 public:
   MainUI();
   void  setConsoleText(const QString &);
+  void  setServer(Server *s);
 public slots:
   void  showAbout() const;
 private:
@@ -49,7 +51,6 @@ private:
   void  initConnexionStuff();
 protected:
   Connexion    *_connexion;
-//  MainGUI      *_mainGUI;
   QPushButton  *_quit;
   QMenu        *_fileMenu;
   QAction	     *_exitAction;
