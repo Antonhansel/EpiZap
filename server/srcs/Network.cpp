@@ -2,7 +2,7 @@
 
 Network::Network()
 {
-	// QWidget *_window = new QWidget(this);
+	//QWidget *_window = new QWidget;
 
 	// _window->show();
 	// if (_start)
