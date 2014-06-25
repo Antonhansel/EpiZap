@@ -2,7 +2,7 @@
 # define SERVER_H_
 
 # include "Network.h"
-# include "Client.h"
+# include "Player.h"
 
 typedef struct 	Server
 {

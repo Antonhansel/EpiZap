@@ -8,7 +8,7 @@
 ** Last update mer. juin  18 16:42:27 2014 jeremie taboada-alvarez
 */
 
-#include "Client.h"
+#include "Player.h"
 
 void		createClient(Client *c, int fd)
 {
