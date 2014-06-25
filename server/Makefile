@@ -53,7 +53,11 @@ SOURCES       = srcs/main.cpp \
 		srcs/Server.c \
 		srcs/NetworkC.cpp \
 		srcs/Player.c \
-		srcs/checkFd.c moc_MainUI.cpp \
+		srcs/Inventory.c \
+		srcs/Team.c \
+		srcs/Map.c \
+		srcs/Box.c \
+		srcs/Incantation.c moc_MainUI.cpp \
 		moc_MainGUI.cpp \
 		moc_Connexion.cpp \
 		moc_NetworkC.cpp
@@ -65,7 +69,11 @@ OBJECTS       = main.o \
 		Server.o \
 		NetworkC.o \
 		Player.o \
-		checkFd.o \
+		Inventory.o \
+		Team.o \
+		Map.o \
+		Box.o \
+		Incantation.o \
 		moc_MainUI.o \
 		moc_MainGUI.o \
 		moc_Connexion.o \
@@ -299,7 +307,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/gui1.0.0 || mkdir -p .tmp/gui1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/MainGUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/checkFd.h .tmp/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/MainGUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/checkFd.c .tmp/gui1.0.0/ && (cd `dirname .tmp/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .tmp/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/gui1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/MainGUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/Box.h header/Incantation.h .tmp/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/MainGUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/Box.c srcs/Incantation.c .tmp/gui1.0.0/ && (cd `dirname .tmp/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .tmp/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/gui1.0.0
 
 
 clean:compiler_clean 
@@ -3501,8 +3509,7 @@ Network.o: srcs/Network.c header/Network.h
 
 Server.o: srcs/Server.c header/Server.h \
 		header/Network.h \
-		header/Player.h \
-		header/checkFd.h
+		header/Player.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o Server.o srcs/Server.c
 
 NetworkC.o: srcs/NetworkC.cpp header/NetworkC.hpp \
@@ -3634,14 +3641,27 @@ NetworkC.o: srcs/NetworkC.cpp header/NetworkC.hpp \
 		header/Player.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o NetworkC.o srcs/NetworkC.cpp
 
-Player.o: srcs/Player.c 
+Player.o: srcs/Player.c header/Player.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o Player.o srcs/Player.c
 
-checkFd.o: srcs/checkFd.c header/checkFd.h \
-		header/Server.h \
-		header/Network.h \
+Inventory.o: srcs/Inventory.c header/Inventory.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o Inventory.o srcs/Inventory.c
+
+Team.o: srcs/Team.c header/Team.h \
 		header/Player.h
-	$(CC) -c $(CFLAGS) $(INCPATH) -o checkFd.o srcs/checkFd.c
+	$(CC) -c $(CFLAGS) $(INCPATH) -o Team.o srcs/Team.c
+
+Map.o: srcs/Map.c header/Map.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o Map.o srcs/Map.c
+
+Box.o: srcs/Box.c header/Box.h \
+		header/Inventory.h \
+		header/Player.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o Box.o srcs/Box.c
+
+Incantation.o: srcs/Incantation.c header/Incantation.h \
+		header/Inventory.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o Incantation.o srcs/Incantation.c
 
 moc_MainUI.o: moc_MainUI.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainUI.o moc_MainUI.cpp
