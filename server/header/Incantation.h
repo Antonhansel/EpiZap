@@ -6,7 +6,7 @@
 typedef struct 	Incantation
 {
 	/* data */
-	Inventory	lvl[10];
+	Inventory	level[10];
 }				Incantation;
 
 #endif /* INCANTATION_H_ */
