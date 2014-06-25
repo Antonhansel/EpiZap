@@ -11,10 +11,12 @@
 #ifndef __LIST_H_
 # define __LIST_H_
 
-int	add_elem(t_fd **, int, char *, char *);
-int	del_elem(t_fd **, char *);
-int	check_fd(t_fd **, fd_set*);
-void	init_fd(t_fd *, fd_set*);
-int	get_max_fd(t_fd *);
+# include "Player.h"
+
+int		add_elem(Player **, int);
+int		del_elem(Player **, int);
+int		check_fd(Player **, fd_set*);
+void	init_fd(Player *, fd_set*);
+int		get_max_fd(Player *);
 
 #endif /* __LIST_H_ */
