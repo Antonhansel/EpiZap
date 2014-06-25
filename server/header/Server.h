@@ -16,6 +16,8 @@ typedef struct 	Server
 	int 				nbPlayerCo;
 	int 				maxFd;
 	int 				initialize;
+	int 				n_client;
+	int 				n_malloc;
 	char				msg[256];
 	struct protoent		*pe;
   	struct sockaddr_in	sin;
