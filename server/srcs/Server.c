@@ -45,7 +45,7 @@ static int	accept_socket(Server *s)
 	s->clients[fd] = c;
 	if (s->maxFd < fd)
 		s->maxFd = fd;
-	sprintf(s->msg, "<font color=\"Green\">*** NEW CONNECTION FROM IP %s ON PORT %d AND FD %d ***</font>", "NO IP", s->port, fd);
+	sprintf(s->msg, "<font color=\"Green\">*** NEW CONNECTION FROM IP %s ON PORT %d AND FD %d ***</font>", inet_ntoa(s->sin.sin_addr), s->port, fd);
 	if (write(fd, "--- SUCCESSLY CONNECT ---\n", 26) <= 0)
 		return (1);
 	return (0);
