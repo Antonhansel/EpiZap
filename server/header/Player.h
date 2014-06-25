@@ -8,18 +8,17 @@
 ** Last update mer. juin  18 16:42:32 2014 jeremie taboada-alvarez
 */
 
-#ifndef CLIENT_H_
-# define CLIENT_H_
+#ifndef PLAYER_H_
+# define PLAYER_H_
 
-typedef struct 	Client
+typedef struct 	Player
 {
 	int			fd;
 	int			nbRequest;
 	int			x;
 	int			y;
 	int			lvl;
-}				Client;
+	float		time;
+}				Player;
 
-void		createClient(Client *, int);
-
-#endif /* CLIENT_H_ */
+#endif /* PLAYER_H_ */

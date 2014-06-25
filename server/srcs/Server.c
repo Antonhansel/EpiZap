@@ -1,5 +1,4 @@
 #include "Server.h"
-#include "checkFd.h"
 
 static int		accept_socket(Server *);
 
@@ -8,10 +7,8 @@ char 		*server_init(Server *this)
 	int 	opt;
 
 	opt = 1;
-	this->clients = NULL;
+	this->player = NULL;
 	this->accept_socket = &accept_socket;
-	this->init_fd = &init_fd;
-	this->check_fd = &check_fd;
 	if ((this->pe = getprotobyname("TCP")) == NULL)
 		return ("<font color=\"Red\">*** ERROR ON GETPROTOBYNAME ***</font>");
 	if ((this->socket = xsocket(AF_INET, SOCK_STREAM, this->pe->p_proto)) == FALSE)
@@ -33,7 +30,7 @@ static int	accept_socket(Server *s)
 {
 	int len = sizeof(s->sin);
 	int fd = xaccept(s->socket, &(s->sin), (socklen_t *)&len);
-	if (s->clients == NULL)
+/*	if (s-> == NULL)
 	{
 		s->clients = malloc(sizeof(void) * 100);
 		s->clients = memset(s->clients, 0, 100);
@@ -50,7 +47,7 @@ static int	accept_socket(Server *s)
 		return (-1);
 	createClient(c, fd);
 	s->clients[fd] = c;
-	if (s->maxFd < fd)
+*/	if (s->maxFd < fd)
 		s->maxFd = fd;
 	s->n_client++;
 	sprintf(s->msg, "<font color=\"Green\">*** NEW CONNECTION FROM IP %s ON PORT %d AND FD %d ***</font>", inet_ntoa(s->sin.sin_addr), s->port, fd);
@@ -63,7 +60,7 @@ int 				server_loop(Server *this)
 {
 	int 			error;
 	int 			result;
-	int 			resultPrev;
+	//int 			resultPrev;
 	fd_set 			readfds;
 	struct timeval	tv;
 
@@ -71,7 +68,7 @@ int 				server_loop(Server *this)
 	tv.tv_sec = 0;
 	error = 0;
 	result = 0;
-	resultPrev = 0;
+	//resultPrev = 0;
 	this->n_client = 0;
 	while (!error)
 	{
@@ -81,11 +78,11 @@ int 				server_loop(Server *this)
 			return (1);
 		else if (FD_ISSET(this->socket, &readfds))
 			(*this->accept_socket)(this);
-		else if (result != resultPrev)
+		/*else if (result != resultPrev)
 		{
 			(*this->check_fd)(this, &readfds);
 			resultPrev = result;
-		}
+		}*/
 	}
 	return (0);
 }

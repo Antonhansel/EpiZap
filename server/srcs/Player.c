@@ -9,12 +9,3 @@
 */
 
 #include "Player.h"
-
-void		createClient(Client *c, int fd)
-{
-	c->fd = fd;
-	c->nbRequest = 0;
-	c->x = 0;
-	c->y = 0;
-	c->lvl = 1;
-}
