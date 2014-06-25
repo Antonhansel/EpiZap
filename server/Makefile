@@ -56,7 +56,8 @@ SOURCES       = srcs/main.cpp \
 		srcs/Inventory.c \
 		srcs/Team.c \
 		srcs/Map.c \
-		srcs/Box.c moc_MainUI.cpp \
+		srcs/Box.c \
+		srcs/Incantation.c moc_MainUI.cpp \
 		moc_MainGUI.cpp \
 		moc_Connexion.cpp \
 		moc_NetworkC.cpp
@@ -72,6 +73,7 @@ OBJECTS       = main.o \
 		Team.o \
 		Map.o \
 		Box.o \
+		Incantation.o \
 		moc_MainUI.o \
 		moc_MainGUI.o \
 		moc_Connexion.o \
@@ -305,7 +307,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/gui1.0.0 || mkdir -p .tmp/gui1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/MainGUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/Box.h .tmp/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/MainGUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/Box.c .tmp/gui1.0.0/ && (cd `dirname .tmp/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .tmp/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/gui1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/MainGUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/Box.h header/Incantation.h .tmp/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/MainGUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/Box.c srcs/Incantation.c .tmp/gui1.0.0/ && (cd `dirname .tmp/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .tmp/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/gui1.0.0
 
 
 clean:compiler_clean 
@@ -3656,6 +3658,10 @@ Box.o: srcs/Box.c header/Box.h \
 		header/Inventory.h \
 		header/Player.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o Box.o srcs/Box.c
+
+Incantation.o: srcs/Incantation.c header/Incantation.h \
+		header/Inventory.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o Incantation.o srcs/Incantation.c
 
 moc_MainUI.o: moc_MainUI.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainUI.o moc_MainUI.cpp

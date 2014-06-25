@@ -11,6 +11,7 @@ typedef struct 	Inventory
 	int 		phiras;
 	int 		thystame;
 	int 		food;
+	int 		nbPlayer;
 }				Inventory;
 
 #endif /* INVENTORY_H_ */
