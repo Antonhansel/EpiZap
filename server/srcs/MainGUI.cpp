@@ -4,10 +4,10 @@ MainGUI::~MainGUI(){}
 
 MainGUI::MainGUI(QTextEdit *console)
 {
+	_console = console;
 	initializeGL();
 	resizeGL((1800/6)*5, (900/6)*5);
 	paintGL();
-	_console = console;
 	_timer = new QTimer(this);
     connect(_timer, SIGNAL(timeout()), this, SLOT(updateGL()));
     _timer->start(1000/30);	
@@ -118,5 +118,6 @@ void 	MainGUI::updateGL()
 {
 	_rotate += 1.0f;
 	paintGL();
+	glFlush();
 	swapBuffers();
 }
