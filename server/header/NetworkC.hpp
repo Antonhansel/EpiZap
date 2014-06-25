@@ -11,7 +11,6 @@
 class NetworkC : public QObject
 {
     Q_OBJECT
- 
 public:
     NetworkC(Server *, QTextEdit *);
     ~NetworkC();

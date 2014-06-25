@@ -1,3 +1,4 @@
+#include "List.h"
 #include "Server.h"
 
 static int		accept_socket(Server *);
@@ -30,27 +31,14 @@ static int	accept_socket(Server *s)
 {
 	int len = sizeof(s->sin);
 	int fd = xaccept(s->socket, &(s->sin), (socklen_t *)&len);
-/*	if (s-> == NULL)
-	{
-		s->clients = malloc(sizeof(void) * 100);
-		s->clients = memset(s->clients, 0, 100);
-		s->n_malloc = 100;
-	}
-	else if (s->n_client >= s->n_malloc)
-	{
-		s->n_malloc += 100;
-		s->clients = realloc(s->clients, s->n_malloc);
-		printf("REALLOC\n");
-	}
-	Client *c;
-	if ((c = malloc(sizeof(Client))) == NULL)
-		return (-1);
-	createClient(c, fd);
-	s->clients[fd] = c;
-*/	if (s->maxFd < fd)
+	if (add_elem(&s->player, fd) != 0)
+		return (FALSE);
+	else
+		sprintf(s->msg, "<font color=\"Green\">*** CLIENT ADD IN LIST ***</font><br />");
+	if (s->maxFd < fd)
 		s->maxFd = fd;
 	s->n_client++;
-	sprintf(s->msg, "<font color=\"Green\">*** NEW CONNECTION FROM IP %s ON PORT %d AND FD %d ***</font>", inet_ntoa(s->sin.sin_addr), s->port, fd);
+	sprintf(s->msg, "%s<font color=\"Green\">*** NEW CONNECTION FROM IP %s ON PORT %d AND FD %d ***</font>", s->msg, inet_ntoa(s->sin.sin_addr), s->port, fd);
 	if (write(fd, "--- SUCCESSLY CONNECT ---\n", 26) <= 0)
 		return (1);
 	return (0);
