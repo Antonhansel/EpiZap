@@ -3,7 +3,7 @@
 
 static int		accept_socket(Server *);
 
-char 		*serverInit(Server *this)
+char 		*server_init(Server *this)
 {
 	int 	opt;
 
@@ -25,14 +25,12 @@ char 		*serverInit(Server *this)
 	xlisten(this->socket, 10);
 	this->initialize = TRUE;
 	this->maxFd = this->socket;
-	if ((this->msg = malloc(sizeof(char*) * 256)) == NULL)
-		return ("<font color=\"Red\">*** ERROR ON MALLOC ***</font>");
+    memset(((void*)(this->msg)), 0, 256);
 	return ("<font color=\"Green\">*** SUCCESSLY INIT ***</font>");
 }
 
 static int	accept_socket(Server *s)
 {
-	printf("--- LISTEN ON PORT %d ---\n", s->port);
 	int len = sizeof(s->sin);
 	int fd = xaccept(s->socket, &(s->sin), (socklen_t *)&len);
 	if (s->clients == NULL)
@@ -47,14 +45,13 @@ static int	accept_socket(Server *s)
 	s->clients[fd] = c;
 	if (s->maxFd < fd)
 		s->maxFd = fd;
-	s->msg = strcat(s->msg, "<font color=\"Green\">*** NEW CONNECTION ***</font>");
-	printf("--- CLIENT ACCEPT ON FD : %d ---\n", fd);
+	sprintf(s->msg, "<font color=\"Green\">*** NEW CONNECTION FROM IP %s ON PORT %d AND FD %d ***</font>", "NO IP", s->port, fd);
 	if (write(fd, "--- SUCCESSLY CONNECT ---\n", 26) <= 0)
 		return (1);
 	return (0);
 }
 
-int 				serverLoop(Server *this)
+int 				server_loop(Server *this)
 {
 	int 			error;
 	int 			result;
@@ -74,9 +71,7 @@ int 				serverLoop(Server *this)
 		if ((result = select(this->maxFd + 1, &readfds, NULL, NULL, &tv)) == -1)
 			return (1);
 		else if (FD_ISSET(this->socket, &readfds))
-		{
 			(*this->accept_socket)(this);
-		}
 		else if (result != resultPrev)
 		{
 			(*this->check_fd)(this, &readfds);

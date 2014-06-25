@@ -16,7 +16,7 @@ typedef struct 	Server
 	int 				nbPlayerCo;
 	int 				maxFd;
 	int 				initialize;
-	char				*msg;
+	char				msg[256];
 	struct protoent		*pe;
   	struct sockaddr_in	sin;
   	Client				**clients;
@@ -28,8 +28,8 @@ typedef struct 	Server
 # ifdef __cplusplus
 extern "C" {
 # endif
-	char 	*serverInit(Server *);
-	int 	serverLoop(Server *);
+	char 	*server_init(Server *);
+	int 	server_loop(Server *);
 # ifdef __cplusplus
 }
 # endif

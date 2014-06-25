@@ -18,7 +18,6 @@ public:
  
 public slots:
     void    doWork();
-    void    updateInfos();
 signals:
     void finished();
     void error(QString err);

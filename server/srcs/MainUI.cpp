@@ -63,11 +63,15 @@ void	MainUI::initUi()
 
 void            MainUI::setServer(Server &s)
 {
+  _server = &s;
   NetworkC  *net = new NetworkC(&s, _console);
   QThread   *q = new QThread();
   net->moveToThread(q);
   connect(q, SIGNAL(started()), net, SLOT(doWork()));
   q->start();
+  QTimer *timer = new QTimer(this);
+  connect(timer, SIGNAL(timeout()), this, SLOT(updateInfos()));
+  timer->start(50);
 }
 
 void            MainUI::showAbout() const
@@ -97,4 +101,16 @@ void  MainUI::setConsoleText(const QString &data)
   c = _console->textCursor();
   c.movePosition(QTextCursor::End);
   _console->setTextCursor(c);
+}
+
+void  MainUI::updateInfos()
+{
+  QString res;
+
+  res = _server->msg;
+  if (res.length() > 0)
+  {
+    _console->append(_server->msg);
+    memset(((void*)(_server->msg)), 0, 256);
+  }
 }
