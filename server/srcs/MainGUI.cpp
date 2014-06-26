@@ -9,10 +9,10 @@ MainGUI::MainGUI(QTextEdit *console)
 	resizeGL((1800/6)*5, (900/6)*5);
 	paintGL();
 	_timer = new QTimer(this);
-    connect(_timer, SIGNAL(timeout()), this, SLOT(updateGL()));
-    _timer->start(1000/30);	
-    setFixedSize(1457, 707);
-    _rotate = 0;
+  connect(_timer, SIGNAL(timeout()), this, SLOT(updateGL()));
+  _timer->start(1000/30);
+  setFixedSize(1457, 707);
+  _rotate = 0;
 }
 
 void 	MainGUI::resizeGL(int width, int height)
@@ -22,7 +22,7 @@ void 	MainGUI::resizeGL(int width, int height)
     glLoadIdentity();
     gluPerspective(45.0f, (GLfloat)width/(GLfloat)height, 0.1f, 100.0f);
     glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();	
+    glLoadIdentity();
     logOutput("Resized");
 }
 
@@ -112,7 +112,6 @@ void 	MainGUI::paintGL()
     }
   glEnd();
 }
-
 
 void 	MainGUI::updateGL()
 {
