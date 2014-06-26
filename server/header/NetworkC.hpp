@@ -11,14 +11,12 @@
 class NetworkC : public QObject
 {
     Q_OBJECT
- 
 public:
     NetworkC(Server *, QTextEdit *);
     ~NetworkC();
  
 public slots:
     void    doWork();
-    void    updateInfos();
 signals:
     void finished();
     void error(QString err);

@@ -52,8 +52,13 @@ SOURCES       = srcs/main.cpp \
 		srcs/Network.c \
 		srcs/Server.c \
 		srcs/NetworkC.cpp \
-		srcs/Client.c \
-		srcs/checkFd.c moc_MainUI.cpp \
+		srcs/Player.c \
+		srcs/Inventory.c \
+		srcs/Team.c \
+		srcs/Map.c \
+		srcs/Box.c \
+		srcs/Incantation.c \
+		srcs/List.c moc_MainUI.cpp \
 		moc_MainGUI.cpp \
 		moc_Connexion.cpp \
 		moc_NetworkC.cpp
@@ -64,8 +69,13 @@ OBJECTS       = main.o \
 		Network.o \
 		Server.o \
 		NetworkC.o \
-		Client.o \
-		checkFd.o \
+		Player.o \
+		Inventory.o \
+		Team.o \
+		Map.o \
+		Box.o \
+		Incantation.o \
+		List.o \
 		moc_MainUI.o \
 		moc_MainGUI.o \
 		moc_Connexion.o \
@@ -299,7 +309,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/gui1.0.0 || mkdir -p .tmp/gui1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/MainGUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Client.h header/checkFd.h .tmp/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/MainGUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Client.c srcs/checkFd.c .tmp/gui1.0.0/ && (cd `dirname .tmp/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .tmp/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/gui1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/MainGUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/Box.h header/Incantation.h header/List.h .tmp/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/MainGUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/Box.c srcs/Incantation.c srcs/List.c .tmp/gui1.0.0/ && (cd `dirname .tmp/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .tmp/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/gui1.0.0
 
 
 clean:compiler_clean 
@@ -598,7 +608,7 @@ moc_MainUI.cpp: /usr/include/qt5/QtCore/QtCore \
 		/usr/include/qt5/QtWidgets/QDesktopWidget \
 		header/Server.h \
 		header/Network.h \
-		header/Client.h \
+		header/Player.h \
 		header/MainGUI.hpp \
 		/usr/include/qt5/QtOpenGL/QtOpenGL \
 		/usr/include/qt5/QtOpenGL/QtOpenGLDepends \
@@ -1438,7 +1448,7 @@ moc_Connexion.cpp: /usr/include/qt5/QtWidgets/QApplication \
 		/usr/include/qt5/QtCore/qbasictimer.h \
 		header/Server.h \
 		header/Network.h \
-		header/Client.h \
+		header/Player.h \
 		header/Connexion.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include header/Connexion.hpp -o moc_Connexion.cpp
 
@@ -1519,9 +1529,55 @@ moc_NetworkC.cpp: /usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
 		/usr/include/qt5/QtCore/QThread \
 		/usr/include/qt5/QtCore/qthread.h \
+		/usr/include/qt5/QtCore/QTimer \
+		/usr/include/qt5/QtCore/qtimer.h \
+		/usr/include/qt5/QtCore/qbasictimer.h \
+		/usr/include/qt5/QtWidgets/QTextEdit \
+		/usr/include/qt5/QtWidgets/qtextedit.h \
+		/usr/include/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtGui/qwindowdefs.h \
+		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qmargins.h \
+		/usr/include/qt5/QtCore/qrect.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtGui/qpaintdevice.h \
+		/usr/include/qt5/QtGui/qpalette.h \
+		/usr/include/qt5/QtGui/qcolor.h \
+		/usr/include/qt5/QtGui/qrgb.h \
+		/usr/include/qt5/QtGui/qbrush.h \
+		/usr/include/qt5/QtGui/qmatrix.h \
+		/usr/include/qt5/QtGui/qpolygon.h \
+		/usr/include/qt5/QtGui/qregion.h \
+		/usr/include/qt5/QtCore/qline.h \
+		/usr/include/qt5/QtGui/qtransform.h \
+		/usr/include/qt5/QtGui/qpainterpath.h \
+		/usr/include/qt5/QtGui/qimage.h \
+		/usr/include/qt5/QtGui/qpixmap.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtGui/qfont.h \
+		/usr/include/qt5/QtGui/qfontmetrics.h \
+		/usr/include/qt5/QtGui/qfontinfo.h \
+		/usr/include/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtGui/qkeysequence.h \
+		/usr/include/qt5/QtGui/qevent.h \
+		/usr/include/qt5/QtCore/qurl.h \
+		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtGui/qvector2d.h \
+		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtGui/qtextdocument.h \
+		/usr/include/qt5/QtGui/qtextoption.h \
+		/usr/include/qt5/QtGui/qtextcursor.h \
+		/usr/include/qt5/QtGui/qtextformat.h \
+		/usr/include/qt5/QtGui/qpen.h \
 		header/Server.h \
 		header/Network.h \
-		header/Client.h \
+		header/Player.h \
 		header/NetworkC.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include header/NetworkC.hpp -o moc_NetworkC.cpp
 
@@ -1813,7 +1869,7 @@ main.o: srcs/main.cpp header/MainUI.hpp \
 		/usr/include/qt5/QtWidgets/QDesktopWidget \
 		header/Server.h \
 		header/Network.h \
-		header/Client.h \
+		header/Player.h \
 		header/MainGUI.hpp \
 		/usr/include/qt5/QtOpenGL/QtOpenGL \
 		/usr/include/qt5/QtOpenGL/QtOpenGLDepends \
@@ -2294,7 +2350,7 @@ MainUI.o: srcs/MainUI.cpp header/MainUI.hpp \
 		/usr/include/qt5/QtWidgets/QDesktopWidget \
 		header/Server.h \
 		header/Network.h \
-		header/Client.h \
+		header/Player.h \
 		header/MainGUI.hpp \
 		/usr/include/qt5/QtOpenGL/QtOpenGL \
 		/usr/include/qt5/QtOpenGL/QtOpenGLDepends \
@@ -3134,7 +3190,7 @@ Connexion.o: srcs/Connexion.cpp header/Connexion.hpp \
 		/usr/include/qt5/QtCore/qbasictimer.h \
 		header/Server.h \
 		header/Network.h \
-		header/Client.h \
+		header/Player.h \
 		header/MainUI.hpp \
 		/usr/include/qt5/QtCore/QtCore \
 		/usr/include/qt5/QtCore/QtCoreDepends \
@@ -3455,8 +3511,7 @@ Network.o: srcs/Network.c header/Network.h
 
 Server.o: srcs/Server.c header/Server.h \
 		header/Network.h \
-		header/Client.h \
-		header/checkFd.h
+		header/Player.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o Server.o srcs/Server.c
 
 NetworkC.o: srcs/NetworkC.cpp header/NetworkC.hpp \
@@ -3537,19 +3592,81 @@ NetworkC.o: srcs/NetworkC.cpp header/NetworkC.hpp \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
 		/usr/include/qt5/QtCore/QThread \
 		/usr/include/qt5/QtCore/qthread.h \
+		/usr/include/qt5/QtCore/QTimer \
+		/usr/include/qt5/QtCore/qtimer.h \
+		/usr/include/qt5/QtCore/qbasictimer.h \
+		/usr/include/qt5/QtWidgets/QTextEdit \
+		/usr/include/qt5/QtWidgets/qtextedit.h \
+		/usr/include/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtGui/qwindowdefs.h \
+		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qmargins.h \
+		/usr/include/qt5/QtCore/qrect.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtGui/qpaintdevice.h \
+		/usr/include/qt5/QtGui/qpalette.h \
+		/usr/include/qt5/QtGui/qcolor.h \
+		/usr/include/qt5/QtGui/qrgb.h \
+		/usr/include/qt5/QtGui/qbrush.h \
+		/usr/include/qt5/QtGui/qmatrix.h \
+		/usr/include/qt5/QtGui/qpolygon.h \
+		/usr/include/qt5/QtGui/qregion.h \
+		/usr/include/qt5/QtCore/qline.h \
+		/usr/include/qt5/QtGui/qtransform.h \
+		/usr/include/qt5/QtGui/qpainterpath.h \
+		/usr/include/qt5/QtGui/qimage.h \
+		/usr/include/qt5/QtGui/qpixmap.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtGui/qfont.h \
+		/usr/include/qt5/QtGui/qfontmetrics.h \
+		/usr/include/qt5/QtGui/qfontinfo.h \
+		/usr/include/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtGui/qkeysequence.h \
+		/usr/include/qt5/QtGui/qevent.h \
+		/usr/include/qt5/QtCore/qurl.h \
+		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtGui/qvector2d.h \
+		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtGui/qtextdocument.h \
+		/usr/include/qt5/QtGui/qtextoption.h \
+		/usr/include/qt5/QtGui/qtextcursor.h \
+		/usr/include/qt5/QtGui/qtextformat.h \
+		/usr/include/qt5/QtGui/qpen.h \
 		header/Server.h \
 		header/Network.h \
-		header/Client.h
+		header/Player.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o NetworkC.o srcs/NetworkC.cpp
 
-Client.o: srcs/Client.c header/Client.h
-	$(CC) -c $(CFLAGS) $(INCPATH) -o Client.o srcs/Client.c
+Player.o: srcs/Player.c header/Player.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o Player.o srcs/Player.c
 
-checkFd.o: srcs/checkFd.c header/checkFd.h \
-		header/Server.h \
-		header/Network.h \
-		header/Client.h
-	$(CC) -c $(CFLAGS) $(INCPATH) -o checkFd.o srcs/checkFd.c
+Inventory.o: srcs/Inventory.c header/Inventory.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o Inventory.o srcs/Inventory.c
+
+Team.o: srcs/Team.c header/Team.h \
+		header/Player.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o Team.o srcs/Team.c
+
+Map.o: srcs/Map.c header/Map.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o Map.o srcs/Map.c
+
+Box.o: srcs/Box.c header/Box.h \
+		header/Inventory.h \
+		header/Player.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o Box.o srcs/Box.c
+
+Incantation.o: srcs/Incantation.c header/Incantation.h \
+		header/Inventory.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o Incantation.o srcs/Incantation.c
+
+List.o: srcs/List.c 
+	$(CC) -c $(CFLAGS) $(INCPATH) -o List.o srcs/List.c
 
 moc_MainUI.o: moc_MainUI.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainUI.o moc_MainUI.cpp

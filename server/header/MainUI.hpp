@@ -43,6 +43,7 @@ public:
   void  setServer(Server &);
 public slots:
   void  showAbout() const;
+  void  updateInfos();
 private:
   void  connectSlots();
   void  initLayouts();
@@ -67,6 +68,7 @@ protected:
   QTextEdit     *_data;
   QTextEdit     *_infos;
   QTextEdit     *_teams;
+  Server        *_server;
   bool          _start;
 };
 

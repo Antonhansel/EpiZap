@@ -2,7 +2,7 @@
 # define SERVER_H_
 
 # include "Network.h"
-# include "Client.h"
+# include "Player.h"
 
 typedef struct 	Server
 {
@@ -16,10 +16,12 @@ typedef struct 	Server
 	int 				nbPlayerCo;
 	int 				maxFd;
 	int 				initialize;
-	char				*msg;
+	int 				n_client;
+	int 				n_malloc;
+	char				msg[256];
 	struct protoent		*pe;
   	struct sockaddr_in	sin;
-  	Client				**clients;
+  	Player				*player;
 	int					(*accept_socket)(struct Server *);
 	void				(*init_fd)(struct Server *, fd_set *);
 	void				(*check_fd)(struct Server *, fd_set *);
@@ -28,8 +30,8 @@ typedef struct 	Server
 # ifdef __cplusplus
 extern "C" {
 # endif
-	char 	*serverInit(Server *);
-	int 	serverLoop(Server *);
+	char 	*server_init(Server *);
+	int 	server_loop(Server *);
 # ifdef __cplusplus
 }
 # endif
