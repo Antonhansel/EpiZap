@@ -1,0 +1,94 @@
+newmtl leonmesh_01_pl0014.tg_pl0014.tga
+Ns 113.725490
+Ka 0.000000 0.000000 0.000000
+Kd 0.512000 0.512000 0.512000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd pl0014.tga
+map_Bump pl0014_n.tga
+
+
+newmtl leonmesh_02_pl0012.tg_pl0012.tga
+Ns 23.529412
+Ka 0.000000 0.000000 0.000000
+Kd 0.512000 0.512000 0.512000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd pl0012.tga
+map_Bump pl0012_n.tga
+
+
+newmtl leonmesh_03_pl0005.tg_pl0005.tga
+Ns 113.725490
+Ka 0.000000 0.000000 0.000000
+Kd 0.512000 0.512000 0.512000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd pl0005.tga
+map_Bump pl0005_n.tga
+
+
+newmtl leonmesh_04_leon_tex._leon_tex.tga
+Ns 13.725490
+Ka 0.000000 0.000000 0.000000
+Kd 0.512000 0.512000 0.512000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd leon_tex.tga
+
+
+newmtl leonmesh_05_pl0004.tg_pl0004.tga
+Ns 33.333333
+Ka 0.000000 0.000000 0.000000
+Kd 0.512000 0.512000 0.512000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd pl0004.tga
+map_Bump pl0004_n.tga
+
+
+newmtl leonmesh_06_pl0011.tg_pl0011.tga
+Ns 113.725490
+Ka 0.000000 0.000000 0.000000
+Kd 0.512000 0.512000 0.512000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd pl0011.tga
+map_Bump pl0011_n.tga
+
+
+newmtl leonmesh_07_leon_kami_leon_kami_n.tga
+Ns 54.901961
+Ka 0.000000 0.000000 0.000000
+Kd 0.512000 0.512000 0.512000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd leon_kami_n.tga
+map_d leon_kami_n.tga
+
+
+newmtl leonmesh_08_pl0013.tg_pl0013.tga
+Ns 47.058824
+Ka 0.000000 0.000000 0.000000
+Kd 0.512000 0.512000 0.512000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd pl0013.tga
+
+
