@@ -24,6 +24,7 @@
 # include <QLineEdit>
 # include <QTextEdit>
 # include <iostream>
+# include "Cube.hpp"
 
 class MainGUI : public QGLWidget
 {
@@ -41,6 +42,7 @@ private:
 	float 		_rotate;
 	QTextEdit *_console;
 	QTimer 	*_timer;
+	CubeView *_view;
 };
 
 #endif /*_MAINGUI_HPP_*/
