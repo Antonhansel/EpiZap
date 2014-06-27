@@ -59,11 +59,12 @@ SOURCES       = srcs/main.cpp \
 		srcs/Box.c \
 		srcs/Incantation.c \
 		srcs/List.c \
-		srcs/Cube.cpp .moc/moc_MainUI.cpp \
+		srcs/GLView.cpp \
+		srcs/Window.cpp .moc/moc_MainUI.cpp \
 		.moc/moc_MainGUI.cpp \
 		.moc/moc_Connexion.cpp \
 		.moc/moc_NetworkC.cpp \
-		.moc/moc_Cube.cpp
+		.moc/moc_GLView.cpp
 OBJECTS       = .obj/main.o \
 		.obj/MainUI.o \
 		.obj/MainGUI.o \
@@ -78,12 +79,13 @@ OBJECTS       = .obj/main.o \
 		.obj/Box.o \
 		.obj/Incantation.o \
 		.obj/List.o \
-		.obj/Cube.o \
+		.obj/GLView.o \
+		.obj/Window.o \
 		.obj/moc_MainUI.o \
 		.obj/moc_MainGUI.o \
 		.obj/moc_Connexion.o \
 		.obj/moc_NetworkC.o \
-		.obj/moc_Cube.o
+		.obj/moc_GLView.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -106,6 +108,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_location.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl.pri \
@@ -113,15 +116,21 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformsupport_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_positioning.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sensors.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkit.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkit_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkitwidgets.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkitwidgets_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri \
@@ -203,6 +212,7 @@ Makefile: gui.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf 
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_location.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl.pri \
@@ -210,15 +220,21 @@ Makefile: gui.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf 
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformsupport_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_positioning.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sensors.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkit.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkit_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkitwidgets.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkitwidgets_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri \
@@ -277,6 +293,7 @@ Makefile: gui.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf 
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_location.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl.pri:
@@ -284,15 +301,21 @@ Makefile: gui.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf 
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformsupport_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_positioning.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sensors.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkit.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkit_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkitwidgets.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkitwidgets_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri:
@@ -335,7 +358,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .obj/gui1.0.0 || mkdir -p .obj/gui1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .obj/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/MainGUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/Box.h header/Incantation.h header/List.h header/Cube.hpp .obj/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/MainGUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/Box.c srcs/Incantation.c srcs/List.c srcs/Cube.cpp .obj/gui1.0.0/ && (cd `dirname .obj/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .obj/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .obj/gui1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .obj/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/MainGUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/Box.h header/Incantation.h header/List.h header/GLView.hpp header/Window.hpp .obj/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/MainGUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/Box.c srcs/Incantation.c srcs/List.c srcs/GLView.cpp srcs/Window.cpp .obj/gui1.0.0/ && (cd `dirname .obj/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .obj/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .obj/gui1.0.0
 
 
 clean:compiler_clean 
@@ -358,9 +381,9 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: .moc/moc_MainUI.cpp .moc/moc_MainGUI.cpp .moc/moc_Connexion.cpp .moc/moc_NetworkC.cpp .moc/moc_Cube.cpp
+compiler_moc_header_make_all: .moc/moc_MainUI.cpp .moc/moc_MainGUI.cpp .moc/moc_Connexion.cpp .moc/moc_NetworkC.cpp .moc/moc_GLView.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) .moc/moc_MainUI.cpp .moc/moc_MainGUI.cpp .moc/moc_Connexion.cpp .moc/moc_NetworkC.cpp .moc/moc_Cube.cpp
+	-$(DEL_FILE) .moc/moc_MainUI.cpp .moc/moc_MainGUI.cpp .moc/moc_Connexion.cpp .moc/moc_NetworkC.cpp .moc/moc_GLView.cpp
 .moc/moc_MainUI.cpp: /usr/include/qt5/QtCore/QtCore \
 		/usr/include/qt5/QtCore/QtCoreDepends \
 		/usr/include/qt5/QtCore/qabstractanimation.h \
@@ -630,6 +653,13 @@ compiler_moc_header_clean:
 		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QTime \
 		/usr/include/qt5/QtCore/QTimer \
+		/usr/include/qt5/QtGui/QWindow \
+		/usr/include/qt5/QtGui/qwindow.h \
+		/usr/include/qt5/QtCore/QEvent \
+		/usr/include/qt5/QtCore/QMargins \
+		/usr/include/qt5/QtCore/QRect \
+		/usr/include/qt5/QtGui/qsurface.h \
+		/usr/include/qt5/QtGui/qsurfaceformat.h \
 		header/Connexion.hpp \
 		/usr/include/qt5/QtWidgets/QDesktopWidget \
 		header/Server.h \
@@ -661,8 +691,6 @@ compiler_moc_header_clean:
 		/usr/include/qt5/QtGui/qgenericplugin.h \
 		/usr/include/qt5/QtGui/qgenericpluginfactory.h \
 		/usr/include/qt5/QtGui/qoffscreensurface.h \
-		/usr/include/qt5/QtGui/qsurface.h \
-		/usr/include/qt5/QtGui/qsurfaceformat.h \
 		/usr/include/qt5/QtGui/qopenglcontext.h \
 		/usr/include/qt5/QtGui/QSurfaceFormat \
 		/usr/include/qt5/QtGui/qopengl.h \
@@ -672,15 +700,11 @@ compiler_moc_header_clean:
 		/usr/include/qt5/QtGui/qopenglversionfunctions.h \
 		/usr/include/qt5/QtGui/qscreen.h \
 		/usr/include/qt5/QtCore/QList \
-		/usr/include/qt5/QtCore/QRect \
 		/usr/include/qt5/QtCore/QSize \
 		/usr/include/qt5/QtCore/QSizeF \
 		/usr/include/qt5/QtGui/QTransform \
 		/usr/include/qt5/QtGui/qsessionmanager.h \
 		/usr/include/qt5/QtGui/qstylehints.h \
-		/usr/include/qt5/QtGui/qwindow.h \
-		/usr/include/qt5/QtCore/QEvent \
-		/usr/include/qt5/QtCore/QMargins \
 		/usr/include/qt5/QtGui/qgenericmatrix.h \
 		/usr/include/qt5/QtGui/qmatrix4x4.h \
 		/usr/include/qt5/QtGui/qvector3d.h \
@@ -837,10 +861,7 @@ compiler_moc_header_clean:
 		/usr/include/qt5/QtOpenGL/qglshaderprogram.h \
 		/usr/include/qt5/QtOpenGL/qtopenglversion.h \
 		/usr/include/qt5/QtOpenGL/QGLWidget \
-		header/Cube.hpp \
-		/usr/include/qt5/QtWidgets/QWidget \
-		/usr/include/qt5/Qt3D/QGLView \
-		/usr/include/qt5/Qt3D/qglview.h \
+		/usr/include/qt5/Qt3D/QGLPainter \
 		/usr/include/qt5/Qt3D/qglpainter.h \
 		/usr/include/qt5/QtGui/QOpenGLFunctions \
 		/usr/include/qt5/Qt3D/qglnamespace.h \
@@ -868,7 +889,10 @@ compiler_moc_header_clean:
 		/usr/include/qt5/Qt3D/qvector4darray.h \
 		/usr/include/qt5/QtGui/QVector2D \
 		/usr/include/qt5/QtGui/QVector4D \
-		/usr/include/qt5/QtGui/QWindow \
+		header/GLView.hpp \
+		/usr/include/qt5/QtWidgets/QWidget \
+		/usr/include/qt5/Qt3D/QGLView \
+		/usr/include/qt5/Qt3D/qglview.h \
 		/usr/include/qt5/Qt3D/QGLSceneNode \
 		/usr/include/qt5/Qt3D/qglscenenode.h \
 		/usr/include/qt5/Qt3D/qgeometrydata.h \
@@ -878,7 +902,6 @@ compiler_moc_header_clean:
 		/usr/include/qt5/Qt3D/QGLBuilder \
 		/usr/include/qt5/Qt3D/qglbuilder.h \
 		/usr/include/qt5/QtCore/QVector \
-		/usr/include/qt5/Qt3D/QGLPainter \
 		/usr/include/qt5/Qt3D/QGLTexture2D \
 		/usr/include/qt5/Qt3D/QGLCube \
 		/usr/include/qt5/Qt3D/qglcube.h \
@@ -1353,10 +1376,7 @@ compiler_moc_header_clean:
 		/usr/include/qt5/QtWidgets/QMessageBox \
 		/usr/include/qt5/QtWidgets/QLineEdit \
 		/usr/include/qt5/QtWidgets/QTextEdit \
-		header/Cube.hpp \
-		/usr/include/qt5/QtWidgets/QWidget \
-		/usr/include/qt5/Qt3D/QGLView \
-		/usr/include/qt5/Qt3D/qglview.h \
+		/usr/include/qt5/Qt3D/QGLPainter \
 		/usr/include/qt5/Qt3D/qglpainter.h \
 		/usr/include/qt5/QtGui/QOpenGLFunctions \
 		/usr/include/qt5/Qt3D/qglnamespace.h \
@@ -1385,6 +1405,10 @@ compiler_moc_header_clean:
 		/usr/include/qt5/QtGui/QVector2D \
 		/usr/include/qt5/QtGui/QVector4D \
 		/usr/include/qt5/QtGui/QWindow \
+		header/GLView.hpp \
+		/usr/include/qt5/QtWidgets/QWidget \
+		/usr/include/qt5/Qt3D/QGLView \
+		/usr/include/qt5/Qt3D/qglview.h \
 		/usr/include/qt5/Qt3D/QGLSceneNode \
 		/usr/include/qt5/Qt3D/qglscenenode.h \
 		/usr/include/qt5/Qt3D/qgeometrydata.h \
@@ -1394,7 +1418,6 @@ compiler_moc_header_clean:
 		/usr/include/qt5/Qt3D/QGLBuilder \
 		/usr/include/qt5/Qt3D/qglbuilder.h \
 		/usr/include/qt5/QtCore/QVector \
-		/usr/include/qt5/Qt3D/QGLPainter \
 		/usr/include/qt5/Qt3D/QGLTexture2D \
 		/usr/include/qt5/Qt3D/QGLCube \
 		/usr/include/qt5/Qt3D/qglcube.h \
@@ -1700,7 +1723,7 @@ compiler_moc_header_clean:
 		header/NetworkC.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include header/NetworkC.hpp -o .moc/moc_NetworkC.cpp
 
-.moc/moc_Cube.cpp: /usr/include/qt5/QtWidgets/QWidget \
+.moc/moc_GLView.cpp: /usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtWidgets/qwidget.h \
 		/usr/include/qt5/QtGui/qwindowdefs.h \
 		/usr/include/qt5/QtCore/qglobal.h \
@@ -1881,8 +1904,8 @@ compiler_moc_header_clean:
 		/usr/include/qt5/Qt3D/QGLTexture2D \
 		/usr/include/qt5/Qt3D/QGLCube \
 		/usr/include/qt5/Qt3D/qglcube.h \
-		header/Cube.hpp
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include header/Cube.hpp -o .moc/moc_Cube.cpp
+		header/GLView.hpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include header/GLView.hpp -o .moc/moc_GLView.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -2168,6 +2191,13 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QTime \
 		/usr/include/qt5/QtCore/QTimer \
+		/usr/include/qt5/QtGui/QWindow \
+		/usr/include/qt5/QtGui/qwindow.h \
+		/usr/include/qt5/QtCore/QEvent \
+		/usr/include/qt5/QtCore/QMargins \
+		/usr/include/qt5/QtCore/QRect \
+		/usr/include/qt5/QtGui/qsurface.h \
+		/usr/include/qt5/QtGui/qsurfaceformat.h \
 		header/Connexion.hpp \
 		/usr/include/qt5/QtWidgets/QDesktopWidget \
 		header/Server.h \
@@ -2199,8 +2229,6 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/QtGui/qgenericplugin.h \
 		/usr/include/qt5/QtGui/qgenericpluginfactory.h \
 		/usr/include/qt5/QtGui/qoffscreensurface.h \
-		/usr/include/qt5/QtGui/qsurface.h \
-		/usr/include/qt5/QtGui/qsurfaceformat.h \
 		/usr/include/qt5/QtGui/qopenglcontext.h \
 		/usr/include/qt5/QtGui/QSurfaceFormat \
 		/usr/include/qt5/QtGui/qopengl.h \
@@ -2210,15 +2238,11 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/QtGui/qopenglversionfunctions.h \
 		/usr/include/qt5/QtGui/qscreen.h \
 		/usr/include/qt5/QtCore/QList \
-		/usr/include/qt5/QtCore/QRect \
 		/usr/include/qt5/QtCore/QSize \
 		/usr/include/qt5/QtCore/QSizeF \
 		/usr/include/qt5/QtGui/QTransform \
 		/usr/include/qt5/QtGui/qsessionmanager.h \
 		/usr/include/qt5/QtGui/qstylehints.h \
-		/usr/include/qt5/QtGui/qwindow.h \
-		/usr/include/qt5/QtCore/QEvent \
-		/usr/include/qt5/QtCore/QMargins \
 		/usr/include/qt5/QtGui/qgenericmatrix.h \
 		/usr/include/qt5/QtGui/qmatrix4x4.h \
 		/usr/include/qt5/QtGui/qvector3d.h \
@@ -2375,10 +2399,7 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/QtOpenGL/qglshaderprogram.h \
 		/usr/include/qt5/QtOpenGL/qtopenglversion.h \
 		/usr/include/qt5/QtOpenGL/QGLWidget \
-		header/Cube.hpp \
-		/usr/include/qt5/QtWidgets/QWidget \
-		/usr/include/qt5/Qt3D/QGLView \
-		/usr/include/qt5/Qt3D/qglview.h \
+		/usr/include/qt5/Qt3D/QGLPainter \
 		/usr/include/qt5/Qt3D/qglpainter.h \
 		/usr/include/qt5/QtGui/QOpenGLFunctions \
 		/usr/include/qt5/Qt3D/qglnamespace.h \
@@ -2406,7 +2427,10 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/Qt3D/qvector4darray.h \
 		/usr/include/qt5/QtGui/QVector2D \
 		/usr/include/qt5/QtGui/QVector4D \
-		/usr/include/qt5/QtGui/QWindow \
+		header/GLView.hpp \
+		/usr/include/qt5/QtWidgets/QWidget \
+		/usr/include/qt5/Qt3D/QGLView \
+		/usr/include/qt5/Qt3D/qglview.h \
 		/usr/include/qt5/Qt3D/QGLSceneNode \
 		/usr/include/qt5/Qt3D/qglscenenode.h \
 		/usr/include/qt5/Qt3D/qgeometrydata.h \
@@ -2416,7 +2440,6 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/Qt3D/QGLBuilder \
 		/usr/include/qt5/Qt3D/qglbuilder.h \
 		/usr/include/qt5/QtCore/QVector \
-		/usr/include/qt5/Qt3D/QGLPainter \
 		/usr/include/qt5/Qt3D/QGLTexture2D \
 		/usr/include/qt5/Qt3D/QGLCube \
 		/usr/include/qt5/Qt3D/qglcube.h \
@@ -2695,6 +2718,13 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QTime \
 		/usr/include/qt5/QtCore/QTimer \
+		/usr/include/qt5/QtGui/QWindow \
+		/usr/include/qt5/QtGui/qwindow.h \
+		/usr/include/qt5/QtCore/QEvent \
+		/usr/include/qt5/QtCore/QMargins \
+		/usr/include/qt5/QtCore/QRect \
+		/usr/include/qt5/QtGui/qsurface.h \
+		/usr/include/qt5/QtGui/qsurfaceformat.h \
 		header/Connexion.hpp \
 		/usr/include/qt5/QtWidgets/QDesktopWidget \
 		header/Server.h \
@@ -2726,8 +2756,6 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/QtGui/qgenericplugin.h \
 		/usr/include/qt5/QtGui/qgenericpluginfactory.h \
 		/usr/include/qt5/QtGui/qoffscreensurface.h \
-		/usr/include/qt5/QtGui/qsurface.h \
-		/usr/include/qt5/QtGui/qsurfaceformat.h \
 		/usr/include/qt5/QtGui/qopenglcontext.h \
 		/usr/include/qt5/QtGui/QSurfaceFormat \
 		/usr/include/qt5/QtGui/qopengl.h \
@@ -2737,15 +2765,11 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/QtGui/qopenglversionfunctions.h \
 		/usr/include/qt5/QtGui/qscreen.h \
 		/usr/include/qt5/QtCore/QList \
-		/usr/include/qt5/QtCore/QRect \
 		/usr/include/qt5/QtCore/QSize \
 		/usr/include/qt5/QtCore/QSizeF \
 		/usr/include/qt5/QtGui/QTransform \
 		/usr/include/qt5/QtGui/qsessionmanager.h \
 		/usr/include/qt5/QtGui/qstylehints.h \
-		/usr/include/qt5/QtGui/qwindow.h \
-		/usr/include/qt5/QtCore/QEvent \
-		/usr/include/qt5/QtCore/QMargins \
 		/usr/include/qt5/QtGui/qgenericmatrix.h \
 		/usr/include/qt5/QtGui/qmatrix4x4.h \
 		/usr/include/qt5/QtGui/qvector3d.h \
@@ -2902,10 +2926,7 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/QtOpenGL/qglshaderprogram.h \
 		/usr/include/qt5/QtOpenGL/qtopenglversion.h \
 		/usr/include/qt5/QtOpenGL/QGLWidget \
-		header/Cube.hpp \
-		/usr/include/qt5/QtWidgets/QWidget \
-		/usr/include/qt5/Qt3D/QGLView \
-		/usr/include/qt5/Qt3D/qglview.h \
+		/usr/include/qt5/Qt3D/QGLPainter \
 		/usr/include/qt5/Qt3D/qglpainter.h \
 		/usr/include/qt5/QtGui/QOpenGLFunctions \
 		/usr/include/qt5/Qt3D/qglnamespace.h \
@@ -2933,7 +2954,10 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/Qt3D/qvector4darray.h \
 		/usr/include/qt5/QtGui/QVector2D \
 		/usr/include/qt5/QtGui/QVector4D \
-		/usr/include/qt5/QtGui/QWindow \
+		header/GLView.hpp \
+		/usr/include/qt5/QtWidgets/QWidget \
+		/usr/include/qt5/Qt3D/QGLView \
+		/usr/include/qt5/Qt3D/qglview.h \
 		/usr/include/qt5/Qt3D/QGLSceneNode \
 		/usr/include/qt5/Qt3D/qglscenenode.h \
 		/usr/include/qt5/Qt3D/qgeometrydata.h \
@@ -2943,7 +2967,6 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/Qt3D/QGLBuilder \
 		/usr/include/qt5/Qt3D/qglbuilder.h \
 		/usr/include/qt5/QtCore/QVector \
-		/usr/include/qt5/Qt3D/QGLPainter \
 		/usr/include/qt5/Qt3D/QGLTexture2D \
 		/usr/include/qt5/Qt3D/QGLCube \
 		/usr/include/qt5/Qt3D/qglcube.h \
@@ -3418,10 +3441,7 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/QtWidgets/QMessageBox \
 		/usr/include/qt5/QtWidgets/QLineEdit \
 		/usr/include/qt5/QtWidgets/QTextEdit \
-		header/Cube.hpp \
-		/usr/include/qt5/QtWidgets/QWidget \
-		/usr/include/qt5/Qt3D/QGLView \
-		/usr/include/qt5/Qt3D/qglview.h \
+		/usr/include/qt5/Qt3D/QGLPainter \
 		/usr/include/qt5/Qt3D/qglpainter.h \
 		/usr/include/qt5/QtGui/QOpenGLFunctions \
 		/usr/include/qt5/Qt3D/qglnamespace.h \
@@ -3450,6 +3470,10 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/QtGui/QVector2D \
 		/usr/include/qt5/QtGui/QVector4D \
 		/usr/include/qt5/QtGui/QWindow \
+		header/GLView.hpp \
+		/usr/include/qt5/QtWidgets/QWidget \
+		/usr/include/qt5/Qt3D/QGLView \
+		/usr/include/qt5/Qt3D/qglview.h \
 		/usr/include/qt5/Qt3D/QGLSceneNode \
 		/usr/include/qt5/Qt3D/qglscenenode.h \
 		/usr/include/qt5/Qt3D/qgeometrydata.h \
@@ -3459,7 +3483,6 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/Qt3D/QGLBuilder \
 		/usr/include/qt5/Qt3D/qglbuilder.h \
 		/usr/include/qt5/QtCore/QVector \
-		/usr/include/qt5/Qt3D/QGLPainter \
 		/usr/include/qt5/Qt3D/QGLTexture2D \
 		/usr/include/qt5/Qt3D/QGLCube \
 		/usr/include/qt5/Qt3D/qglcube.h
@@ -3741,6 +3764,13 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/QtGui/qpainter.h \
 		/usr/include/qt5/QtGui/QDesktopServices \
 		/usr/include/qt5/QtGui/qdesktopservices.h \
+		/usr/include/qt5/QtGui/QWindow \
+		/usr/include/qt5/QtGui/qwindow.h \
+		/usr/include/qt5/QtCore/QEvent \
+		/usr/include/qt5/QtCore/QMargins \
+		/usr/include/qt5/QtCore/QRect \
+		/usr/include/qt5/QtGui/qsurface.h \
+		/usr/include/qt5/QtGui/qsurfaceformat.h \
 		header/MainGUI.hpp \
 		/usr/include/qt5/QtOpenGL/QtOpenGL \
 		/usr/include/qt5/QtOpenGL/QtOpenGLDepends \
@@ -3766,8 +3796,6 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/QtGui/qgenericplugin.h \
 		/usr/include/qt5/QtGui/qgenericpluginfactory.h \
 		/usr/include/qt5/QtGui/qoffscreensurface.h \
-		/usr/include/qt5/QtGui/qsurface.h \
-		/usr/include/qt5/QtGui/qsurfaceformat.h \
 		/usr/include/qt5/QtGui/qopenglcontext.h \
 		/usr/include/qt5/QtGui/QSurfaceFormat \
 		/usr/include/qt5/QtGui/qopengl.h \
@@ -3777,15 +3805,11 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/QtGui/qopenglversionfunctions.h \
 		/usr/include/qt5/QtGui/qscreen.h \
 		/usr/include/qt5/QtCore/QList \
-		/usr/include/qt5/QtCore/QRect \
 		/usr/include/qt5/QtCore/QSize \
 		/usr/include/qt5/QtCore/QSizeF \
 		/usr/include/qt5/QtGui/QTransform \
 		/usr/include/qt5/QtGui/qsessionmanager.h \
 		/usr/include/qt5/QtGui/qstylehints.h \
-		/usr/include/qt5/QtGui/qwindow.h \
-		/usr/include/qt5/QtCore/QEvent \
-		/usr/include/qt5/QtCore/QMargins \
 		/usr/include/qt5/QtGui/qgenericmatrix.h \
 		/usr/include/qt5/QtGui/qmatrix4x4.h \
 		/usr/include/qt5/QtGui/qvector3d.h \
@@ -3942,10 +3966,7 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/QtOpenGL/qglshaderprogram.h \
 		/usr/include/qt5/QtOpenGL/qtopenglversion.h \
 		/usr/include/qt5/QtOpenGL/QGLWidget \
-		header/Cube.hpp \
-		/usr/include/qt5/QtWidgets/QWidget \
-		/usr/include/qt5/Qt3D/QGLView \
-		/usr/include/qt5/Qt3D/qglview.h \
+		/usr/include/qt5/Qt3D/QGLPainter \
 		/usr/include/qt5/Qt3D/qglpainter.h \
 		/usr/include/qt5/QtGui/QOpenGLFunctions \
 		/usr/include/qt5/Qt3D/qglnamespace.h \
@@ -3973,7 +3994,10 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/Qt3D/qvector4darray.h \
 		/usr/include/qt5/QtGui/QVector2D \
 		/usr/include/qt5/QtGui/QVector4D \
-		/usr/include/qt5/QtGui/QWindow \
+		header/GLView.hpp \
+		/usr/include/qt5/QtWidgets/QWidget \
+		/usr/include/qt5/Qt3D/QGLView \
+		/usr/include/qt5/Qt3D/qglview.h \
 		/usr/include/qt5/Qt3D/QGLSceneNode \
 		/usr/include/qt5/Qt3D/qglscenenode.h \
 		/usr/include/qt5/Qt3D/qgeometrydata.h \
@@ -3983,7 +4007,6 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/Qt3D/QGLBuilder \
 		/usr/include/qt5/Qt3D/qglbuilder.h \
 		/usr/include/qt5/QtCore/QVector \
-		/usr/include/qt5/Qt3D/QGLPainter \
 		/usr/include/qt5/Qt3D/QGLTexture2D \
 		/usr/include/qt5/Qt3D/QGLCube \
 		/usr/include/qt5/Qt3D/qglcube.h \
@@ -4163,7 +4186,7 @@ compiler_clean: compiler_moc_header_clean
 		header/Inventory.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/List.o srcs/List.c
 
-.obj/Cube.o: srcs/Cube.cpp header/Cube.hpp \
+.obj/GLView.o: srcs/GLView.cpp header/GLView.hpp \
 		/usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtWidgets/qwidget.h \
 		/usr/include/qt5/QtGui/qwindowdefs.h \
@@ -4345,7 +4368,192 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/Qt3D/QGLTexture2D \
 		/usr/include/qt5/Qt3D/QGLCube \
 		/usr/include/qt5/Qt3D/qglcube.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/Cube.o srcs/Cube.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/GLView.o srcs/GLView.cpp
+
+.obj/Window.o: srcs/Window.cpp header/Window.hpp \
+		/usr/include/qt5/QtGui/QWindow \
+		/usr/include/qt5/QtGui/qwindow.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/QEvent \
+		/usr/include/qt5/QtCore/QMargins \
+		/usr/include/qt5/QtCore/qmargins.h \
+		/usr/include/qt5/QtCore/qrect.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/QRect \
+		/usr/include/qt5/QtGui/qsurface.h \
+		/usr/include/qt5/QtGui/qsurfaceformat.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtGui/qwindowdefs.h \
+		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtGui/qicon.h \
+		/usr/include/qt5/QtGui/qpixmap.h \
+		/usr/include/qt5/QtGui/qpaintdevice.h \
+		/usr/include/qt5/QtGui/qcolor.h \
+		/usr/include/qt5/QtGui/qrgb.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtGui/qimage.h \
+		/usr/include/qt5/QtGui/qtransform.h \
+		/usr/include/qt5/QtGui/qmatrix.h \
+		/usr/include/qt5/QtGui/qpolygon.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtGui/qregion.h \
+		/usr/include/qt5/QtCore/qline.h \
+		/usr/include/qt5/QtGui/qpainterpath.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		header/GLView.hpp \
+		/usr/include/qt5/QtWidgets/QWidget \
+		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtGui/qpalette.h \
+		/usr/include/qt5/QtGui/qbrush.h \
+		/usr/include/qt5/QtGui/qfont.h \
+		/usr/include/qt5/QtGui/qfontmetrics.h \
+		/usr/include/qt5/QtGui/qfontinfo.h \
+		/usr/include/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/qt5/QtGui/qkeysequence.h \
+		/usr/include/qt5/QtGui/qevent.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtCore/qurl.h \
+		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtGui/qvector2d.h \
+		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/Qt3D/QGLView \
+		/usr/include/qt5/Qt3D/qglview.h \
+		/usr/include/qt5/Qt3D/qglpainter.h \
+		/usr/include/qt5/QtGui/QOpenGLFunctions \
+		/usr/include/qt5/QtGui/qopenglfunctions.h \
+		/usr/include/qt5/QtGui/qopengl.h \
+		/usr/include/qt5/QtCore/qt_windows.h \
+		/usr/include/qt5/QtGui/qopengles2ext.h \
+		/usr/include/qt5/QtGui/qopenglext.h \
+		/usr/include/qt5/QtGui/qopenglcontext.h \
+		/usr/include/qt5/QtCore/QScopedPointer \
+		/usr/include/qt5/QtGui/QSurfaceFormat \
+		/usr/include/qt5/QtGui/qopenglversionfunctions.h \
+		/usr/include/qt5/Qt3D/qglnamespace.h \
+		/usr/include/qt5/Qt3D/qt3dglobal.h \
+		/usr/include/qt5/Qt3D/qbox3d.h \
+		/usr/include/qt5/Qt3D/qray3d.h \
+		/usr/include/qt5/QtGui/qvector3d.h \
+		/usr/include/qt5/QtGui/qmatrix4x4.h \
+		/usr/include/qt5/QtGui/qvector4d.h \
+		/usr/include/qt5/QtGui/qquaternion.h \
+		/usr/include/qt5/QtGui/qgenericmatrix.h \
+		/usr/include/qt5/Qt3D/qglvertexbundle.h \
+		/usr/include/qt5/Qt3D/qcustomdataarray.h \
+		/usr/include/qt5/Qt3D/qarray.h \
+		/usr/include/qt5/Qt3D/qcolor4ub.h \
+		/usr/include/qt5/Qt3D/qglattributevalue.h \
+		/usr/include/qt5/Qt3D/qglattributedescription.h \
+		/usr/include/qt5/QtGui/QOpenGLBuffer \
+		/usr/include/qt5/QtGui/qopenglbuffer.h \
+		/usr/include/qt5/Qt3D/qglattributeset.h \
+		/usr/include/qt5/QtCore/QList \
+		/usr/include/qt5/Qt3D/qglindexbuffer.h \
+		/usr/include/qt5/Qt3D/qgllightmodel.h \
+		/usr/include/qt5/Qt3D/qgllightparameters.h \
+		/usr/include/qt5/Qt3D/qglmaterial.h \
+		/usr/include/qt5/Qt3D/qglabstractmaterial.h \
+		/usr/include/qt5/Qt3D/qglabstractsurface.h \
+		/usr/include/qt5/Qt3D/qmatrix4x4stack.h \
+		/usr/include/qt5/Qt3D/qglcamera.h \
+		/usr/include/qt5/Qt3D/qvector2darray.h \
+		/usr/include/qt5/Qt3D/qvector3darray.h \
+		/usr/include/qt5/Qt3D/qvector4darray.h \
+		/usr/include/qt5/QtGui/QVector2D \
+		/usr/include/qt5/QtGui/QVector3D \
+		/usr/include/qt5/QtGui/QVector4D \
+		/usr/include/qt5/QtGui/QMatrix4x4 \
+		/usr/include/qt5/QtGui/QPainter \
+		/usr/include/qt5/QtGui/qpainter.h \
+		/usr/include/qt5/QtGui/qtextoption.h \
+		/usr/include/qt5/QtGui/qpen.h \
+		/usr/include/qt5/Qt3D/QGLSceneNode \
+		/usr/include/qt5/Qt3D/qglscenenode.h \
+		/usr/include/qt5/Qt3D/qgeometrydata.h \
+		/usr/include/qt5/Qt3D/qglmaterialcollection.h \
+		/usr/include/qt5/Qt3D/qgltexture2d.h \
+		/usr/include/qt5/QtCore/QPoint \
+		/usr/include/qt5/Qt3D/QGLBuilder \
+		/usr/include/qt5/Qt3D/qglbuilder.h \
+		/usr/include/qt5/QtCore/QVector \
+		/usr/include/qt5/Qt3D/QGLPainter \
+		/usr/include/qt5/Qt3D/QGLTexture2D \
+		/usr/include/qt5/Qt3D/QGLCube \
+		/usr/include/qt5/Qt3D/qglcube.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/Window.o srcs/Window.cpp
 
 .obj/moc_MainUI.o: .moc/moc_MainUI.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/moc_MainUI.o .moc/moc_MainUI.cpp
@@ -4359,8 +4567,8 @@ compiler_clean: compiler_moc_header_clean
 .obj/moc_NetworkC.o: .moc/moc_NetworkC.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/moc_NetworkC.o .moc/moc_NetworkC.cpp
 
-.obj/moc_Cube.o: .moc/moc_Cube.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/moc_Cube.o .moc/moc_Cube.cpp
+.obj/moc_GLView.o: .moc/moc_GLView.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/moc_GLView.o .moc/moc_GLView.cpp
 
 ####### Install
 

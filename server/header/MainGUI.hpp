@@ -24,25 +24,24 @@
 # include <QLineEdit>
 # include <QTextEdit>
 # include <iostream>
-# include "Cube.hpp"
+# include <QGLPainter>
+# include <QWindow>
+# include "GLView.hpp"
 
-class MainGUI : public QGLWidget
+class MainGUI : public QWidget
 {
 	Q_OBJECT
 public:
 	MainGUI(QTextEdit *);
 	~MainGUI();
-	void initializeGL();
-	void resizeGL(int, int);
-	void  paintGL();
 	void 	logOutput(QString);
 public slots:
-	void 	updateGL();
 private:
-	float 		_rotate;
-	QTextEdit *_console;
-	QTimer 	*_timer;
-	CubeView *_view;
+	QTextEdit 	*_console;
+	GLView 		*_view;
+	QWindow 	*_window;
+ 	// QTimer 		*_timer;
+ 	// QGLPainter	*_painter;
 };
 
 #endif /*_MAINGUI_HPP_*/

@@ -9,7 +9,7 @@ void	MainUI::applyLayouts()
   _topLayout->addLayout(_rightLayout, 0, 1);
   _mainLayout->addLayout(_topLayout, 0, 0);
   _mainLayout->addLayout(_bottomLayout, 1, 0);
-  _rightLayout->addWidget(_mainGUI, 0, 0);
+  _rightLayout->addWidget(_testWidget, 0, 0);
 }
 
 void MainUI::connectSlots(){}
@@ -58,7 +58,9 @@ void	MainUI::initUi()
   _teams->setText("DISPLAY TEAMS");
   _teams->setReadOnly(true);
   _teams->setFixedWidth(WIDTH/6);
-  _mainGUI = new MainGUI(_console);
+  //_mainGUI = new MainGUI(_console);
+  _window = new Window();
+  _testWidget = QWidget::createWindowContainer(_window);
 }
 
 void            MainUI::setServer(Server &s)

@@ -30,6 +30,8 @@
 # include <QTimer>
 # include <regex>
 # include <stdlib.h>
+# include <QWindow>
+# include <Window.hpp>
 # include "Connexion.hpp"
 # include "MainGUI.hpp"
 # include "NetworkC.hpp"
@@ -69,7 +71,9 @@ protected:
   QTextEdit     *_infos;
   QTextEdit     *_teams;
   Server        *_server;
+  QWindow   *_window;
   bool          _start;
+  QWidget       *_testWidget;
 };
 
 #endif /* MAIN_UI_HPP_ */
