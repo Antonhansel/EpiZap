@@ -1,7 +1,7 @@
-#ifndef INVENTORY_H_
-# define INVENTORY_H_
+#ifndef 		INVENTORY_H_
+# define 		INVENTORY_H_
 
-# include "string.h"
+# include 		"string.h"
 
 typedef struct 	Inventory
 {
@@ -46,4 +46,4 @@ int 			destroy_inventory(Inventory *);
 
 //void	init_inventory_next(Inventory *);
 
-#endif /* INVENTORY_H_ */
+#endif 			/* INVENTORY_H_ */

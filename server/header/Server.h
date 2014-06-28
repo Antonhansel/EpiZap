@@ -1,10 +1,10 @@
-#ifndef SERVER_H_
-# define SERVER_H_
+#ifndef 				SERVER_H_
+# define 				SERVER_H_
 
-# include "Network.h"
-# include "Player.h"
+# include 				"Network.h"
+# include 				"Player.h"
 
-typedef struct 	Server
+typedef struct 			Server
 {
 	/* data */
 	int 				port;
@@ -22,16 +22,18 @@ typedef struct 	Server
 	struct protoent		*pe;
   	struct sockaddr_in	sin;
   	Player				*player;
+
+  	/* Method */
 	int					(*accept_socket)(struct Server *);
 	void				(*init_fd)(struct Server *, fd_set *);
 	void				(*check_fd)(struct Server *, fd_set *);
-}				Server;
+}						Server;
 
 # ifdef __cplusplus
 extern "C" {
 # endif
-	char 	*server_init(Server *);
-	int 	server_loop(Server *);
+	char 				*server_init(Server *);
+	int 				server_loop(Server *);
 # ifdef __cplusplus
 }
 # endif

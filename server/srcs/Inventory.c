@@ -52,6 +52,7 @@ int					init_inventory(Inventory *this)
 
 int 			destroy_inventory(Inventory *this)
 {
+	(void)this;
 	return (0);
 }
 

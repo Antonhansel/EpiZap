@@ -20,7 +20,7 @@ typedef struct 		Player
 	Inventory 		*(*get_inventory)(struct Player *);
 	void			(*set_inventory)(struct Player *, Inventory *);
 	int				(*get_lvl)(struct Player *);
-	void			(*set_lvl)(struct Player, int);
+	void			(*set_lvl)(struct Player *, int);
 	float			(*get_time)(struct Player *);
 	void			(*set_time)(struct Player *, float);
 	int 			(*get_pos_x)(struct Player *);
@@ -32,4 +32,4 @@ typedef struct 		Player
 int 				init_player(struct Player *, int);
 int 				destroy_player(struct Player *);
 
-#endif /* PLAYER_H_ */
+#endif 				/* PLAYER_H_ */
