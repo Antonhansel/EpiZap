@@ -26,7 +26,6 @@
 # include <iostream>
 # include <QGLPainter>
 # include <QWindow>
-# include "GLView.hpp"
 
 class MainGUI : public QWidget
 {

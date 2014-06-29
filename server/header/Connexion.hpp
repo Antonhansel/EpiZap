@@ -22,7 +22,6 @@
 # include <QString>
 # include <QTime>
 # include <QTimer>
-# include <regex>
 # include <stdlib.h>
 # include "Server.h"
 
