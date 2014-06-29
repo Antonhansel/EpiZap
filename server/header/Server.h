@@ -8,22 +8,26 @@ typedef struct 			Server
 {
 	/* data */
 	int 				port;
+	int					socket;
+	int 				ctime;
+	int 				max_fd;
+
 	int 				width;
 	int 				height;
-	int					socket;
-	int 				nbPlayer;
-	int 				ctime;
-	int 				nbPlayerCo;
-	int 				maxFd;
+	int 				nb_player;
+	int 				nb_player_co;
+
 	int 				initialize;
 	int 				n_client;
 	int 				n_malloc;
 	char				msg[256];
-	struct protoent		*pe;
-  	struct sockaddr_in	sin;
+	
+  	
+
   	Player				*player;
 
   	/* Method */
+	int 				(*loop)(struct Server *);
 	int					(*accept_socket)(struct Server *);
 	void				(*init_fd)(struct Server *, fd_set *);
 	void				(*check_fd)(struct Server *, fd_set *);

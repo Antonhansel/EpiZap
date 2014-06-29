@@ -23,7 +23,7 @@ int					init_player(Player *this, int fd)
 	this->time = 0;
 	this->lvl = 0;
 	if (!(this->inventory = xmalloc(sizeof(Inventory))))
-		return (1);
+		return (-1);
 	init_inventory(this->inventory);
 	init_func_ptr(this);
 	return (0);
