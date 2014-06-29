@@ -56,7 +56,6 @@ SOURCES       = srcs/main.cpp \
 		srcs/Inventory.c \
 		srcs/Team.c \
 		srcs/Map.c \
-		srcs/Box.c \
 		srcs/Incantation.c \
 		srcs/List.c \
 		srcs/GLView.cpp \
@@ -78,7 +77,6 @@ OBJECTS       = .obj/main.o \
 		.obj/Inventory.o \
 		.obj/Team.o \
 		.obj/Map.o \
-		.obj/Box.o \
 		.obj/Incantation.o \
 		.obj/List.o \
 		.obj/GLView.o \
@@ -383,7 +381,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .obj/gui1.0.0 || mkdir -p .obj/gui1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .obj/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/MainGUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/Box.h header/Incantation.h header/List.h header/GLView.hpp header/Window.hpp header/Square.h header/xfunction.h .obj/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/MainGUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/Box.c srcs/Incantation.c srcs/List.c srcs/GLView.cpp srcs/Window.cpp srcs/Square.c srcs/xmalloc.c .obj/gui1.0.0/ && (cd `dirname .obj/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .obj/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .obj/gui1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .obj/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/MainGUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/Incantation.h header/List.h header/GLView.hpp header/Window.hpp header/Square.h header/xfunction.h .obj/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/MainGUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/Incantation.c srcs/List.c srcs/GLView.cpp srcs/Window.cpp srcs/Square.c srcs/xmalloc.c .obj/gui1.0.0/ && (cd `dirname .obj/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .obj/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .obj/gui1.0.0
 
 
 clean:compiler_clean 
@@ -4205,13 +4203,9 @@ compiler_clean: compiler_moc_header_clean
 .obj/Map.o: srcs/Map.c header/Map.h \
 		header/Square.h \
 		header/Inventory.h \
+		header/Player.h \
 		header/xfunction.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/Map.o srcs/Map.c
-
-.obj/Box.o: srcs/Box.c header/Box.h \
-		header/Inventory.h \
-		header/Player.h
-	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/Box.o srcs/Box.c
 
 .obj/Incantation.o: srcs/Incantation.c header/Incantation.h \
 		header/Inventory.h
@@ -4600,7 +4594,8 @@ compiler_clean: compiler_moc_header_clean
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/Window.o srcs/Window.cpp
 
 .obj/Square.o: srcs/Square.c header/Square.h \
-		header/Inventory.h
+		header/Inventory.h \
+		header/Player.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/Square.o srcs/Square.c
 
 .obj/xmalloc.o: srcs/xmalloc.c 

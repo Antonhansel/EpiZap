@@ -125,7 +125,7 @@ bool  Connexion::isConnected()
   _server.port = _port->text().toInt();
   _server.width = _width->text().toInt();
   _server.height = _height->text().toInt();
-  _server.nbPlayer = _client->text().toInt();
+  _server.nb_player = _client->text().toInt();
   _server.ctime = _delay->text().toInt();
   _server.initialize = FALSE;
   res = server_init(&_server);
