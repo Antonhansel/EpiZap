@@ -20,9 +20,13 @@ void	Graphic::initSDL()
 
 bool 	Graphic::update()
 {
+	int key;
+
 	while (SDL_PollEvent(&_event))
 	{
-
+		key = _event.key.keysym.sym;
+		if (key == SDLK_ESCAPE || _event.type == SDL_QUIT)
+			return (false);
 	}
 	draw();
 	return (true);

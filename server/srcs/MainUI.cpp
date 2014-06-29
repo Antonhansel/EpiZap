@@ -102,7 +102,11 @@ void  MainUI::updateGraphic()
     _continue = true;
   }
   if (_continue)
+  {
     _continue = _graphic->update();
+    if (!_continue)
+      SDL_Quit();
+  }
 }
 
 void  MainUI::setConsoleText(const QString &data)
