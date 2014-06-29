@@ -97,8 +97,12 @@ MainUI::MainUI() : QWidget()
 void  MainUI::updateGraphic()
 {
   if (!_graphic)
-    _graphic = new Graphic(100, 100);
-  _graphic->update();
+  {
+    _graphic = new Graphic(100, 100, this);
+    _continue = true;
+  }
+  if (_continue)
+    _continue = _graphic->update();
 }
 
 void  MainUI::setConsoleText(const QString &data)

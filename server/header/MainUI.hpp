@@ -1,8 +1,8 @@
 #ifndef MAIN_UI_HPP_
 # define MAIN_UI_HPP_
 
-#define WIDTH 700
-#define HEIGHT 700
+#define WIDTH 400
+#define HEIGHT 400
 
 # include <sstream>
 # include <iostream>
@@ -71,6 +71,7 @@ protected:
   Server        *_server;
   bool          _start;
   Graphic       *_graphic;
+  bool          _continue;
 };
 
 #endif /* MAIN_UI_HPP_ */
