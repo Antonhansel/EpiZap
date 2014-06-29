@@ -9,12 +9,12 @@ typedef struct	Square
 {
 	/* Attributes */
 	Inventory	*inventory;
-	Player		*player;
+	// Player		*player;
 
 	/* Methods*/
 	Inventory 	*(*get_inventory)(struct Square *);
 	void		(*set_inventory)(struct Square *, struct Inventory *);
-	Player 		*(*get_player)(struct Square *);
+	// Player 		*(*get_player)(struct Square *);
 }				Square;
 
 int 			init_square(struct Square *, struct Inventory *);

@@ -6,7 +6,7 @@ static void				init_func_ptr(Server *);
 static int				accept_socket(Server *);
 static int 				loop(Server *);
 
-char 					*server_init(Server *this)
+char 					*init_server(Server *this)
 {
 	int 				opt;
 	struct protoent		*pe;
@@ -27,23 +27,31 @@ char 					*server_init(Server *this)
 		return ("<font color=\"Red\">*** ERROR ON BIND ***</font>");
 	if (xlisten(this->socket, 10) == FALSE)
 		return ("<font color=\"Red\">*** ERROR ON LISTEN ***</font>");
+
 	this->initialize = TRUE;
+	
 	this->max_fd = this->socket;
     memset(((void*)(this->msg)), 0, 256);
 	return ("<font color=\"Green\">*** SUCCESSLY INIT ***</font>");
 }
 
-static void			init_func_ptr(Server *this)
+char					*destroy_server(Server *this)
+{
+	(void)this;
+	return ("<font color=\"Green\">*** SUCCESSLY DESTROY ***</font>");
+}
+
+static void				init_func_ptr(Server *this)
 {
 	this->accept_socket = &accept_socket;
 	this->loop = &loop;
 }
 
-static int					accept_socket(Server *s)
+static int				accept_socket(Server *s)
 {
-	struct sockaddr_in  	client_sin; 
-	socklen_t 				len;
-	int 					fd;
+	struct sockaddr_in  client_sin; 
+	socklen_t 			len;
+	int 				fd;
 
 	len = sizeof(client_sin);
 	if ((fd = xaccept(s->socket, &(client_sin), &len)) == FALSE)
@@ -66,13 +74,13 @@ static int					accept_socket(Server *s)
 	return (0);
 }
 
-static int 			loop(Server *this)
+static int 				loop(Server *this)
 {
-	int 			error;
-	int 			result;
-	//int 			resultPrev;
-	fd_set 			readfds;
-	struct timeval	tv;
+	int 				error;
+	int 				result;
+	//int 				resultPrev;
+	fd_set 				readfds;
+	struct timeval		tv;
 
 	tv.tv_usec = 100;
 	tv.tv_sec = 0;
@@ -86,6 +94,7 @@ static int 			loop(Server *this)
 		FD_SET(this->socket, &readfds);
 		if ((result = select(this->max_fd + 1, &readfds, NULL, NULL, &tv)) == -1)
 			return (1);
+		
 		else if (FD_ISSET(this->socket, &readfds))
 			(*this->accept_socket)(this);
 		/*else if (result != resultPrev)

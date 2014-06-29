@@ -13,7 +13,9 @@ typedef struct 		Player
 	int 		 	x;
 	int 			y;
 	Inventory		*inventory;
+
 	int				nbRequest;
+	
 	struct Player 	*next;
 
 	/* Methods */
