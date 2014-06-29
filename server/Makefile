@@ -14,11 +14,11 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_3DQUICK_LIB -DQT_3D_LIB -DQT_QUICK_LIB -DQT_OPENGL_LIB -DQT_QML_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -m64 -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-CXXFLAGS      = -m64 -pipe -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE $(DEFINES)
+CXXFLAGS      = -m64 -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -I. -Iheader -I/usr/include/qt5 -I/usr/include/qt5/Qt3DQuick -I/usr/include/qt5/Qt3D -I/usr/include/qt5/QtQuick -I/usr/include/qt5/QtOpenGL -I/usr/include/qt5/QtQml -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I.moc
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
-LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lglut -lGLU -lQt53DQuick -L/usr/lib/x86_64-linux-gnu -Wl,--no-as-needed -Wl,--no-as-needed -lQt53D -Wl,--no-as-needed -lz -lQt5Quick -lQt5OpenGL -lQt5Qml -lQt5Widgets -lQt5Network -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lglut -lGLU -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer -lQt53DQuick -L/usr/lib/x86_64-linux-gnu -Wl,--no-as-needed -Wl,--no-as-needed -lQt53D -Wl,--no-as-needed -lz -lQt5Quick -lQt5OpenGL -lQt5Qml -lQt5Widgets -lQt5Network -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
@@ -58,7 +58,10 @@ SOURCES       = srcs/main.cpp \
 		srcs/Incantation.c \
 		srcs/List.c \
 		srcs/Square.c \
-		srcs/xmalloc.c .moc/moc_MainUI.cpp \
+		srcs/xmalloc.c \
+		srcs/Graphic.cpp \
+		srcs/Lib.cpp \
+		srcs/Exception.cpp .moc/moc_MainUI.cpp \
 		.moc/moc_Connexion.cpp \
 		.moc/moc_NetworkC.cpp
 OBJECTS       = .obj/main.o \
@@ -75,6 +78,9 @@ OBJECTS       = .obj/main.o \
 		.obj/List.o \
 		.obj/Square.o \
 		.obj/xmalloc.o \
+		.obj/Graphic.o \
+		.obj/Lib.o \
+		.obj/Exception.o \
 		.obj/moc_MainUI.o \
 		.obj/moc_Connexion.o \
 		.obj/moc_NetworkC.o
@@ -135,7 +141,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/c++11.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/unix/gdb_dwarf_index.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/warn_on.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt.prf \
@@ -239,7 +244,6 @@ Makefile: gui.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf 
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/c++11.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/unix/gdb_dwarf_index.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/warn_on.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt.prf \
@@ -320,7 +324,6 @@ Makefile: gui.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf 
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/c++11.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/unix/gdb_dwarf_index.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/warn_on.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt.prf:
@@ -350,7 +353,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .obj/gui1.0.0 || mkdir -p .obj/gui1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .obj/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/Incantation.h header/List.h header/Square.h header/xfunction.h .obj/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/Incantation.c srcs/List.c srcs/Square.c srcs/xmalloc.c .obj/gui1.0.0/ && (cd `dirname .obj/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .obj/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .obj/gui1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .obj/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/Incantation.h header/List.h header/Square.h header/xfunction.h header/Graphic.hpp header/LibSDL.hh header/Exception.hh .obj/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/Incantation.c srcs/List.c srcs/Square.c srcs/xmalloc.c srcs/Graphic.cpp srcs/Lib.cpp srcs/Exception.cpp .obj/gui1.0.0/ && (cd `dirname .obj/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .obj/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .obj/gui1.0.0
 
 
 clean:compiler_clean 
@@ -1262,7 +1265,10 @@ compiler_clean: compiler_moc_header_clean
 		header/Inventory.h \
 		header/NetworkC.hpp \
 		/usr/include/qt5/QtCore/QDebug \
-		/usr/include/qt5/QtCore/QThread
+		/usr/include/qt5/QtCore/QThread \
+		header/Graphic.hpp \
+		header/LibSDL.hh \
+		header/Exception.hh
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/main.o srcs/main.cpp
 
 .obj/MainUI.o: srcs/MainUI.cpp header/MainUI.hpp \
@@ -2019,6 +2025,18 @@ compiler_clean: compiler_moc_header_clean
 
 .obj/xmalloc.o: srcs/xmalloc.c 
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/xmalloc.o srcs/xmalloc.c
+
+.obj/Graphic.o: srcs/Graphic.cpp header/Graphic.hpp \
+		header/LibSDL.hh \
+		header/Exception.hh
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/Graphic.o srcs/Graphic.cpp
+
+.obj/Lib.o: srcs/Lib.cpp header/LibSDL.hh \
+		header/Exception.hh
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/Lib.o srcs/Lib.cpp
+
+.obj/Exception.o: srcs/Exception.cpp header/Exception.hh
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/Exception.o srcs/Exception.cpp
 
 .obj/moc_MainUI.o: .moc/moc_MainUI.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/moc_MainUI.o .moc/moc_MainUI.cpp
