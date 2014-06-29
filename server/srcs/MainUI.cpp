@@ -10,7 +10,12 @@ void	MainUI::applyLayouts()
   _mainLayout->addLayout(_bottomLayout, 0, 1);
 }
 
-void MainUI::connectSlots(){}
+void MainUI::connectSlots()
+{
+  QTimer *timer = new QTimer(this);
+  connect(timer, SIGNAL(timeout()), this, SLOT(updateGraphic()));
+  timer->start(50);
+}
 
 void  MainUI::menuBar()
 {
@@ -81,11 +86,19 @@ void            MainUI::showAbout() const
 
 MainUI::MainUI() : QWidget()
 {
+  _graphic = NULL;
   initUi();
   initLayouts();
   applyLayouts();
   connectSlots();
   setLayout(_mainLayout);
+}
+
+void  MainUI::updateGraphic()
+{
+  if (!_graphic)
+    _graphic = new Graphic(100, 100);
+  _graphic->update();
 }
 
 void  MainUI::setConsoleText(const QString &data)

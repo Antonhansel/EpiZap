@@ -32,6 +32,7 @@
 # include <QWindow>
 # include "Connexion.hpp"
 # include "NetworkC.hpp"
+# include "Graphic.hpp"
 
 class	MainUI: public	QWidget
 {
@@ -43,6 +44,7 @@ public:
 public slots:
   void  showAbout() const;
   void  updateInfos();
+  void  updateGraphic();
 private:
   void  connectSlots();
   void  initLayouts();
@@ -68,6 +70,7 @@ protected:
   QTextEdit     *_teams;
   Server        *_server;
   bool          _start;
+  Graphic       *_graphic;
 };
 
 #endif /* MAIN_UI_HPP_ */
