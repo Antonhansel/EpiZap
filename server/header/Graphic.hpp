@@ -8,7 +8,7 @@
 
 # define NB_SPRITE 10
 # define NB_FLOORTEXT 3
-# define SP_SIZE 32
+# define SP_SIZE 64
 
 class MainUI;
 class Graphic

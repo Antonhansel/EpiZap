@@ -43,7 +43,7 @@ bool 	Graphic::update()
 		{
 			int x, y;
 			SDL_GetMouseState(&x, &y);
-			std::cout << "x: " << x << " - y:" << y << std::endl;
+			std::cout << "x: " << (x/64) << " - y:" << (y/64) << std::endl;
 		}
 	}
 	draw();
@@ -54,9 +54,9 @@ void 	Graphic::apply_floor()
 {	
 	int x = 0;
 	int y = 0;
-	for (y = 0; y <= 30; y++)
+	for (y = 0; y <= 15; y++)
 	{
-		for (x = 0; x <= 30; x++)
+		for (x = 0; x <= 15; x++)
 			Lib::applySurface(x * SP_SIZE, y * SP_SIZE, _grass, _screen);
 	}
 }
