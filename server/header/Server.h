@@ -36,8 +36,8 @@ typedef struct 			Server
 # ifdef __cplusplus
 extern "C" {
 # endif
-	char 				*server_init(Server *);
-	int 				server_loop(Server *);
+	char 				*init_server(Server *);
+	char				*destroy_server(Server *);
 # ifdef __cplusplus
 }
 # endif

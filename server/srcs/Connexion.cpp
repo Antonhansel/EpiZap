@@ -128,7 +128,7 @@ bool  Connexion::isConnected()
   _server.nb_player = _client->text().toInt();
   _server.ctime = _delay->text().toInt();
   _server.initialize = FALSE;
-  res = server_init(&_server);
+  res = init_server(&_server);
   _console->setHtml(_console->toHtml() + res);
   return (_server.initialize);
 }
