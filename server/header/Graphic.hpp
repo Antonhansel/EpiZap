@@ -3,6 +3,7 @@
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
+#include <SDL/SDL_mixer.h>
 #include "LibSDL.hh"
 
 # define NB_SPRITE 10
@@ -18,10 +19,12 @@ public:
 	bool update();
 	void draw();
 	void apply_floor();
+	void loader();
 	~Graphic();
 private:
 	int				_width;
 	int				_height;
+	Mix_Music		*_music;
 	SDL_Surface	 	*_grass;
 	SDL_Surface		*_screen;
 	SDL_Surface		*_floor[NB_FLOORTEXT];

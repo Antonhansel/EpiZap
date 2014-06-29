@@ -54,11 +54,11 @@ void	MainUI::initUi()
   _infos = new QTextEdit(this);
   _infos->setText("DISPLAY DATA SELECTED");
   _infos->setReadOnly(true);
-  _infos->setFixedWidth(WIDTH/3);
+  _infos->setFixedWidth(WIDTH/2);
   _teams = new QTextEdit(this);
   _teams->setText("DISPLAY TEAMS");
   _teams->setReadOnly(true);
-  _teams->setFixedWidth(WIDTH/3);
+  _teams->setFixedWidth(WIDTH/2);
 }
 
 void            MainUI::setServer(Server &s)
@@ -105,7 +105,7 @@ void  MainUI::updateGraphic()
   {
     _continue = _graphic->update();
     if (!_continue)
-      SDL_Quit();
+      delete _graphic;
   }
 }
 
