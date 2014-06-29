@@ -19,6 +19,7 @@ int				init_map(Map *this, int w, int h)
 {
 	this->width = w;
 	this->height = h;
+	srand(time(NULL));
 	if (alloc_map_attr(this) == -1)
 		return (-1);
 	init_func_ptr(this);
@@ -52,6 +53,7 @@ static int 		alloc_map_attr(Map *this)
 		{
 			if (!(this->map[i] = xmalloc(sizeof(Square) * (this->width + 1))))
 				return (-1);
+			this->map[i]->square_type = rand() % 8;
 			++i;
 		}
 	return (0);
