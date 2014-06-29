@@ -1,8 +1,8 @@
 #ifndef MAIN_UI_HPP_
 # define MAIN_UI_HPP_
 
-#define WIDTH 1800
-#define HEIGHT 900
+#define WIDTH 700
+#define HEIGHT 700
 
 # include <sstream>
 # include <iostream>
@@ -31,9 +31,7 @@
 # include <regex>
 # include <stdlib.h>
 # include <QWindow>
-# include <Window.hpp>
 # include "Connexion.hpp"
-# include "MainGUI.hpp"
 # include "NetworkC.hpp"
 
 class	MainUI: public	QWidget
@@ -55,7 +53,6 @@ private:
   void  initConnexionStuff();
 protected:
   Connexion    *_connexion;
-  MainGUI      *_mainGUI;
   QPushButton  *_quit;
   QMenu        *_fileMenu;
   QAction	     *_exitAction;
@@ -71,9 +68,7 @@ protected:
   QTextEdit     *_infos;
   QTextEdit     *_teams;
   Server        *_server;
-  QWindow   *_window;
   bool          _start;
-  QWidget       *_testWidget;
 };
 
 #endif /* MAIN_UI_HPP_ */
