@@ -26,30 +26,24 @@ int	add_elem(Player **front_ptr, int fd)
 int	del_elem(Player **front_ptr, int fd)
 {
   Player	*tmp;
-  Player	*tmp_prev;
 
-  if (*front_ptr == NULL)
-    return (-1);
-  if ((*front_ptr)->fd == fd)
+  tmp = *(front_ptr);
+  if (tmp && tmp->fd == fd)
   {
-    tmp = *front_ptr;
     *front_ptr = tmp->next;
     free(tmp);
     return (0);
   }
-  tmp = (*front_ptr)->next;
-  tmp_prev = *front_ptr;
-  while (tmp_prev != NULL && tmp != NULL)
+  while (tmp)
   {
-    if (tmp->fd == fd)
+    if (tmp->next && tmp->next->fd == fd)
     {
-      tmp_prev->next = tmp->next;
-      free(tmp);
+      tmp->next = tmp->next->next;
+      return (0);
     }
-    tmp_prev = tmp;
     tmp = tmp->next;
   }
-  return (0);
+  return (1);
 }
 
 int	get_max_fd(Player *front_ptr)
@@ -96,4 +90,20 @@ int	check_fd(Player **front_ptr, Server *server, fd_set *readfds)
     tmp = tmp->next;
   }
   return (0);
+}
+
+void  display_list(Player *front_ptr)
+{
+  Player  *tmp;
+  int     i = 0;
+
+  tmp = front_ptr;
+  if (!tmp)
+    printf("NULL\n");
+  while (tmp)
+  {
+    printf("%d : %d\n", i, tmp->fd);
+    i++;
+    tmp = tmp->next;
+  }
 }

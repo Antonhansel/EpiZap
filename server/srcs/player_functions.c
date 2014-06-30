@@ -15,7 +15,11 @@ int 		fct_read(Player *this, void *p)
 	else
 	{
 		sprintf(s->msg, "%s<font color=\"Red\">*** PLAYER %d DISCONNECTED ***</font>", (s->msg != NULL) ? s->msg : "", this->fd);
-		del_elem(&this, this->fd);
+		printf("----------- AVANT DELETE ----------\n");
+		display_list(s->player);
+		del_elem(&s->player, s->player->fd);
+		printf("----------- APRES DELETE ----------\n");
+		display_list(s->player);
 		/*if (s->socket > s->max_fd)
 			s->max_fd = s->socket;
 		else

@@ -19,10 +19,14 @@ int						accept_socket(Server *s)
 	len = sizeof(client_sin);
 	if ((fd = xaccept(s->socket, &(client_sin), &len)) == FALSE)
 		return (-1);
+	printf("----------- AVANT ADD ----------\n");
+	display_list(s->player);
 	if (add_elem(&s->player, fd) != 0)
 		return (-1);
 	else
 		sprintf(s->msg, "<font color=\"Green\">*** CLIENT ADD IN LIST ***</font><br />");
+	printf("----------- APRES ADD ----------\n");
+	display_list(s->player);
 	if (s->max_fd < fd)
 		s->max_fd = fd;
 	s->n_client++;
