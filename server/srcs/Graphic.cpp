@@ -56,7 +56,7 @@ bool 	Graphic::update()
 		{
 			int x, y;
 			SDL_GetMouseState(&x, &y);
-			std::cout << "x: " << (x/64) << " - y:" << (y/64) << std::endl;
+			// std::cout << "x: " << (x/64) << " - y:" << (y/64) << std::endl;
 		}
 	}
 	draw();
