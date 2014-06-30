@@ -3,9 +3,17 @@
 
 Graphic::Graphic(const int height, const int width, MainUI *parent)
 {
+	char windowid[64];
+	sprintf(windowid, "SDL_WINDOWID=0x%llx", winId());
+	SDL_putenv(windowid);
+	setAttribute(Qt::WA_NoSystemBackground);
+	setAttribute(Qt::WA_OpaquePaintEvent);
+	setFocusPolicy(Qt::StrongFocus);
+	setAttribute(Qt::WA_InputMethodEnabled);
 	_parent = parent; 
 	_width = width;
 	_height = height;
+	_mouseClick = false;
 	initSDL();
 }
 
@@ -22,7 +30,8 @@ Graphic::~Graphic()
 void	Graphic::initSDL()
 {
 	Lib::xSDL_Init(SDL_INIT_VIDEO | SDL_DOUBLEBUF);
-	_screen = Lib::xSDL_SetVideoMode(960, 960, 32, SDL_HWSURFACE); 
+	_screen = Lib::xSDL_SetVideoMode(1440, 704, 32, SDL_HWSURFACE); 
+	std::cout << size().height() << " - " << size().width() << std::endl;
 	SDL_WM_SetCaption("Zappy Viewer", NULL);
 	Lib::xTTF_Init();
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096);
@@ -31,20 +40,18 @@ void	Graphic::initSDL()
 	loader();
 }
 
+void Graphic::mousePressEvent(QMouseEvent *e)
+{
+    _lastPoint = e->pos();
+    _mouseClick = true;
+}
+
 bool 	Graphic::update()
 {
-	int key;
-	while (SDL_PollEvent(&_event))
+	if (_mouseClick)
 	{
-		key = _event.key.keysym.sym;
-		if (key == SDLK_ESCAPE || _event.type == SDL_QUIT)
-			return (false);
-		if (_event.button.button == SDL_BUTTON_LEFT)
-		{
-			int x, y;
-			SDL_GetMouseState(&x, &y);
-			std::cout << "x: " << (x/64) << " - y:" << (y/64) << std::endl;
-		}
+		std::cout << "x: " << _lastPoint.x()/64 << " - " << _lastPoint.y()/64 << std::endl;
+		_mouseClick = false;
 	}
 	draw();
 	return (true);
@@ -54,9 +61,9 @@ void 	Graphic::apply_floor()
 {	
 	int x = 0;
 	int y = 0;
-	for (y = 0; y <= 15; y++)
+	for (y = 0; y <= 45; y++)
 	{
-		for (x = 0; x <= 15; x++)
+		for (x = 0; x <= 22; x++)
 			Lib::applySurface(x * SP_SIZE, y * SP_SIZE, _grass, _screen);
 	}
 }
