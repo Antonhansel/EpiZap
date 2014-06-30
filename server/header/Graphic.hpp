@@ -1,18 +1,21 @@
 #ifndef GRAPHIC_HPP_
 # define  GRAPHIC_HPP_
 
-#include <SDL/SDL.h>
-#include <SDL/SDL_ttf.h>
-#include <SDL/SDL_mixer.h>
-#include "LibSDL.hh"
+# include <QtCore>
+# include <QWidget>
+# include <SDL/SDL.h>
+# include <SDL/SDL_ttf.h>
+# include <SDL/SDL_mixer.h>
+# include "LibSDL.hh"
 
 # define NB_SPRITE 10
 # define NB_FLOORTEXT 3
 # define SP_SIZE 64
 
 class MainUI;
-class Graphic
+class Graphic : public QWidget
 {
+	Q_OBJECT
 public:
 	Graphic(const int, const int, MainUI *);
 	void initSDL();

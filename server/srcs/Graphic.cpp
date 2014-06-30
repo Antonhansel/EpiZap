@@ -3,6 +3,10 @@
 
 Graphic::Graphic(const int height, const int width, MainUI *parent)
 {
+	char windowid[64];
+	sprintf(windowid, "SDL_WINDOWID=0x%llx", winId());
+	SDL_putenv(windowid);
+	setAttribute(Qt::WA_NoSystemBackground);
 	_parent = parent; 
 	_width = width;
 	_height = height;

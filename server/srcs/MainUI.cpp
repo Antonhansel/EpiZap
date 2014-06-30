@@ -2,12 +2,16 @@
 
 void	MainUI::applyLayouts()
 {
+  _graphic = new Graphic(100, 100, this);
+  _rightLayout->addWidget(_graphic, 0, 0);
+  _continue = true;
   _leftLayout->addWidget(_infos, 0, 0);
   _leftLayout->addWidget(_teams, 1, 0);
   _bottomLayout->addWidget(_console, 0, 0);
   _topLayout->addLayout(_leftLayout, 0, 0);
   _mainLayout->addLayout(_topLayout, 0, 0);
-  _mainLayout->addLayout(_bottomLayout, 0, 1);
+  _mainLayout->addLayout(_bottomLayout, 1, 0);
+  _topLayout->addLayout(_rightLayout, 0, 1);
 }
 
 void MainUI::connectSlots()
@@ -46,19 +50,21 @@ void	MainUI::initUi()
   _mainLayout = new QGridLayout;
   _bottomLayout = new QGridLayout;
   _topLayout = new QGridLayout;
+  _rightLayout = new QGridLayout;
   setWindowTitle(tr("Zappy Monitoring GUI"));
   _console = new QTextEdit(this);
   _console->setReadOnly(true);
   _console->append("[CONSOLE] console started");
   _console->setStyleSheet("color: green; background-color: black");
+  _console->setFixedHeight(HEIGHT/6);
   _infos = new QTextEdit(this);
   _infos->setText("DISPLAY DATA SELECTED");
   _infos->setReadOnly(true);
-  _infos->setFixedWidth(WIDTH/2);
+  _infos->setFixedWidth(WIDTH/6);
   _teams = new QTextEdit(this);
   _teams->setText("DISPLAY TEAMS");
   _teams->setReadOnly(true);
-  _teams->setFixedWidth(WIDTH/2);
+  _teams->setFixedWidth(WIDTH/6);
 }
 
 void            MainUI::setServer(Server &s)
@@ -96,11 +102,6 @@ MainUI::MainUI() : QWidget()
 
 void  MainUI::updateGraphic()
 {
-  if (!_graphic)
-  {
-    _graphic = new Graphic(100, 100, this);
-    _continue = true;
-  }
   if (_continue)
   {
     _continue = _graphic->update();
