@@ -7,6 +7,7 @@
 # include <SDL/SDL_ttf.h>
 # include <SDL/SDL_mixer.h>
 # include "LibSDL.hh"
+# include "Map.h"
 #undef main
 
 # include <QMouseEvent>
@@ -20,12 +21,14 @@ class Graphic : public QWidget
 {
 	Q_OBJECT
 public:
-	Graphic(const int, const int, MainUI *);
+	Graphic(MainUI *);
 	void initSDL();
 	bool update();
 	void draw();
 	void apply_floor();
 	void loader();
+	void initRealUpdate(Map *);
+	void  mouseReleaseEvent(QMouseEvent *);
   	void  mousePressEvent(QMouseEvent *);
 	~Graphic();
 private:
@@ -40,7 +43,11 @@ private:
 	SDL_Event 		_event;
 	MainUI			*_parent;
 	bool 			_mouseClick;
-	QPoint 			_lastPoint;
+	bool 			_mouseDrag;
+	bool 			_realUpdate;
+	QPoint 			_lastPointPress;
+	QPoint			_lastPointReleased;
+	Map 			*_map;
 };
 
 #endif /* !GRAPHIC_HPP_ */

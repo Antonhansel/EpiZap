@@ -1,7 +1,7 @@
 #include "Graphic.hpp"
 #include "MainUI.hpp"
 
-Graphic::Graphic(const int height, const int width, MainUI *parent)
+Graphic::Graphic(MainUI *parent)
 {
 	char windowid[64];
 	sprintf(windowid, "SDL_WINDOWID=0x%llx", winId());
@@ -10,10 +10,9 @@ Graphic::Graphic(const int height, const int width, MainUI *parent)
 	setAttribute(Qt::WA_OpaquePaintEvent);
 	setFocusPolicy(Qt::StrongFocus);
 	setAttribute(Qt::WA_InputMethodEnabled);
-	_parent = parent; 
-	_width = width;
-	_height = height;
+	_parent = parent;
 	_mouseClick = false;
+	_realUpdate = false;
 	initSDL();
 }
 
@@ -31,7 +30,6 @@ void	Graphic::initSDL()
 {
 	Lib::xSDL_Init(SDL_INIT_VIDEO | SDL_DOUBLEBUF);
 	_screen = Lib::xSDL_SetVideoMode(1440, 704, 32, SDL_HWSURFACE); 
-	std::cout << size().height() << " - " << size().width() << std::endl;
 	SDL_WM_SetCaption("Zappy Viewer", NULL);
 	Lib::xTTF_Init();
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096);
@@ -42,15 +40,27 @@ void	Graphic::initSDL()
 
 void Graphic::mousePressEvent(QMouseEvent *e)
 {
-    _lastPoint = e->pos();
+    _lastPointPress = e->pos();
     _mouseClick = true;
+}
+
+void Graphic::mouseReleaseEvent (QMouseEvent *e)
+{
+	_lastPointReleased = e->pos();
+	_mouseDrag = true;
 }
 
 bool 	Graphic::update()
 {
+	if (_mouseDrag)
+	{
+		_mouseDrag = false;
+		if ((_lastPointPress.x() - _lastPointReleased.x()) != 0 || (_lastPointPress.y() - _lastPointReleased.y()) != 0)
+			std::cout << "Drag x: " << (_lastPointPress.x()-_lastPointReleased.x())/64 << " - " << (_lastPointPress.y()-_lastPointReleased.y())/64 << std::endl;
+	}
 	if (_mouseClick)
 	{
-		std::cout << "x: " << _lastPoint.x()/64 << " - " << _lastPoint.y()/64 << std::endl;
+		std::cout << "Click x: " << _lastPointPress.x()/64 << " - " << _lastPointPress.y()/64 << std::endl;
 		_mouseClick = false;
 	}
 	draw();
@@ -68,9 +78,17 @@ void 	Graphic::apply_floor()
 	}
 }
 
+void 	Graphic::initRealUpdate(Map *map)
+{
+	_map = map;
+	_realUpdate = true;
+	std::cout << "MAP SIZE : " << _map->width << std::endl;
+}
+
 void 	Graphic::draw()
 {
-	apply_floor();
+	if (_realUpdate)
+		apply_floor();
 	Lib::xSDL_Flip(_screen);
 }
 

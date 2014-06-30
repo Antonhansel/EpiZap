@@ -51,6 +51,7 @@ void 	Connexion::tryConnect()
       _mainUI->setConsoleText(_console->toHtml());
       _window->hide();
       _mainUI->show();
+      _mainUI->startGraphic();
     }
   }
   else
@@ -66,14 +67,19 @@ void 	Connexion::setLayouts()
     _connect->setText("Create");
     _mainLayout->addWidget(_portLabel, 0, 0);
     _mainLayout->addWidget(_port, 0, 1);
+    _port->setText("4242");
     _mainLayout->addWidget(_widthLabel, 1, 0);
     _mainLayout->addWidget(_width, 1, 1);
+    _width->setText("50");
     _mainLayout->addWidget(_heightLabel, 2, 0);
     _mainLayout->addWidget(_height, 2, 1);
+    _height->setText("50");
     _mainLayout->addWidget(_clientLabel, 3, 0);
     _mainLayout->addWidget(_client, 3, 1);
+    _client->setText("10");
     _mainLayout->addWidget(_delayLabel, 4, 0);
     _mainLayout->addWidget(_delay, 4, 1);
+    _delay->setText("10");
     _mainLayout->addWidget(_connect, 5, 0, 1, 2);
     _mainLayout->addWidget(_quit, 6, 0, 1, 2);
     _mainLayout->addWidget(_console, 7, 0, 1, 2);
@@ -116,6 +122,11 @@ bool  Connexion::checkData(const QString &data)
       _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: bad Value for\n</font>");
   }
   return (false);
+}
+
+Map   *Connexion::getMap() const
+{
+  return (_server.map);
 }
 
 bool  Connexion::isConnected()

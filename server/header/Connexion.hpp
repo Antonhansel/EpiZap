@@ -24,6 +24,8 @@
 # include <QTimer>
 # include <stdlib.h>
 # include "Server.h"
+# include "Map.h"
+
 
 class MainUI;
 class Connexion : public QWidget
@@ -35,6 +37,7 @@ public:
 	void 	setLayouts();
 	void 	init();
 	void 	connectSlots();
+  Map   *getMap() const;
 public slots:
 	void 	quit();
 	void 	tryConnect();
