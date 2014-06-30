@@ -6,8 +6,10 @@
 # include <SDL/SDL.h>
 # include <SDL/SDL_ttf.h>
 # include <SDL/SDL_mixer.h>
-#undef main
 # include "LibSDL.hh"
+#undef main
+
+# include <QMouseEvent>
 
 # define NB_SPRITE 10
 # define NB_FLOORTEXT 3
@@ -24,6 +26,7 @@ public:
 	void draw();
 	void apply_floor();
 	void loader();
+  	void  mousePressEvent(QMouseEvent *);
 	~Graphic();
 private:
 	int				_width;
@@ -36,6 +39,8 @@ private:
 	TTF_Font		*_font;
 	SDL_Event 		_event;
 	MainUI			*_parent;
+	bool 			_mouseClick;
+	QPoint 			_lastPoint;
 };
 
 #endif /* !GRAPHIC_HPP_ */
