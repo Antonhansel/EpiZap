@@ -7,6 +7,11 @@ Graphic::Graphic(const int height, const int width, MainUI *parent)
 	sprintf(windowid, "SDL_WINDOWID=0x%llx", winId());
 	SDL_putenv(windowid);
 	setAttribute(Qt::WA_NoSystemBackground);
+	setAttribute(Qt::WA_OpaquePaintEvent);
+	setFocusPolicy(Qt::StrongFocus);
+	setAttribute(Qt::WA_InputMethodEnabled);
+	//move(size().height());
+ 	// resize(Size);
 	_parent = parent; 
 	_width = width;
 	_height = height;
@@ -26,7 +31,9 @@ Graphic::~Graphic()
 void	Graphic::initSDL()
 {
 	Lib::xSDL_Init(SDL_INIT_VIDEO | SDL_DOUBLEBUF);
-	_screen = Lib::xSDL_SetVideoMode(960, 960, 32, SDL_HWSURFACE); 
+	_screen = Lib::xSDL_SetVideoMode(1440, 704, 32, SDL_HWSURFACE); 
+	//_screen = Lib::xSDL_SetVideoMode(size().height(), size().width(), 32, SDL_HWSURFACE); 
+	std::cout << size().height() << " - " << size().width() << std::endl;
 	SDL_WM_SetCaption("Zappy Viewer", NULL);
 	Lib::xTTF_Init();
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096);
@@ -37,9 +44,11 @@ void	Graphic::initSDL()
 
 bool 	Graphic::update()
 {
+	std::cout << size().height() << " " << size().width() << std::endl;
 	int key;
 	while (SDL_PollEvent(&_event))
 	{
+		std::cout << "Event!" << std::endl;
 		key = _event.key.keysym.sym;
 		if (key == SDLK_ESCAPE || _event.type == SDL_QUIT)
 			return (false);
@@ -58,9 +67,9 @@ void 	Graphic::apply_floor()
 {	
 	int x = 0;
 	int y = 0;
-	for (y = 0; y <= 15; y++)
+	for (y = 0; y <= 45; y++)
 	{
-		for (x = 0; x <= 15; x++)
+		for (x = 0; x <= 22; x++)
 			Lib::applySurface(x * SP_SIZE, y * SP_SIZE, _grass, _screen);
 	}
 }

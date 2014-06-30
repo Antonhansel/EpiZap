@@ -6,6 +6,7 @@
 # include <SDL/SDL.h>
 # include <SDL/SDL_ttf.h>
 # include <SDL/SDL_mixer.h>
+#undef main
 # include "LibSDL.hh"
 
 # define NB_SPRITE 10
