@@ -26,6 +26,7 @@ public:
 	void draw();
 	void apply_floor();
 	void loader();
+	void initRealUpdate();
 	void  mouseReleaseEvent(QMouseEvent *);
   	void  mousePressEvent(QMouseEvent *);
 	~Graphic();
@@ -42,6 +43,7 @@ private:
 	MainUI			*_parent;
 	bool 			_mouseClick;
 	bool 			_mouseDrag;
+	bool 			_realUpdate;
 	QPoint 			_lastPointPress;
 	QPoint			_lastPointReleased;
 };

@@ -41,6 +41,8 @@ public:
   MainUI();
   void  setConsoleText(const QString &);
   void  setServer(Server &);
+  void  startGraphic();
+  void  initRealUpdate();
 public slots:
   void  showAbout() const;
   void  updateInfos();

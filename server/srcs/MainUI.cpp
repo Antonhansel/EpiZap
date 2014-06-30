@@ -38,6 +38,11 @@ void  MainUI::initConnexionStuff()
   _connexion = new Connexion(this);
 }
 
+void MainUI::startGraphic()
+{
+  _graphic->initRealUpdate();
+}
+
 void	MainUI::initLayouts()
 {
   menuBar();
