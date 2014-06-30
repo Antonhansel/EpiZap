@@ -30,6 +30,7 @@ static void		init_func_ptr(Player *this)
 {
 	this->get_inventory = &get_inventory;
 	this->set_inventory = &set_inventory;
+	this->fct_read = &fct_read;
 }
 
 static void		set_inventory(Player *this, Inventory *i)
