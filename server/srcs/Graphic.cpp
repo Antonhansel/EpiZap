@@ -10,6 +10,8 @@ Graphic::Graphic(MainUI *parent)
 	setAttribute(Qt::WA_OpaquePaintEvent);
 	setFocusPolicy(Qt::StrongFocus);
 	setAttribute(Qt::WA_InputMethodEnabled);
+	_viewy = 0;
+	_viewx = 0;
 	_parent = parent;
 	_mouseClick = false;
 	_realUpdate = false;
@@ -55,12 +57,26 @@ bool 	Graphic::update()
 	if (_mouseDrag)
 	{
 		_mouseDrag = false;
-		if ((_lastPointPress.x() - _lastPointReleased.x()) != 0 || (_lastPointPress.y() - _lastPointReleased.y()) != 0)
-			std::cout << "Drag x: " << (_lastPointPress.x()-_lastPointReleased.x())/64 << " - " << (_lastPointPress.y()-_lastPointReleased.y())/64 << std::endl;
+		if (_map->width > 23 && _map->height > 11)
+		{
+			if ((_lastPointPress.x() - _lastPointReleased.x()) != 0 || (_lastPointPress.y() - _lastPointReleased.y()) != 0)
+			{
+				_viewx += ((_lastPointPress.x() - _lastPointReleased.x())/64);
+				_viewy += ((_lastPointPress.y() - _lastPointReleased.y())/64);
+				if (_viewy + 23 > _map->width)
+					_viewy = _map->width - 23;
+				if (_viewx + 11 > _map->height)
+					_viewx = _map->height - 11;
+				if (_viewx < 0)
+					_viewx = 0;
+				if (_viewy < 0)
+					_viewy = 0;
+				std::cout << _viewx << " - " << _viewy << std::endl;
+			}
+		}
 	}
 	if (_mouseClick)
 	{
-		std::cout << "Click x: " << _lastPointPress.x()/64 << " - " << _lastPointPress.y()/64 << std::endl;
 		_mouseClick = false;
 	}
 	draw();
@@ -71,10 +87,13 @@ void 	Graphic::apply_floor()
 {	
 	int x = 0;
 	int y = 0;
-	for (y = 0; y <= 45; y++)
+
+	for (y = 0; y < 11; y++)
 	{
-		for (x = 0; x <= 22; x++)
-			Lib::applySurface(x * SP_SIZE, y * SP_SIZE, _grass, _screen);
+		for (x = 0; x < 23; x++)
+		{
+			Lib::applySurface(x * SP_SIZE, y* SP_SIZE, _floor[_map->map[x + _viewx][y + _viewy].square_type], _screen);
+		}
 	}
 }
 
@@ -82,7 +101,6 @@ void 	Graphic::initRealUpdate(Map *map)
 {
 	_map = map;
 	_realUpdate = true;
-	std::cout << "MAP SIZE : " << _map->width << std::endl;
 }
 
 void 	Graphic::draw()
@@ -94,5 +112,12 @@ void 	Graphic::draw()
 
 void 	Graphic::loader()
 {
-	_grass = Lib::loadImage("./textures/grass.png");
+	_floor[0] = Lib::loadImage("./textures/grass.png");
+	_floor[1] = _floor[0];
+	_floor[2] = _floor[0];
+	_floor[3] = _floor[0];
+	_floor[4] = _floor[0];
+	_floor[5] = Lib::loadImage("./textures/mud.png");
+	_floor[6] = Lib::loadImage("./textures/mud2.png");
+	_floor[7] = Lib::loadImage("./textures/mud3.png");
 }

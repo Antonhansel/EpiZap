@@ -46,8 +46,7 @@ static void		init_func_ptr(Server *this, int width, int height)
 	this->loop = &loop;
 	if ((this->map = malloc(sizeof(Map*))) == NULL)
 		exit(1);
-	this->map->width = width;
-	this->map->height = height;
+	init_map(this->map, width, height);
 }
 
 static int 			loop(Server *this)
