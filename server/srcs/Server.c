@@ -1,12 +1,12 @@
 #include "List.h"
 #include "Server.h"
 
-static void				init_func_ptr(Server *);
+static void		init_func_ptr(Server *, int, int);
 
-static int				accept_socket(Server *);
-static int 				loop(Server *);
+static int		accept_socket(Server *);
+static int 		loop(Server *);
 
-char 					*init_server(Server *this)
+char 					*init_server(Server *this, int width, int height)
 {
 	int 				opt;
 	struct protoent		*pe;
@@ -14,7 +14,7 @@ char 					*init_server(Server *this)
 
 	opt = 1;
 	this->player = NULL;
-	init_func_ptr(this);
+	init_func_ptr(this, width, height);
 	if ((pe = getprotobyname("TCP")) == NULL)
 		return ("<font color=\"Red\">*** ERROR ON GETPROTOBYNAME ***</font>");
 	if ((this->socket = xsocket(AF_INET, SOCK_STREAM, pe->p_proto)) == FALSE)
@@ -27,24 +27,26 @@ char 					*init_server(Server *this)
 		return ("<font color=\"Red\">*** ERROR ON BIND ***</font>");
 	if (xlisten(this->socket, 10) == FALSE)
 		return ("<font color=\"Red\">*** ERROR ON LISTEN ***</font>");
-
 	this->initialize = TRUE;
-	
 	this->max_fd = this->socket;
     memset(((void*)(this->msg)), 0, 256);
 	return ("<font color=\"Green\">*** SUCCESSLY INIT ***</font>");
 }
 
-char					*destroy_server(Server *this)
+char	*destroy_server(Server *this)
 {
 	(void)this;
 	return ("<font color=\"Green\">*** SUCCESSLY DESTROY ***</font>");
 }
 
-static void				init_func_ptr(Server *this)
+static void		init_func_ptr(Server *this, int width, int height)
 {
 	this->accept_socket = &accept_socket;
 	this->loop = &loop;
+	if ((this->map = malloc(sizeof(Map*))) == NULL)
+		exit(1);
+	this->map->width = width;
+	this->map->height = height;
 }
 
 static int				accept_socket(Server *s)
@@ -74,13 +76,13 @@ static int				accept_socket(Server *s)
 	return (0);
 }
 
-static int 				loop(Server *this)
+static int 			loop(Server *this)
 {
-	int 				error;
-	int 				result;
-	//int 				resultPrev;
-	fd_set 				readfds;
-	struct timeval		tv;
+	int 			error;
+	int 			result;
+	//int 			resultPrev;
+	fd_set 			readfds;
+	struct timeval	tv;
 
 	tv.tv_usec = 100;
 	tv.tv_sec = 0;

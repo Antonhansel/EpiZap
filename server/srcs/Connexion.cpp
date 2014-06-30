@@ -123,12 +123,10 @@ bool  Connexion::isConnected()
   QString res;
 
   _server.port = _port->text().toInt();
-  _server.width = _width->text().toInt();
-  _server.height = _height->text().toInt();
   _server.nb_player = _client->text().toInt();
   _server.ctime = _delay->text().toInt();
   _server.initialize = FALSE;
-  res = init_server(&_server);
+  res = init_server(&_server, _width->text().toInt(), _height->text().toInt());
   _console->setHtml(_console->toHtml() + res);
   return (_server.initialize);
 }
