@@ -26,6 +26,7 @@ public:
 	void draw();
 	void apply_floor();
 	void loader();
+	void  mouseReleaseEvent(QMouseEvent *);
   	void  mousePressEvent(QMouseEvent *);
 	~Graphic();
 private:
@@ -40,7 +41,9 @@ private:
 	SDL_Event 		_event;
 	MainUI			*_parent;
 	bool 			_mouseClick;
-	QPoint 			_lastPoint;
+	bool 			_mouseDrag;
+	QPoint 			_lastPointPress;
+	QPoint			_lastPointReleased;
 };
 
 #endif /* !GRAPHIC_HPP_ */

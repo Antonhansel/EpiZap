@@ -42,15 +42,26 @@ void	Graphic::initSDL()
 
 void Graphic::mousePressEvent(QMouseEvent *e)
 {
-    _lastPoint = e->pos();
+    _lastPointPress = e->pos();
     _mouseClick = true;
+}
+
+void Graphic::mouseReleaseEvent (QMouseEvent *e)
+{
+	_lastPointReleased = e->pos();
+	_mouseDrag = true;
 }
 
 bool 	Graphic::update()
 {
+	if (_mouseDrag)
+	{
+		_mouseDrag = false;
+		std::cout << "x: " << (_lastPointPress.x()-_lastPointReleased.x())/64 << " - " << (_lastPointPress.y()-_lastPointReleased.y())/64 << std::endl;
+	}
 	if (_mouseClick)
 	{
-		std::cout << "x: " << _lastPoint.x()/64 << " - " << _lastPoint.y()/64 << std::endl;
+		std::cout << "x: " << _lastPointPress.x()/64 << " - " << _lastPointPress.y()/64 << std::endl;
 		_mouseClick = false;
 	}
 	draw();
