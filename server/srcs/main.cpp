@@ -19,7 +19,7 @@ int		main(int argc, char **argv)
   int mh = size.height();
   int centerW = (width/2) - (mw/2);
   int centerH = (height/2) - (mh/2);
-  Client.setFixedSize(1781, 892);
+  Client.setFixedSize(1764, 878);
   Client.move(centerW, centerH);
   Client.show();
 
