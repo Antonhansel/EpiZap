@@ -2,7 +2,7 @@
 
 void	MainUI::applyLayouts()
 {
-  _graphic = new Graphic(100, 100, this);
+  _graphic = new Graphic(this);
   _rightLayout->addWidget(_graphic, 0, 0);
   _continue = true;
   _leftLayout->addWidget(_infos, 0, 0);
@@ -40,7 +40,7 @@ void  MainUI::initConnexionStuff()
 
 void MainUI::startGraphic()
 {
-  _graphic->initRealUpdate();
+  _graphic->initRealUpdate(_connexion->getMap());
 }
 
 void	MainUI::initLayouts()

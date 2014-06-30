@@ -1,7 +1,7 @@
 #include "Graphic.hpp"
 #include "MainUI.hpp"
 
-Graphic::Graphic(const int height, const int width, MainUI *parent)
+Graphic::Graphic(MainUI *parent)
 {
 	char windowid[64];
 	sprintf(windowid, "SDL_WINDOWID=0x%llx", winId());
@@ -10,9 +10,7 @@ Graphic::Graphic(const int height, const int width, MainUI *parent)
 	setAttribute(Qt::WA_OpaquePaintEvent);
 	setFocusPolicy(Qt::StrongFocus);
 	setAttribute(Qt::WA_InputMethodEnabled);
-	_parent = parent; 
-	_width = width;
-	_height = height;
+	_parent = parent;
 	_mouseClick = false;
 	_realUpdate = false;
 	initSDL();
@@ -80,9 +78,11 @@ void 	Graphic::apply_floor()
 	}
 }
 
-void 	Graphic::initRealUpdate()
+void 	Graphic::initRealUpdate(Map *map)
 {
+	_map = map;
 	_realUpdate = true;
+	std::cout << "MAP SIZE : " << _map->width << std::endl;
 }
 
 void 	Graphic::draw()

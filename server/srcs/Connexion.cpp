@@ -124,6 +124,11 @@ bool  Connexion::checkData(const QString &data)
   return (false);
 }
 
+Map   *Connexion::getMap() const
+{
+  return (_server.map);
+}
+
 bool  Connexion::isConnected()
 {
   QString res;
