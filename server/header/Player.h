@@ -18,9 +18,11 @@ typedef struct 		Player
 	/* Methods */
 	Inventory 		*(*get_inventory)(struct Player *);
 	void			(*set_inventory)(struct Player *, Inventory *);
+	int 			(*fct_read)(struct Player *, void *);
 }					Player;
 
 int 	init_player(struct Player *, int);
 int 	destroy_player(struct Player *);
+int 	fct_read(Player *, void *);
 
 #endif 	/* PLAYER_H_ */

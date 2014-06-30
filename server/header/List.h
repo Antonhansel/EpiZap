@@ -7,7 +7,6 @@
 
 int 	add_elem(Player **, int);
 int 	del_elem(Player **, int);
-int 	check_fd(Player **, fd_set*);
 void 	init_fd(Player *, fd_set*);
 int 	get_max_fd(Player *);
 
