@@ -48,24 +48,9 @@ void Graphic::mousePressEvent(QMouseEvent *e)
 
 bool 	Graphic::update()
 {
-	// std::cout << size().height() << " " << size().width() << std::endl;
-	// int key;
-	// while (SDL_PollEvent(&_event))
-	// {
-	// 	std::cout << "Event!" << std::endl;
-	// 	key = _event.key.keysym.sym;
-	// 	if (key == SDLK_ESCAPE || _event.type == SDL_QUIT)
-	// 		return (false);
-	// 	if (_event.button.button == SDL_BUTTON_LEFT)
-	// 	{
-	// 		int x, y;
-	// 		SDL_GetMouseState(&x, &y);
-	// 		std::cout << "x: " << (x/64) << " - y:" << (y/64) << std::endl;
-	// 	}
-	// }
 	if (_mouseClick)
 	{
-		std::cout << "x: " << _lastPoint.x()/32 << " - " << _lastPoint.y()/32 << std::endl;
+		std::cout << "x: " << _lastPoint.x()/64 << " - " << _lastPoint.y()/64 << std::endl;
 		_mouseClick = false;
 	}
 	draw();
