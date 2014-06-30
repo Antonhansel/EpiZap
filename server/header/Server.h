@@ -36,4 +36,8 @@ extern "C" {
 }
 # endif
 
+int 	init_bits_fields(Server *, fd_set *, fd_set *);
+int		accept_socket(Server *);
+
+
 #endif

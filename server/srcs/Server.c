@@ -3,8 +3,9 @@
 
 static void		init_func_ptr(Server *, int, int);
 
-static int		accept_socket(Server *);
 static int 		loop(Server *);
+
+int	 check_fd(Player **, Server *, fd_set *);
 
 char 					*init_server(Server *this, int width, int height)
 {
@@ -49,61 +50,34 @@ static void		init_func_ptr(Server *this, int width, int height)
 	this->map->height = height;
 }
 
-static int				accept_socket(Server *s)
-{
-	struct sockaddr_in  client_sin; 
-	socklen_t 			len;
-	int 				fd;
-
-	len = sizeof(client_sin);
-	if ((fd = xaccept(s->socket, &(client_sin), &len)) == FALSE)
-		return (-1);
-	
-	if (add_elem(&s->player, fd) != 0)
-		return (-1);
-	else
-		sprintf(s->msg, "<font color=\"Green\">*** CLIENT ADD IN LIST ***</font><br />");
-	
-	if (s->max_fd < fd)
-		s->max_fd = fd;
-		s->n_client++;
-	
-	sprintf(s->msg, "%s<font color=\"Green\">*** NEW CONNECTION FROM IP %s ON PORT %d AND FD %d ***</font>", s->msg, inet_ntoa(client_sin.sin_addr), s->port, fd);
-	
-	if (write(fd, "--- SUCCESSLY CONNECT ---\n", 26) <= 0)
-		return (-1);
-	
-	return (0);
-}
-
 static int 			loop(Server *this)
 {
-	int 			error;
 	int 			result;
-	//int 			resultPrev;
+	int 			resultPrev;
 	fd_set 			readfds;
+	fd_set 			writefds;
 	struct timeval	tv;
 
 	tv.tv_usec = 100;
 	tv.tv_sec = 0;
-	error = 0;
 	result = 0;
-	//resultPrev = 0;
+	resultPrev = 0;
 	this->n_client = 0;
-	while (!error)
+	while (TRUE)
 	{
-		FD_ZERO(&readfds);
-		FD_SET(this->socket, &readfds);
-		if ((result = select(this->max_fd + 1, &readfds, NULL, NULL, &tv)) == -1)
-			return (1);
-		
-		else if (FD_ISSET(this->socket, &readfds))
-			(*this->accept_socket)(this);
-		/*else if (result != resultPrev)
+		init_bits_fields(this, &readfds, &writefds);
+		if ((result = select(this->max_fd + 1, &readfds, NULL, NULL, &tv)) != -1)
 		{
-			(*this->check_fd)(this, &readfds);
-			resultPrev = result;
-		}*/
+			if (result != resultPrev)
+			{
+				if (FD_ISSET(this->socket, &readfds))
+					accept_socket(this);
+				check_fd(&this->player, this, &readfds);
+				resultPrev = result;
+			}
+		}
+		else
+			sprintf(this->msg, "%s<font color=\"Red\">*** ERROR ON SELECT ***</font>", this->msg);
 	}
 	return (0);
 }

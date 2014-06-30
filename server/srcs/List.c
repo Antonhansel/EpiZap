@@ -1,4 +1,5 @@
 #include "List.h"
+#include "Server.h"
 
 int	add_elem(Player **front_ptr, int fd)
 {
@@ -79,7 +80,7 @@ void	init_fd(Player *front_ptr, fd_set *readfds)
   }
 }
 
-int	check_fd(Player **front_ptr, fd_set *readfds)
+int	check_fd(Player **front_ptr, Server *server, fd_set *readfds)
 {
   Player	*tmp;
 
@@ -88,6 +89,7 @@ int	check_fd(Player **front_ptr, fd_set *readfds)
   {
     if (FD_ISSET(tmp->fd, readfds))
     {
+      tmp->fct_read(tmp, server);
 //handle_client(front_ptr, tmp);
       return (0);
     }
