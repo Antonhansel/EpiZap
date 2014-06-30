@@ -25,7 +25,7 @@ int 	destroy_map(Map *this)
 static int 		alloc_map_attr(Map *this)
 {
 	int 		i;
-
+	int 		x;
 	if (!(this->map = xmalloc(sizeof(Square *) * (this->height + 1)))) 
 		return (-1);
 	i = 0;
@@ -33,9 +33,19 @@ static int 		alloc_map_attr(Map *this)
 		{
 			if (!(this->map[i] = xmalloc(sizeof(Square) * (this->width + 1))))
 				return (-1);
-			this->map[i]->square_type = rand() % 8;
 			++i;
 		}
+	i = 0;
+	while (i < this->width)
+	{
+		x = 0;
+		while (x < this->height)
+		{
+			this->map[i][x].square_type = rand() % 7;
+			x++;
+		}
+		i++;
+	}
 	return (0);
 }
 

@@ -13,7 +13,7 @@
 # include <QMouseEvent>
 
 # define NB_SPRITE 10
-# define NB_FLOORTEXT 3
+# define NB_FLOORTEXT 8
 # define SP_SIZE 64
 
 class MainUI;
@@ -48,6 +48,8 @@ private:
 	QPoint 			_lastPointPress;
 	QPoint			_lastPointReleased;
 	Map 			*_map;
+	int 			_viewx;
+	int 			_viewy;
 };
 
 #endif /* !GRAPHIC_HPP_ */
