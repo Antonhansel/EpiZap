@@ -53,12 +53,17 @@ int	get_max_fd(Player *front_ptr)
 
   tmp = front_ptr;
   max = 0;
-  while (tmp != NULL)
+  if (tmp)
   {
-    if (tmp->fd > max)
-      max = tmp->fd;
-    tmp = tmp->next;
+    while (tmp != NULL)
+    {
+      if (tmp->fd > max)
+        max = tmp->fd;
+      tmp = tmp->next;
+    }
   }
+  else
+    return (0);
   return (max + 1);
 }
 
@@ -84,7 +89,6 @@ int	check_fd(Player **front_ptr, Server *server, fd_set *readfds)
     if (FD_ISSET(tmp->fd, readfds))
     {
       tmp->fct_read(tmp, server);
-//handle_client(front_ptr, tmp);
       return (0);
     }
     tmp = tmp->next;
