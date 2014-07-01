@@ -1171,6 +1171,10 @@ compiler_moc_header_clean:
 		/usr/include/qt5/QtGui/qtouchdevice.h \
 		header/LibSDL.hh \
 		header/Exception.hh \
+		header/Map.h \
+		header/Square.h \
+		header/Inventory.h \
+		header/Player.h \
 		/usr/include/qt5/QtGui/QMouseEvent \
 		header/Graphic.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include header/Graphic.hpp -o .moc/moc_Graphic.cpp
@@ -2479,6 +2483,10 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/QtGui/qtouchdevice.h \
 		header/LibSDL.hh \
 		header/Exception.hh \
+		header/Map.h \
+		header/Square.h \
+		header/Inventory.h \
+		header/Player.h \
 		/usr/include/qt5/QtGui/QMouseEvent \
 		header/MainUI.hpp \
 		/usr/include/qt5/QtGui/QFont \
@@ -2545,10 +2553,6 @@ compiler_clean: compiler_moc_header_clean
 		/usr/include/qt5/QtWidgets/QDesktopWidget \
 		header/Server.h \
 		header/Network.h \
-		header/Player.h \
-		header/Inventory.h \
-		header/Map.h \
-		header/Square.h \
 		header/NetworkC.hpp \
 		/usr/include/qt5/QtCore/QDebug \
 		/usr/include/qt5/QtCore/QThread
@@ -2575,7 +2579,8 @@ compiler_clean: compiler_moc_header_clean
 		header/Player.h \
 		header/Inventory.h \
 		header/Map.h \
-		header/Square.h
+		header/Square.h \
+		header/List.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/player_functions.o srcs/player_functions.c
 
 .obj/moc_MainUI.o: .moc/moc_MainUI.cpp 
