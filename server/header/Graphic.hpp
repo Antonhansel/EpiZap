@@ -35,7 +35,6 @@ private:
 	int				_width;
 	int				_height;
 	Mix_Music		*_music;
-	SDL_Surface	 	*_grass;
 	SDL_Surface		*_screen;
 	SDL_Surface		*_floor[NB_FLOORTEXT];
 	SDL_Surface		*_player[NB_SPRITE];

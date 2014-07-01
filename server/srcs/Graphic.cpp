@@ -21,7 +21,6 @@ Graphic::Graphic(MainUI *parent)
 Graphic::~Graphic()
 {
 	SDL_FreeSurface(_screen);
-	SDL_FreeSurface(_grass);
 	Mix_FreeMusic(_music);
 	Mix_CloseAudio();
 	TTF_Quit();
@@ -63,15 +62,14 @@ bool 	Graphic::update()
 			{
 				_viewx += ((_lastPointPress.x() - _lastPointReleased.x())/64);
 				_viewy += ((_lastPointPress.y() - _lastPointReleased.y())/64);
-				if (_viewy + 23 > _map->width)
-					_viewy = _map->width - 23;
-				if (_viewx + 11 > _map->height)
-					_viewx = _map->height - 11;
+				if (_viewy + 11 >= _map->width)
+					_viewy = _map->width - 11;
+				if (_viewx + 23 >= _map->height)
+					_viewx = _map->height - 23;
 				if (_viewx < 0)
 					_viewx = 0;
 				if (_viewy < 0)
 					_viewy = 0;
-				std::cout << _viewx << " - " << _viewy << std::endl;
 			}
 		}
 	}
@@ -87,12 +85,15 @@ void 	Graphic::apply_floor()
 {	
 	int x = 0;
 	int y = 0;
-
-	for (y = 0; y < 11; y++)
+	if (_realUpdate)
 	{
-		for (x = 0; x < 23; x++)
+		for (y = 0; y < 11 && y < _map->height; y++)
 		{
-			Lib::applySurface(x * SP_SIZE, y* SP_SIZE, _floor[_map->map[x + _viewx][y + _viewy].square_type], _screen);
+			for (x = 0; x < 23 && x < _map->width; x++)
+			{
+				Lib::applySurface(x * SP_SIZE, y* SP_SIZE, 
+					_floor[_map->map[x + _viewx][y + _viewy].square_type], _screen);
+			}
 		}
 	}
 }
@@ -106,8 +107,10 @@ void 	Graphic::initRealUpdate(Map *map)
 void 	Graphic::draw()
 {
 	if (_realUpdate)
+	{
 		apply_floor();
-	Lib::xSDL_Flip(_screen);
+		Lib::xSDL_Flip(_screen);
+	}
 }
 
 void 	Graphic::loader()
