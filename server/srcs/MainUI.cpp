@@ -67,9 +67,7 @@ void	MainUI::initUi()
   _infos->setReadOnly(true);
   _infos->setFixedWidth(WIDTH/6);
   _infos->setStyleSheet("color: white; background-image: url(./textures/bg.png)");
-  _teams = new QTextEdit(this);
-  _teams->setText("DISPLAY TEAMS");
-  _teams->setReadOnly(true);
+  _teams = new QListWidget(this);
   _teams->setFixedWidth(WIDTH/6);
   _teams->setStyleSheet("color: white; background-image: url(./textures/bgbot.png)");
 }
@@ -97,7 +95,7 @@ void            MainUI::showAbout() const
   msgBox.exec();
 }
 
-void          MainUI::addData(QString &data, bool clear)
+void          MainUI::addData(QString const &data, bool clear)
 {
   if (clear)
     _infos->clear();

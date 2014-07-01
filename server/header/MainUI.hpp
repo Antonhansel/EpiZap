@@ -30,9 +30,10 @@
 # include <QTimer>
 # include <stdlib.h>
 # include <QWindow>
+# include <QListWidget>
 # include "Connexion.hpp"
 # include "NetworkC.hpp"
-# include "Graphic.hpp"
+# include "Graphic.hpp" 
 
 class	MainUI: public	QWidget
 {
@@ -43,7 +44,7 @@ public:
   void  setServer(Server &);
   void  startGraphic();
   void  initRealUpdate();
-  void  addData(QString &, bool);
+  void  addData(QString const &, bool);
 public slots:
   void  showAbout() const;
   void  updateInfos();
@@ -70,7 +71,7 @@ protected:
   QTextEdit     *_console;
   QTextEdit     *_data;
   QTextEdit     *_infos;
-  QTextEdit     *_teams;
+  QListWidget   *_teams;
   Server        *_server;
   bool          _start;
   Graphic       *_graphic;
