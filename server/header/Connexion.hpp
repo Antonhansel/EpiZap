@@ -57,6 +57,8 @@ private:
   QLineEdit     *_width;
   QLabel        *_heightLabel;
   QLineEdit     *_height;
+  QLabel        *_teamLabel;
+  QLineEdit     *_team;
   QLabel        *_clientLabel;
   QLineEdit     *_client;
   QLabel        *_delayLabel;
