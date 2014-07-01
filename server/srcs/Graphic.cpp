@@ -15,13 +15,13 @@ Graphic::Graphic(MainUI *parent)
 	_parent = parent;
 	_mouseClick = false;
 	_realUpdate = false;
-	_stuff[LINEMATE] = std::make_pair("<img src=\"linemate.png\"/> Linemate : ", 0);
-	_stuff[DERAUMERE] = std::make_pair("<img src=\"deraumere.png\"/> Deraumere : ", 0);
-	_stuff[SIBUR] = std::make_pair("<img src=\"sibur.png\"/> Sibur : ", 0);
-	_stuff[MENDIANE] = std::make_pair("<img src=\"mendiane.png\"/> Mendiane : ", 0);
-	_stuff[PHIRAS] = std::make_pair("<img src=\"phiras.png\"/> Phiras : ", 0);
-	_stuff[THYSTAME] = std::make_pair("<img src=\"thystame.png\"/> Thystame : ", 0);
-	_stuff[FOOD] = std::make_pair("<img src=\"food.png\"/> Food : ", 0);
+	_stuff[LINEMATE] = std::make_pair("<br><img src=\"./textures/linemate.png\"/> Linemate : ", 0);
+	_stuff[DERAUMERE] = std::make_pair("<img src=\"./textures/deraumere.png\"/> Deraumere : ", 0);
+	_stuff[SIBUR] = std::make_pair("<img src=\"./textures/sibur.png\"/> Sibur : ", 0);
+	_stuff[MENDIANE] = std::make_pair("<img src=\"./textures/mendiane.png\"/> Mendiane : ", 0);
+	_stuff[PHIRAS] = std::make_pair("<img src=\"./textures/phiras.png\"/> Phiras : ", 0);
+	_stuff[THYSTAME] = std::make_pair("<img src=\"./textures/thystame.png\"/> Thystame : ", 0);
+	_stuff[FOOD] = std::make_pair("<img src=\"./textures/food.png\"/> Food : ", 0);
 	initSDL();
 }
 
@@ -74,13 +74,24 @@ void 	Graphic::caseClicked()
 		data += QString::number(_map->map[_lastPointPress.x()/64]
 			[_lastPointPress.y()/64].square_type);
 		_parent->addData(data, false);
+		updateHud();
 	}
 }
 
-// void	Graphic::updateHud()
-// {
-// 	std::map<
-// }
+void	Graphic::updateHud()
+{
+	_stuff[LINEMATE].second = 5;
+	_stuff[DERAUMERE].second = 5;
+	_stuff[SIBUR].second = 5;
+	_stuff[MENDIANE].second = 5;
+	_stuff[PHIRAS].second = 5;
+	_stuff[THYSTAME].second = 5;
+	_stuff[FOOD].second = 5;
+	for (std::map<ROCK, std::pair<QString, int> >::const_iterator it = _stuff.begin(); it != _stuff.end(); ++it)
+	{
+		_parent->addData((*it).second.first + QString::number((*it).second.second), false);
+	}
+}
 
 bool 	Graphic::update()
 {

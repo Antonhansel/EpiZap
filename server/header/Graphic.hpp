@@ -32,7 +32,7 @@ public:
 	void 	mouseReleaseEvent(QMouseEvent *);
   	void 	mousePressEvent(QMouseEvent *);
   	void 	caseClicked();
-  	void 	updateHud(QString &) const;
+  	void 	updateHud();
 	~Graphic();
 private:
 	int				_width;
