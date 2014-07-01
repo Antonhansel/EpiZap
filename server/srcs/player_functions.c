@@ -16,6 +16,7 @@ int 		fct_read(Player *this, void *p)
 	}
 	else
 	{
+		printf("BUFFER EXIT = %s\n", buf);
 		sprintf(s->msg, "%s<font color=\"Red\">*** PLAYER %d DISCONNECTED ***</font>", (s->msg != NULL) ? s->msg : "", this->fd);
 		printf("----------- AVANT DELETE ----------\n");
 		display_list(s->player);

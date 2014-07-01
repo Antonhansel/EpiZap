@@ -34,19 +34,22 @@ int					create_circular_buffer(CircularBuffer **cb)
 	return (TRUE);
 }
 
-int		add_str_in_buffer(CircularBuffer **cb, char *str)
+int					add_str_in_buffer(CircularBuffer **cb, char *str)
 {
+	CircularBuffer *tmp;
 	int	i;
 
 	i = 0;
+	tmp = (*cb);
 	printf("---- ADDING STR ------\n");
 	while (str[i] != 0)
 	{
-		printf("---- ADDING STR %d & ADDR = %p------\n", i, (*cb));
-		(*cb)->c = str[i];
-		cb = &(*cb)->next;
+		printf("---- ADDING STR %d & ADDR = %p------\n", i, tmp);
+		tmp->c = str[i];
+		tmp = tmp->next;
 		i++;
 	}
+	*(cb) = tmp;
 	if (str[i - 1] == '\n')
 		return (TRUE);
 	return (FALSE);
