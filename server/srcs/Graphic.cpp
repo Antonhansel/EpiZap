@@ -58,10 +58,16 @@ void 	Graphic::caseClicked()
 	if (_lastPointPress.x() > 0 && _lastPointPress.x() < (_map->width * 64)
 		&& _lastPointPress.y() > 0 && _lastPointPress.y() < (_map->height * 64))
 	{
+		data = "Position: ";
+		data += QString::number(_lastPointPress.x()/64);
+		data += " - ";
+		data += QString::number(_lastPointPress.y()/64);
+		_parent->addData(data, true);
 		data = "Block type: ";
 		data += QString::number(_map->map[_lastPointPress.x()/64]
 			[_lastPointPress.y()/64].square_type);
-		_parent->addData(data, true);	
+		_parent->addData(data, false);
+
 	}
 }
 
