@@ -77,38 +77,44 @@ void 	Connexion::setLayouts()
     _mainLayout->addWidget(_clientLabel, 3, 0);
     _mainLayout->addWidget(_client, 3, 1);
     _client->setText("10");
-    _mainLayout->addWidget(_delayLabel, 4, 0);
-    _mainLayout->addWidget(_delay, 4, 1);
+    _mainLayout->addWidget(_teamLabel, 4, 0);
+    _mainLayout->addWidget(_team, 4, 1);
+    _team->setText("10");
+    _mainLayout->addWidget(_delayLabel, 5, 0);
+    _mainLayout->addWidget(_delay, 5, 1);
     _delay->setText("10");
-    _mainLayout->addWidget(_connect, 5, 0, 1, 2);
-    _mainLayout->addWidget(_quit, 6, 0, 1, 2);
-    _mainLayout->addWidget(_console, 7, 0, 1, 2);
+    _mainLayout->addWidget(_connect, 6, 0, 1, 2);
+    _mainLayout->addWidget(_quit, 7, 0, 1, 2);
+    _mainLayout->addWidget(_console, 8, 0, 1, 2);
 }
 
 void 	Connexion::init()
 {
-   _mainLayout = new QGridLayout();
-   _connect = new QPushButton(_window);
-   _connect->setText("Start");
-   _port = new QLineEdit();
-   _portLabel = new QLabel();
-   _portLabel->setText("Port :");
-   _width = new QLineEdit();
-   _widthLabel = new QLabel();
-   _widthLabel->setText("Width :");
-   _height = new QLineEdit();
-   _heightLabel = new QLabel();
-   _heightLabel->setText("Height :");
-   _client = new QLineEdit();
-   _clientLabel = new QLabel();
-   _clientLabel->setText("Nb of customer :");
-   _delay = new QLineEdit();
-   _delayLabel = new QLabel();
-   _delayLabel->setText("Delay :");	
-   _quit = new QPushButton(_window);
-   _quit->setText("Quit");
-   _console = new QTextEdit();
-   _console->setReadOnly(true);
+ _mainLayout = new QGridLayout();
+ _connect = new QPushButton(_window);
+ _connect->setText("Start");
+ _port = new QLineEdit();
+ _portLabel = new QLabel();
+ _portLabel->setText("Port :");
+ _width = new QLineEdit();
+ _widthLabel = new QLabel();
+ _widthLabel->setText("Width :");
+ _height = new QLineEdit();
+ _heightLabel = new QLabel();
+ _heightLabel->setText("Height :");
+ _client = new QLineEdit();
+ _clientLabel = new QLabel();
+ _clientLabel->setText("Nb of customer :");
+ _team = new QLineEdit();
+ _teamLabel = new QLabel();
+ _teamLabel->setText("Nb of team :");
+ _delay = new QLineEdit();
+ _delayLabel = new QLabel();
+ _delayLabel->setText("Delay :");	
+ _quit = new QPushButton(_window);
+ _quit->setText("Quit");
+ _console = new QTextEdit();
+ _console->setReadOnly(true);
 }
 
 bool  Connexion::checkData(const QString &data)
