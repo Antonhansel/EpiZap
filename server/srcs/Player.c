@@ -17,6 +17,9 @@ int		init_player(Player *this, int fd)
 		return (-1);
 	init_inventory(this->inventory);
 	init_func_ptr(this);
+	if (create_circular_buffer(&this->buffer_circular) == FALSE)
+		return (-1);
+	display_circular_buffer(&this->buffer_circular);
 	return (0);
 }
 

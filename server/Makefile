@@ -63,7 +63,8 @@ SOURCES       = srcs/main.cpp \
 		srcs/Lib.cpp \
 		srcs/Exception.cpp \
 		srcs/server_functions.c \
-		srcs/player_functions.c .moc/moc_MainUI.cpp \
+		srcs/player_functions.c \
+		srcs/CircularBuffer.c .moc/moc_MainUI.cpp \
 		.moc/moc_Connexion.cpp \
 		.moc/moc_NetworkC.cpp \
 		.moc/moc_Graphic.cpp
@@ -86,6 +87,7 @@ OBJECTS       = .obj/main.o \
 		.obj/Exception.o \
 		.obj/server_functions.o \
 		.obj/player_functions.o \
+		.obj/CircularBuffer.o \
 		.obj/moc_MainUI.o \
 		.obj/moc_Connexion.o \
 		.obj/moc_NetworkC.o \
@@ -328,7 +330,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .obj/gui1.0.0 || mkdir -p .obj/gui1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .obj/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/Incantation.h header/List.h header/Square.h header/xfunction.h header/Graphic.hpp header/LibSDL.hh header/Exception.hh .obj/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/Incantation.c srcs/List.c srcs/Square.c srcs/xmalloc.c srcs/Graphic.cpp srcs/Lib.cpp srcs/Exception.cpp srcs/server_functions.c srcs/player_functions.c .obj/gui1.0.0/ && (cd `dirname .obj/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .obj/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .obj/gui1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .obj/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/Incantation.h header/List.h header/Square.h header/xfunction.h header/Graphic.hpp header/LibSDL.hh header/Exception.hh header/CircularBuffer.h .obj/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/Incantation.c srcs/List.c srcs/Square.c srcs/xmalloc.c srcs/Graphic.cpp srcs/Lib.cpp srcs/Exception.cpp srcs/server_functions.c srcs/player_functions.c srcs/CircularBuffer.c .obj/gui1.0.0/ && (cd `dirname .obj/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .obj/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .obj/gui1.0.0
 
 
 clean:compiler_clean 
@@ -2582,6 +2584,9 @@ compiler_clean: compiler_moc_header_clean
 		header/Square.h \
 		header/List.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/player_functions.o srcs/player_functions.c
+
+.obj/CircularBuffer.o: srcs/CircularBuffer.c header/CircularBuffer.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/CircularBuffer.o srcs/CircularBuffer.c
 
 .obj/moc_MainUI.o: .moc/moc_MainUI.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/moc_MainUI.o .moc/moc_MainUI.cpp

@@ -1,5 +1,6 @@
-#include	"Server.h"
-#include	"List.h"
+#include "Server.h"
+#include "List.h"
+#include "CircularBuffer.h"	
 
 int 	init_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
 {

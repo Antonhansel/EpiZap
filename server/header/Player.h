@@ -1,8 +1,9 @@
 #ifndef 	PLAYER_H_
 # define 	PLAYER_H_
 
-# include	<stdlib.h>
-# include 	"Inventory.h"
+# include <stdlib.h>
+# include "Inventory.h"
+# include "CircularBuffer.h"
 
 typedef struct 		Player
 {
@@ -15,6 +16,7 @@ typedef struct 		Player
 	Inventory		*inventory;
 	int				nb_request;
 	struct Player 	*next;
+	CircularBuffer	buffer_circular;
 	/* Methods */
 	Inventory 		*(*get_inventory)(struct Player *);
 	void			(*set_inventory)(struct Player *, Inventory *);
