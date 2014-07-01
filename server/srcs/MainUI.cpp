@@ -63,7 +63,7 @@ void	MainUI::initUi()
   _console->setStyleSheet("color: green; background-color: black");
   _console->setFixedHeight(HEIGHT/6);
   _infos = new QTextEdit(this);
-  _infos->setText("DISPLAY DATA SELECTED");
+  _infos->setText("Click on a square to reveal its data");
   _infos->setReadOnly(true);
   _infos->setFixedWidth(WIDTH/6);
   _teams = new QTextEdit(this);

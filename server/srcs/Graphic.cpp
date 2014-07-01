@@ -53,31 +53,34 @@ void Graphic::mouseReleaseEvent (QMouseEvent *e)
 
 bool 	Graphic::update()
 {
-	if (_mouseDrag)
+	if (_realUpdate)
 	{
-		_mouseDrag = false;
-		if (_map->width > 23 && _map->height > 11)
+		if (_mouseDrag)
 		{
-			if ((_lastPointPress.x() - _lastPointReleased.x()) != 0 || (_lastPointPress.y() - _lastPointReleased.y()) != 0)
+			_mouseDrag = false;
+			if (_map->width > 23 && _map->height > 11)
 			{
-				_viewx += ((_lastPointPress.x() - _lastPointReleased.x())/64);
-				_viewy += ((_lastPointPress.y() - _lastPointReleased.y())/64);
-				if (_viewy + 11 >= _map->width)
-					_viewy = _map->width - 11;
-				if (_viewx + 23 >= _map->height)
-					_viewx = _map->height - 23;
-				if (_viewx < 0)
-					_viewx = 0;
-				if (_viewy < 0)
-					_viewy = 0;
+				if ((_lastPointPress.x() - _lastPointReleased.x()) != 0 || (_lastPointPress.y() - _lastPointReleased.y()) != 0)
+				{
+					_viewx += ((_lastPointPress.x() - _lastPointReleased.x())/64);
+					_viewy += ((_lastPointPress.y() - _lastPointReleased.y())/64);
+					if (_viewy + 11 >= _map->width)
+						_viewy = _map->width - 11;
+					if (_viewx + 23 >= _map->height)
+						_viewx = _map->height - 23;
+					if (_viewx < 0)
+						_viewx = 0;
+					if (_viewy < 0)
+						_viewy = 0;
+				}
 			}
 		}
+		if (_mouseClick)
+		{
+			_mouseClick = false;
+		}
+		draw();
 	}
-	if (_mouseClick)
-	{
-		_mouseClick = false;
-	}
-	draw();
 	return (true);
 }
 
@@ -85,15 +88,12 @@ void 	Graphic::apply_floor()
 {	
 	int x = 0;
 	int y = 0;
-	if (_realUpdate)
+	for (y = 0; y < 11 && y < _map->height; y++)
 	{
-		for (y = 0; y < 11 && y < _map->height; y++)
+		for (x = 0; x < 23 && x < _map->width; x++)
 		{
-			for (x = 0; x < 23 && x < _map->width; x++)
-			{
-				Lib::applySurface(x * SP_SIZE, y* SP_SIZE, 
-					_floor[_map->map[x + _viewx][y + _viewy].square_type], _screen);
-			}
+			Lib::applySurface(x * SP_SIZE, y* SP_SIZE, 
+				_floor[_map->map[x + _viewx][y + _viewy].square_type], _screen);
 		}
 	}
 }
