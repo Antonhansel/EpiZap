@@ -6,6 +6,7 @@
 # include <SDL/SDL.h>
 # include <SDL/SDL_ttf.h>
 # include <SDL/SDL_mixer.h>
+# include <utility>
 # include "LibSDL.hh"
 # include "Map.h"
 #undef main
@@ -22,15 +23,16 @@ class Graphic : public QWidget
 	Q_OBJECT
 public:
 	Graphic(MainUI *);
-	void initSDL();
-	bool update();
-	void draw();
-	void apply_floor();
-	void loader();
-	void initRealUpdate(Map *);
-	void  mouseReleaseEvent(QMouseEvent *);
-  	void  mousePressEvent(QMouseEvent *);
-  	void caseClicked();
+	void 	initSDL();
+	bool 	update();
+	void 	draw();
+	void 	apply_floor();
+	void 	loader();
+	void 	initRealUpdate(Map *);
+	void 	mouseReleaseEvent(QMouseEvent *);
+  	void 	mousePressEvent(QMouseEvent *);
+  	void 	caseClicked();
+  	void 	updateHud(QString &) const;
 	~Graphic();
 private:
 	int				_width;
@@ -50,6 +52,7 @@ private:
 	Map 			*_map;
 	int 			_viewx;
 	int 			_viewy;
+	std::map<ROCK, std::pair<QString, int> > _stuff;
 };
 
 #endif /* !GRAPHIC_HPP_ */
