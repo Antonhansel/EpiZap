@@ -16,7 +16,7 @@ typedef struct 		Player
 	Inventory		*inventory;
 	int				nb_request;
 	struct Player 	*next;
-	CircularBuffer	buffer_circular;
+	CircularBuffer	*buffer_circular;
 	/* Methods */
 	Inventory 		*(*get_inventory)(struct Player *);
 	void			(*set_inventory)(struct Player *, Inventory *);

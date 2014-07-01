@@ -13,8 +13,8 @@ typedef struct 				CircularBuffer
 	struct CircularBuffer 	*head;
 }							CircularBuffer;
 
-int		create_circular_buffer(CircularBuffer *);
-void	display_circular_buffer(CircularBuffer *);
-int		add_str_in_buffer(CircularBuffer *, char *);
+int		create_circular_buffer(CircularBuffer **);
+void	display_circular_buffer(CircularBuffer *, int);
+int		add_str_in_buffer(CircularBuffer **, char *);
 
 #endif

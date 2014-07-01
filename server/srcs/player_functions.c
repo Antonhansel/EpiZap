@@ -11,6 +11,8 @@ int 		fct_read(Player *this, void *p)
 	if (read(this->fd, buf, 511) > 0)
 	{
 		sprintf(s->msg, "%s<font color=\"Green\">*** %s ***</font>", (s->msg != NULL) ? s->msg : "", buf);
+		add_str_in_buffer(&this->buffer_circular, buf);
+		display_circular_buffer(this->buffer_circular, 0);
 	}
 	else
 	{
