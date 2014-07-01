@@ -67,7 +67,6 @@ void 	Graphic::caseClicked()
 		data += QString::number(_map->map[_lastPointPress.x()/64]
 			[_lastPointPress.y()/64].square_type);
 		_parent->addData(data, false);
-
 	}
 }
 
