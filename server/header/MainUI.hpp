@@ -43,6 +43,7 @@ public:
   void  setServer(Server &);
   void  startGraphic();
   void  initRealUpdate();
+  void  addData(QString &, bool);
 public slots:
   void  showAbout() const;
   void  updateInfos();

@@ -30,6 +30,7 @@ public:
 	void initRealUpdate(Map *);
 	void  mouseReleaseEvent(QMouseEvent *);
   	void  mousePressEvent(QMouseEvent *);
+  	void caseClicked();
 	~Graphic();
 private:
 	int				_width;

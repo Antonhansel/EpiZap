@@ -66,10 +66,12 @@ void	MainUI::initUi()
   _infos->setText("Click on a square to reveal its data");
   _infos->setReadOnly(true);
   _infos->setFixedWidth(WIDTH/6);
+  _infos->setStyleSheet("color: white; background-image: url(./textures/bg.png)");
   _teams = new QTextEdit(this);
   _teams->setText("DISPLAY TEAMS");
   _teams->setReadOnly(true);
   _teams->setFixedWidth(WIDTH/6);
+  _teams->setStyleSheet("color: white; background-image: url(./textures/bgbot.png)");
 }
 
 void            MainUI::setServer(Server &s)
@@ -93,6 +95,13 @@ void            MainUI::showAbout() const
   msgBox.setInformativeText("The worst project ever made\n");
   msgBox.setStandardButtons(QMessageBox::Ok);
   msgBox.exec();
+}
+
+void          MainUI::addData(QString &data, bool clear)
+{
+  if (clear)
+    _infos->clear();
+  _infos->append(data);
 }
 
 MainUI::MainUI() : QWidget()

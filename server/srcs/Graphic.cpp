@@ -51,6 +51,20 @@ void Graphic::mouseReleaseEvent (QMouseEvent *e)
 	_mouseDrag = true;
 }
 
+void 	Graphic::caseClicked()
+{
+	QString data;
+
+	if (_lastPointPress.x() > 0 && _lastPointPress.x() < (_map->width * 64)
+		&& _lastPointPress.y() > 0 && _lastPointPress.y() < (_map->height * 64))
+	{
+		data = "Block type: ";
+		data += QString::number(_map->map[_lastPointPress.x()/64]
+			[_lastPointPress.y()/64].square_type);
+		_parent->addData(data, true);	
+	}
+}
+
 bool 	Graphic::update()
 {
 	if (_realUpdate)
@@ -60,7 +74,8 @@ bool 	Graphic::update()
 			_mouseDrag = false;
 			if (_map->width > 23 && _map->height > 11)
 			{
-				if ((_lastPointPress.x() - _lastPointReleased.x()) != 0 || (_lastPointPress.y() - _lastPointReleased.y()) != 0)
+				if ((_lastPointPress.x() - _lastPointReleased.x()) != 0 
+					|| (_lastPointPress.y() - _lastPointReleased.y()) != 0)
 				{
 					_viewx += ((_lastPointPress.x() - _lastPointReleased.x())/64);
 					_viewy += ((_lastPointPress.y() - _lastPointReleased.y())/64);
@@ -73,11 +88,14 @@ bool 	Graphic::update()
 					if (_viewy < 0)
 						_viewy = 0;
 				}
+				else
+				_mouseClick = true;
 			}
 		}
 		if (_mouseClick)
 		{
 			_mouseClick = false;
+			caseClicked();
 		}
 		draw();
 	}
