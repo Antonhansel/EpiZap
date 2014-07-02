@@ -1,6 +1,19 @@
 #include	"Server.h"
 #include	"List.h"
 
+void 		player_socket_problem(Player *this, Server *s)
+{
+	sprintf(s->msg, "%s<font color=\"Red\">*** PLAYER %d DISCONNECTED ***</font>", (s->msg != NULL) ? s->msg : "", this->fd);
+	printf("----------- AVANT DELETE ----------\n");
+	display_list(s->player);
+	del_elem(&s->player, this->fd);
+	printf("----------- APRES DELETE ----------\n");
+	display_list(s->player);
+	if (this->fd == s->max_fd)
+		s->max_fd--;
+	printf("MAX FD = %d\n", s->max_fd);
+}
+
 int 		fct_read(Player *this, void *p)
 {
 	char	buf[512];
@@ -18,17 +31,36 @@ int 		fct_read(Player *this, void *p)
 		display_circular_buffer(this->buffer_circular, 0);
 	}
 	else
-	{
-		printf("BUFFER EXIT = %s\n", buf);
-		sprintf(s->msg, "%s<font color=\"Red\">*** PLAYER %d DISCONNECTED ***</font>", (s->msg != NULL) ? s->msg : "", this->fd);
-		printf("----------- AVANT DELETE ----------\n");
-		display_list(s->player);
-		del_elem(&s->player, this->fd);
-		printf("----------- APRES DELETE ----------\n");
-		display_list(s->player);
-		if (this->fd == s->max_fd)
-			s->max_fd--;
-		printf("MAX FD = %d\n", s->max_fd);
-	}
+		player_socket_problem(this, s);
 	return (0);
+}
+
+int					fct_write(Player *this, void *p)
+{
+	Server			*s;
+	CircularBuffer 	*tmp;
+	char 			buf[BUFFER_SIZE];
+	int 			i;
+	unsigned int	ret;
+
+	s = ((Server *)(p));
+	s->max_fd = s->max_fd;
+	tmp = this->buffer_circular;
+	i = 0;
+	while (tmp->c != BUFFER_CHAR)
+	{
+		buf[i] = tmp->c;
+		++i;
+		tmp = tmp->next;
+	}
+	buf[i] = 0;
+	if ((ret = write(this->fd, buf, strlen(buf))) > 0)
+	{
+		reset_elem_in_buffer(&this->buffer_circular, ret);
+		if (ret == strlen(buf))
+			this->mode = READ;
+	}
+	else
+		player_socket_problem(this, s);
+	return (TRUE);
 }

@@ -16,17 +16,17 @@ int 				create_elem_in_buffer(CircularBuffer *cb, char c)
 int					create_circular_buffer(CircularBuffer **cb)
 {
 	CircularBuffer 	*tmp;
-	int	i;
+	int				i;
 
 	i = 0;
 	printf("---- CREATING CIRCULAR BUFFER ------\n");
-	(*cb)->c = 48;
+	(*cb)->c = BUFFER_CHAR;
 	(*cb)->head = (*cb);
 	(*cb)->next = (*cb);
 	tmp = (*cb);
 	while (i < BUFFER_SIZE - 1)
 	{
-		create_elem_in_buffer(tmp, 48);
+		create_elem_in_buffer(tmp, BUFFER_CHAR);
 		tmp = tmp->next;
 		i++;
 	}
@@ -36,8 +36,8 @@ int					create_circular_buffer(CircularBuffer **cb)
 
 int					add_str_in_buffer(CircularBuffer **cb, char *str)
 {
-	CircularBuffer *tmp;
-	int	i;
+	CircularBuffer 	*tmp;
+	int				i;
 
 	i = 0;
 	tmp = (*cb);
@@ -53,6 +53,22 @@ int					add_str_in_buffer(CircularBuffer **cb, char *str)
 	if (str[i - 1] == '\n')
 		return (TRUE);
 	return (FALSE);
+}
+
+void 				reset_elem_in_buffer(CircularBuffer **cb, int nb_char_writted)
+{
+	CircularBuffer 	*tmp;
+	int 			i;
+
+	i = 0;
+	tmp = (*cb);
+	while (i < nb_char_writted)
+	{
+		tmp->c = BUFFER_CHAR;
+		++i;
+		tmp = tmp->next;
+	}
+	*(cb) = tmp;
 }
 
 void  				display_circular_buffer(CircularBuffer *front_ptr, int mode)

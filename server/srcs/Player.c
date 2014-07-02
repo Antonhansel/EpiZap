@@ -13,6 +13,7 @@ int		init_player(Player *this, int fd)
 	this->y = 0;
 	this->time = 0;
 	this->lvl = 0;
+	this->mode = WRITE;
 	if (!(this->inventory = xmalloc(sizeof(Inventory))))
 		return (-1);
 	init_inventory(this->inventory, NULL, 0);
