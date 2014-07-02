@@ -66,6 +66,27 @@ void 				reset_elem_in_buffer(CircularBuffer **cb, int nb_char_writted)
 		++i;
 		tmp = tmp->next;
 	}
+	(*cb) = (*cb)->head;
+}
+
+char 		*get_data_of_buffer(CircularBuffer *cb)
+{
+	char 	*str;
+	int		i;
+
+	i = 0;
+	if ((str = malloc(sizeof(char) * 64)) == NULL)
+		return (NULL);
+	str = memset(str, 0, 64);
+	printf("GOOD MALLOC\n");
+	cb = cb->head;
+	while (cb->c != '\n')
+	{
+		str[i] = cb->c;
+		cb = cb->next;
+		++i;
+	}
+	return (str);
 }
 
 void  				display_circular_buffer(CircularBuffer *front_ptr, int mode)

@@ -5,15 +5,16 @@ static void			init_func_ptr(Player *);
 static void			set_inventory(Player *, Inventory *);
 static Inventory 	*get_inventory(Player *);
 
-int		init_player(Player *this, int fd)
+int		init_player(Player *this, int fd, int width, int height)
 {
 	this->fd = fd;
 	this->nb_request = 0;
-	this->x = 0;
-	this->y = 0;
+	this->x = rand() % width;
+	this->y = rand() % height;
 	this->time = 0;
 	this->lvl = 0;
 	this->mode = WRITE;
+	this->intro = TRUE;
 	if (!(this->inventory = xmalloc(sizeof(Inventory))))
 		return (-1);
 	init_inventory(this->inventory, NULL, 0);
