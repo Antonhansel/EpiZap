@@ -1,5 +1,7 @@
-#include	"Server.h"
-#include	"List.h"
+#include "Server.h"
+#include "List.h"
+
+void 	fct_write_next(Player *, Server *, char *);
 
 void 		player_socket_problem(Player *this, Server *s)
 {
@@ -11,7 +13,6 @@ void 		player_socket_problem(Player *this, Server *s)
 	display_list(s->player);
 	if (this->fd == s->max_fd)
 		s->max_fd--;
-	printf("MAX FD = %d\n", s->max_fd);
 }
 
 int 		fct_read(Player *this, void *p)
@@ -41,26 +42,39 @@ int					fct_write(Player *this, void *p)
 	CircularBuffer 	*tmp;
 	char 			buf[BUFFER_SIZE];
 	int 			i;
-	unsigned int	ret;
 
 	s = ((Server *)(p));
 	s->max_fd = s->max_fd;
-	tmp = this->buffer_circular;
+	tmp = this->buffer_circular->head;
 	i = 0;
-	while (tmp->c != BUFFER_CHAR)
+	if (tmp->c != BUFFER_CHAR)
 	{
-		buf[i] = tmp->c;
-		++i;
-		tmp = tmp->next;
+		while (tmp->c != BUFFER_CHAR)
+		{
+			buf[i] = tmp->c;
+			++i;
+			tmp = tmp->next;
+		}
+		buf[i] = 0;
+		fct_write_next(this, s, buf);
 	}
-	buf[i] = 0;
+	return (TRUE);
+}
+
+void 				fct_write_next(Player *this, Server *s, char *buf)
+{
+	unsigned int	ret;
+
 	if ((ret = write(this->fd, buf, strlen(buf))) > 0)
 	{
 		reset_elem_in_buffer(&this->buffer_circular, ret);
 		if (ret == strlen(buf))
+		{
 			this->mode = READ;
+			this->buffer_circular = this->buffer_circular->head;
+			printf("---- RESET POINTOR ADDR ON CIRCUAR BUFFER'S HEAD ----\n");				
+		}
 	}
 	else
 		player_socket_problem(this, s);
-	return (TRUE);
 }

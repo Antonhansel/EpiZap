@@ -17,6 +17,7 @@ Graphic::Graphic(MainUI *parent)
 	_parent = parent;
 	_mouseClick = false;
 	_realUpdate = false;
+	_mouseDrag = false;
 	_stuff[LINEMATE] = std::make_pair("<br><img src=\"./textures/linemate.png\"/> Linemate : ", 0);
 	_stuff[DERAUMERE] = std::make_pair("<img src=\"./textures/deraumere.png\"/> Deraumere : ", 0);
 	_stuff[SIBUR] = std::make_pair("<img src=\"./textures/sibur.png\"/> Sibur : ", 0);
@@ -29,6 +30,16 @@ Graphic::Graphic(MainUI *parent)
 
 Graphic::~Graphic()
 {
+	int i(0);
+	
+	for (i = 0; i !=  PLAYER_UP; i++)
+		SDL_FreeSurface(_up[i]);	
+	for (i = 0; i !=  PLAYER_DOWN; i++)
+		SDL_FreeSurface(_down[i]);	
+	for (i = 0; i !=  PLAYER_RIGHT; i++)
+		SDL_FreeSurface(_right[i]);
+	for (i = 0; i !=  PLAYER_LEFT; i++)
+		SDL_FreeSurface(_left[i]);		
 	SDL_FreeSurface(_screen);
 	Mix_FreeMusic(_music);
 	Mix_CloseAudio();
@@ -57,7 +68,7 @@ void Graphic::mousePressEvent(QMouseEvent *e)
 void Graphic::mouseReleaseEvent (QMouseEvent *e)
 {
 	_lastPointReleased = e->pos();
-	_mouseDrag = true;
+	_mouseReleased = true;
 }
 
 void 	Graphic::caseClicked()
@@ -86,35 +97,49 @@ void	Graphic::updateHud(const int x, const int y)
 	_yhud = y;
 }
 
+void 	Graphic::mouseMoveEvent(QMouseEvent *e)
+{
+	_currentPos = e->pos();
+}
+
+void 	Graphic::dragMouse()
+{
+	if ((_lastPointPress.x() - _currentPos.x()) != 0 
+		|| (_lastPointPress.y() - _currentPos.y()) != 0)
+	{
+		if (((_lastPointPress.x() - _currentPos.x())/64) >= 1)
+			_viewx -= 1;
+		else if (((_lastPointPress.x() - _currentPos.x())/64) <= -1)
+			_viewx += 1;
+		if (((_lastPointPress.y() - _currentPos.y())/64) >= 1)
+			_viewy -= 1;
+		else if (((_lastPointPress.y() - _currentPos.y())/64) <= -1)
+			_viewy += 1;
+		if (_viewy + 11 >= _map->width)
+			_viewy = _map->width - 11;
+		if (_viewx + 23 >= _map->height)
+			_viewx = _map->height - 23;
+		if (_viewx < 0)
+			_viewx = 0;
+		if (_viewy < 0)
+			_viewy = 0;
+	}
+}
+
 bool 	Graphic::update()
 {
 	if (_realUpdate)
 	{
-		if (_mouseDrag)
+		if (_mouseReleased)
 		{
 			_mouseDrag = false;
-			if (_map->width > 23 && _map->height > 11)
-			{
-				if ((_lastPointPress.x() - _lastPointReleased.x()) != 0 
-					|| (_lastPointPress.y() - _lastPointReleased.y()) != 0)
-				{
-					_viewx += ((_lastPointPress.x() - _lastPointReleased.x())/64);
-					_viewy += ((_lastPointPress.y() - _lastPointReleased.y())/64);
-					if (_viewy + 11 >= _map->width)
-						_viewy = _map->width - 11;
-					if (_viewx + 23 >= _map->height)
-						_viewx = _map->height - 23;
-					if (_viewx < 0)
-						_viewx = 0;
-					if (_viewy < 0)
-						_viewy = 0;
-				}
-				else
-				_mouseClick = true;
-			}
+			_mouseReleased = false;
 		}
+		if (_mouseDrag)
+			dragMouse();
 		if (_mouseClick)
 		{
+			_mouseDrag = true;
 			_mouseClick = false;
 			caseClicked();
 		}
@@ -133,13 +158,20 @@ void 	Graphic::apply_floor()
 		{
 			Lib::applySurface(x * SP_SIZE, y* SP_SIZE, 
 				_floor[_map->map[x + _viewx][y + _viewy].square_type], _screen);
-			// _stuff[LINEMATE].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, LINEMATE);
-			// _stuff[DERAUMERE].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, DERAUMERE);
-			// _stuff[SIBUR].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, SIBUR);
-			// _stuff[MENDIANE].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, MENDIANE);
-			// _stuff[PHIRAS].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, PHIRAS);
-			// _stuff[THYSTAME].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, THYSTAME);
-			// _stuff[FOOD].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, FOOD);
+			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, LINEMATE))
+				Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 10, _ressource[LINEMATE], _screen);
+			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, DERAUMERE))
+				Lib::applySurface((x * SP_SIZE) + 20, (y * SP_SIZE) + 15, _ressource[DERAUMERE], _screen);
+			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, SIBUR))
+				Lib::applySurface((x * SP_SIZE) + 30, (y * SP_SIZE) + 25, _ressource[SIBUR], _screen);
+			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, MENDIANE))
+				Lib::applySurface((x * SP_SIZE) + 40, (y * SP_SIZE) + 10, _ressource[MENDIANE], _screen);
+			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, PHIRAS))
+				Lib::applySurface((x * SP_SIZE) + 30, (y * SP_SIZE) + 10, _ressource[PHIRAS], _screen);
+			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, THYSTAME))
+				Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 30, _ressource[THYSTAME], _screen);
+			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, FOOD))
+				Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 45, _ressource[FOOD], _screen);
 		}
 	}
 }
@@ -150,11 +182,18 @@ void 	Graphic::initRealUpdate(Map *map)
 	_realUpdate = true;
 }
 
-void 	Graphic::draw()
+void 	Graphic::loopHud()
 {
-	if (_realUpdate)
-	{
-		apply_floor();
+	QString data;
+
+	data = "Position: ";
+	data += QString::number(_xhud);
+	data += " - ";
+	data += QString::number(_yhud);
+	_parent->addData(data, true);
+	data = "Block type: ";
+	data += QString::number(_map->map[_xhud][_yhud].square_type);
+	_parent->addData(data, false);
 	_stuff[LINEMATE].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, LINEMATE);
 	_stuff[DERAUMERE].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, DERAUMERE);
 	_stuff[SIBUR].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, SIBUR);
@@ -162,12 +201,17 @@ void 	Graphic::draw()
 	_stuff[PHIRAS].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, PHIRAS);
 	_stuff[THYSTAME].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, THYSTAME);
 	_stuff[FOOD].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, FOOD);
-	_parent->addData("", true);
 	for (std::map<ROCK, std::pair<QString, int> >::const_iterator it = _stuff.begin(); it != _stuff.end(); ++it)
-	{
 		_parent->addData((*it).second.first + QString::number((*it).second.second), false);
-	}
-	Lib::xSDL_Flip(_screen);
+}
+
+void 	Graphic::draw()
+{
+	if (_realUpdate)
+	{
+		apply_floor();
+		loopHud();
+		Lib::xSDL_Flip(_screen);
 	}
 }
 
@@ -188,4 +232,34 @@ void 	Graphic::loader()
 	_ressource[PHIRAS] = Lib::loadImage("./textures/phiras.png");
 	_ressource[THYSTAME] = Lib::loadImage("./textures/thystame.png");
 	_ressource[FOOD] = Lib::loadImage("./textures/food.png");
+	_up[0] = Lib::loadImage("./textures/LinkRunU1.gif");
+	_up[1] = Lib::loadImage("./textures/LinkRunU2.gif");
+	_up[2] = Lib::loadImage("./textures/LinkRunU3.gif");
+	_up[3] = Lib::loadImage("./textures/LinkRunU4.gif");
+	_up[4] = Lib::loadImage("./textures/LinkRunU5.gif");
+	_up[5] = Lib::loadImage("./textures/LinkRunU6.gif");
+	_up[6] = Lib::loadImage("./textures/LinkRunU7.gif");
+	_up[7] = Lib::loadImage("./textures/LinkRunU8.gif");
+	_down[0] = Lib::loadImage("./textures/LinkRunShieldD1.gif");
+	_down[1] = Lib::loadImage("./textures/LinkRunShieldD2.gif");
+	_down[2] = Lib::loadImage("./textures/LinkRunShieldD3.gif");
+	_down[3] = Lib::loadImage("./textures/LinkRunShieldD4.gif");
+	_down[4] = Lib::loadImage("./textures/LinkRunShieldD5.gif");
+	_down[5] = Lib::loadImage("./textures/LinkRunShieldD6.gif");
+	_down[6] = Lib::loadImage("./textures/LinkRunShieldD7.gif");
+	_down[7] = Lib::loadImage("./textures/LinkRunShieldD8.gif");
+	_down[8] = Lib::loadImage("./textures/LinkRunShieldD9.gif");
+	_left[0] = Lib::loadImage("./textures/LinkRunShieldL1.gif");
+	_left[1] = Lib::loadImage("./textures/LinkRunShieldL2.gif");
+	_left[2] = Lib::loadImage("./textures/LinkRunShieldL3.gif");
+	_left[3] = Lib::loadImage("./textures/LinkRunShieldL4.gif");
+	_left[4] = Lib::loadImage("./textures/LinkRunShieldL5.gif");
+	_left[5] = Lib::loadImage("./textures/LinkRunShieldL6.gif");
+	_left[6] = Lib::loadImage("./textures/LinkRunShieldL7.gif");
+	_right[0] = Lib::loadImage("./textures/LinkRunR1.gif");
+	_right[1] = Lib::loadImage("./textures/LinkRunR2.gif");
+	_right[2] = Lib::loadImage("./textures/LinkRunR3.gif"); 
+	_right[3] = Lib::loadImage("./textures/LinkRunR4.gif");
+	_right[4] = Lib::loadImage("./textures/LinkRunR5.gif");
+	_right[5] = Lib::loadImage("./textures/LinkRunR6.gif");
 }

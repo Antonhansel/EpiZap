@@ -19,7 +19,6 @@ int					create_circular_buffer(CircularBuffer **cb)
 	int				i;
 
 	i = 0;
-	printf("---- CREATING CIRCULAR BUFFER ------\n");
 	(*cb)->c = BUFFER_CHAR;
 	(*cb)->head = (*cb);
 	(*cb)->next = (*cb);
@@ -41,10 +40,8 @@ int					add_str_in_buffer(CircularBuffer **cb, char *str)
 
 	i = 0;
 	tmp = (*cb);
-	printf("---- ADDING STR ------\n");
 	while (str[i] != 0)
 	{
-		printf("---- ADDING STR %d & ADDR = %p------\n", i, tmp);
 		tmp->c = str[i];
 		tmp = tmp->next;
 		i++;
@@ -61,14 +58,14 @@ void 				reset_elem_in_buffer(CircularBuffer **cb, int nb_char_writted)
 	int 			i;
 
 	i = 0;
-	tmp = (*cb);
+	tmp = (*cb)->head;
 	while (i < nb_char_writted)
 	{
+		printf("DELETE LOOP %c\n", tmp->c);
 		tmp->c = BUFFER_CHAR;
 		++i;
 		tmp = tmp->next;
 	}
-	*(cb) = tmp;
 }
 
 void  				display_circular_buffer(CircularBuffer *front_ptr, int mode)

@@ -13,6 +13,10 @@
 
 # include <QMouseEvent>
 
+# define PLAYER_UP 8
+# define PLAYER_DOWN 9
+# define PLAYER_RIGHT 6
+# define PLAYER_LEFT 7
 # define NB_SPRITE 10
 # define NB_FLOORTEXT 8
 # define SP_SIZE 64
@@ -29,9 +33,12 @@ public:
 	void 	draw();
 	void 	apply_floor();
 	void 	loader();
+	void 	loopHud();
 	void 	initRealUpdate(Map *);
 	void 	mouseReleaseEvent(QMouseEvent *);
   	void 	mousePressEvent(QMouseEvent *);
+  	void 	mouseMoveEvent(QMouseEvent *);
+  	void 	dragMouse();
   	void 	caseClicked();
   	void 	updateHud(const int, const int);
 	~Graphic();
@@ -51,12 +58,19 @@ private:
 	bool 			_mouseClick;
 	bool 			_mouseDrag;
 	bool 			_realUpdate;
+	QPoint			_currentPos;
 	QPoint 			_lastPointPress;
 	QPoint			_lastPointReleased;
 	Map 			*_map;
 	int 			_viewx;
 	int 			_viewy;
 	std::map<ROCK, std::pair<QString, int> > _stuff;
+	bool 			_mouseReleased;
+ private:
+ 	SDL_Surface		*_up[PLAYER_UP];
+ 	SDL_Surface		*_down[PLAYER_DOWN];
+ 	SDL_Surface		*_right[PLAYER_RIGHT];
+ 	SDL_Surface		*_left[PLAYER_LEFT];
 };
 
 #endif /* !GRAPHIC_HPP_ */
