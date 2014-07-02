@@ -29,6 +29,7 @@ public:
 	void 	draw();
 	void 	apply_floor();
 	void 	loader();
+	void 	loopHud();
 	void 	initRealUpdate(Map *);
 	void 	mouseReleaseEvent(QMouseEvent *);
   	void 	mousePressEvent(QMouseEvent *);

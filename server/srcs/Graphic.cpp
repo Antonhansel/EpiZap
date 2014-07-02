@@ -133,13 +133,21 @@ void 	Graphic::apply_floor()
 		{
 			Lib::applySurface(x * SP_SIZE, y* SP_SIZE, 
 				_floor[_map->map[x + _viewx][y + _viewy].square_type], _screen);
-			// _stuff[LINEMATE].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, LINEMATE);
-			// _stuff[DERAUMERE].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, DERAUMERE);
-			// _stuff[SIBUR].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, SIBUR);
-			// _stuff[MENDIANE].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, MENDIANE);
-			// _stuff[PHIRAS].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, PHIRAS);
-			// _stuff[THYSTAME].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, THYSTAME);
-			// _stuff[FOOD].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, FOOD);
+			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, LINEMATE))
+				Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 10, _ressource[LINEMATE], _screen);
+			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, DERAUMERE))
+				Lib::applySurface((x * SP_SIZE) + 20, (y * SP_SIZE) + 15, _ressource[DERAUMERE], _screen);
+			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, SIBUR))
+				Lib::applySurface((x * SP_SIZE) + 30, (y * SP_SIZE) + 25, _ressource[SIBUR], _screen);
+			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, MENDIANE))
+				Lib::applySurface((x * SP_SIZE) + 40, (y * SP_SIZE) + 10, _ressource[MENDIANE], _screen);
+			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, PHIRAS))
+				Lib::applySurface((x * SP_SIZE) + 30, (y * SP_SIZE) + 10, _ressource[PHIRAS], _screen);
+			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, THYSTAME))
+				Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 30, _ressource[THYSTAME], _screen);
+			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, FOOD))
+				Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 45, _ressource[FOOD], _screen);
+
 		}
 	}
 }
@@ -150,11 +158,18 @@ void 	Graphic::initRealUpdate(Map *map)
 	_realUpdate = true;
 }
 
-void 	Graphic::draw()
+void 	Graphic::loopHud()
 {
-	if (_realUpdate)
-	{
-		apply_floor();
+	QString data;
+
+	data = "Position: ";
+	data += QString::number(_xhud);
+	data += " - ";
+	data += QString::number(_yhud);
+	_parent->addData(data, true);
+	data = "Block type: ";
+	data += QString::number(_map->map[_xhud][_yhud].square_type);
+	_parent->addData(data, false);
 	_stuff[LINEMATE].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, LINEMATE);
 	_stuff[DERAUMERE].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, DERAUMERE);
 	_stuff[SIBUR].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, SIBUR);
@@ -162,12 +177,17 @@ void 	Graphic::draw()
 	_stuff[PHIRAS].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, PHIRAS);
 	_stuff[THYSTAME].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, THYSTAME);
 	_stuff[FOOD].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, FOOD);
-	_parent->addData("", true);
 	for (std::map<ROCK, std::pair<QString, int> >::const_iterator it = _stuff.begin(); it != _stuff.end(); ++it)
-	{
 		_parent->addData((*it).second.first + QString::number((*it).second.second), false);
-	}
-	Lib::xSDL_Flip(_screen);
+}
+
+void 	Graphic::draw()
+{
+	if (_realUpdate)
+	{
+		apply_floor();
+		loopHud();
+		Lib::xSDL_Flip(_screen);
 	}
 }
 
