@@ -3,4 +3,4 @@
 
 
 
-#endif
+#endif /* COMMAND_FUNCTIONS_H_ */
