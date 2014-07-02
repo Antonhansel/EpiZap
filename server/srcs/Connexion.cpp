@@ -6,7 +6,7 @@ Connexion::Connexion(MainUI *mainui)
   _mainUI = mainui;
   _window = new QWidget;
   _window->show();
-  this->_window->setFixedSize(600, 600);
+  this->_window->setFixedSize(300, 400);
   this->_window->setWindowTitle(tr("Connexion"));
   init();
   setLayouts();
