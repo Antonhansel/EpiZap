@@ -1,0 +1,6 @@
+#ifndef START_FUNCTIONS_H_
+# define START_FUNCTIONS_H_
+
+
+
+#endif /* START_FUNCTIONS_H_ */
