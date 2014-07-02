@@ -10,7 +10,6 @@ int		init_map(Map *this, int w, int h)
 {
 	this->width = w;
 	this->height = h;
-	srand(time(NULL));
 	if (alloc_map_attr(this) == -1)
 		return (-1);
 	return (0);
@@ -26,12 +25,12 @@ static int 		alloc_map_attr(Map *this)
 {
 	int 		i;
 	int 		x;
-	if (!(this->map = xmalloc(sizeof(Square *) * (this->height + 1)))) 
+	if (!(this->map = xmalloc(sizeof(Square *) * (this->height)))) 
 		return (-1);
 	i = 0;
 	while (i < this->height)
 		{
-			if (!(this->map[i] = xmalloc(sizeof(Square) * (this->width + 1))))
+			if (!(this->map[i] = xmalloc(sizeof(Square) * (this->width))))
 				return (-1);
 			++i;
 		}

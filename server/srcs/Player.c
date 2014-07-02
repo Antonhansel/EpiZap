@@ -15,7 +15,7 @@ int		init_player(Player *this, int fd)
 	this->lvl = 0;
 	if (!(this->inventory = xmalloc(sizeof(Inventory))))
 		return (-1);
-	init_inventory(this->inventory);
+	init_inventory(this->inventory, NULL, 0);
 	init_func_ptr(this);
 	if (!(this->buffer_circular = xmalloc(sizeof(CircularBuffer))))
 		return (-1);

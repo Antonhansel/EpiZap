@@ -18,7 +18,7 @@ typedef struct	Square
 	Player 		*(*get_player)(struct Square *);
 }				Square;
 
-int 	init_square(struct Square *, struct Inventory *);
+int 	init_square(struct Square *);
 int 	destroy_square(struct Square *);
 
 #endif

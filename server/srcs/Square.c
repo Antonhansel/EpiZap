@@ -3,9 +3,12 @@
 static Inventory 	*get_inventory(Square *);
 static void			set_inventory(Square *, Inventory *);
 
-int 	init_square(Square *this, Inventory *i)
+int 	init_square(Square *this)
 {
-	this->inventory = i;
+	if ((this->inventory = malloc(sizeof(Inventory))) == NULL)
+		return (1);
+	if (init_inventory(this->inventory, NULL, 1) == FALSE)
+		return (FALSE);
 	this->get_inventory = &get_inventory;
 	this->set_inventory = &set_inventory;
 	return (0);

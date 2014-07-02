@@ -13,6 +13,7 @@ int		main(int argc, char **argv)
   MainUI	Client;
   QSize size = Client.sizeHint();
   QDesktopWidget* desktop = QApplication::desktop();
+  srand(time(NULL));
   int width = desktop->width();
   int height = desktop->height();
   int mw = size.width();
