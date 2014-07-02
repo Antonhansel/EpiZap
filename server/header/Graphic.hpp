@@ -33,6 +33,8 @@ public:
 	void 	initRealUpdate(Map *);
 	void 	mouseReleaseEvent(QMouseEvent *);
   	void 	mousePressEvent(QMouseEvent *);
+  	void 	mouseMoveEvent(QMouseEvent *);
+  	void 	dragMouse();
   	void 	caseClicked();
   	void 	updateHud(const int, const int);
 	~Graphic();
@@ -52,12 +54,14 @@ private:
 	bool 			_mouseClick;
 	bool 			_mouseDrag;
 	bool 			_realUpdate;
+	QPoint			_currentPos;
 	QPoint 			_lastPointPress;
 	QPoint			_lastPointReleased;
 	Map 			*_map;
 	int 			_viewx;
 	int 			_viewy;
 	std::map<ROCK, std::pair<QString, int> > _stuff;
+	bool 			_mouseReleased;
 };
 
 #endif /* !GRAPHIC_HPP_ */

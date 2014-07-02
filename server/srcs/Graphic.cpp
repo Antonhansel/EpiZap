@@ -17,6 +17,7 @@ Graphic::Graphic(MainUI *parent)
 	_parent = parent;
 	_mouseClick = false;
 	_realUpdate = false;
+	_mouseDrag = false;
 	_stuff[LINEMATE] = std::make_pair("<br><img src=\"./textures/linemate.png\"/> Linemate : ", 0);
 	_stuff[DERAUMERE] = std::make_pair("<img src=\"./textures/deraumere.png\"/> Deraumere : ", 0);
 	_stuff[SIBUR] = std::make_pair("<img src=\"./textures/sibur.png\"/> Sibur : ", 0);
@@ -57,7 +58,7 @@ void Graphic::mousePressEvent(QMouseEvent *e)
 void Graphic::mouseReleaseEvent (QMouseEvent *e)
 {
 	_lastPointReleased = e->pos();
-	_mouseDrag = true;
+	_mouseReleased = true;
 }
 
 void 	Graphic::caseClicked()
@@ -86,35 +87,49 @@ void	Graphic::updateHud(const int x, const int y)
 	_yhud = y;
 }
 
+void 	Graphic::mouseMoveEvent(QMouseEvent *e)
+{
+	_currentPos = e->pos();
+}
+
+void 	Graphic::dragMouse()
+{
+	if ((_lastPointPress.x() - _currentPos.x()) != 0 
+		|| (_lastPointPress.y() - _currentPos.y()) != 0)
+	{
+		if (((_lastPointPress.x() - _currentPos.x())/64) >= 1)
+			_viewx -= 1;
+		else if (((_lastPointPress.x() - _currentPos.x())/64) <= -1)
+			_viewx += 1;
+		if (((_lastPointPress.y() - _currentPos.y())/64) >= 1)
+			_viewy -= 1;
+		else if (((_lastPointPress.y() - _currentPos.y())/64) <= -1)
+			_viewy += 1;
+		if (_viewy + 11 >= _map->width)
+			_viewy = _map->width - 11;
+		if (_viewx + 23 >= _map->height)
+			_viewx = _map->height - 23;
+		if (_viewx < 0)
+			_viewx = 0;
+		if (_viewy < 0)
+			_viewy = 0;
+	}
+}
+
 bool 	Graphic::update()
 {
 	if (_realUpdate)
 	{
-		if (_mouseDrag)
+		if (_mouseReleased)
 		{
 			_mouseDrag = false;
-			if (_map->width > 23 && _map->height > 11)
-			{
-				if ((_lastPointPress.x() - _lastPointReleased.x()) != 0 
-					|| (_lastPointPress.y() - _lastPointReleased.y()) != 0)
-				{
-					_viewx += ((_lastPointPress.x() - _lastPointReleased.x())/64);
-					_viewy += ((_lastPointPress.y() - _lastPointReleased.y())/64);
-					if (_viewy + 11 >= _map->width)
-						_viewy = _map->width - 11;
-					if (_viewx + 23 >= _map->height)
-						_viewx = _map->height - 23;
-					if (_viewx < 0)
-						_viewx = 0;
-					if (_viewy < 0)
-						_viewy = 0;
-				}
-				else
-				_mouseClick = true;
-			}
+			_mouseReleased = false;
 		}
+		if (_mouseDrag)
+			dragMouse();
 		if (_mouseClick)
 		{
+			_mouseDrag = true;
 			_mouseClick = false;
 			caseClicked();
 		}
@@ -147,7 +162,6 @@ void 	Graphic::apply_floor()
 				Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 30, _ressource[THYSTAME], _screen);
 			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, FOOD))
 				Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 45, _ressource[FOOD], _screen);
-
 		}
 	}
 }
