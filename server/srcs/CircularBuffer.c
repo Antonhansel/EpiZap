@@ -66,7 +66,6 @@ void 				reset_elem_in_buffer(CircularBuffer **cb, int nb_char_writted)
 		++i;
 		tmp = tmp->next;
 	}
-	(*cb) = (*cb)->head;
 }
 
 char 		*get_data_of_buffer(CircularBuffer *cb)

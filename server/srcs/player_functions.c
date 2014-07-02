@@ -72,7 +72,7 @@ void 				fct_write_next(Player *this, Server *s, char *buf)
 		{
 			this->mode = READ;
 			this->buffer_circular = this->buffer_circular->head;
-			printf("---- RESET POINTOR ADDR ON CIRCUAR BUFFER'S HEAD ----\n");				
+			printf("---- RESET POINTOR ADDR ON CIRCULAR BUFFER'S HEAD ----\n");				
 		}
 	}
 	else
