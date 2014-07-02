@@ -1,9 +1,15 @@
-#ifndef 	PLAYER_H_
-# define 	PLAYER_H_
+#ifndef PLAYER_H_
+# define PLAYER_H_
 
 # include <stdlib.h>
 # include "Inventory.h"
 # include "CircularBuffer.h"
+
+enum mode
+{
+	READ,
+	WRITE
+};
 
 typedef struct 		Player
 {
@@ -17,6 +23,7 @@ typedef struct 		Player
 	int				nb_request;
 	struct Player 	*next;
 	CircularBuffer	*buffer_circular;
+	int 			mode;
 	/* Methods */
 	Inventory 		*(*get_inventory)(struct Player *);
 	void			(*set_inventory)(struct Player *, Inventory *);

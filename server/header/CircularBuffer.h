@@ -4,6 +4,7 @@
 # include "Network.h"
 
 # define BUFFER_SIZE	64
+# define BUFFER_CHAR	48
 
 typedef struct 				CircularBuffer
 {
@@ -16,5 +17,6 @@ typedef struct 				CircularBuffer
 int		create_circular_buffer(CircularBuffer **);
 void	display_circular_buffer(CircularBuffer *, int);
 int		add_str_in_buffer(CircularBuffer **, char *);
+void 	reset_elem_in_buffer(CircularBuffer **, int);
 
 #endif
