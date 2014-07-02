@@ -42,7 +42,7 @@ void 	Connexion::tryConnect()
 
   _connect->setEnabled(false);
   if (checkData(_port->text()) && checkData(_width->text()) && checkData(_height->text()) &&
-      checkData(_client->text()) && checkData(_delay->text()))
+      checkData(_client->text()) && checkData(_delay->text()) && checkData(_team->text()) && (_client->text().toInt() > 0))
   {
     _console->setHtml(_console->toHtml() + "<font color=\"Green\">*** TRYING TO CREATE SERVER ***\n</font>");
     if (isConnected())
@@ -140,7 +140,7 @@ bool  Connexion::isConnected()
   QString res;
 
   _server.port = _port->text().toInt();
-  _server.nb_player = _client->text().toInt();
+  _server.nb_player = _client->text().toInt() * _team->text().toInt();
   _server.ctime = _delay->text().toInt();
   _server.initialize = FALSE;
   res = init_server(&_server, _width->text().toInt(), _height->text().toInt());

@@ -71,7 +71,7 @@ static int 			loop(Server *this)
 			{
 				if (FD_ISSET(this->socket, &readfds))
 					accept_socket(this);
-				check_fd(&this->player, this, &readfds);
+				check_bits_fields(this, &readfds, &writefds);
 				resultPrev = result;
 			}
 		}

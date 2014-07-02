@@ -22,6 +22,7 @@ int		init_player(Player *this, int fd)
 		return (-1);
 	if (create_circular_buffer(&this->buffer_circular) == FALSE)
 		return (-1);
+	add_str_in_buffer(&this->buffer_circular, "BIENVENUE\n");
 	display_circular_buffer(this->buffer_circular, 1);
 	return (0);
 }

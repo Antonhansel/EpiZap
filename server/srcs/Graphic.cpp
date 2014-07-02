@@ -30,6 +30,16 @@ Graphic::Graphic(MainUI *parent)
 
 Graphic::~Graphic()
 {
+	int i(0);
+	
+	for (i = 0; i !=  PLAYER_UP; i++)
+		SDL_FreeSurface(_up[i]);	
+	for (i = 0; i !=  PLAYER_DOWN; i++)
+		SDL_FreeSurface(_down[i]);	
+	for (i = 0; i !=  PLAYER_RIGHT; i++)
+		SDL_FreeSurface(_right[i]);
+	for (i = 0; i !=  PLAYER_LEFT; i++)
+		SDL_FreeSurface(_left[i]);		
 	SDL_FreeSurface(_screen);
 	Mix_FreeMusic(_music);
 	Mix_CloseAudio();
@@ -222,4 +232,34 @@ void 	Graphic::loader()
 	_ressource[PHIRAS] = Lib::loadImage("./textures/phiras.png");
 	_ressource[THYSTAME] = Lib::loadImage("./textures/thystame.png");
 	_ressource[FOOD] = Lib::loadImage("./textures/food.png");
+	_up[0] = Lib::loadImage("./textures/LinkRunU1.gif");
+	_up[1] = Lib::loadImage("./textures/LinkRunU2.gif");
+	_up[2] = Lib::loadImage("./textures/LinkRunU3.gif");
+	_up[3] = Lib::loadImage("./textures/LinkRunU4.gif");
+	_up[4] = Lib::loadImage("./textures/LinkRunU5.gif");
+	_up[5] = Lib::loadImage("./textures/LinkRunU6.gif");
+	_up[6] = Lib::loadImage("./textures/LinkRunU7.gif");
+	_up[7] = Lib::loadImage("./textures/LinkRunU8.gif");
+	_down[0] = Lib::loadImage("./textures/LinkRunShieldD1.gif");
+	_down[1] = Lib::loadImage("./textures/LinkRunShieldD2.gif");
+	_down[2] = Lib::loadImage("./textures/LinkRunShieldD3.gif");
+	_down[3] = Lib::loadImage("./textures/LinkRunShieldD4.gif");
+	_down[4] = Lib::loadImage("./textures/LinkRunShieldD5.gif");
+	_down[5] = Lib::loadImage("./textures/LinkRunShieldD6.gif");
+	_down[6] = Lib::loadImage("./textures/LinkRunShieldD7.gif");
+	_down[7] = Lib::loadImage("./textures/LinkRunShieldD8.gif");
+	_down[8] = Lib::loadImage("./textures/LinkRunShieldD9.gif");
+	_left[0] = Lib::loadImage("./textures/LinkRunShieldL1.gif");
+	_left[1] = Lib::loadImage("./textures/LinkRunShieldL2.gif");
+	_left[2] = Lib::loadImage("./textures/LinkRunShieldL3.gif");
+	_left[3] = Lib::loadImage("./textures/LinkRunShieldL4.gif");
+	_left[4] = Lib::loadImage("./textures/LinkRunShieldL5.gif");
+	_left[5] = Lib::loadImage("./textures/LinkRunShieldL6.gif");
+	_left[6] = Lib::loadImage("./textures/LinkRunShieldL7.gif");
+	_right[0] = Lib::loadImage("./textures/LinkRunR1.gif");
+	_right[1] = Lib::loadImage("./textures/LinkRunR2.gif");
+	_right[2] = Lib::loadImage("./textures/LinkRunR3.gif"); 
+	_right[3] = Lib::loadImage("./textures/LinkRunR4.gif");
+	_right[4] = Lib::loadImage("./textures/LinkRunR5.gif");
+	_right[5] = Lib::loadImage("./textures/LinkRunR6.gif");
 }

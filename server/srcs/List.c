@@ -67,35 +67,6 @@ int	get_max_fd(Player *front_ptr)
   return (max + 1);
 }
 
-void	init_fd(Player *front_ptr, fd_set *readfds)
-{
-  Player	*tmp;
-
-  tmp = front_ptr;
-  while (tmp != NULL)
-  {
-    FD_SET(tmp->fd, readfds);
-    tmp = tmp->next;
-  }
-}
-
-int	check_fd(Player **front_ptr, Server *server, fd_set *readfds)
-{
-  Player	*tmp;
-
-  tmp = *front_ptr;
-  while (tmp != NULL)
-  {
-    if (FD_ISSET(tmp->fd, readfds))
-    {
-      tmp->fct_read(tmp, server);
-      return (0);
-    }
-    tmp = tmp->next;
-  }
-  return (0);
-}
-
 void  display_list(Player *front_ptr)
 {
   Player  *tmp;
