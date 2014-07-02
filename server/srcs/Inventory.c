@@ -32,25 +32,28 @@ int 	destroy_inventory(Inventory *this)
 
 void	generate_inventory(Inventory *this)
 {
-	if ((rand() % 3) == 0)
+	this->tab[LINEMATE] = 0;
+	this->tab[DERAUMERE] = 0;
+	this->tab[SIBUR] = 0;
+	this->tab[MENDIANE] = 0;
+	this->tab[PHIRAS] = 0;
+	this->tab[THYSTAME] = 0;
+	this->tab[FOOD] = 0;
+	if ((rand() % 2))
 	{
-		this->tab[LINEMATE] = rand() % 2;
-		this->tab[DERAUMERE] = rand() % 2;
-		this->tab[SIBUR] = rand() % 2;
-		this->tab[MENDIANE] = rand() % 2;
-		this->tab[PHIRAS] = rand() % 2;
-		this->tab[THYSTAME] = rand() % 2;
-		this->tab[FOOD] = rand() % 2;
-	}
-	else
-	{
-		this->tab[LINEMATE] = 0;
-		this->tab[DERAUMERE] = 0;
-		this->tab[SIBUR] = 0;
-		this->tab[MENDIANE] = 0;
-		this->tab[PHIRAS] = 0;
-		this->tab[THYSTAME] = 0;
-		this->tab[FOOD] = 0;
+		if ((rand() % 3) == 0)
+		{
+			this->tab[LINEMATE] = rand() % 2;
+			this->tab[DERAUMERE] = rand() % 2;
+			this->tab[SIBUR] = rand() % 2;
+		}
+		else
+		{
+			this->tab[MENDIANE] = rand() % 2;
+			this->tab[PHIRAS] = rand() % 2;
+			this->tab[THYSTAME] = rand() % 2;
+			this->tab[FOOD] = rand() % 2;
+		}
 	}
 }
 
