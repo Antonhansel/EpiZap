@@ -16,6 +16,7 @@
 # define NB_SPRITE 10
 # define NB_FLOORTEXT 8
 # define SP_SIZE 64
+# define NB_RESSOURCE 7
 
 class MainUI;
 class Graphic : public QWidget
@@ -32,15 +33,18 @@ public:
 	void 	mouseReleaseEvent(QMouseEvent *);
   	void 	mousePressEvent(QMouseEvent *);
   	void 	caseClicked();
-  	void 	updateHud();
+  	void 	updateHud(const int, const int);
 	~Graphic();
 private:
+	int 			_xhud;
+	int 			_yhud;
 	int				_width;
 	int				_height;
 	Mix_Music		*_music;
 	SDL_Surface		*_screen;
 	SDL_Surface		*_floor[NB_FLOORTEXT];
 	SDL_Surface		*_player[NB_SPRITE];
+	SDL_Surface		*_ressource[NB_RESSOURCE];
 	TTF_Font		*_font;
 	SDL_Event 		_event;
 	MainUI			*_parent;

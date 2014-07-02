@@ -12,6 +12,8 @@ Graphic::Graphic(MainUI *parent)
 	setAttribute(Qt::WA_InputMethodEnabled);
 	_viewy = 0;
 	_viewx = 0;
+	_xhud = 0;
+	_yhud = 0;
 	_parent = parent;
 	_mouseClick = false;
 	_realUpdate = false;
@@ -74,23 +76,14 @@ void 	Graphic::caseClicked()
 		data += QString::number(_map->map[_lastPointPress.x()/64]
 			[_lastPointPress.y()/64].square_type);
 		_parent->addData(data, false);
-		updateHud();
+		updateHud(_lastPointPress.x()/64, _lastPointPress.y()/64);
 	}
 }
 
-void	Graphic::updateHud()
+void	Graphic::updateHud(const int x, const int y)
 {
-	_stuff[LINEMATE].second = 5;
-	_stuff[DERAUMERE].second = 5;
-	_stuff[SIBUR].second = 5;
-	_stuff[MENDIANE].second = 5;
-	_stuff[PHIRAS].second = 5;
-	_stuff[THYSTAME].second = 5;
-	_stuff[FOOD].second = 5;
-	for (std::map<ROCK, std::pair<QString, int> >::const_iterator it = _stuff.begin(); it != _stuff.end(); ++it)
-	{
-		_parent->addData((*it).second.first + QString::number((*it).second.second), false);
-	}
+	_xhud = x;
+	_yhud = y;
 }
 
 bool 	Graphic::update()
@@ -140,6 +133,13 @@ void 	Graphic::apply_floor()
 		{
 			Lib::applySurface(x * SP_SIZE, y* SP_SIZE, 
 				_floor[_map->map[x + _viewx][y + _viewy].square_type], _screen);
+			// _stuff[LINEMATE].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, LINEMATE);
+			// _stuff[DERAUMERE].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, DERAUMERE);
+			// _stuff[SIBUR].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, SIBUR);
+			// _stuff[MENDIANE].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, MENDIANE);
+			// _stuff[PHIRAS].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, PHIRAS);
+			// _stuff[THYSTAME].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, THYSTAME);
+			// _stuff[FOOD].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, FOOD);
 		}
 	}
 }
@@ -155,7 +155,19 @@ void 	Graphic::draw()
 	if (_realUpdate)
 	{
 		apply_floor();
-		Lib::xSDL_Flip(_screen);
+	_stuff[LINEMATE].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, LINEMATE);
+	_stuff[DERAUMERE].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, DERAUMERE);
+	_stuff[SIBUR].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, SIBUR);
+	_stuff[MENDIANE].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, MENDIANE);
+	_stuff[PHIRAS].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, PHIRAS);
+	_stuff[THYSTAME].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, THYSTAME);
+	_stuff[FOOD].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, FOOD);
+	_parent->addData("", true);
+	for (std::map<ROCK, std::pair<QString, int> >::const_iterator it = _stuff.begin(); it != _stuff.end(); ++it)
+	{
+		_parent->addData((*it).second.first + QString::number((*it).second.second), false);
+	}
+	Lib::xSDL_Flip(_screen);
 	}
 }
 
@@ -169,4 +181,11 @@ void 	Graphic::loader()
 	_floor[5] = Lib::loadImage("./textures/mud.png");
 	_floor[6] = Lib::loadImage("./textures/mud2.png");
 	_floor[7] = Lib::loadImage("./textures/mud3.png");
+	_ressource[LINEMATE] = Lib::loadImage("./textures/linemate.png");
+	_ressource[DERAUMERE] = Lib::loadImage("./textures/deraumere.png");
+	_ressource[SIBUR] = Lib::loadImage("./textures/sibur.png");
+	_ressource[MENDIANE] = Lib::loadImage("./textures/mendiane.png");
+	_ressource[PHIRAS] = Lib::loadImage("./textures/phiras.png");
+	_ressource[THYSTAME] = Lib::loadImage("./textures/thystame.png");
+	_ressource[FOOD] = Lib::loadImage("./textures/food.png");
 }
