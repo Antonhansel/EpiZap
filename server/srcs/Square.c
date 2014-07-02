@@ -1,4 +1,4 @@
-#include 	"Square.h"
+#include "Square.h"
 
 static Inventory 	*get_inventory(Square *);
 static void			set_inventory(Square *, Inventory *);
