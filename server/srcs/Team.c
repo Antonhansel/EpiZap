@@ -1,16 +1,17 @@
 #include "Team.h"
+#include "Server.h"
 
 static void		init_func_ptr(Team *);
-
 static int 		get_nb_player_max(Team *);
 static void		set_nb_player_max(Team *, int);
 static int 		get_nb_player_actu(Team *);
 static void		set_nb_player_actu(Team *, int);
 
-int				init_team(Team *this, int player_max)
+int		init_team(Team *this, char *name, int player_max)
 {
 	this->nb_player_max = player_max;
 	this->nb_player_actu = 0;
+	this->name = strdup(name);
 	init_func_ptr(this);
 	return (0);
 }

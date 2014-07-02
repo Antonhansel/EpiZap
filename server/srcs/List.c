@@ -1,7 +1,7 @@
 #include "List.h"
 #include "Server.h"
 
-int	add_elem(Player **front_ptr, int fd, int width, int height)
+int       add_elem(Player **front_ptr, int fd, int width, int height)
 {
   Player	*node;
   Player	*tmp;
@@ -23,7 +23,7 @@ int	add_elem(Player **front_ptr, int fd, int width, int height)
   return (0);
 }
 
-int	del_elem(Player **front_ptr, int fd)
+int	      del_elem(Player **front_ptr, int fd)
 {
   Player	*tmp;
 
@@ -46,7 +46,7 @@ int	del_elem(Player **front_ptr, int fd)
   return (1);
 }
 
-int	get_max_fd(Player *front_ptr)
+int	      get_max_fd(Player *front_ptr)
 {
   Player	*tmp;
   int	max;
@@ -67,7 +67,7 @@ int	get_max_fd(Player *front_ptr)
   return (max + 1);
 }
 
-void  display_list(Player *front_ptr)
+void      display_list(Player *front_ptr)
 {
   Player  *tmp;
   int     i = 0;

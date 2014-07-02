@@ -7,6 +7,7 @@ void 		assign_to_team(Player *this, Server *s)
 
 	team_name = get_data_of_buffer(this->buffer_circular);
 	reset_elem_in_buffer(&this->buffer_circular, strlen(team_name) + 1);
+	this->buffer_circular = this->buffer_circular->head;
 	if (team_name != NULL)
 	{
 		printf("---- ASSIGN PLAYER %d TO TEAM %s----\n", this->fd, team_name);
@@ -18,4 +19,6 @@ void 		assign_to_team(Player *this, Server *s)
 	this->mode = WRITE;
 	sprintf(buf, "%d %d\n", this->x, this->y);
 	add_str_in_buffer(&this->buffer_circular, buf);
+	display_circular_buffer(this->buffer_circular, 1);
+	printf("BUFFFFF = %s\n", buf);
 }

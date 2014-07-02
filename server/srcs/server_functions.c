@@ -65,7 +65,7 @@ int						accept_socket(Server *s)
 	display_list(s->player);
 	if (s->max_fd < fd)
 		s->max_fd = fd;
-	s->n_client++;
+	s->nb_player_co++;
 	printf("-----> MAX FD = %d\n", s->max_fd);
 	sprintf(s->msg, "%s<font color=\"Green\">*** NEW CONNECTION FROM IP %s ON PORT %d AND FD %d ***</font>", s->msg, inet_ntoa(client_sin.sin_addr), s->port, fd);
 	return (TRUE);

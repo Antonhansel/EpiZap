@@ -56,6 +56,7 @@ int					fct_write(Player *this, void *p)
 			tmp = tmp->next;
 		}
 		buf[i] = 0;
+		printf("WRITTING BUFF = %s", buf);
 		fct_write_next(this, s, buf);
 	}
 	return (TRUE);
