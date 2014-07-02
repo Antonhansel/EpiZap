@@ -74,19 +74,19 @@ void 	Graphic::caseClicked()
 		data += QString::number(_map->map[_lastPointPress.x()/64]
 			[_lastPointPress.y()/64].square_type);
 		_parent->addData(data, false);
-		updateHud();
+		updateHud(_lastPointPress.x()/64, _lastPointPress.y()/64);
 	}
 }
 
-void	Graphic::updateHud()
+void	Graphic::updateHud(const int x, const int y)
 {
-	_stuff[LINEMATE].second = 5;
-	_stuff[DERAUMERE].second = 5;
-	_stuff[SIBUR].second = 5;
-	_stuff[MENDIANE].second = 5;
-	_stuff[PHIRAS].second = 5;
-	_stuff[THYSTAME].second = 5;
-	_stuff[FOOD].second = 5;
+	_stuff[LINEMATE].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, LINEMATE);
+	_stuff[DERAUMERE].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, DERAUMERE);
+	_stuff[SIBUR].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, SIBUR);
+	_stuff[MENDIANE].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, MENDIANE);
+	_stuff[PHIRAS].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, PHIRAS);
+	_stuff[THYSTAME].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, THYSTAME);
+	_stuff[FOOD].second = _map->map[x][y].inventory->get_object(_map->map[x][y].inventory, FOOD);
 	for (std::map<ROCK, std::pair<QString, int> >::const_iterator it = _stuff.begin(); it != _stuff.end(); ++it)
 	{
 		_parent->addData((*it).second.first + QString::number((*it).second.second), false);
