@@ -6,12 +6,12 @@ static void			set_inventory(Square *, Inventory *);
 int 	init_square(Square *this)
 {
 	if ((this->inventory = malloc(sizeof(Inventory))) == NULL)
-		return (1);
+		return (FALSE);
 	if (init_inventory(this->inventory, NULL, 1) == FALSE)
 		return (FALSE);
 	this->get_inventory = &get_inventory;
 	this->set_inventory = &set_inventory;
-	return (0);
+	return (TRUE);
 }
 
 int 	destroy_square(Square *this)

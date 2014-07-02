@@ -26,12 +26,12 @@ static int 		alloc_map_attr(Map *this)
 	int 		i;
 	int 		x;
 	if (!(this->map = xmalloc(sizeof(Square *) * (this->height)))) 
-		return (-1);
+		return (FALSE);
 	i = 0;
 	while (i < this->height)
 		{
 			if (!(this->map[i] = xmalloc(sizeof(Square) * (this->width))))
-				return (-1);
+				return (FALSE);
 			++i;
 		}
 	i = 0;
@@ -41,11 +41,13 @@ static int 		alloc_map_attr(Map *this)
 		while (x < this->height)
 		{
 			this->map[i][x].square_type = rand() % 7;
+			if (init_square(&this->map[i][x]) == FALSE)
+				return (FALSE);
 			x++;
 		}
 		i++;
 	}
-	return (0);
+	return (TRUE);
 }
 
 static void		free_map_attr(Map *this)
