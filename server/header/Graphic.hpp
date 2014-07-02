@@ -13,6 +13,10 @@
 
 # include <QMouseEvent>
 
+# define PLAYER_UP 8
+# define PLAYER_DOWN 9
+# define PLAYER_RIGHT 6
+# define PLAYER_LEFT 7
 # define NB_SPRITE 10
 # define NB_FLOORTEXT 8
 # define SP_SIZE 64
@@ -58,6 +62,12 @@ private:
 	int 			_viewx;
 	int 			_viewy;
 	std::map<ROCK, std::pair<QString, int> > _stuff;
+
+ private:
+ 	SDL_Surface		*_up[PLAYER_UP];
+ 	SDL_Surface		*_down[PLAYER_DOWN];
+ 	SDL_Surface		*_right[PLAYER_RIGHT];
+ 	SDL_Surface		*_left[PLAYER_LEFT];
 };
 
 #endif /* !GRAPHIC_HPP_ */
