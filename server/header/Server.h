@@ -1,9 +1,11 @@
-#ifndef 	SERVER_H_
-# define 	SERVER_H_
+#ifndef SERVER_H_
+# define SERVER_H_
 
-# include 	"Network.h"
-# include 	"Player.h"
-# include	"Map.h"
+# include "Network.h"
+# include "Player.h"
+# include "Map.h"
+# include "Team.h"
+# include "list_team.h"
 
 typedef struct 	Server
 {
@@ -15,10 +17,11 @@ typedef struct 	Server
 	int 		nb_player;
 	int 		nb_player_co;
 	int 		initialize;
-	int 		n_client;
-	int 		n_malloc;
+	int 		nb_teams;
+	int 		nb_player_team;
 	char		msg[256];
   	Player		*player;
+  	Team 		*team;
   	Map			*map;
   	/* Method */
 	int 		(*loop)(struct Server *);

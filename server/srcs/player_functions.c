@@ -9,6 +9,7 @@ void 		player_socket_problem(Player *this, Server *s)
 	printf("----------- AVANT DELETE ----------\n");
 	display_list(s->player);
 	del_elem(&s->player, this->fd);
+	destroy_player(this);
 	printf("----------- APRES DELETE ----------\n");
 	display_list(s->player);
 	if (this->fd == s->max_fd)
@@ -29,7 +30,7 @@ int 		fct_read(Player *this, void *p)
 			printf("Good command\n");
 		else
 			printf("Bad Command\n");
-		display_circular_buffer(this->buffer_circular, 0);
+		//display_circular_buffer(this->buffer_circular, 0);
 	}
 	else
 		player_socket_problem(this, s);
@@ -43,6 +44,7 @@ int					fct_write(Player *this, void *p)
 	char 			buf[BUFFER_SIZE];
 	int 			i;
 
+	printf("WRITTING\n");
 	s = ((Server *)(p));
 	s->max_fd = s->max_fd;
 	tmp = this->buffer_circular->head;
@@ -56,6 +58,7 @@ int					fct_write(Player *this, void *p)
 			tmp = tmp->next;
 		}
 		buf[i] = 0;
+		printf("WRITTING BUFF = %s", buf);
 		fct_write_next(this, s, buf);
 	}
 	return (TRUE);
@@ -72,7 +75,7 @@ void 				fct_write_next(Player *this, Server *s, char *buf)
 		{
 			this->mode = READ;
 			this->buffer_circular = this->buffer_circular->head;
-			printf("---- RESET POINTOR ADDR ON CIRCUAR BUFFER'S HEAD ----\n");				
+			printf("---- RESET POINTOR ADDR ON CIRCULAR BUFFER'S HEAD ----\n");				
 		}
 	}
 	else

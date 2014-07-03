@@ -6,7 +6,7 @@ Connexion::Connexion(MainUI *mainui)
   _mainUI = mainui;
   _window = new QWidget;
   _window->show();
-  this->_window->setFixedSize(600, 600);
+  this->_window->setFixedSize(300, 400);
   this->_window->setWindowTitle(tr("Connexion"));
   init();
   setLayouts();
@@ -150,7 +150,10 @@ bool  Connexion::isConnected()
   QString res;
 
   _server.port = _port->text().toInt();
+  _server.nb_player_co = 0;
   _server.nb_player = _client->text().toInt() * _team->text().toInt();
+  _server.nb_player_team = _client->text().toInt();
+  _server.nb_teams = _team->text().toInt();
   _server.ctime = _delay->text().toInt();
   _server.initialize = FALSE;
   res = init_server(&_server, _width->text().toInt(), _height->text().toInt());

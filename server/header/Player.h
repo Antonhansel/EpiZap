@@ -24,14 +24,17 @@ typedef struct 		Player
 	struct Player 	*next;
 	CircularBuffer	*buffer_circular;
 	int 			mode;
+	int 			intro;
+	char 			*team_name;
 	/* Methods */
 	Inventory 		*(*get_inventory)(struct Player *);
 	void			(*set_inventory)(struct Player *, Inventory *);
 	int 			(*fct_read)(struct Player *, void *);
 }					Player;
 
-int 	init_player(struct Player *, int);
+int 	init_player(struct Player *, int, int, int);
 int 	destroy_player(struct Player *);
 int 	fct_read(Player *, void *);
+void 	copy_player(Player *, Player *);
 
 #endif 	/* PLAYER_H_ */

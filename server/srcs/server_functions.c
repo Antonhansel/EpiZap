@@ -1,6 +1,7 @@
 #include "Server.h"
 #include "List.h"
-#include "CircularBuffer.h"	
+#include "CircularBuffer.h"
+#include "start_functions.h"
 
 int 		init_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
 {
@@ -10,10 +11,15 @@ int 		init_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
 	FD_ZERO(readfds);
 	FD_ZERO(writefds);
 	FD_SET(this->socket, readfds);
+	//printf("INIT\n");
 	while (tmp != NULL)
 	{
+		//printf("PLAYER ON %d IS ON MODE %d\n", tmp->fd, tmp->mode);
 		if (tmp->mode == WRITE)
+		{
 			FD_SET(tmp->fd, writefds);
+			//printf("SETTING WRITE ON FD %d\n", tmp->fd);			
+		}
 		else
 			FD_SET(tmp->fd, readfds);
 		tmp = tmp->next;
@@ -26,17 +32,21 @@ int 		check_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
 	Player 	*tmp;
 
 	tmp = this->player;
+	printf("check bits fields\n");
 	while (tmp != NULL)
 	{
-		if (tmp->mode == WRITE)
+		if (FD_ISSET(tmp->fd, writefds))
 		{
-			if (FD_ISSET(tmp->fd, writefds))
-				fct_write(tmp, this);			
+			fct_write(tmp, this);
 		}
 		else
 		{
 			if (FD_ISSET(tmp->fd, readfds))
+			{
 				fct_read(tmp, this);
+				if (tmp->intro == TRUE)
+				assign_to_team(tmp, this);
+			}
 		}
 		tmp = tmp->next;
 	}
@@ -54,7 +64,7 @@ int						accept_socket(Server *s)
 		return (FALSE);
 	printf("----------- AVANT ADD ----------\n");
 	display_list(s->player);
-	if (add_elem(&s->player, fd) != 0)
+	if (add_elem(&s->player, fd, s->map->width, s->map->height) != 0)
 		return (FALSE);
 	else
 		sprintf(s->msg, "<font color=\"Green\">*** CLIENT ADD IN LIST ***</font><br />");
@@ -62,7 +72,7 @@ int						accept_socket(Server *s)
 	display_list(s->player);
 	if (s->max_fd < fd)
 		s->max_fd = fd;
-	s->n_client++;
+	s->nb_player_co++;
 	printf("-----> MAX FD = %d\n", s->max_fd);
 	sprintf(s->msg, "%s<font color=\"Green\">*** NEW CONNECTION FROM IP %s ON PORT %d AND FD %d ***</font>", s->msg, inet_ntoa(client_sin.sin_addr), s->port, fd);
 	return (TRUE);

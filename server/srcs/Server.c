@@ -1,11 +1,9 @@
 #include "List.h"
 #include "Server.h"
 
-static void		init_func_ptr(Server *, int, int);
-
-static int 		loop(Server *);
-
-int	 check_fd(Player **, Server *, fd_set *);
+static void	init_func_ptr(Server *, int, int);
+static int 	loop(Server *);
+int	 		check_fd(Player **, Server *, fd_set *);
 
 char 					*init_server(Server *this, int width, int height)
 {
@@ -42,38 +40,36 @@ char	*destroy_server(Server *this)
 
 static void		init_func_ptr(Server *this, int width, int height)
 {
+	int 		i;
+
+	i = 0;
 	this->accept_socket = &accept_socket;
 	this->loop = &loop;
 	if ((this->map = malloc(sizeof(Map*))) == NULL)
 		exit(1);
 	init_map(this->map, width, height);
+	this->team = NULL;
+	while (i < this->nb_teams)
+	{
+		add_elem_in_team(&this->team, "TOTO", this->nb_player_team);
+		//checker return of add_elem_in_team
+		++i;
+	}
 }
 
 static int 			loop(Server *this)
 {
-	int 			result;
-	int 			resultPrev;
 	fd_set 			readfds;
 	fd_set 			writefds;
-	struct timeval	tv;
 
-	tv.tv_usec = 100;
-	tv.tv_sec = 0;
-	result = 0;
-	resultPrev = 0;
-	this->n_client = 0;
 	while (TRUE)
 	{
 		init_bits_fields(this, &readfds, &writefds);
-		if ((result = select(this->max_fd + 1, &readfds, NULL, NULL, &tv)) != -1)
+		if (select(this->max_fd + 1, &readfds, &writefds, NULL, NULL) != -1)
 		{
-			if (result != resultPrev)
-			{
-				if (FD_ISSET(this->socket, &readfds))
-					accept_socket(this);
-				check_bits_fields(this, &readfds, &writefds);
-				resultPrev = result;
-			}
+			if (FD_ISSET(this->socket, &readfds))
+				accept_socket(this);
+			check_bits_fields(this, &readfds, &writefds);
 		}
 		else
 			sprintf(this->msg, "%s<font color=\"Red\">*** ERROR ON SELECT ***</font>", this->msg);
