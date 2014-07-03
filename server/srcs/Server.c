@@ -40,33 +40,17 @@ char	*destroy_server(Server *this)
 
 static void		init_func_ptr(Server *this, int width, int height)
 {
-	int 		i;
-
-	i = 0;
 	this->accept_socket = &accept_socket;
 	this->loop = &loop;
-	if ((this->map = malloc(sizeof(Map*))) == NULL)
+	if ((this->map = malloc(sizeof(Map))) == NULL)
 		exit(1);
 	init_map(this->map, width, height);
 	this->team = NULL;
-	while (i < this->nb_teams)
-	{
-		add_elem_in_team(&this->team, "TOTO", this->nb_player_team);
-		//checker return of add_elem_in_team
-		++i;
-	}
 }
 
 void init_all_team(Server *this, char *tab)
 {
-	int i;
-	i = 0;
-
-	while (i < this->nb_teams)
-	{
-		add_elem_in_team(&this->team, tab, this->nb_player_team);
-		++i;
-	}
+	add_elem_in_team(&this->team, tab, this->nb_player_team);
 }
 
 static int 		loop(Server *this)

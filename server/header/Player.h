@@ -8,7 +8,8 @@
 enum mode
 {
 	READ,
-	WRITE
+	WRITE,
+	NONE
 };
 
 typedef struct 		Player

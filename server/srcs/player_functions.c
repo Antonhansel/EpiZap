@@ -3,7 +3,7 @@
 #include "command_functions.h"
 
 void 	fct_write_next(Player *, Server *, char *);
-void 	fct_read_next(Player *, Server *, char *);
+void 	fct_read_next(Player *, Server *, char *, int);
 
 void 	player_socket_problem(Player *this, Server *s)
 {
@@ -24,26 +24,28 @@ int 		fct_read(Player *this, void *p)
 {
 	char	buf[512];
 	Server	*s;
+	int 	ret;
 
 	s = ((Server *)(p));
 	memset(buf, 0, 512);
-	if (read(this->fd, buf, 511) > 0)
+	if ((ret = read(this->fd, buf, 511)) > 0)
 	{
 		sprintf(s->msg, "%s<font color=\"Green\">*** %s ***</font>",
 			(s->msg != NULL) ? s->msg : "", buf);
-		fct_read_next(this, s, buf);
+		fct_read_next(this, s, buf, ret);
 	}
 	else
 		player_socket_problem(this, s);
 	return (0);
 }
 
-void 		fct_read_next(Player *this, Server *s, char *buf)
+void 		fct_read_next(Player *this, Server *s, char *buf, int ret)
 {
 	char 	*ptr;
 
-	if (add_str_in_buffer(&this->buffer_circular, buf) == TRUE)
+	if ((ret - 1) <= BUFFER_SIZE && add_str_in_buffer(&this->buffer_circular, buf) == TRUE)
 	{
+		this->mode = NONE;
 		printf("Good command\n");
 		ptr = get_data_of_buffer(this->buffer_circular);
 		command_functions(s, this, ptr);
@@ -53,6 +55,7 @@ void 		fct_read_next(Player *this, Server *s, char *buf)
 			this->buffer_circular = this->buffer_circular->head;
 		}
 		free(ptr);
+		this->mode = READ;
 	}
 	else
 		printf("Bad Command\n");
