@@ -31,13 +31,12 @@
 # include <sstream>
 # include <iostream>
 # include <sstream>
-# define IP "10.12.181.100"
 
 class MainUI : public QWidget
 {
 	Q_OBJECT
 public:
-	MainUI();
+	MainUI(char *, char *, char *);
 	~MainUI();	
 	void 	startConnexion();
 public slots:
@@ -45,6 +44,9 @@ public slots:
 	void 	sendData();
 private:
 	QTcpSocket 	*_pSocket;
+	std::string 	_team;
+	std::string 	_ip;
+	int 			_port;
 };
 
 #endif 

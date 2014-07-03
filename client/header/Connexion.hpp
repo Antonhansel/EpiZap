@@ -55,6 +55,8 @@ private:
   QLineEdit     *_port;
   QLineEdit	*_ip;
   QLabel	*_ipLabel;
+  QLineEdit	*_team;
+  QLabel	*_teamLabel;
   QPushButton 	*_quit;
   QTextEdit     *_console;
   Server        _server;

@@ -71,6 +71,9 @@ void 	Connexion::setLayouts()
     _mainLayout->addWidget(_portLabel, 1, 0);
     _mainLayout->addWidget(_port, 1, 1);
     _port->setText("4242");
+    _mainLayout->addWidget(_teamLabel, 2, 0);
+    _mainLayout->addWidget(_team, 2, 1);
+    _team->setText("Team1");
     _mainLayout->addWidget(_connect, 6, 0, 1, 2);
     _mainLayout->addWidget(_quit, 7, 0, 1, 2);
     _mainLayout->addWidget(_console, 8, 0, 1, 2);
@@ -87,6 +90,9 @@ void 	Connexion::init()
   _ip = new QLineEdit();
   _ipLabel = new QLabel();
   _ipLabel->setText("IP :");
+  _team = new QLineEdit();
+  _teamLabel = new QLabel();
+  _teamLabel->setText("Team name : ");
   _quit = new QPushButton(_window);
   _quit->setText("Quit");
   _console = new QTextEdit();
