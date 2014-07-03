@@ -10,6 +10,7 @@ void 		player_socket_problem(Player *this, Server *s)
 	printf("----------- AVANT DELETE ----------\n");
 	display_list(s->player);
 	del_elem(&s->player, this->fd);
+	destroy_player(this);
 	printf("----------- APRES DELETE ----------\n");
 	display_list(s->player);
 	if (this->fd == s->max_fd)
@@ -37,7 +38,7 @@ int 		fct_read(Player *this, void *p)
 		}
 		else
 			printf("Bad Command\n");
-		display_circular_buffer(this->buffer_circular, 0);
+		//display_circular_buffer(this->buffer_circular, 0);
 	}
 	else
 		player_socket_problem(this, s);
@@ -51,6 +52,7 @@ int					fct_write(Player *this, void *p)
 	char 			buf[BUFFER_SIZE];
 	int 			i;
 
+	printf("WRITTING\n");
 	s = ((Server *)(p));
 	s->max_fd = s->max_fd;
 	tmp = this->buffer_circular->head;

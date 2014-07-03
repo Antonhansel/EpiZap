@@ -77,7 +77,6 @@ char 		*get_data_of_buffer(CircularBuffer *cb)
 	if ((str = malloc(sizeof(char) * 64)) == NULL)
 		return (NULL);
 	str = memset(str, 0, 64);
-	printf("GOOD MALLOC\n");
 	cb = cb->head;
 	while (cb->c != '\n')
 	{
@@ -86,6 +85,25 @@ char 		*get_data_of_buffer(CircularBuffer *cb)
 		++i;
 	}
 	return (str);
+}
+
+void				clear_circular_buffer(CircularBuffer **cb)
+{
+	CircularBuffer 	*tmp;
+	CircularBuffer 	*tmp1;
+	int 			i = 0;
+
+	tmp = (*cb);
+	tmp1 = tmp;
+	while (i < BUFFER_SIZE)
+	{
+		tmp = tmp->next;
+		free(tmp1);
+		tmp1 = tmp;
+		++i;
+	}
+	free(tmp);
+	printf("--- FREE CIRCULAR BUFFER ----\n");
 }
 
 void  				display_circular_buffer(CircularBuffer *front_ptr, int mode)

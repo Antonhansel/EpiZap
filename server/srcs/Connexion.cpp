@@ -36,6 +36,16 @@ void 	Connexion::quit()
 	_window->close();
 }
 
+void  Connexion::teamName()
+{
+   QWidget window;
+   window.setFixedSize(200, 200);
+   QGridLayout layout;
+   QPushButton button;
+   button.setText("Ok");
+   QLineEdit line;
+}
+
 void 	Connexion::tryConnect()
 {
    QTextCursor c;

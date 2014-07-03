@@ -7,8 +7,7 @@
 
 int 	add_elem(Player **, int, int, int);
 int 	del_elem(Player **, int);
-void 	init_fd(Player *, fd_set*);
-int 	get_max_fd(Player *);
 void  	display_list(Player *);
+int 	add_player(Player **, Player *);
 
 #endif /* LIST_H_ */

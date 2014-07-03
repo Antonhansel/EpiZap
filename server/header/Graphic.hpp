@@ -34,6 +34,7 @@ public:
 	void 	apply_floor();
 	void 	loader();
 	void 	loopHud();
+	void 	teamName();
 	void 	initRealUpdate(Map *);
 	void 	mouseReleaseEvent(QMouseEvent *);
   	void 	mousePressEvent(QMouseEvent *);
@@ -65,6 +66,7 @@ private:
 	int 			_viewx;
 	int 			_viewy;
 	std::map<ROCK, std::pair<QString, int> > _stuff;
+	std::vector<std::string> 	_teamName;
 	bool 			_mouseReleased;
  private:
  	SDL_Surface		*_up[PLAYER_UP];

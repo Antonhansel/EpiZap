@@ -61,8 +61,8 @@ void	Graphic::initSDL()
 
 void Graphic::mousePressEvent(QMouseEvent *e)
 {
-    _lastPointPress = e->pos();
-    _mouseClick = true;
+	_lastPointPress = e->pos();
+	_mouseClick = true;
 }
 
 void Graphic::mouseReleaseEvent (QMouseEvent *e)
