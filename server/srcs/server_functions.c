@@ -13,6 +13,7 @@ int 		init_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
 	FD_SET(this->socket, readfds);
 	while (tmp != NULL)
 	{
+		//printf("PLAYER ON %d IS ON MODE %d\n", tmp->fd, tmp->mode);
 		if (tmp->mode == WRITE)
 			FD_SET(tmp->fd, writefds);
 		else
@@ -29,17 +30,16 @@ int 		check_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
 	tmp = this->player;
 	while (tmp != NULL)
 	{
-		if (tmp->mode == WRITE)
-		{
-			if (FD_ISSET(tmp->fd, writefds))
-				fct_write(tmp, this);
-		}
+		if (FD_ISSET(tmp->fd, writefds))
+			fct_write(tmp, this);
 		else
 		{
 			if (FD_ISSET(tmp->fd, readfds))
+			{
 				fct_read(tmp, this);
-			if (tmp->intro == TRUE)
+				if (tmp->intro == TRUE)
 				assign_to_team(tmp, this);
+			}
 		}
 		tmp = tmp->next;
 	}

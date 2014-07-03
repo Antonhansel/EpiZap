@@ -51,7 +51,7 @@ static void		init_func_ptr(Server *this, int width, int height)
 	this->team = NULL;
 	while (i < this->nb_teams)
 	{
-		add_elem_in_team(&this->team, "TROLOLO", this->nb_player_team);
+		add_elem_in_team(&this->team, "TOTO", this->nb_player_team);
 		//checker return of add_elem_in_team
 		++i;
 	}
@@ -65,7 +65,7 @@ static int 			loop(Server *this)
 	fd_set 			writefds;
 	struct timeval	tv;
 
-	tv.tv_usec = 100;
+	tv.tv_usec = 200;
 	tv.tv_sec = 0;
 	result = 0;
 	resultPrev = 0;

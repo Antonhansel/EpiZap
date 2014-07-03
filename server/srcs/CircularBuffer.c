@@ -77,7 +77,6 @@ char 		*get_data_of_buffer(CircularBuffer *cb)
 	if ((str = malloc(sizeof(char) * 64)) == NULL)
 		return (NULL);
 	str = memset(str, 0, 64);
-	printf("GOOD MALLOC\n");
 	cb = cb->head;
 	while (cb->c != '\n')
 	{
