@@ -36,7 +36,7 @@ void 	Connexion::quit()
 	_window->close();
 }
 
-void  Connexion::teamName()
+/*void  Connexion::teamName()
 {
    QWidget window;
    window.setFixedSize(200, 200);
@@ -45,7 +45,7 @@ void  Connexion::teamName()
    button.setText("Ok");
    QLineEdit line;
 }
-
+*/
 void 	Connexion::tryConnect()
 {
    QTextCursor c;
