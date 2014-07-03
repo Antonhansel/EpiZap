@@ -50,6 +50,7 @@ void  Connexion::getTeamName()
 {
   bool present;
 
+  this->hide();
   present = false;
   for (std::vector<std::string>::iterator it = _teamNamevec.begin(); it != _teamNamevec.end(); ++it)
   {
@@ -73,7 +74,7 @@ void  Connexion::teamName()
   {
     if (_tempTeam == -2)
     {
-      this->hide();
+      _window->hide();
       _tempTeam = _team->text().toInt();
       _windowteam->show();
       QObject::connect(_teamButton, SIGNAL(clicked()), this,SLOT(getTeamName(void)));
