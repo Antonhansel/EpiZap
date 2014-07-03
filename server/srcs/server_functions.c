@@ -11,15 +11,10 @@ int 		init_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
 	FD_ZERO(readfds);
 	FD_ZERO(writefds);
 	FD_SET(this->socket, readfds);
-	//printf("INIT\n");
 	while (tmp != NULL)
 	{
-		//printf("PLAYER ON %d IS ON MODE %d\n", tmp->fd, tmp->mode);
 		if (tmp->mode == WRITE)
-		{
 			FD_SET(tmp->fd, writefds);
-			//printf("SETTING WRITE ON FD %d\n", tmp->fd);			
-		}
 		else
 			FD_SET(tmp->fd, readfds);
 		tmp = tmp->next;
@@ -36,9 +31,7 @@ int 		check_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
 	while (tmp != NULL)
 	{
 		if (FD_ISSET(tmp->fd, writefds))
-		{
 			fct_write(tmp, this);
-		}
 		else
 		{
 			if (FD_ISSET(tmp->fd, readfds))
@@ -67,13 +60,15 @@ int						accept_socket(Server *s)
 	if (add_elem(&s->player, fd, s->map->width, s->map->height) != 0)
 		return (FALSE);
 	else
-		sprintf(s->msg, "<font color=\"Green\">*** CLIENT ADD IN LIST ***</font><br />");
+		sprintf(s->msg,
+			"<font color=\"Green\">*** CLIENT ADD IN LIST ***</font><br />");
 	printf("----------- APRES ADD ----------\n");
 	display_list(s->player);
 	if (s->max_fd < fd)
 		s->max_fd = fd;
 	s->nb_player_co++;
 	printf("-----> MAX FD = %d\n", s->max_fd);
-	sprintf(s->msg, "%s<font color=\"Green\">*** NEW CONNECTION FROM IP %s ON PORT %d AND FD %d ***</font>", s->msg, inet_ntoa(client_sin.sin_addr), s->port, fd);
+	sprintf(s->msg,
+		"%s<font color=\"Green\">*** NEW CONNECTION FROM IP %s ON PORT %d AND FD %d ***</font>", s->msg, inet_ntoa(client_sin.sin_addr), s->port, fd);
 	return (TRUE);
 }

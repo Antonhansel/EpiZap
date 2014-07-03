@@ -1,7 +1,6 @@
 #include "Team.h"
 #include "Server.h"
 
-static void		init_func_ptr(Team *);
 static int 		get_nb_player_max(Team *);
 static void		set_nb_player_max(Team *, int);
 static int 		get_nb_player_actu(Team *);
@@ -12,22 +11,11 @@ int		init_team(Team *this, char *name, int player_max)
 	this->nb_player_max = player_max;
 	this->nb_player_actu = 0;
 	this->name = strdup(name);
-	init_func_ptr(this);
-	return (0);
-}
-
-int 			destroy_team(Team *this)
-{
-	(void)this;
-	return (0);
-}
-
-static void		init_func_ptr(Team *this)
-{
 	this->get_nb_player_max = &get_nb_player_max;
 	this->set_nb_player_max = &set_nb_player_max;
 	this->get_nb_player_actu = &get_nb_player_actu;
 	this->set_nb_player_actu = &set_nb_player_actu;
+	return (0);
 }
 
 static int 		get_nb_player_max(Team *this)

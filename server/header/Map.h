@@ -9,7 +9,6 @@ typedef struct  Map
 	int			width;
 	int			height;
 	Square		**map;
-	/* Methods */
 }				Map;
 
 int				init_map(struct Map *, int, int);

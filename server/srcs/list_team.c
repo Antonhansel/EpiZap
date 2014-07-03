@@ -1,6 +1,6 @@
 #include "list_team.h"
 
-int 	add_elem_in_team(Team **front_ptr, char *name, int nb)
+int     add_elem_in_team(Team **front_ptr, char *name, int nb)
 {
   Team	*node;
   Team	*tmp;
@@ -22,7 +22,7 @@ int 	add_elem_in_team(Team **front_ptr, char *name, int nb)
   return (TRUE);
 }
 
-int 	del_elem_in_team(Team **front_ptr, char *name)
+int     del_elem_in_team(Team **front_ptr, char *name)
 {
   Team	*tmp;
 

@@ -1,5 +1,5 @@
-#include 	"Player.h"
-#include 	"xfunction.h"
+#include "Player.h"
+#include "xfunction.h"
 
 static void			set_inventory(Player *, Inventory *);
 static Inventory 	*get_inventory(Player *);

@@ -3,10 +3,13 @@
 #include "command_functions.h"
 
 void 	fct_write_next(Player *, Server *, char *);
+void 	fct_read_next(Player *, Server *, char *);
 
-void 		player_socket_problem(Player *this, Server *s)
+void 	player_socket_problem(Player *this, Server *s)
 {
-	sprintf(s->msg, "%s<font color=\"Red\">*** PLAYER %d DISCONNECTED ***</font>", (s->msg != NULL) ? s->msg : "", this->fd);
+	sprintf(s->msg, 
+		"%s<font color=\"Red\">*** PLAYER %d DISCONNECTED ***</font>",
+		(s->msg != NULL) ? s->msg : "", this->fd);
 	printf("----------- AVANT DELETE ----------\n");
 	display_list(s->player);
 	del_elem(&s->player, this->fd);
@@ -21,32 +24,38 @@ int 		fct_read(Player *this, void *p)
 {
 	char	buf[512];
 	Server	*s;
-	char 	*ptr;
 
 	s = ((Server *)(p));
 	memset(buf, 0, 512);
 	if (read(this->fd, buf, 511) > 0)
 	{
-		sprintf(s->msg, "%s<font color=\"Green\">*** %s ***</font>", (s->msg != NULL) ? s->msg : "", buf);
-		if (add_str_in_buffer(&this->buffer_circular, buf) == TRUE)
-		{
-			printf("Good command\n");
-			ptr = get_data_of_buffer(this->buffer_circular);
-			//command_functions(s, this, ptr);
-			if (this->intro == FALSE)
-			{
-				reset_elem_in_buffer(&this->buffer_circular, strlen(ptr) + 1);
-				this->buffer_circular = this->buffer_circular->head;
-
-			}
-			free(ptr);
-		}
-		else
-			printf("Bad Command\n");
+		sprintf(s->msg, "%s<font color=\"Green\">*** %s ***</font>",
+			(s->msg != NULL) ? s->msg : "", buf);
+		fct_read_next(this, s, buf);
 	}
 	else
 		player_socket_problem(this, s);
 	return (0);
+}
+
+void 		fct_read_next(Player *this, Server *s, char *buf)
+{
+	char 	*ptr;
+
+	if (add_str_in_buffer(&this->buffer_circular, buf) == TRUE)
+	{
+		printf("Good command\n");
+		ptr = get_data_of_buffer(this->buffer_circular);
+		command_functions(s, this, ptr);
+		if (this->intro == FALSE)
+		{
+			reset_elem_in_buffer(&this->buffer_circular, strlen(ptr) + 1);
+			this->buffer_circular = this->buffer_circular->head;
+		}
+		free(ptr);
+	}
+	else
+		printf("Bad Command\n");
 }
 
 int					fct_write(Player *this, void *p)

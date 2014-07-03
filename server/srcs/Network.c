@@ -10,7 +10,7 @@
 
 #include "Network.h"
 
-int	xbind(int sockfd, struct sockaddr_in *addr, socklen_t addrlen)
+int		xbind(int sockfd, struct sockaddr_in *addr, socklen_t addrlen)
 {
 	int	rbind;
 
@@ -23,7 +23,7 @@ int	xbind(int sockfd, struct sockaddr_in *addr, socklen_t addrlen)
 	return (TRUE);
 }
 
-int	xsocket(int domain, int type, int protocol)
+int		xsocket(int domain, int type, int protocol)
 {
 	int	fd;
 
@@ -35,7 +35,7 @@ int	xsocket(int domain, int type, int protocol)
 	return (fd);
 }
 
-int	xaccept(int sockfd, struct sockaddr_in *addr, socklen_t *len)
+int		xaccept(int sockfd, struct sockaddr_in *addr, socklen_t *len)
 {
 	int	ret;
 
@@ -48,7 +48,7 @@ int	xaccept(int sockfd, struct sockaddr_in *addr, socklen_t *len)
 	return (ret);
 }
 
-int	xlisten(int sockfd, int backlog)
+int		xlisten(int sockfd, int backlog)
 {
 	int	ret;
 
@@ -60,7 +60,7 @@ int	xlisten(int sockfd, int backlog)
 	return (TRUE);
 }
 
-int	xconnect(int sockfd, struct sockaddr_in *addr, socklen_t addrlen)
+int		xconnect(int sockfd, struct sockaddr_in *addr, socklen_t addrlen)
 {
 	int	ret;
 

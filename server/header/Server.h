@@ -60,4 +60,4 @@ int 	check_bits_fields(Server *, fd_set *, fd_set *);
 int		accept_socket(Server *);
 int		fct_write(Player *, void *);
 
-#endif
+#endif /* SERVER_H_ */
