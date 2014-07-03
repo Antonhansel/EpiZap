@@ -8,8 +8,6 @@
 int		main(int argc, char **argv)
 {
   QApplication	app(argc, argv);
-  MainUI	Client;
-  // Client.setFixedSize(, 878);
-  // Client.move(centerW, centerH);
+  MainUI	Client(argv[1], argv[2], argv[3]);
   return (app.exec());
 }
