@@ -7,6 +7,22 @@
 # include "Team.h"
 # include "list_team.h"
 
+enum cmd_type
+{
+	AVANCE,
+	DROITE,
+	GAUCHE,
+	VOIR,
+	INVENTAIRE,
+	PREND_OBJET,
+	POSE_OBJET,
+	EXPULSE,
+	BROADCAST_TEXTE,
+	INCANTATION,
+	FORK,
+	CONNECT_NBR
+};
+
 typedef struct 	Server
 {
 	/* data */

@@ -1,5 +1,6 @@
 #include "Server.h"
 #include "List.h"
+#include "command_functions.h"
 
 void 	fct_write_next(Player *, Server *, char *);
 
@@ -19,6 +20,7 @@ int 		fct_read(Player *this, void *p)
 {
 	char	buf[512];
 	Server	*s;
+	char 	*ptr;
 
 	s = ((Server *)(p));
 	memset(buf, 0, 512);
@@ -26,7 +28,13 @@ int 		fct_read(Player *this, void *p)
 	{
 		sprintf(s->msg, "%s<font color=\"Green\">*** %s ***</font>", (s->msg != NULL) ? s->msg : "", buf);
 		if (add_str_in_buffer(&this->buffer_circular, buf) == TRUE)
+		{
 			printf("Good command\n");
+			ptr = get_data_of_buffer(this->buffer_circular);
+			command_functions(s, this, ptr);
+			reset_elem_in_buffer(&this->buffer_circular, strlen(ptr));
+			free(ptr);
+		}
 		else
 			printf("Bad Command\n");
 		display_circular_buffer(this->buffer_circular, 0);
