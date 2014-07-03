@@ -51,6 +51,7 @@ extern "C" {
 # endif
 	char 		*init_server(Server *, int, int);
 	char		*destroy_server(Server *);
+	void 		init_all_team(Server *, char *);
 # ifdef __cplusplus
 }
 # endif

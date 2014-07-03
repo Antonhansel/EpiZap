@@ -57,6 +57,18 @@ static void		init_func_ptr(Server *this, int width, int height)
 	}
 }
 
+void init_all_team(Server *this, char *tab)
+{
+	int i;
+	i = 0;
+
+	while (i < this->nb_teams)
+	{
+		add_elem_in_team(&this->team, tab, this->nb_player_team);
+		++i;
+	}
+}
+
 static int 		loop(Server *this)
 {
 	fd_set 		readfds;

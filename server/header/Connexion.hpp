@@ -25,7 +25,6 @@
 # include <stdlib.h>
 # include "Server.h"
 # include "Map.h"
-# include "list_team.h"
 
 class MainUI;
 class Connexion : public QWidget
