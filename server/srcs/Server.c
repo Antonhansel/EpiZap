@@ -60,27 +60,21 @@ static void		init_func_ptr(Server *this, int width, int height)
 static int 			loop(Server *this)
 {
 	int 			result;
-	int 			resultPrev;
 	fd_set 			readfds;
 	fd_set 			writefds;
-	struct timeval	tv;
+/*	struct timeval	tv;
 
-	tv.tv_usec = 200;
+	tv.tv_usec = 100;
 	tv.tv_sec = 0;
-	result = 0;
-	resultPrev = 0;
+*/	result = 0;
 	while (TRUE)
 	{
 		init_bits_fields(this, &readfds, &writefds);
-		if ((result = select(this->max_fd + 1, &readfds, NULL, NULL, &tv)) != -1)
+		if ((result = select(this->max_fd + 1, &readfds, &writefds, NULL, NULL)) != -1)
 		{
-			if (result != resultPrev)
-			{
 				if (FD_ISSET(this->socket, &readfds))
 					accept_socket(this);
 				check_bits_fields(this, &readfds, &writefds);
-				resultPrev = result;
-			}
 		}
 		else
 			sprintf(this->msg, "%s<font color=\"Red\">*** ERROR ON SELECT ***</font>", this->msg);

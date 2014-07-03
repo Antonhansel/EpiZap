@@ -44,6 +44,7 @@ int					fct_write(Player *this, void *p)
 	char 			buf[BUFFER_SIZE];
 	int 			i;
 
+	printf("WRITTING\n");
 	s = ((Server *)(p));
 	s->max_fd = s->max_fd;
 	tmp = this->buffer_circular->head;
