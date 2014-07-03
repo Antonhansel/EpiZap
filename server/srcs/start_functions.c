@@ -19,6 +19,5 @@ void 		assign_to_team(Player *this, Server *s)
 	this->mode = WRITE;
 	sprintf(buf, "%d %d\n", this->x, this->y);
 	add_str_in_buffer(&this->buffer_circular, buf);
-	display_circular_buffer(this->buffer_circular, 1);
 	printf("BUFFFFF = %s\n", buf);
 }

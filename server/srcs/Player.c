@@ -31,6 +31,7 @@ int		init_player(Player *this, int fd, int width, int height)
 int 	destroy_player(Player *this)
 {
 	free(this->inventory);
+	clear_circular_buffer(&this->buffer_circular);
 	return (0);
 }
 

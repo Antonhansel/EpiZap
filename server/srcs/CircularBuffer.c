@@ -88,6 +88,25 @@ char 		*get_data_of_buffer(CircularBuffer *cb)
 	return (str);
 }
 
+void				clear_circular_buffer(CircularBuffer **cb)
+{
+	CircularBuffer 	*tmp;
+	CircularBuffer 	*tmp1;
+	int 			i = 0;
+
+	tmp = (*cb);
+	tmp1 = tmp;
+	while (i < BUFFER_SIZE)
+	{
+		tmp = tmp->next;
+		free(tmp1);
+		tmp1 = tmp;
+		++i;
+	}
+	free(tmp);
+	printf("--- FREE CIRCULAR BUFFER ----\n");
+}
+
 void  				display_circular_buffer(CircularBuffer *front_ptr, int mode)
 {
 	CircularBuffer  *it;
