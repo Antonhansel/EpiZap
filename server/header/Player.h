@@ -12,6 +12,14 @@ enum mode
 	NONE
 };
 
+enum DIR
+{
+	NORTH,
+	EAST,
+	SOUTH,
+	WEST
+};
+
 typedef struct 		Player
 {
 	/* Attributes */
@@ -25,6 +33,7 @@ typedef struct 		Player
 	struct Player 	*next;
 	CircularBuffer	*buffer_circular;
 	int 			mode;
+	int 			dir;
 	int 			intro;
 	char 			*team_name;
 	/* Methods */
