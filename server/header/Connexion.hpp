@@ -26,7 +26,6 @@
 # include "Server.h"
 # include "Map.h"
 
-
 class MainUI;
 class Connexion : public QWidget
 {
@@ -38,9 +37,11 @@ public:
 	void 	init();
 	void 	connectSlots();
   Map   *getMap() const;
-public slots:
-	void 	quit();
-	void 	tryConnect();
+  public slots:
+  void  getTeamName();
+  void  teamName();
+  void 	quit();
+  void 	tryConnect();
 private:
   bool  checkData(const QString &);
   bool  isConnected();
@@ -66,6 +67,14 @@ private:
   QPushButton 	*_quit;
   QTextEdit     *_console;
   Server        _server;
+  int           _tempTeam;
+  std::vector<std::string>  _teamNamevec;
+private:
+  QString       _teamName;
+  QWidget       *_windowteam;
+  QGridLayout   *_teamLayout;
+  QPushButton   *_teamButton;
+  QLineEdit     *_teamLineEdit;
 };
 
 #endif /* _CONNEXION_HPP_ */
