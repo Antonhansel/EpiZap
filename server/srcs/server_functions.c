@@ -45,7 +45,7 @@ int 		check_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
 			{
 				fct_read(tmp, this);
 				if (tmp->intro == TRUE)
-				assign_to_team(tmp, this);
+					assign_to_team(tmp, this);
 			}
 		}
 		tmp = tmp->next;

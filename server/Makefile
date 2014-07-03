@@ -65,9 +65,12 @@ SOURCES       = srcs/main.cpp \
 		srcs/server_functions.c \
 		srcs/player_functions.c \
 		srcs/CircularBuffer.c \
-		srcs/command_functions.c \
 		srcs/start_functions.c \
-		srcs/list_team.c .moc/moc_MainUI.cpp \
+		srcs/list_team.c \
+		srcs/command_functions.c \
+		srcs/command_functions_ia_1.c \
+		srcs/command_functions_ia_2.c \
+		srcs/command_functions_ia_3.c .moc/moc_MainUI.cpp \
 		.moc/moc_Connexion.cpp \
 		.moc/moc_NetworkC.cpp \
 		.moc/moc_Graphic.cpp
@@ -91,9 +94,12 @@ OBJECTS       = .obj/main.o \
 		.obj/server_functions.o \
 		.obj/player_functions.o \
 		.obj/CircularBuffer.o \
-		.obj/command_functions.o \
 		.obj/start_functions.o \
 		.obj/list_team.o \
+		.obj/command_functions.o \
+		.obj/command_functions_ia_1.o \
+		.obj/command_functions_ia_2.o \
+		.obj/command_functions_ia_3.o \
 		.obj/moc_MainUI.o \
 		.obj/moc_Connexion.o \
 		.obj/moc_NetworkC.o \
@@ -357,7 +363,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .obj/gui1.0.0 || mkdir -p .obj/gui1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .obj/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/Incantation.h header/List.h header/Square.h header/xfunction.h header/Graphic.hpp header/LibSDL.hh header/Exception.hh header/CircularBuffer.h header/command_functions.h header/start_functions.h header/list_team.h .obj/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/Incantation.c srcs/List.c srcs/Square.c srcs/xmalloc.c srcs/Graphic.cpp srcs/Lib.cpp srcs/Exception.cpp srcs/server_functions.c srcs/player_functions.c srcs/CircularBuffer.c srcs/command_functions.c srcs/start_functions.c srcs/list_team.c .obj/gui1.0.0/ && (cd `dirname .obj/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .obj/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .obj/gui1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .obj/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/Incantation.h header/List.h header/Square.h header/xfunction.h header/Graphic.hpp header/LibSDL.hh header/Exception.hh header/CircularBuffer.h header/command_functions.h header/start_functions.h header/list_team.h .obj/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/Incantation.c srcs/List.c srcs/Square.c srcs/xmalloc.c srcs/Graphic.cpp srcs/Lib.cpp srcs/Exception.cpp srcs/server_functions.c srcs/player_functions.c srcs/CircularBuffer.c srcs/start_functions.c srcs/list_team.c srcs/command_functions.c srcs/command_functions_ia_1.c srcs/command_functions_ia_2.c srcs/command_functions_ia_3.c .obj/gui1.0.0/ && (cd `dirname .obj/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .obj/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .obj/gui1.0.0
 
 
 clean:compiler_clean 
@@ -2732,15 +2738,13 @@ compiler_clean: compiler_moc_header_clean
 		header/Square.h \
 		header/Team.h \
 		header/list_team.h \
-		header/List.h
+		header/List.h \
+		header/command_functions.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/player_functions.o srcs/player_functions.c
 
 .obj/CircularBuffer.o: srcs/CircularBuffer.c header/CircularBuffer.h \
 		header/Network.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/CircularBuffer.o srcs/CircularBuffer.c
-
-.obj/command_functions.o: srcs/command_functions.c header/command_functions.h
-	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/command_functions.o srcs/command_functions.c
 
 .obj/start_functions.o: srcs/start_functions.c header/start_functions.h \
 		header/Server.h \
@@ -2762,6 +2766,54 @@ compiler_clean: compiler_moc_header_clean
 		header/Network.h \
 		header/CircularBuffer.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/list_team.o srcs/list_team.c
+
+.obj/command_functions.o: srcs/command_functions.c header/command_functions.h \
+		header/Server.h \
+		header/Network.h \
+		header/Player.h \
+		header/Inventory.h \
+		header/CircularBuffer.h \
+		header/Map.h \
+		header/Square.h \
+		header/Team.h \
+		header/list_team.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/command_functions.o srcs/command_functions.c
+
+.obj/command_functions_ia_1.o: srcs/command_functions_ia_1.c header/command_functions.h \
+		header/Server.h \
+		header/Network.h \
+		header/Player.h \
+		header/Inventory.h \
+		header/CircularBuffer.h \
+		header/Map.h \
+		header/Square.h \
+		header/Team.h \
+		header/list_team.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/command_functions_ia_1.o srcs/command_functions_ia_1.c
+
+.obj/command_functions_ia_2.o: srcs/command_functions_ia_2.c header/command_functions.h \
+		header/Server.h \
+		header/Network.h \
+		header/Player.h \
+		header/Inventory.h \
+		header/CircularBuffer.h \
+		header/Map.h \
+		header/Square.h \
+		header/Team.h \
+		header/list_team.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/command_functions_ia_2.o srcs/command_functions_ia_2.c
+
+.obj/command_functions_ia_3.o: srcs/command_functions_ia_3.c header/command_functions.h \
+		header/Server.h \
+		header/Network.h \
+		header/Player.h \
+		header/Inventory.h \
+		header/CircularBuffer.h \
+		header/Map.h \
+		header/Square.h \
+		header/Team.h \
+		header/list_team.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/command_functions_ia_3.o srcs/command_functions_ia_3.c
 
 .obj/moc_MainUI.o: .moc/moc_MainUI.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/moc_MainUI.o .moc/moc_MainUI.cpp

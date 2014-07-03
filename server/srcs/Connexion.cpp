@@ -50,7 +50,6 @@ void  Connexion::getTeamName()
 {
   bool present;
 
-  std::cout << _teamLineEdit->text().toStdString() << std::endl;
   present = false;
   for (std::vector<std::string>::iterator it = _teamNamevec.begin(); it != _teamNamevec.end(); ++it)
   {
