@@ -26,6 +26,7 @@
 # include "Server.h"
 # include "Map.h"
 
+
 class MainUI;
 class Connexion : public QWidget
 {
@@ -37,11 +38,9 @@ public:
 	void 	init();
 	void 	connectSlots();
   Map   *getMap() const;
-  public slots:
-  void  getTeamName();
-  void  teamName();
-  void 	quit();
-  void 	tryConnect();
+public slots:
+	void 	quit();
+	void 	tryConnect();
 private:
   bool  checkData(const QString &);
   bool  isConnected();
@@ -54,27 +53,11 @@ private:
   QGridLayout	*_mainLayout;
   QLabel        *_portLabel;
   QLineEdit     *_port;
-  QLabel        *_widthLabel;
-  QLineEdit     *_width;
-  QLabel        *_heightLabel;
-  QLineEdit     *_height;
-  QLabel        *_teamLabel;
-  QLineEdit     *_team;
-  QLabel        *_clientLabel;
-  QLineEdit     *_client;
-  QLabel        *_delayLabel;
-  QLineEdit     *_delay;
+  QLineEdit	*_ip;
+  QLabel	*_ipLabel;
   QPushButton 	*_quit;
   QTextEdit     *_console;
   Server        _server;
-  int           _tempTeam;
-  std::vector<std::string>  _teamNamevec;
-private:
-  QString       _teamName;
-  QWidget       *_windowteam;
-  QGridLayout   *_teamLayout;
-  QPushButton   *_teamButton;
-  QLineEdit     *_teamLineEdit;
 };
 
 #endif /* _CONNEXION_HPP_ */
