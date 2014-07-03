@@ -78,13 +78,18 @@ char 		*get_data_of_buffer(CircularBuffer *cb)
 		return (NULL);
 	str = memset(str, 0, 64);
 	cb = cb->head;
-	while (cb->c != '\n')
+	if (cb->c != BUFFER_CHAR)
 	{
-		str[i] = cb->c;
-		cb = cb->next;
-		++i;
+		while (cb->c != '\n')
+		{
+			str[i] = cb->c;
+			cb = cb->next;
+			++i;
+		}
+		return (str);
 	}
-	return (str);
+	free (str);
+	return (NULL);
 }
 
 void				clear_circular_buffer(CircularBuffer **cb)
@@ -116,7 +121,7 @@ void  				display_circular_buffer(CircularBuffer *front_ptr, int mode)
 	{
 		for (i = 0; i < BUFFER_SIZE; i++)
 		{
-    		printf("current = %p && next = %p && head = %p && c = %d\n", it, it->next, it->head, it->c);
+			printf("current = %p && next = %p && head = %p && c = %d\n", it, it->next, it->head, it->c);
 			it = it->next;
 		}
 
@@ -125,8 +130,8 @@ void  				display_circular_buffer(CircularBuffer *front_ptr, int mode)
 	{
 		for (i = 0; it->c != 48 && i < BUFFER_SIZE; i++)
 		{
-    		printf("current = %p && next = %p && head = %p && c = %d\n", it, it->next, it->head, it->c);
-    		it = it->next;
+			printf("current = %p && next = %p && head = %p && c = %d\n", it, it->next, it->head, it->c);
+			it = it->next;
 		}
 	}
 }

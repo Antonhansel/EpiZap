@@ -13,10 +13,10 @@ void 		assign_to_team(Player *this, Server *s)
 	printf("PLAYER = %d\n", this->fd);
 	display_circular_buffer(this->buffer_circular, 1);
 	team_name = get_data_of_buffer(this->buffer_circular);
-	reset_elem_in_buffer(&this->buffer_circular, strlen(team_name) + 1);
-	this->buffer_circular = this->buffer_circular->head;
 	if (team_name != NULL)
 	{
+		reset_elem_in_buffer(&this->buffer_circular, strlen(team_name) + 1);
+		this->buffer_circular = this->buffer_circular->head;
 		while (tmp)
 		{
 			if (strcmp(tmp->name, team_name) == 0)

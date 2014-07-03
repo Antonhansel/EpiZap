@@ -32,13 +32,17 @@ int 		fct_read(Player *this, void *p)
 		{
 			printf("Good command\n");
 			ptr = get_data_of_buffer(this->buffer_circular);
-			command_functions(s, this, ptr);
-			reset_elem_in_buffer(&this->buffer_circular, strlen(ptr));
+			//command_functions(s, this, ptr);
+			if (this->intro == FALSE)
+			{
+				reset_elem_in_buffer(&this->buffer_circular, strlen(ptr) + 1);
+				this->buffer_circular = this->buffer_circular->head;
+
+			}
 			free(ptr);
 		}
 		else
 			printf("Bad Command\n");
-		//display_circular_buffer(this->buffer_circular, 0);
 	}
 	else
 		player_socket_problem(this, s);
