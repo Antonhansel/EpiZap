@@ -30,7 +30,7 @@ int 		fct_read(Player *this, void *p)
 			printf("Good command\n");
 		else
 			printf("Bad Command\n");
-		display_circular_buffer(this->buffer_circular, 0);
+		//display_circular_buffer(this->buffer_circular, 0);
 	}
 	else
 		player_socket_problem(this, s);

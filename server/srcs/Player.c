@@ -15,6 +15,7 @@ int		init_player(Player *this, int fd, int width, int height)
 	this->lvl = 0;
 	this->mode = WRITE;
 	this->intro = TRUE;
+	this->buffer_circular = NULL;
 	if (!(this->inventory = xmalloc(sizeof(Inventory))))
 		return (-1);
 	init_inventory(this->inventory, NULL, 0);
@@ -31,7 +32,7 @@ int		init_player(Player *this, int fd, int width, int height)
 int 	destroy_player(Player *this)
 {
 	free(this->inventory);
-	clear_circular_buffer(&this->buffer_circular);
+	//clear_circular_buffer(&this->buffer_circular);
 	return (0);
 }
 
