@@ -103,6 +103,11 @@ void 	Connexion::tryConnect()
     _mainUI->setConsoleText(_console->toHtml());
     _window->hide();
     _windowteam->hide();
+    _server.team = NULL;
+  for (std::vector<std::string>::iterator it = _teamNamevec.begin(); it != _teamNamevec.end(); ++it)
+  {
+      add_elem_in_team(&_server.team, (char*)((*it).c_str()), _server.nb_player_team);
+    }
     _mainUI->show();
     _mainUI->startGraphic();
   }
