@@ -2,11 +2,14 @@
 
 void	MainUI::applyLayouts()
 {
-  _graphic = new Graphic(this);
+  if (_status)
+  {
+    _graphic = new Graphic(this);
   _rightLayout->addWidget(_graphic, 0, 0);
   _continue = true;
   _leftLayout->addWidget(_infos, 0, 0);
   _leftLayout->addWidget(_teams, 1, 0);
+}
   _bottomLayout->addWidget(_console, 0, 0);
   _topLayout->addLayout(_leftLayout, 0, 0);
   _mainLayout->addLayout(_topLayout, 0, 0);
@@ -40,6 +43,7 @@ void  MainUI::initConnexionStuff()
 
 void MainUI::startGraphic()
 {
+  if (_status)
   _graphic->initRealUpdate(_connexion->getMap());
 }
 
@@ -102,8 +106,9 @@ void          MainUI::addData(QString const &data, bool clear)
   _infos->append(data);
 }
 
-MainUI::MainUI() : QWidget()
+MainUI::MainUI(bool status) : QWidget()
 {
+  _status = status;
   _graphic = NULL;
   initUi();
   initLayouts();
@@ -114,7 +119,7 @@ MainUI::MainUI() : QWidget()
 
 void  MainUI::updateGraphic()
 {
-  if (_continue)
+  if (_continue && _status)
   {
     _continue = _graphic->update();
     if (!_continue)

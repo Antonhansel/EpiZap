@@ -64,9 +64,7 @@ void  Connexion::getTeamName()
   if (_tempTeam == 0)
    QObject::connect(_teamButton, SIGNAL(clicked()), this,SLOT(tryConnect(void)));
  else
- {
   teamName();
-  }
 }
 
 void  Connexion::teamName()

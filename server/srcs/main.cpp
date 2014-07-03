@@ -9,8 +9,13 @@
 
 int		main(int argc, char **argv)
 {
-  QApplication	app(argc, argv);
-  MainUI	Client;
+  bool    status;
+  if (argc == 2)
+    status = true;
+  else
+    status = false;
+  QApplication  app(argc, argv);
+  MainUI  Client(status);
   QSize size = Client.sizeHint();
   QDesktopWidget* desktop = QApplication::desktop();
   srand(time(NULL));

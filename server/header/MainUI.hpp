@@ -39,7 +39,7 @@ class	MainUI: public	QWidget
 {
   Q_OBJECT
 public:
-  MainUI();
+  MainUI(bool);
   void  setConsoleText(const QString &);
   void  setServer(Server &);
   void  startGraphic();
@@ -76,6 +76,7 @@ protected:
   bool          _start;
   Graphic       *_graphic;
   bool          _continue;
+  bool          _status;
 };
 
 #endif /* MAIN_UI_HPP_ */
