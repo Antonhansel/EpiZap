@@ -1,10 +1,10 @@
-#ifndef		SQUARE_H_
-# define	SQUARE_H_
+#ifndef	SQUARE_H_
+# define SQUARE_H_
 
-# include	<stdlib.h>
-# include	<time.h>
-# include	"Inventory.h"
-# include	"Player.h"
+# include <stdlib.h>
+# include <time.h>
+# include "Inventory.h"
+# include "Player.h"
 
 typedef struct	Square
 {

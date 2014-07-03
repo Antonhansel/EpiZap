@@ -4,7 +4,7 @@
 # include "Server.h"
 # include "Player.h"
 
-int		command_functions(Server *, Player *, char *);
+int 	command_functions(Server *, Player *, char *);
 int 	get_cmd_type(char *);
 int 	up_cmd(Server *, Player *);
 int 	right_cmd(Server *, Player *);

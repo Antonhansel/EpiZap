@@ -57,10 +57,10 @@ static void		init_func_ptr(Server *this, int width, int height)
 	}
 }
 
-static int 			loop(Server *this)
+static int 		loop(Server *this)
 {
-	fd_set 			readfds;
-	fd_set 			writefds;
+	fd_set 		readfds;
+	fd_set 		writefds;
 
 	while (TRUE)
 	{
@@ -72,7 +72,9 @@ static int 			loop(Server *this)
 			check_bits_fields(this, &readfds, &writefds);
 		}
 		else
-			sprintf(this->msg, "%s<font color=\"Red\">*** ERROR ON SELECT ***</font>", this->msg);
+			sprintf(this->msg,
+				"%s<font color=\"Red\">*** ERROR ON SELECT ***</font>",
+					this->msg);
 	}
 	return (0);
 }

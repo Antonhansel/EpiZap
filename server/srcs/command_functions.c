@@ -21,8 +21,6 @@ int 		get_cmd_type(char *cmd)
 	i = 0;
 	while (i < 12)
 	{
-		printf("$%s$ | $%s$ | %d\n", tab[i], cmd, strcmp(tab[i], cmd));
-
 		if (strcmp(tab[i], cmd) == 0)
 			return (i);
 		++i;
@@ -47,7 +45,7 @@ int			command_functions(Server *s, Player *p, char *cmd)
 	tab[INCANTATION] = &incantation_cmd;
 	tab[FORK] = &fork_cmd;
 	tab[CONNECT_NBR] = &connect_nbr_cmd;
-	i = get_cmd_type(cmd);	
-	tab[i](s, p);
+	if ((i = get_cmd_type(cmd)) != -1)
+		tab[i](s, p);
 	return (0);
 }
