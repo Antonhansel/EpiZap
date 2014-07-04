@@ -10,6 +10,7 @@ int		init_player(Player *this, int fd, int width, int height)
 	this->nb_request = 0;
 	this->x = rand() % width;
 	this->y = rand() % height;
+	this->dir = rand() % 4;
 	this->time = 0;
 	this->lvl = 0;
 	this->mode = WRITE;

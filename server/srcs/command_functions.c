@@ -46,6 +46,9 @@ int			command_functions(Server *s, Player *p, char *cmd)
 	tab[FORK] = &fork_cmd;
 	tab[CONNECT_NBR] = &connect_nbr_cmd;
 	if ((i = get_cmd_type(cmd)) != -1)
+	{
 		tab[i](s, p);
-	return (0);
+		return (TRUE);		
+	}
+	return (FALSE);
 }

@@ -11,6 +11,7 @@ int		init_team(Team *this, char *name, int player_max)
 	this->nb_player_max = player_max;
 	this->nb_player_actu = 0;
 	this->name = strdup(name);
+	this->player_list = NULL;
 	this->get_nb_player_max = &get_nb_player_max;
 	this->set_nb_player_max = &set_nb_player_max;
 	this->get_nb_player_actu = &get_nb_player_actu;
