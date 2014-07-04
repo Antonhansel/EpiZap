@@ -40,7 +40,7 @@ void  MainUI::initConnexionStuff()
 
 void MainUI::startGraphic()
 {
-  _graphic->initRealUpdate(_connexion->getMap());
+  //  _graphic->initRealUpdate(_connexion->getMap());
 }
 
 void	MainUI::initLayouts()
@@ -70,19 +70,6 @@ void	MainUI::initUi()
   _teams = new QListWidget(this);
   _teams->setFixedWidth(WIDTH/6);
   _teams->setStyleSheet("color: white; background-image: url(./textures/bgbot.png)");
-}
-
-void            MainUI::setServer(Server &s)
-{
-  _server = &s;
-  NetworkC  *net = new NetworkC(&s, _console);
-  QThread   *q = new QThread();
-  net->moveToThread(q);
-  connect(q, SIGNAL(started()), net, SLOT(doWork()));
-  q->start();
-  QTimer *timer = new QTimer(this);
-  connect(timer, SIGNAL(timeout()), this, SLOT(updateInfos()));
-  timer->start(1000/20);
 }
 
 void            MainUI::showAbout() const
@@ -134,12 +121,12 @@ void  MainUI::setConsoleText(const QString &data)
 
 void  MainUI::updateInfos()
 {
-  QString res;
+  // QString res;
 
-  res = _server->msg;
-  if (res.length() > 0)
-  {
-    _console->append(_server->msg);
-    memset(((void*)(_server->msg)), 0, 256);
-  }
+  // res = _server->msg;
+  // if (res.length() > 0)
+  // {
+  //   _console->append(_server->msg);
+  //   memset(((void*)(_server->msg)), 0, 256);
+  // }
 }
