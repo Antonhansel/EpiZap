@@ -1,7 +1,7 @@
 #ifndef MYIA_HPP
 # define MYIA_HPP
 
-enum Rock
+enum Object
 {
 	PLAYERS,
 	LINEMATE,
@@ -9,7 +9,17 @@ enum Rock
 	SIBUR,
 	MENDIANE,
 	PHIRAS,
-	THYSTAME
+	THYSTAME,
+	FOOD
+};
+
+enum Direction
+{
+	ON,
+	NO,
+	FRONT,
+	RIGHT,
+	LEFT
 };
 
 class myIA
@@ -17,23 +27,33 @@ class myIA
 private:
 	std::list<std::string> 		_receive;
 	std::list<std::string> 		_send;
-
-
-	std::list<Rock>				_listRock;
-	std::map<pair<int, int[]>>	_tabElevation;
+	std::list<Object>			_listRock;
+	std::vector<Object>			_objectifs;
+	std::vector<std::string>	_listRock;
+	std::map<int, int[]>		_tabElevation;
+	unsigned int 				_sizeQueue;
 
 public:
 	myIA();
 	~myIA();
+	bool				initLoop();
+	void				initTabElevation();
+	void				initRock();
+
 	const std::string	&sendCommand();
 	bool				addCommand(const std::string &);
 	std::string			&recieveAwser();
 	void				addRecieveAwser(std::string &);
-	void				addRock(Rock);
-	void				delRock(Rock);
+
+	void				addRock(Object);
+	void				delRock(Object);
+
 	bool				isReadyRock();
-	bool				initLoop();
-	void				initTabElevation();
+	bool				isObject(std::string &);
+
+	Direction			checkRock();
+	void				searchRock();
+	std::string 		&replaceinString(std::string &, std::string &, std::string &)
 };
 
 #endif /* !MYIA_HPP */

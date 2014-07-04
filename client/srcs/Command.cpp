@@ -1,11 +1,8 @@
 #include "Command.hpp"
 
-Command::Command(std::string &anwser) 
-{
-	_anwser = anwser;
-}
+Command::Command() {}
 
-void		Command::setAnwser(std::string &awser)
+void		Command::setAnwser(std::string &anwser)
 {
 	_anwser = anwser;
 }
