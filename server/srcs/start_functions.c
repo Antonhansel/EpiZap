@@ -33,6 +33,7 @@ void	assign_to_team_next(Player *this, Server *s, char *team_name)
 			find = 1;
 			this->team_name = strdup(team_name);
 			add_player(&tmp->player_list, this);
+			tmp->nb_player_actu++;
 		}
 		tmp = tmp->next;
 	}

@@ -42,12 +42,50 @@ int 	see_cmd(Server *s, Player *p)
 {
 	(void)s;
 	(void)p;
+/*	int 	r;
+	int 	c;
+	int 	x;
+	int 	y;
+	char 	str[512];
+
+	r = 0;
+	while (r < p->range)
+	{
+		c = -r;
+		while (c <= r)
+		{
+			x = (p->x + r * di + c * dj + s->map->width) % s->map->width;
+			y = (p->y + c * di + r * dj * -1 + s->map->height) % s->map->height;
+			//printf("[%.3d]", s->map->map[x][y]);
+			c++;
+		}
+		printf("\n");
+		r++;
+	}*/
 	return (0);
 }
 
-int 	inventory_cmd(Server *s, Player *p)
+/*void    see(int **map, int size, int i, int j, int range, int di, int dj)
 {
+  
+}*/
+
+int 		inventory_cmd(Server *s, Player *p)
+{
+	char	str1[256];
+	char	str[512];
+
 	(void)s;
-	(void)p;
+	snprintf(str1, 256, "linemate %d, sibur %d, deraumere %d, mendiane %d",
+		p->inventory->get_object(p->inventory, LINEMATE),
+		p->inventory->get_object(p->inventory, SIBUR),
+		p->inventory->get_object(p->inventory, DERAUMERE),
+		p->inventory->get_object(p->inventory, MENDIANE));
+	snprintf(str, 512, "%s, phiras %d, thystame %d, food %d\n", str1,
+		p->inventory->get_object(p->inventory, PHIRAS),
+		p->inventory->get_object(p->inventory, THYSTAME),
+		p->inventory->get_object(p->inventory, FOOD));
+	add_str_in_buffer(&p->buffer_circular, str);
+	p->mode = WRITE;
 	return (0);
 }

@@ -54,11 +54,11 @@ void 		fct_read_next(Player *this, Server *s, char *buf, int ret)
 		{
 			reset_elem_in_buffer(&this->buffer_circular, strlen(ptr) + 1);
 			this->buffer_circular = this->buffer_circular->head;
+			if (command_functions(s, this, ptr) == FALSE)
+				printf("Unknow command\n");
+			old_mode = this->mode;
+			printf("X = %d & Y = %d & DIR = %s\n", this->x, this->y, (this->dir == 0) ? "NORTH" : (this->dir == 1) ? "EAST" : (this->dir == 2) ? "SOUTH" : "WEST");
 		}
-		if (command_functions(s, this, ptr) == FALSE)
-			printf("Unknow command\n");
-		old_mode = this->mode;
-		printf("X = %d & Y = %d & DIR = %s\n", this->x, this->y, (this->dir == 0) ? "NORTH" : (this->dir == 1) ? "EAST" : (this->dir == 2) ? "SOUTH" : "WEST");
 		free(ptr);
 	}
 	else

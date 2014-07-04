@@ -35,6 +35,7 @@ typedef struct 		Player
 	int 			mode;
 	int 			dir;
 	int 			intro;
+	int 			range;
 	char 			*team_name;
 	/* Methods */
 	Inventory 		*(*get_inventory)(struct Player *);
