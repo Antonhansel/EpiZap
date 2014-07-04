@@ -13,6 +13,8 @@ int 	up_cmd(Server *s, Player *p)
 		p->y = 0;
 	else if (p->y < 0)
 		p->y = s->map->height;
+	add_str_in_buffer(&p->buffer_circular, "OK\n");
+	p->mode = WRITE;
 	return (0);
 }
 
@@ -21,6 +23,8 @@ int 	right_cmd(Server *s, Player *p)
 	(void)s;
 	(p->dir == NORTH) ? (p->dir = EAST) : (p->dir == EAST) ? (p->dir = SOUTH) :
 		(p->dir == SOUTH) ? (p->dir = WEST) : (p->dir = NORTH);
+	add_str_in_buffer(&p->buffer_circular, "OK\n");
+	p->mode = WRITE;
 	return (0);
 }
 
@@ -29,6 +33,8 @@ int 	left_cmd(Server *s, Player *p)
 	(void)s;
 	(p->dir == NORTH) ? (p->dir = WEST) : (p->dir == WEST) ? (p->dir = SOUTH) :
 		(p->dir == SOUTH) ? (p->dir = EAST) : (p->dir = NORTH);
+	add_str_in_buffer(&p->buffer_circular, "OK\n");
+	p->mode = WRITE;
 	return (0);
 }
 

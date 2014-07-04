@@ -109,7 +109,7 @@ void  				display_circular_buffer(CircularBuffer *front_ptr, int mode)
 	}
 	else
 	{
-		for (i = 0; it->c != 48 && i < BUFFER_SIZE; i++)
+		for (i = 0; it->c != BUFFER_CHAR && i < BUFFER_SIZE; i++)
 		{
 			printf("current = %p && next = %p && head = %p && c = %d\n", it, it->next, it->head, it->c);
 			it = it->next;

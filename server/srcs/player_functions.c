@@ -43,24 +43,27 @@ int 		fct_read(Player *this, void *p)
 void 		fct_read_next(Player *this, Server *s, char *buf, int ret)
 {
 	char 	*ptr;
+	int 	old_mode;
 
+	old_mode = this->mode;
 	this->mode = NONE;
 	if ((ret - 1) <= BUFFER_SIZE && add_str_in_buffer(&this->buffer_circular, buf) == TRUE)
 	{
 		ptr = get_data_of_buffer(this->buffer_circular);
-		if (command_functions(s, this, ptr) == FALSE)
-			printf("Unknow command\n");
-		printf("X = %d & Y = %d & DIR = %s\n", this->x, this->y, (this->dir == 0) ? "NORTH" : (this->dir == 1) ? "EAST" : (this->dir == 2) ? "SOUTH" : "WEST");
 		if (this->intro == FALSE)
 		{
 			reset_elem_in_buffer(&this->buffer_circular, strlen(ptr) + 1);
 			this->buffer_circular = this->buffer_circular->head;
 		}
+		if (command_functions(s, this, ptr) == FALSE)
+			printf("Unknow command\n");
+		old_mode = this->mode;
+		printf("X = %d & Y = %d & DIR = %s\n", this->x, this->y, (this->dir == 0) ? "NORTH" : (this->dir == 1) ? "EAST" : (this->dir == 2) ? "SOUTH" : "WEST");
 		free(ptr);
 	}
 	else
 		printf("Bad Command\n");
-	this->mode = READ;
+	this->mode = old_mode;
 }
 
 int					fct_write(Player *this, void *p)
