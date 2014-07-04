@@ -35,7 +35,7 @@ typedef struct 	Server
 	int 		initialize;
 	int 		nb_teams;
 	int 		nb_player_team;
-	char		msg[256];
+	char		msg[BUFFER_SIZE];
   	Player		*player;
   	Team 		*team;
   	Map			*map;

@@ -7,9 +7,10 @@ void 	fct_read_next(Player *, Server *, char *, int);
 
 void 	player_socket_problem(Player *this, Server *s)
 {
-	sprintf(s->msg, 
+	/*sprintf(s->msg, 
 		"%s<font color=\"Red\">*** PLAYER %d DISCONNECTED ***</font>",
-		(s->msg != NULL) ? s->msg : "", this->fd);
+		(s->msg != NULL) ? s->msg : "", this->fd);*/
+	printf("*** PLAYER %d DISCONNECTED ***", this->fd);
 	printf("----------- AVANT DELETE ----------\n");
 	display_list(s->player);
 	del_elem(&s->player, this->fd);
@@ -30,8 +31,8 @@ int 		fct_read(Player *this, void *p)
 	memset(buf, 0, 512);
 	if ((ret = read(this->fd, buf, 511)) > 0)
 	{
-		sprintf(s->msg, "%s<font color=\"Green\">*** %s ***</font>",
-			(s->msg != NULL) ? s->msg : "", buf);
+		/*sprintf(s->msg, "%s<font color=\"Green\">*** %s ***</font>",
+			(s->msg != NULL) ? s->msg : "", buf);*/
 		fct_read_next(this, s, buf, ret);
 	}
 	else
@@ -43,22 +44,23 @@ void 		fct_read_next(Player *this, Server *s, char *buf, int ret)
 {
 	char 	*ptr;
 
+	this->mode = NONE;
 	if ((ret - 1) <= BUFFER_SIZE && add_str_in_buffer(&this->buffer_circular, buf) == TRUE)
 	{
-		this->mode = NONE;
-		printf("Good command\n");
 		ptr = get_data_of_buffer(this->buffer_circular);
-		command_functions(s, this, ptr);
+		if (command_functions(s, this, ptr) == FALSE)
+			printf("Unknow command\n");
+		printf("X = %d & Y = %d & DIR = %s\n", this->x, this->y, (this->dir == 0) ? "NORTH" : (this->dir == 1) ? "EAST" : (this->dir == 2) ? "SOUTH" : "WEST");
 		if (this->intro == FALSE)
 		{
 			reset_elem_in_buffer(&this->buffer_circular, strlen(ptr) + 1);
 			this->buffer_circular = this->buffer_circular->head;
 		}
 		free(ptr);
-		this->mode = READ;
 	}
 	else
 		printf("Bad Command\n");
+	this->mode = READ;
 }
 
 int					fct_write(Player *this, void *p)
