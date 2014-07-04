@@ -36,13 +36,15 @@ class MainUI : public QWidget
 {
 	Q_OBJECT
 public:
-	MainUI(char *, char *, char *);
+	MainUI(char *, char *, char *, char *);
 	~MainUI();	
 	void 	startConnexion();
 public slots:
 	void 	readTcpData();
 	void 	sendData();
+	void 	writeOnSocket(const char *);
 private:
+	int 		_tick;
 	QTcpSocket 	*_pSocket;
 	std::string 	_team;
 	std::string 	_ip;

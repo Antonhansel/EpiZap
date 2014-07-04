@@ -73,22 +73,22 @@ void Graphic::mouseReleaseEvent (QMouseEvent *e)
 
 void 	Graphic::caseClicked()
 {
-	QString data;
+	// QString data;
 
-	if (_lastPointPress.x() > 0 && _lastPointPress.x() < (_map->width * 64)
-		&& _lastPointPress.y() > 0 && _lastPointPress.y() < (_map->height * 64))
-	{
-		data = "Position: ";
-		data += QString::number(_lastPointPress.x()/64);
-		data += " - ";
-		data += QString::number(_lastPointPress.y()/64);
-		_parent->addData(data, true);
-		data = "Block type: ";
-		data += QString::number(_map->map[_lastPointPress.x()/64]
-			[_lastPointPress.y()/64].square_type);
-		_parent->addData(data, false);
-		updateHud(_lastPointPress.x()/64, _lastPointPress.y()/64);
-	}
+	// if (_lastPointPress.x() > 0 && _lastPointPress.x() < (_map->width * 64)
+	// 	&& _lastPointPress.y() > 0 && _lastPointPress.y() < (_map->height * 64))
+	// {
+	// 	data = "Position: ";
+	// 	data += QString::number(_lastPointPress.x()/64);
+	// 	data += " - ";
+	// 	data += QString::number(_lastPointPress.y()/64);
+	// 	_parent->addData(data, true);
+	// 	data = "Block type: ";
+	// 	data += QString::number(_map->map[_lastPointPress.x()/64]
+	// 		[_lastPointPress.y()/64].square_type);
+	// 	_parent->addData(data, false);
+	// 	updateHud(_lastPointPress.x()/64, _lastPointPress.y()/64);
+	// }
 }
 
 void	Graphic::updateHud(const int x, const int y)
@@ -104,26 +104,26 @@ void 	Graphic::mouseMoveEvent(QMouseEvent *e)
 
 void 	Graphic::dragMouse()
 {
-	if ((_lastPointPress.x() - _currentPos.x()) != 0 
-		|| (_lastPointPress.y() - _currentPos.y()) != 0)
-	{
-		if (((_lastPointPress.x() - _currentPos.x())/64) >= 1)
-			_viewx -= 1;
-		else if (((_lastPointPress.x() - _currentPos.x())/64) <= -1)
-			_viewx += 1;
-		if (((_lastPointPress.y() - _currentPos.y())/64) >= 1)
-			_viewy -= 1;
-		else if (((_lastPointPress.y() - _currentPos.y())/64) <= -1)
-			_viewy += 1;
-		if (_viewy + 11 >= _map->width)
-			_viewy = _map->width - 11;
-		if (_viewx + 23 >= _map->height)
-			_viewx = _map->height - 23;
-		if (_viewx < 0)
-			_viewx = 0;
-		if (_viewy < 0)
-			_viewy = 0;
-	}
+	// if ((_lastPointPress.x() - _currentPos.x()) != 0 
+	// 	|| (_lastPointPress.y() - _currentPos.y()) != 0)
+	// {
+	// 	if (((_lastPointPress.x() - _currentPos.x())/64) >= 1)
+	// 		_viewx -= 1;
+	// 	else if (((_lastPointPress.x() - _currentPos.x())/64) <= -1)
+	// 		_viewx += 1;
+	// 	if (((_lastPointPress.y() - _currentPos.y())/64) >= 1)
+	// 		_viewy -= 1;
+	// 	else if (((_lastPointPress.y() - _currentPos.y())/64) <= -1)
+	// 		_viewy += 1;
+	// 	if (_viewy + 11 >= _map->width)
+	// 		_viewy = _map->width - 11;
+	// 	if (_viewx + 23 >= _map->height)
+	// 		_viewx = _map->height - 23;
+	// 	if (_viewx < 0)
+	// 		_viewx = 0;
+	// 	if (_viewy < 0)
+	// 		_viewy = 0;
+	// }
 }
 
 bool 	Graphic::update()
@@ -152,33 +152,32 @@ void 	Graphic::apply_floor()
 {	
 	int x = 0;
 	int y = 0;
-	for (y = 0; y < 11 && y < _map->height; y++)
-	{
-		for (x = 0; x < 23 && x < _map->width; x++)
-		{
-			Lib::applySurface(x * SP_SIZE, y* SP_SIZE, 
-				_floor[_map->map[x + _viewx][y + _viewy].square_type], _screen);
-			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, LINEMATE))
-				Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 10, _ressource[LINEMATE], _screen);
-			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, DERAUMERE))
-				Lib::applySurface((x * SP_SIZE) + 20, (y * SP_SIZE) + 15, _ressource[DERAUMERE], _screen);
-			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, SIBUR))
-				Lib::applySurface((x * SP_SIZE) + 30, (y * SP_SIZE) + 25, _ressource[SIBUR], _screen);
-			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, MENDIANE))
-				Lib::applySurface((x * SP_SIZE) + 40, (y * SP_SIZE) + 10, _ressource[MENDIANE], _screen);
-			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, PHIRAS))
-				Lib::applySurface((x * SP_SIZE) + 30, (y * SP_SIZE) + 10, _ressource[PHIRAS], _screen);
-			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, THYSTAME))
-				Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 30, _ressource[THYSTAME], _screen);
-			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, FOOD))
-				Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 45, _ressource[FOOD], _screen);
-		}
-	}
+	// for (y = 0; y < 11 && y < _map->height; y++)
+	// {
+	// 	for (x = 0; x < 23 && x < _map->width; x++)
+	// 	{
+	// 		Lib::applySurface(x * SP_SIZE, y* SP_SIZE, 
+	// 			_floor[_map->map[x + _viewx][y + _viewy].square_type], _screen);
+	// 		if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, LINEMATE))
+	// 			Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 10, _ressource[LINEMATE], _screen);
+	// 		if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, DERAUMERE))
+	// 			Lib::applySurface((x * SP_SIZE) + 20, (y * SP_SIZE) + 15, _ressource[DERAUMERE], _screen);
+	// 		if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, SIBUR))
+	// 			Lib::applySurface((x * SP_SIZE) + 30, (y * SP_SIZE) + 25, _ressource[SIBUR], _screen);
+	// 		if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, MENDIANE))
+	// 			Lib::applySurface((x * SP_SIZE) + 40, (y * SP_SIZE) + 10, _ressource[MENDIANE], _screen);
+	// 		if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, PHIRAS))
+	// 			Lib::applySurface((x * SP_SIZE) + 30, (y * SP_SIZE) + 10, _ressource[PHIRAS], _screen);
+	// 		if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, THYSTAME))
+	// 			Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 30, _ressource[THYSTAME], _screen);
+	// 		if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, FOOD))
+	// 			Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 45, _ressource[FOOD], _screen);
+	// 	}
+	// }
 }
 
-void 	Graphic::initRealUpdate(Map *map)
+void 	Graphic::initRealUpdate()
 {
-	_map = map;
 	_realUpdate = true;
 }
 
@@ -192,17 +191,18 @@ void 	Graphic::loopHud()
 	data += QString::number(_yhud);
 	_parent->addData(data, true);
 	data = "Block type: ";
-	data += QString::number(_map->map[_xhud][_yhud].square_type);
 	_parent->addData(data, false);
-	_stuff[LINEMATE].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, LINEMATE);
-	_stuff[DERAUMERE].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, DERAUMERE);
-	_stuff[SIBUR].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, SIBUR);
-	_stuff[MENDIANE].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, MENDIANE);
-	_stuff[PHIRAS].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, PHIRAS);
-	_stuff[THYSTAME].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, THYSTAME);
-	_stuff[FOOD].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, FOOD);
-	for (std::map<ROCK, std::pair<QString, int> >::const_iterator it = _stuff.begin(); it != _stuff.end(); ++it)
-		_parent->addData((*it).second.first + QString::number((*it).second.second), false);
+	// data += QString::number(_map->map[_xhud][_yhud].square_type);
+	// _parent->addData(data, false);
+	// _stuff[LINEMATE].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, LINEMATE);
+	// _stuff[DERAUMERE].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, DERAUMERE);
+	// _stuff[SIBUR].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, SIBUR);
+	// _stuff[MENDIANE].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, MENDIANE);
+	// _stuff[PHIRAS].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, PHIRAS);
+	// _stuff[THYSTAME].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, THYSTAME);
+	// _stuff[FOOD].second = _map->map[_xhud][_yhud].inventory->get_object(_map->map[_xhud][_yhud].inventory, FOOD);
+	// for (std::map<ROCK, std::pair<QString, int> >::const_iterator it = _stuff.begin(); it != _stuff.end(); ++it)
+	// 	_parent->addData((*it).second.first + QString::number((*it).second.second), false);
 }
 
 void 	Graphic::draw()
