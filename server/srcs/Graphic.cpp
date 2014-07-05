@@ -168,6 +168,20 @@ void 	Graphic::apply_floor()
 			//affichage des joueurs
 		}
 	}
+	displayPlayers();
+}
+
+void 	Graphic::displayPlayers()
+{
+	Player 	*temp = _server->player;
+
+	while (temp != NULL)
+	{
+		if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewx && temp->y >= _viewy 
+			&& temp->x <= (_viewx + FIELD_X) && temp->y <= (_viewy + FIELD_Y))
+			Lib::applySurface(((temp->x - _viewx) * SP_SIZE), ((temp->y - _viewy) * SP_SIZE), _up[0], _screen);
+		temp = _server->player->next; 
+	}
 }
 
 void 	Graphic::initRealUpdate(const Server *server)
@@ -235,6 +249,7 @@ void 	Graphic::loader()
 	_ressource[THYSTAME] = Lib::loadImage("./textures/thystame.png");
 	_ressource[FOOD] = Lib::loadImage("./textures/food.png");
 	_up[0] = Lib::loadImage("./textures/LinkRunU1.gif");
+	_up[0] = zoomSurface(_up[0], 3, 3, 1);
 	_up[1] = Lib::loadImage("./textures/LinkRunU2.gif");
 	_up[2] = Lib::loadImage("./textures/LinkRunU3.gif");
 	_up[3] = Lib::loadImage("./textures/LinkRunU4.gif");

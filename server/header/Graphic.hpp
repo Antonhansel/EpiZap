@@ -5,6 +5,7 @@
 # include <QWidget>
 # include <SDL/SDL.h>
 # include <SDL/SDL_ttf.h>
+# include <SDL/SDL_rotozoom.h>
 # include <SDL/SDL_mixer.h>
 # include <utility>
 # include "LibSDL.hh"
@@ -32,6 +33,7 @@ class Graphic : public QWidget
 	Q_OBJECT
 public:
 	Graphic(MainUI *);
+	void 	displayPlayers();
 	void 	initSDL();
 	bool 	update();
 	void 	draw();
