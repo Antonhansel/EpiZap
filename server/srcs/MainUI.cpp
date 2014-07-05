@@ -87,6 +87,9 @@ void            MainUI::setServer(Server &s)
   QTimer *timer = new QTimer(this);
   connect(timer, SIGNAL(timeout()), this, SLOT(updateInfos()));
   timer->start(1000/20);
+  QTimer *timer2 = new QTimer(this);
+  connect(timer2, SIGNAL(timeout()), this, SLOT(refreshList()));
+  timer2->start(1000/100);
 }
 
 void            MainUI::showAbout() const
@@ -115,6 +118,41 @@ MainUI::MainUI(bool status) : QWidget()
   applyLayouts();
   connectSlots();
   setLayout(_mainLayout);
+}
+
+void  MainUI::addToList(Team *temp)
+{
+  QListWidgetItem   *teamName;
+  QListWidgetItem   *dslots;
+  QString         slotText;
+  teamName = new QListWidgetItem(_teams);
+  dslots = new QListWidgetItem(_teams);
+  teamName->setText(temp->name);
+  teamName->setBackgroundColor(Qt::transparent);
+  slotText = QString("dslots : ");
+  slotText += QString::number(temp->nb_player_actu);
+  slotText += QString("/");
+  slotText += QString::number(temp->nb_player_max);
+  dslots->setText(slotText);
+  dslots->setBackgroundColor(Qt::transparent);
+  dslots->setTextAlignment(Qt::AlignRight);
+  _teams->addItem(teamName);  
+  _teams->addItem(dslots);
+}
+
+void MainUI::refreshList()
+{ 
+  if (_status && _continue)
+  {
+    Team  *temp;
+    temp = _server->team;
+    _teams->clear();
+    while (temp != NULL)
+    {
+      addToList(temp);
+      temp = temp->next;
+    }
+  }
 }
 
 void  MainUI::updateGraphic()
