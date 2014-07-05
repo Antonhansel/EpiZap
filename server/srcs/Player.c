@@ -73,6 +73,7 @@ int 		destroy_player(Player *this, void *p)
 		tmp = tmp->next;
 	}
 	free(this->inventory);
+	free(this->team_name);
 	//clear_circular_buffer(&this->buffer_circular);
 	return (0);
 }
