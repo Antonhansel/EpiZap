@@ -1,5 +1,6 @@
 #include "List.h"
 #include "Server.h"
+#include "command_functions.h"
 
 static void	init_func_ptr(Server *, int, int);
 static int 	loop(Server *);
@@ -46,6 +47,25 @@ static void		init_func_ptr(Server *this, int width, int height)
 		exit(1);
 	init_map(this->map, width, height);
 	this->team = NULL;
+	this->ptr[AVANCE] = &up_cmd;
+	this->ptr[DROITE] = &right_cmd;
+	this->ptr[GAUCHE] = &left_cmd;
+	this->ptr[VOIR] = &see_cmd;
+	this->ptr[INVENTAIRE] = &inventory_cmd;
+	this->ptr[PREND_OBJET] = &take_object_cmd;
+	this->ptr[POSE_OBJET] = &put_object_cmd;
+	this->ptr[EXPULSE] = &kick_cmd;
+	this->ptr[BROADCAST_TEXTE] = &broadcast_text_cmd;
+	this->ptr[INCANTATION] = &incantation_cmd;
+	this->ptr[FORK] = &fork_cmd;
+	this->ptr[CONNECT_NBR] = &connect_nbr_cmd;
+	strcpy(this->obj[0], "linemate");
+	strcpy(this->obj[1], "deraumere");
+	strcpy(this->obj[2], "sibur");
+	strcpy(this->obj[3], "mendiane");
+	strcpy(this->obj[4], "phiras");
+	strcpy(this->obj[5], "thistame");
+	strcpy(this->obj[6], "food");
 }
 
 void init_all_team(Server *this, char *tab)

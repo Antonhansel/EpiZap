@@ -1,10 +1,10 @@
 #include "command_functions.h"
 
-int 	up_cmd(Server *s, Player *p)
+int 	up_cmd(Server *s, Player *p, char *cmd)
 {
 	//del_elem(&s->map->map[p->x][p->y].player, p->fd);
-	(p->dir == NORTH) ? p->x++ : (p->dir == EAST) ? p->y++ : (p->dir == WEST) ?
-		p->y-- : p->x--;
+	(p->dir == NORTH) ? p->x-- : (p->dir == EAST) ? p->y++ : (p->dir == WEST) ?
+		p->y-- : p->x++;
 	if (p->x >= s->map->width)
 		p->x = 0;
 	else if (p->x < 0)
@@ -19,7 +19,7 @@ int 	up_cmd(Server *s, Player *p)
 	return (0);
 }
 
-int 	right_cmd(Server *s, Player *p)
+int 	right_cmd(Server *s, Player *p, char *cmd)
 {
 	(void)s;
 	(p->dir == NORTH) ? (p->dir = EAST) : (p->dir == EAST) ? (p->dir = SOUTH) :
@@ -29,7 +29,7 @@ int 	right_cmd(Server *s, Player *p)
 	return (0);
 }
 
-int 	left_cmd(Server *s, Player *p)
+int 	left_cmd(Server *s, Player *p, char *cmd)
 {
 	(void)s;
 	(p->dir == NORTH) ? (p->dir = WEST) : (p->dir == WEST) ? (p->dir = SOUTH) :
@@ -39,7 +39,7 @@ int 	left_cmd(Server *s, Player *p)
 	return (0);
 }
 
-int 	see_cmd(Server *s, Player *p)
+int 	see_cmd(Server *s, Player *p, char *cmd)
 {
 	(void)s;
 	(void)p;
@@ -71,7 +71,7 @@ int 	see_cmd(Server *s, Player *p)
   
 }*/
 
-int 		inventory_cmd(Server *s, Player *p)
+int 		inventory_cmd(Server *s, Player *p, char *cmd)
 {
 	char	str1[256];
 	char	str[512];
