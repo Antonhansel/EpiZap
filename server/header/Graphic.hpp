@@ -1,6 +1,7 @@
 #ifndef GRAPHIC_HPP_
 # define  GRAPHIC_HPP_
 
+# include <map>
 # include <QtCore>
 # include <QWidget>
 # include <SDL/SDL.h>
@@ -77,6 +78,7 @@ private:
 	std::vector<std::string> 	_teamName;
 	bool 			_mouseReleased;
  private:
+ 	std::map<DIR, SDL_Surface**> _botSprite;
  	SDL_Surface		*_up[PLAYER_UP];
  	SDL_Surface		*_down[PLAYER_DOWN];
  	SDL_Surface		*_right[PLAYER_RIGHT];
