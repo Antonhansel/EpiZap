@@ -11,6 +11,7 @@ int 	init_square(Square *this)
 		return (FALSE);
 	this->get_inventory = &get_inventory;
 	this->set_inventory = &set_inventory;
+	this->player = NULL;
 	return (TRUE);
 }
 

@@ -52,23 +52,34 @@ int						accept_socket(Server *s)
 	struct sockaddr_in  client_sin; 
 	socklen_t 			len;
 	int 				fd;
+	Player 				*tmp;
 
 	len = sizeof(client_sin);
 	if ((fd = xaccept(s->socket, &(client_sin), &len)) == FALSE)
 		return (FALSE);
-	printf("----------- AVANT ADD ----------\n");
-	display_list(s->player);
 	if (add_elem(&s->player, fd, s->map->width, s->map->height) != 0)
 		return (FALSE);
 	else
 		sprintf(s->msg,
 			"<font color=\"Green\">*** CLIENT ADD IN LIST ***</font><br />");
-	printf("----------- APRES ADD ----------\n");
-	display_list(s->player);
+	tmp = s->player;
+	while (tmp)
+	{
+		printf("1111\n");
+		if (tmp->fd == fd)
+		{
+			printf("-------------------------- 2 ------------------------\n");
+			add_player(&s->map->map[tmp->x][tmp->y].player, tmp);
+			printf("-------------------------- 3 ------------------------\n");
+		}
+		tmp = tmp->next;
+	}
+	printf("-------------------------- 4 ------------------------\n");
+	//display_list(s->map->map[tmp->x][tmp->y].player);
+	printf("-------------------------- 5 ------------------------\n");
 	if (s->max_fd < fd)
 		s->max_fd = fd;
 	s->nb_player_co++;
-	printf("-----> MAX FD = %d\n", s->max_fd);
 	sprintf(s->msg,
 		"%s<font color=\"Green\">*** NEW CONNECTION FROM IP %s ON PORT %d AND FD %d ***</font>", s->msg, inet_ntoa(client_sin.sin_addr), s->port, fd);
 	return (TRUE);

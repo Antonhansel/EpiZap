@@ -3,6 +3,7 @@
 
 # include "Server.h"
 # include "Player.h"
+# include "List.h"
 
 int 	command_functions(Server *, Player *, char *);
 int 	get_cmd_type(char *);
