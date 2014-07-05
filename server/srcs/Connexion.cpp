@@ -188,9 +188,9 @@ bool  Connexion::checkData(const QString &data)
   return (false);
 }
 
-Map   *Connexion::getMap() const
+const Server   *Connexion::getServer() const
 {
-  return (_server.map);
+  return (&_server);
 }
 
 bool  Connexion::isConnected()

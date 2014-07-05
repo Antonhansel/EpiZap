@@ -44,7 +44,7 @@ void  MainUI::initConnexionStuff()
 void MainUI::startGraphic()
 {
   if (_status)
-  _graphic->initRealUpdate(_connexion->getMap());
+  _graphic->initRealUpdate(_connexion->getServer());
 }
 
 void	MainUI::initLayouts()
