@@ -177,13 +177,12 @@ void 	Graphic::apply_floor()
 void 	Graphic::displayPlayers()
 {
 	Player 	*temp = _server->player;
-
 	while (temp != NULL)
 	{
 		if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewx && temp->y >= _viewy 
 			&& temp->x <= (_viewx + FIELD_X) && temp->y <= (_viewy + FIELD_Y))
 			animPlayer(((temp->x - _viewx) * SP_SIZE), ((temp->y - _viewy) * SP_SIZE), temp);
-		temp = _server->player->next;
+		temp = temp->next;
 	}
 }
 
