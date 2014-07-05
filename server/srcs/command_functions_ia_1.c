@@ -82,7 +82,7 @@ int 		inventory_cmd(Server *s, Player *p)
 		p->inventory->get_object(p->inventory, SIBUR),
 		p->inventory->get_object(p->inventory, DERAUMERE),
 		p->inventory->get_object(p->inventory, MENDIANE));
-	snprintf(str, 512, "%s, phiras %d, thystame %d, food %d\n", str1,
+	snprintf(str, 512, "%s, phiras %d, thystame %d, nourriture %d\n", str1,
 		p->inventory->get_object(p->inventory, PHIRAS),
 		p->inventory->get_object(p->inventory, THYSTAME),
 		p->inventory->get_object(p->inventory, FOOD));
