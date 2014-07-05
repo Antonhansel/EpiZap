@@ -2,7 +2,7 @@
 
 int 	up_cmd(Server *s, Player *p)
 {
-	del_elem(&s->map->map[p->x][p->y].player, p->fd);
+	//del_elem(&s->map->map[p->x][p->y].player, p->fd);
 	(p->dir == NORTH) ? p->x++ : (p->dir == EAST) ? p->y++ : (p->dir == WEST) ?
 		p->y-- : p->x--;
 	if (p->x >= s->map->width)
@@ -13,7 +13,7 @@ int 	up_cmd(Server *s, Player *p)
 		p->y = 0;
 	else if (p->y < 0)
 		p->y = s->map->height;
-	add_player(&s->map->map[p->x][p->y].player, p);
+	//add_player(&s->map->map[p->x][p->y].player, p);
 	add_str_in_buffer(&p->buffer_circular, "OK\n");
 	p->mode = WRITE;
 	return (0);

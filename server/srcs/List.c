@@ -1,7 +1,7 @@
 #include "List.h"
 #include "Server.h"
 
-int       add_elem(Player **front_ptr, int fd, int width, int height)
+int       add_elem(Player **front_ptr, int fd)
 {
   Player	*node;
   Player	*tmp;
@@ -9,7 +9,7 @@ int       add_elem(Player **front_ptr, int fd, int width, int height)
   node = malloc(sizeof(Player));
   if (node == NULL)
     return (-1);
-  init_player(node, fd, width, height);
+  init_player(node, fd);
   node->next = NULL;
   tmp = *front_ptr;
   if (tmp == NULL)

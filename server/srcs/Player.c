@@ -4,15 +4,11 @@
 static void			set_inventory(Player *, Inventory *);
 static Inventory 	*get_inventory(Player *);
 
-int		init_player(Player *this, int fd, int width, int height)
+int		init_player(Player *this, int fd)
 {
 	this->fd = fd;
-	this->nb_request = 0;
-	this->x = rand() % width;
-	this->y = rand() % height;
-	this->dir = rand() % 4;
-	this->time = 0;
-	this->lvl = 0;
+	this->x = -1;
+	this->y = -1;
 	this->mode = WRITE;
 	this->intro = TRUE;
 	this->buffer_circular = NULL;
@@ -29,6 +25,16 @@ int		init_player(Player *this, int fd, int width, int height)
 	add_str_in_buffer(&this->buffer_circular, "BIENVENUE\n");
 	display_circular_buffer(this->buffer_circular, 1);
 	return (0);
+}
+
+void	set_player_data(Player *this, int width, int height)
+{
+	this->nb_request = 0;
+	this->x = rand() % width;
+	this->y = rand() % height;
+	this->dir = rand() % 4;
+	this->time = 0;
+	this->lvl = 0;
 }
 
 void 	copy_player(Player *this, Player *to_copy)

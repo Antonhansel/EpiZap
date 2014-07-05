@@ -52,17 +52,17 @@ int						accept_socket(Server *s)
 	struct sockaddr_in  client_sin; 
 	socklen_t 			len;
 	int 				fd;
-	Player 				*tmp;
+	//Player 				*tmp;
 
 	len = sizeof(client_sin);
 	if ((fd = xaccept(s->socket, &(client_sin), &len)) == FALSE)
 		return (FALSE);
-	if (add_elem(&s->player, fd, s->map->width, s->map->height) != 0)
+	if (add_elem(&s->player, fd) != 0)
 		return (FALSE);
 	else
 		sprintf(s->msg,
 			"<font color=\"Green\">*** CLIENT ADD IN LIST ***</font><br />");
-	tmp = s->player;
+	/*tmp = s->player;
 	while (tmp)
 	{
 		printf("1111\n");
@@ -73,7 +73,7 @@ int						accept_socket(Server *s)
 			printf("-------------------------- 3 ------------------------\n");
 		}
 		tmp = tmp->next;
-	}
+	}*/
 	printf("-------------------------- 4 ------------------------\n");
 	//display_list(s->map->map[tmp->x][tmp->y].player);
 	printf("-------------------------- 5 ------------------------\n");
