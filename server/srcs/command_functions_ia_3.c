@@ -28,16 +28,13 @@ int 		connect_nbr_cmd(Server *s, Player *p, char *cmd)
 
 int 	get_obj(Server *s, int i, char *cmd)
 {
-	/*if (i < ((int)(strlen(cmd))))
-	{*/
-		i = 0;
-		printf("CMD === |%s|\n", cmd);
-		while (i < 7)
-		{
-			if (strncmp(cmd, s->obj[i], strlen(cmd)) == 0)
-				return (i);
-			++i;
-		}	
-	//}
+	i = 0;
+	printf("CMD === |%s|\n", cmd);
+	while (i < 7)
+	{
+		if (strncmp(cmd, s->obj[i], strlen(cmd)) == 0)
+			return (i);
+		++i;
+	}	
 	return (-1);
 }
