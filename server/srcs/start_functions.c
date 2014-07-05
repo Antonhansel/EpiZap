@@ -35,6 +35,7 @@ void	assign_to_team_next(Player *this, Server *s, char *team_name)
 			this->team_name = strdup(team_name);
 			set_player_data(this, s->map->width, s->map->height);
 			add_player(&tmp->player_list, this);
+			display_list(tmp->player_list);
 			tmp->nb_player_actu++;
 			nb_co = tmp->nb_player_max - tmp->nb_player_actu;
 		}
