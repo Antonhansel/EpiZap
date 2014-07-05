@@ -9,6 +9,8 @@
 # include <utility>
 # include "LibSDL.hh"
 # include "Map.h"
+# include "Server.h"
+
 #undef main
 
 # include <QMouseEvent>
@@ -35,7 +37,7 @@ public:
 	void 	loader();
 	void 	loopHud();
 	void 	teamName();
-	void 	initRealUpdate(Map *);
+	void 	initRealUpdate(const Server *);
 	void 	mouseReleaseEvent(QMouseEvent *);
   	void 	mousePressEvent(QMouseEvent *);
   	void 	mouseMoveEvent(QMouseEvent *);
@@ -63,6 +65,7 @@ private:
 	QPoint 			_lastPointPress;
 	QPoint			_lastPointReleased;
 	Map 			*_map;
+	Server			*_server;
 	int 			_viewx;
 	int 			_viewy;
 	std::map<ROCK, std::pair<QString, int> > _stuff;
