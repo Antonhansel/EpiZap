@@ -32,8 +32,8 @@ int		init_player(Player *this, int fd)
 void	set_player_data(Player *this, int width, int height)
 {
 	this->nb_request = 0;
-	this->x = /*rand() % width;*/5;
-	this->y = /*rand() % height*/ 5;
+	this->x = rand() % width;
+	this->y = rand() % height;
 	this->dir = rand() % 4;
 	this->time = 0;
 	this->lvl = 0;
@@ -65,7 +65,8 @@ int 		destroy_player(Player *this, void *p)
 	tmp = s->team;
 	while (tmp)
 	{
-		if (strcmp(tmp->name, this->team_name) == 0)
+		printf("--------> %s && %s\n", tmp->name, this->team_name);
+		if (this->team_name && strcmp(tmp->name, this->team_name) == 0)
 		{
 			if (del_elem(&tmp->player_list, this->fd) == 0)
 				tmp->nb_player_actu--;

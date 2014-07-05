@@ -44,10 +44,8 @@ int 	left_cmd(Server *s, Player *p, char *cmd)
 
 int 	see_cmd(Server *s, Player *p, char *cmd)
 {
-	(void)s;
-	(void)p;
 	(void)cmd;
-/*	int 	r;
+	int 	r;
 	int 	c;
 	int 	x;
 	int 	y;
@@ -59,14 +57,15 @@ int 	see_cmd(Server *s, Player *p, char *cmd)
 		c = -r;
 		while (c <= r)
 		{
-			x = (p->x + r * di + c * dj + s->map->width) % s->map->width;
-			y = (p->y + c * di + r * dj * -1 + s->map->height) % s->map->height;
+			x = (p->x + r * /*di*/0 + c * /*dj*/1 + s->map->width) % s->map->width;
+			y = (p->y + c * /*di*/0 + r * /*dj*/1 * -1 + s->map->height) % s->map->height;
+			printf("SEE : x : %d && y : %d\n", x, y);
 			//printf("[%.3d]", s->map->map[x][y]);
 			c++;
 		}
 		printf("\n");
 		r++;
-	}*/
+	}
 	return (0);
 }
 
