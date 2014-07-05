@@ -64,7 +64,7 @@ static void		init_func_ptr(Server *this, int width, int height)
 	strcpy(this->obj[2], "sibur");
 	strcpy(this->obj[3], "mendiane");
 	strcpy(this->obj[4], "phiras");
-	strcpy(this->obj[5], "thistame");
+	strcpy(this->obj[5], "thystame");
 	strcpy(this->obj[6], "food");
 }
 

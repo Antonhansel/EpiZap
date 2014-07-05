@@ -32,8 +32,8 @@ int		init_player(Player *this, int fd)
 void	set_player_data(Player *this, int width, int height)
 {
 	this->nb_request = 0;
-	this->x = rand() % width;
-	this->y = rand() % height;
+	this->x = /*rand() % width;*/5;
+	this->y = /*rand() % height*/ 5;
 	this->dir = rand() % 4;
 	this->time = 0;
 	this->lvl = 0;

@@ -4,8 +4,8 @@ int 	up_cmd(Server *s, Player *p, char *cmd)
 {
 	(void)cmd;
 	//del_elem(&s->map->map[p->x][p->y].player, p->fd);
-	(p->dir == NORTH) ? p->x-- : (p->dir == EAST) ? p->y++ : (p->dir == WEST) ?
-		p->y-- : p->x++;
+	(p->dir == NORTH) ? p->y-- : (p->dir == EAST) ? p->x++ : (p->dir == WEST) ?
+		p->x-- : p->y++;
 	if (p->x >= s->map->width)
 		p->x = 0;
 	else if (p->x < 0)
