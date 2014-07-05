@@ -1,20 +1,21 @@
 #include "command_functions.h"
+#include "List.h"
 
 int 	up_cmd(Server *s, Player *p, char *cmd)
 {
 	(void)cmd;
-	//del_elem(&s->map->map[p->x][p->y].player, p->fd);
+	del_elem(&s->map->map[p->x][p->y].player, p->fd);
 	(p->dir == NORTH) ? p->y-- : (p->dir == EAST) ? p->x++ : (p->dir == WEST) ?
 		p->x-- : p->y++;
 	if (p->x >= s->map->width)
 		p->x = 0;
 	else if (p->x < 0)
-		p->x = s->map->width;
+		p->x = s->map->width - 1;
 	if (p->y >= s->map->height)
 		p->y = 0;
 	else if (p->y < 0)
-		p->y = s->map->height;
-	//add_player(&s->map->map[p->x][p->y].player, p);
+		p->y = s->map->height - 1;
+	add_player(&s->map->map[p->x][p->y].player, p);
 	add_str_in_buffer(&p->buffer_circular, "OK\n");
 	p->mode = WRITE;
 	return (0);
@@ -45,7 +46,9 @@ int 	left_cmd(Server *s, Player *p, char *cmd)
 int 	see_cmd(Server *s, Player *p, char *cmd)
 {
 	(void)cmd;
-	int 	r;
+	(void)s;
+	(void)p;
+	/*int 	r;
 	int 	c;
 	int 	x;
 	int 	y;
@@ -57,15 +60,15 @@ int 	see_cmd(Server *s, Player *p, char *cmd)
 		c = -r;
 		while (c <= r)
 		{
-			x = (p->x + r * /*di*/0 + c * /*dj*/1 + s->map->width) % s->map->width;
-			y = (p->y + c * /*di*/0 + r * /*dj*/1 * -1 + s->map->height) % s->map->height;
+			x = (p->x + r * di + c * dj + s->map->width) % s->map->width;
+			y = (p->y + c * di + r * dj * -1 + s->map->height) % s->map->height;
 			printf("SEE : x : %d && y : %d\n", x, y);
 			//printf("[%.3d]", s->map->map[x][y]);
 			c++;
 		}
 		printf("\n");
 		r++;
-	}
+	}*/
 	return (0);
 }
 

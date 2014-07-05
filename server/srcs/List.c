@@ -42,6 +42,7 @@ int       add_player(Player **front_ptr, Player *player)
       tmp = tmp->next;
     tmp->next = node;
   }
+  display_list(*front_ptr);
   return (0);
 }
 
@@ -73,6 +74,7 @@ void      display_list(Player *front_ptr)
   Player  *tmp;
   int     i = 0;
 
+  printf("-----------------> %p\n", front_ptr);
   tmp = front_ptr;
   if (!tmp)
     printf("NULL\n");
