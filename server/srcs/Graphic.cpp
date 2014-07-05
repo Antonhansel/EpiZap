@@ -22,17 +22,11 @@ Graphic::Graphic(MainUI *parent)
 }
 
 Graphic::~Graphic()
-{
-	int i(0);
-	
-	for (i = 0; i !=  PLAYER_UP; i++)
-		SDL_FreeSurface(_up[i]);	
-	for (i = 0; i !=  PLAYER_DOWN; i++)
-		SDL_FreeSurface(_down[i]);	
-	for (i = 0; i !=  PLAYER_RIGHT; i++)
-		SDL_FreeSurface(_right[i]);
-	for (i = 0; i !=  PLAYER_LEFT; i++)
-		SDL_FreeSurface(_left[i]);		
+{	
+	SDL_FreeSurface(_up);
+	SDL_FreeSurface(_down);	
+	SDL_FreeSurface(_right);
+	SDL_FreeSurface(_left);		
 	SDL_FreeSurface(_screen);
 	Mix_FreeMusic(_music);
 	Mix_CloseAudio();
@@ -43,7 +37,7 @@ Graphic::~Graphic()
 void	Graphic::initSDL()
 {
 	Lib::xSDL_Init(SDL_INIT_VIDEO | SDL_DOUBLEBUF);
-	_screen = Lib::xSDL_SetVideoMode(1440, 704, 32, SDL_HWSURFACE); 
+	_screen = Lib::xSDL_SetVideoMode(1408, 704, 32, SDL_HWSURFACE); 
 	SDL_WM_SetCaption("Zappy Viewer", NULL);
 	Lib::xTTF_Init();
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096);
@@ -112,10 +106,10 @@ void 	Graphic::dragMouse()
 			_viewy -= 1;
 		else if (((_lastPointPress.y() - _currentPos.y())/64) <= -1)
 			_viewy += 1;
-		if (_viewy + 11 >= _map->width)
-			_viewy = _map->width - 11;
-		if (_viewx + 23 >= _map->height)
-			_viewx = _map->height - 23;
+		if (_viewy + FIELD_Y >= _map->width)
+			_viewy = _map->width - FIELD_Y;
+		if (_viewx + FIELD_X >= _map->height)
+			_viewx = _map->height - FIELD_X;
 		if (_viewx < 0)
 			_viewx = 0;
 		if (_viewy < 0)
@@ -181,18 +175,9 @@ void 	Graphic::displayPlayers()
 	{
 		if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewx && temp->y >= _viewy 
 			&& temp->x <= (_viewx + FIELD_X) && temp->y <= (_viewy + FIELD_Y))
-			animPlayer(((temp->x - _viewx) * SP_SIZE), ((temp->y - _viewy) * SP_SIZE), temp);
+			Lib::applySurface(((temp->x - _viewx) * SP_SIZE) + 10, ((temp->y - _viewy) * SP_SIZE), _botSprite[(DIR)temp->dir], _screen);
 		temp = temp->next;
 	}
-}
-
-void 	Graphic::animPlayer(int x, int y, Player *temp)
-{
-	temp = temp;
-	SDL_Surface **dir;
-
-	dir =  _botSprite[(DIR)temp->dir];
- 	Lib::applySurface(x, y, dir[0], _screen);
 }
 
 void 	Graphic::initRealUpdate(const Server *server)
@@ -259,34 +244,34 @@ void 	Graphic::loader()
 	_ressource[PHIRAS] = Lib::loadImage("./textures/phiras.png");
 	_ressource[THYSTAME] = Lib::loadImage("./textures/thystame.png");
 	_ressource[FOOD] = Lib::loadImage("./textures/food.png");
-	_up[0] = zoomSurface(Lib::loadImage("./textures/LinkRunU1.gif"), 3, 3, 1);
-	_up[1] = zoomSurface(Lib::loadImage("./textures/LinkRunU2.gif"), 3, 3, 1);
-	_up[2] = zoomSurface(Lib::loadImage("./textures/LinkRunU3.gif"), 3, 3, 1);
-	_up[3] = zoomSurface(Lib::loadImage("./textures/LinkRunU4.gif"), 3, 3, 1);
-	_up[4] = zoomSurface(Lib::loadImage("./textures/LinkRunU5.gif"), 3, 3, 1);
-	_up[5] = zoomSurface(Lib::loadImage("./textures/LinkRunU6.gif"), 3, 3, 1);
-	_up[6] = zoomSurface(Lib::loadImage("./textures/LinkRunU7.gif"), 3, 3, 1);
-	_up[7] = zoomSurface(Lib::loadImage("./textures/LinkRunU8.gif"), 3, 3, 1);
-	_down[0] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD1.gif"), 3, 3, 1);
-	_down[1] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD2.gif"), 3, 3, 1);
-	_down[2] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD3.gif"), 3, 3, 1);
-	_down[3] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD4.gif"), 3, 3, 1);
-	_down[4] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD5.gif"), 3, 3, 1);
-	_down[5] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD6.gif"), 3, 3, 1);
-	_down[6] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD7.gif"), 3, 3, 1);
-	_down[7] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD8.gif"), 3, 3, 1);
-	_down[8] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD9.gif"), 3, 3, 1);
-	_left[0] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL1.gif"), 3, 3, 1);
-	_left[1] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL2.gif"), 3, 3, 1);
-	_left[2] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL3.gif"), 3, 3, 1);
-	_left[3] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL4.gif"), 3, 3, 1);
-	_left[4] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL5.gif"), 3, 3, 1);
-	_left[5] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL6.gif"), 3, 3, 1);
-	_left[6] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL7.gif"), 3, 3, 1);
-	_right[0] = zoomSurface(Lib::loadImage("./textures/LinkRunR1.gif"), 3, 3, 1);
-	_right[1] = zoomSurface(Lib::loadImage("./textures/LinkRunR2.gif"), 3, 3, 1);
-	_right[2] = zoomSurface(Lib::loadImage("./textures/LinkRunR3.gif"), 3, 3, 1);
-	_right[3] = zoomSurface(Lib::loadImage("./textures/LinkRunR4.gif"), 3, 3, 1);
-	_right[4] = zoomSurface(Lib::loadImage("./textures/LinkRunR5.gif"), 3, 3, 1);
-	_right[5] = zoomSurface(Lib::loadImage("./textures/LinkRunR6.gif"), 3, 3, 1);
+	_up = zoomSurface(Lib::loadImage("./textures/LinkRunU1.gif"), 2.5, 2.5, 1);
+	// _up[1] = zoomSurface(Lib::loadImage("./textures/LinkRunU2.gif"), 2.5, 2.5, 1);
+	// _up[2] = zoomSurface(Lib::loadImage("./textures/LinkRunU3.gif"), 2.5, 2.5, 1);
+	// _up[3] = zoomSurface(Lib::loadImage("./textures/LinkRunU4.gif"), 2.5, 2.5, 1);
+	// _up[4] = zoomSurface(Lib::loadImage("./textures/LinkRunU5.gif"), 2.5, 2.5, 1);
+	// _up[5] = zoomSurface(Lib::loadImage("./textures/LinkRunU6.gif"), 2.5, 2.5, 1);
+	// _up[6] = zoomSurface(Lib::loadImage("./textures/LinkRunU7.gif"), 2.5, 2.5, 1);
+	// _up[7] = zoomSurface(Lib::loadImage("./textures/LinkRunU8.gif"), 2.5, 2.5, 1);
+	_down = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD1.gif"), 2.5, 2.5, 1);
+	// _down[1] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD2.gif"), 2.5, 2.5, 1);
+	// _down[2] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD3.gif"), 2.5, 2.5, 1);
+	// _down[3] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD4.gif"), 2.5, 2.5, 1);
+	// _down[4] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD5.gif"), 2.5, 2.5, 1);
+	// _down[5] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD6.gif"), 2.5, 2.5, 1);
+	// _down[6] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD7.gif"), 2.5, 2.5, 1);
+	// _down[7] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD8.gif"), 2.5, 2.5, 1);
+	// _down[8] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD9.gif"), 2.5, 2.5, 1);
+	_left = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL1.gif"), 2.5, 2.5, 1);
+	// _left[1] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL2.gif"), 2.5, 2.5, 1);
+	// _left[2] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL3.gif"), 2.5, 2.5, 1);
+	// _left[3] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL4.gif"), 2.5, 2.5, 1);
+	// _left[4] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL5.gif"), 2.5, 2.5, 1);
+	// _left[5] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL6.gif"), 2.5, 2.5, 1);
+	// _left[6] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL7.gif"), 2.5, 2.5, 1);
+	_right = zoomSurface(Lib::loadImage("./textures/LinkRunR1.gif"), 2.5, 2.5, 1);
+	// _right[1] = zoomSurface(Lib::loadImage("./textures/LinkRunR2.gif"), 2.5, 2.5, 1);
+	// _right[2] = zoomSurface(Lib::loadImage("./textures/LinkRunR3.gif"), 2.5, 2.5, 1);
+	// _right[3] = zoomSurface(Lib::loadImage("./textures/LinkRunR4.gif"), 2.5, 2.5, 1);
+	// _right[4] = zoomSurface(Lib::loadImage("./textures/LinkRunR5.gif"), 2.5, 2.5, 1);
+	// _right[5] = zoomSurface(Lib::loadImage("./textures/LinkRunR6.gif"), 2.5, 2.5, 1);
 }

@@ -1,7 +1,7 @@
 #ifndef MAIN_UI_HPP_
 # define MAIN_UI_HPP_
 
-#define WIDTH 1780
+#define WIDTH 1748
 #define HEIGHT 880
 
 # include <sstream>

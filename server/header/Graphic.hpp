@@ -17,16 +17,16 @@
 
 # include <QMouseEvent>
 
-# define PLAYER_UP 8
-# define PLAYER_DOWN 9
-# define PLAYER_RIGHT 6
-# define PLAYER_LEFT 7
+// # define PLAYER_UP 8
+// # define PLAYER_DOWN 9
+// # define PLAYER_RIGHT 6
+// # define PLAYER_LEFT 7
 # define NB_SPRITE 10
 # define NB_FLOORTEXT 8
 # define SP_SIZE 64
 # define NB_RESSOURCE 7
 # define FIELD_Y 11
-# define FIELD_X 23
+# define FIELD_X 22
 
 class MainUI;
 class Graphic : public QWidget
@@ -34,7 +34,6 @@ class Graphic : public QWidget
 	Q_OBJECT
 public:
 	Graphic(MainUI *);
-	void 	animPlayer(int, int, Player *);
 	void 	displayPlayers();
 	void 	initSDL();
 	bool 	update();
@@ -78,11 +77,11 @@ private:
 	std::vector<std::string> 	_teamName;
 	bool 			_mouseReleased;
  private:
- 	std::map<DIR, SDL_Surface**> _botSprite;
- 	SDL_Surface		*_up[PLAYER_UP];
- 	SDL_Surface		*_down[PLAYER_DOWN];
- 	SDL_Surface		*_right[PLAYER_RIGHT];
- 	SDL_Surface		*_left[PLAYER_LEFT];
+ 	std::map<DIR, SDL_Surface*> _botSprite;
+ 	SDL_Surface		*_up;
+ 	SDL_Surface		*_down;
+ 	SDL_Surface		*_right;
+ 	SDL_Surface		*_left;
 };
 
 #endif /* !GRAPHIC_HPP_ */
