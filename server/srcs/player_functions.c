@@ -10,10 +10,11 @@ void 	player_socket_problem(Player *this, Server *s)
 	/*sprintf(s->msg, 
 		"%s<font color=\"Red\">*** PLAYER %d DISCONNECTED ***</font>",
 		(s->msg != NULL) ? s->msg : "", this->fd);*/
+	printf("this = > %s\n", this->team_name);
+	destroy_player(this, s);
 	printf("*** PLAYER %d DISCONNECTED ***", this->fd);
 	printf("----------- AVANT DELETE ----------\n");
 	display_list(s->player);
-	destroy_player(this, s);
 	del_elem(&s->player, this->fd);
 	printf("----------- APRES DELETE ----------\n");
 	display_list(s->player);

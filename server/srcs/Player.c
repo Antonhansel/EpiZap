@@ -65,7 +65,8 @@ int 		destroy_player(Player *this, void *p)
 	tmp = s->team;
 	while (tmp)
 	{
-		if (strcmp(tmp->name, this->team_name) == 0)
+		printf("--------> %s && %s\n", tmp->name, this->team_name);
+		if (this->team_name && strcmp(tmp->name, this->team_name) == 0)
 		{
 			if (del_elem(&tmp->player_list, this->fd) == 0)
 				tmp->nb_player_actu--;
