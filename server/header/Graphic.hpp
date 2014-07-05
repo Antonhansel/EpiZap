@@ -21,6 +21,8 @@
 # define NB_FLOORTEXT 8
 # define SP_SIZE 64
 # define NB_RESSOURCE 7
+# define FIELD_Y 11
+# define FIELD_X 23
 
 class MainUI;
 class Graphic : public QWidget
