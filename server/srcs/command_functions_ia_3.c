@@ -4,6 +4,7 @@ int 	fork_cmd(Server *s, Player *p, char *cmd)
 {
 	(void)s;
 	(void)p;
+	(void)cmd;
 	return (0);
 }
 
@@ -12,6 +13,7 @@ int 		connect_nbr_cmd(Server *s, Player *p, char *cmd)
 	Team	*tmp;
 	char	res[32];
 
+	(void)cmd;
 	tmp = s->team;
 	while (tmp)
 	{
@@ -28,7 +30,8 @@ int 	get_obj(Server *s, int i, char *cmd)
 {
 	int ret;
 
-	if (i < strlen(cmd))
+	(void)cmd;
+	if (i < ((int)(strlen(cmd))))
 	{
 		i = 0;
 		ret = 1;

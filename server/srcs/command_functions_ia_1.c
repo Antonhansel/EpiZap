@@ -2,6 +2,7 @@
 
 int 	up_cmd(Server *s, Player *p, char *cmd)
 {
+	(void)cmd;
 	//del_elem(&s->map->map[p->x][p->y].player, p->fd);
 	(p->dir == NORTH) ? p->x-- : (p->dir == EAST) ? p->y++ : (p->dir == WEST) ?
 		p->y-- : p->x++;
@@ -22,6 +23,7 @@ int 	up_cmd(Server *s, Player *p, char *cmd)
 int 	right_cmd(Server *s, Player *p, char *cmd)
 {
 	(void)s;
+	(void)cmd;
 	(p->dir == NORTH) ? (p->dir = EAST) : (p->dir == EAST) ? (p->dir = SOUTH) :
 		(p->dir == SOUTH) ? (p->dir = WEST) : (p->dir = NORTH);
 	add_str_in_buffer(&p->buffer_circular, "OK\n");
@@ -32,6 +34,7 @@ int 	right_cmd(Server *s, Player *p, char *cmd)
 int 	left_cmd(Server *s, Player *p, char *cmd)
 {
 	(void)s;
+	(void)cmd;
 	(p->dir == NORTH) ? (p->dir = WEST) : (p->dir == WEST) ? (p->dir = SOUTH) :
 		(p->dir == SOUTH) ? (p->dir = EAST) : (p->dir = NORTH);
 	add_str_in_buffer(&p->buffer_circular, "OK\n");
@@ -43,6 +46,7 @@ int 	see_cmd(Server *s, Player *p, char *cmd)
 {
 	(void)s;
 	(void)p;
+	(void)cmd;
 /*	int 	r;
 	int 	c;
 	int 	x;
@@ -77,6 +81,7 @@ int 		inventory_cmd(Server *s, Player *p, char *cmd)
 	char	str[512];
 
 	(void)s;
+	(void)cmd;
 	snprintf(str1, 256, "linemate %d, sibur %d, deraumere %d, mendiane %d",
 		p->inventory->get_object(p->inventory, LINEMATE),
 		p->inventory->get_object(p->inventory, SIBUR),

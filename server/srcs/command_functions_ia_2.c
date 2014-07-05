@@ -6,12 +6,12 @@ int 	take_object_cmd(Server *s, Player *p, char *cmd)
 
 	i = 0;
 	p->mode = WRITE;
-	while (i < strlen(cmd) && *cmd != ' ')
+	while (i < ((int)(strlen(cmd))) && *cmd != ' ')
 	{
-		*cmd++;
+		(*cmd)++;
 		i++;
 	}
-	*cmd++;
+	(*cmd)++;
 	if ((i = get_obj(s, i, cmd)) != -1)
 	{
 		if (s->map->map[p->x][p->y].inventory->get_object(s->map->map[p->x][p->y].inventory, i) > 0)
@@ -30,6 +30,7 @@ int 	put_object_cmd(Server *s, Player *p, char *cmd)
 {
 	(void)s;
 	(void)p;
+	(void)cmd;
 	return (0);
 }
 
@@ -37,6 +38,7 @@ int 	kick_cmd(Server *s, Player *p, char *cmd)
 {
 	(void)s;
 	(void)p;
+	(void)cmd;
 	return (0);
 }
 
@@ -44,6 +46,7 @@ int 	broadcast_text_cmd(Server *s, Player *p, char *cmd)
 {
 	(void)s;
 	(void)p;
+	(void)cmd;
 	return (0);
 }
 
@@ -51,5 +54,6 @@ int 	incantation_cmd(Server *s, Player *p, char *cmd)
 {
 	(void)s;
 	(void)p;
+	(void)cmd;
 	return (0);
 }

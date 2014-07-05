@@ -170,9 +170,10 @@ void 	Graphic::apply_floor()
 	}
 }
 
-void 	Graphic::initRealUpdate(Map *map)
+void 	Graphic::initRealUpdate(const Server *server)
 {
-	_map = map;
+	_map = server->map;
+	_server = (Server *)server;
 	_realUpdate = true;
 }
 

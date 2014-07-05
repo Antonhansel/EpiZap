@@ -36,7 +36,7 @@ public:
 	void 	setLayouts();
 	void 	init();
 	void 	connectSlots();
-  Map   *getMap() const;
+  const Server   *getServer() const;
   public slots:
   void  getTeamName();
   void  teamName();
