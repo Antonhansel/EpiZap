@@ -165,7 +165,6 @@ void 	Graphic::apply_floor()
 				Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 30, _ressource[THYSTAME], _screen);
 			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, FOOD))
 				Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 45, _ressource[FOOD], _screen);
-			//affichage des joueurs
 		}
 	}
 	displayPlayers();
@@ -179,9 +178,15 @@ void 	Graphic::displayPlayers()
 	{
 		if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewx && temp->y >= _viewy 
 			&& temp->x <= (_viewx + FIELD_X) && temp->y <= (_viewy + FIELD_Y))
-			Lib::applySurface(((temp->x - _viewx) * SP_SIZE), ((temp->y - _viewy) * SP_SIZE), _up[0], _screen);
-		temp = _server->player->next; 
+			animPlayer(((temp->x - _viewx) * SP_SIZE), ((temp->y - _viewy) * SP_SIZE), temp);
+		temp = _server->player->next;
 	}
+}
+
+void 	Graphic::animPlayer(int x, int y, Player *temp)
+{
+	temp = temp;
+ 	Lib::applySurface(x, y, _up[0], _screen);
 }
 
 void 	Graphic::initRealUpdate(const Server *server)

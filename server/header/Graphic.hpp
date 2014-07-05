@@ -33,6 +33,7 @@ class Graphic : public QWidget
 	Q_OBJECT
 public:
 	Graphic(MainUI *);
+	void 	animPlayer(int, int, Player *);
 	void 	displayPlayers();
 	void 	initSDL();
 	bool 	update();
