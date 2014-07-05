@@ -89,7 +89,7 @@ void            MainUI::setServer(Server &s)
   timer->start(1000/20);
   QTimer *timer2 = new QTimer(this);
   connect(timer2, SIGNAL(timeout()), this, SLOT(refreshList()));
-  timer2->start(1000/100);
+  timer2->start(5);
 }
 
 void            MainUI::showAbout() const
