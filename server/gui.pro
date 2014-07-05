@@ -9,7 +9,7 @@ INCLUDEPATH += . header
 QT += widgets
 QT += opengl
 
-LIBS = -lglut -lGLU -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
+LIBS = -lglut -lGLU -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer -lSDL_gfx
 
 OBJECTS_DIR = ./.obj
 MOC_DIR = ./.moc

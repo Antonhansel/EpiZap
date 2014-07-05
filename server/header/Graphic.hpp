@@ -5,6 +5,7 @@
 # include <QWidget>
 # include <SDL/SDL.h>
 # include <SDL/SDL_ttf.h>
+# include <SDL/SDL_rotozoom.h>
 # include <SDL/SDL_mixer.h>
 # include <utility>
 # include "LibSDL.hh"
@@ -23,6 +24,8 @@
 # define NB_FLOORTEXT 8
 # define SP_SIZE 64
 # define NB_RESSOURCE 7
+# define FIELD_Y 11
+# define FIELD_X 23
 
 class MainUI;
 class Graphic : public QWidget
@@ -30,6 +33,8 @@ class Graphic : public QWidget
 	Q_OBJECT
 public:
 	Graphic(MainUI *);
+	void 	animPlayer(int, int, Player *);
+	void 	displayPlayers();
 	void 	initSDL();
 	bool 	update();
 	void 	draw();

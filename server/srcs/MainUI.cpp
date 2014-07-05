@@ -9,7 +9,7 @@ void	MainUI::applyLayouts()
   _continue = true;
   _leftLayout->addWidget(_infos, 0, 0);
   _leftLayout->addWidget(_teams, 1, 0);
-}
+  }
   _bottomLayout->addWidget(_console, 0, 0);
   _topLayout->addLayout(_leftLayout, 0, 0);
   _mainLayout->addLayout(_topLayout, 0, 0);
