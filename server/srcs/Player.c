@@ -1,4 +1,6 @@
 #include "Player.h"
+#include "Server.h"
+#include "List.h"
 #include "xfunction.h"
 
 static void			set_inventory(Player *, Inventory *);
@@ -54,8 +56,22 @@ void 	copy_player(Player *this, Player *to_copy)
 	this->fct_read = to_copy->fct_read;
 }
 
-int 	destroy_player(Player *this)
+int 		destroy_player(Player *this, void *p)
 {
+	Server	*s;
+	Team	*tmp;
+
+	s = ((Server *)(p));
+	tmp = s->team;
+	while (tmp)
+	{
+		if (strcmp(tmp->name, this->team_name) == 0)
+		{
+			if (del_elem(&tmp->player_list, this->fd) == 0)
+				tmp->nb_player_actu--;
+		}
+		tmp = tmp->next;
+	}
 	free(this->inventory);
 	//clear_circular_buffer(&this->buffer_circular);
 	return (0);

@@ -14,7 +14,7 @@ void 	player_socket_problem(Player *this, Server *s)
 	printf("----------- AVANT DELETE ----------\n");
 	display_list(s->player);
 	del_elem(&s->player, this->fd);
-	destroy_player(this);
+	destroy_player(this, s);
 	printf("----------- APRES DELETE ----------\n");
 	display_list(s->player);
 	if (this->fd == s->max_fd)

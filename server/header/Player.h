@@ -44,7 +44,7 @@ typedef struct 		Player
 }					Player;
 
 int 	init_player(struct Player *, int);
-int 	destroy_player(struct Player *);
+int 	destroy_player(struct Player *, void *);
 int 	fct_read(Player *, void *);
 void 	copy_player(Player *, Player *);
 void	set_player_data(Player *, int, int);
