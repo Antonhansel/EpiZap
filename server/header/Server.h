@@ -35,10 +35,12 @@ typedef struct 	Server
 	int 		initialize;
 	int 		nb_teams;
 	int 		nb_player_team;
-	char		msg[256];
+	char		msg[BUFFER_SIZE];
   	Player		*player;
   	Team 		*team;
   	Map			*map;
+	int 		(*ptr[12])(struct Server *, Player *, char *);
+	char 		obj[10][15];
   	/* Method */
 	int 		(*loop)(struct Server *);
 	int			(*accept_socket)(struct Server *);

@@ -2755,7 +2755,8 @@ compiler_clean: compiler_moc_header_clean
 		header/Map.h \
 		header/Square.h \
 		header/Team.h \
-		header/list_team.h
+		header/list_team.h \
+		header/List.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/command_functions.o srcs/command_functions.c
 
 .obj/command_functions_ia_1.o: srcs/command_functions_ia_1.c header/command_functions.h \
@@ -2767,7 +2768,8 @@ compiler_clean: compiler_moc_header_clean
 		header/Map.h \
 		header/Square.h \
 		header/Team.h \
-		header/list_team.h
+		header/list_team.h \
+		header/List.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/command_functions_ia_1.o srcs/command_functions_ia_1.c
 
 .obj/command_functions_ia_2.o: srcs/command_functions_ia_2.c header/command_functions.h \
@@ -2779,7 +2781,8 @@ compiler_clean: compiler_moc_header_clean
 		header/Map.h \
 		header/Square.h \
 		header/Team.h \
-		header/list_team.h
+		header/list_team.h \
+		header/List.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/command_functions_ia_2.o srcs/command_functions_ia_2.c
 
 .obj/command_functions_ia_3.o: srcs/command_functions_ia_3.c header/command_functions.h \
@@ -2791,7 +2794,8 @@ compiler_clean: compiler_moc_header_clean
 		header/Map.h \
 		header/Square.h \
 		header/Team.h \
-		header/list_team.h
+		header/list_team.h \
+		header/List.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/command_functions_ia_3.o srcs/command_functions_ia_3.c
 
 .obj/moc_MainUI.o: .moc/moc_MainUI.cpp 

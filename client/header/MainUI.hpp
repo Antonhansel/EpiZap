@@ -32,7 +32,6 @@
 # include <QWindow>
 # include <QListWidget>
 # include "Connexion.hpp"
-# include "NetworkC.hpp"
 # include "Graphic.hpp" 
 
 class	MainUI: public	QWidget
@@ -41,7 +40,6 @@ class	MainUI: public	QWidget
 public:
   MainUI();
   void  setConsoleText(const QString &);
-  void  setServer(Server &);
   void  startGraphic();
   void  initRealUpdate();
   void  addData(QString const &, bool);
@@ -72,7 +70,6 @@ protected:
   QTextEdit     *_data;
   QTextEdit     *_infos;
   QListWidget   *_teams;
-  Server        *_server;
   bool          _start;
   Graphic       *_graphic;
   bool          _continue;

@@ -5,7 +5,7 @@
 # include "Network.h"
 # include "Player.h"
 
-int 	add_elem(Player **, int, int, int);
+int 	add_elem(Player **, int);
 int 	del_elem(Player **, int);
 void  	display_list(Player *);
 int 	add_player(Player **, Player *);

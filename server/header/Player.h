@@ -35,6 +35,7 @@ typedef struct 		Player
 	int 			mode;
 	int 			dir;
 	int 			intro;
+	int 			range;
 	char 			*team_name;
 	/* Methods */
 	Inventory 		*(*get_inventory)(struct Player *);
@@ -42,9 +43,10 @@ typedef struct 		Player
 	int 			(*fct_read)(struct Player *, void *);
 }					Player;
 
-int 	init_player(struct Player *, int, int, int);
-int 	destroy_player(struct Player *);
+int 	init_player(struct Player *, int);
+int 	destroy_player(struct Player *, void *);
 int 	fct_read(Player *, void *);
 void 	copy_player(Player *, Player *);
+void	set_player_data(Player *, int, int);
 
 #endif 	/* PLAYER_H_ */

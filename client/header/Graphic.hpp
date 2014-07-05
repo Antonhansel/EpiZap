@@ -8,7 +8,6 @@
 # include <SDL/SDL_mixer.h>
 # include <utility>
 # include "LibSDL.hh"
-# include "Map.h"
 #undef main
 
 # include <QMouseEvent>
@@ -22,6 +21,17 @@
 # define SP_SIZE 64
 # define NB_RESSOURCE 7
 
+enum ROCK
+{
+	LINEMATE,
+	DERAUMERE,
+	SIBUR,
+	MENDIANE,
+	PHIRAS,
+	THYSTAME,
+	FOOD
+};
+
 class MainUI;
 class Graphic : public QWidget
 {
@@ -34,7 +44,7 @@ public:
 	void 	apply_floor();
 	void 	loader();
 	void 	loopHud();
-	void 	initRealUpdate(Map *);
+	void 	initRealUpdate();
 	void 	mouseReleaseEvent(QMouseEvent *);
   	void 	mousePressEvent(QMouseEvent *);
   	void 	mouseMoveEvent(QMouseEvent *);
@@ -61,7 +71,6 @@ private:
 	QPoint			_currentPos;
 	QPoint 			_lastPointPress;
 	QPoint			_lastPointReleased;
-	Map 			*_map;
 	int 			_viewx;
 	int 			_viewy;
 	std::map<ROCK, std::pair<QString, int> > _stuff;

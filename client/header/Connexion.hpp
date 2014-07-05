@@ -23,9 +23,6 @@
 # include <QTime>
 # include <QTimer>
 # include <stdlib.h>
-# include "Server.h"
-# include "Map.h"
-
 
 class MainUI;
 class Connexion : public QWidget
@@ -37,7 +34,6 @@ public:
 	void 	setLayouts();
 	void 	init();
 	void 	connectSlots();
-  Map   *getMap() const;
 public slots:
 	void 	quit();
 	void 	tryConnect();
@@ -45,21 +41,18 @@ private:
   bool  checkData(const QString &);
   bool  isConnected();
 private:
-  QGridLayout *_leftLayout;
-  QGridLayout *_rightLayout;
-  MainUI 		*_mainUI;
-  QPushButton	*_connect;
-  QWidget 		*_window;
-  QGridLayout	*_mainLayout;
-  QLabel        *_portLabel;
-  QLineEdit     *_port;
-  QLineEdit	*_ip;
-  QLabel	*_ipLabel;
-  QLineEdit	*_team;
-  QLabel	*_teamLabel;
+  QGridLayout  *_leftLayout;
+  QGridLayout  *_rightLayout;
+  MainUI 		   *_mainUI;
+  QPushButton	 *_connect;
+  QWidget 		 *_window;
+  QGridLayout	 *_mainLayout;
+  QLabel       *_portLabel;
+  QLineEdit    *_port;
+  QLineEdit	   *_ip;
+  QLabel	     *_ipLabel;
   QPushButton 	*_quit;
   QTextEdit     *_console;
-  Server        _server;
 };
 
 #endif /* _CONNEXION_HPP_ */

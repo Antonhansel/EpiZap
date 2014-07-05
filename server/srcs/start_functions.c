@@ -21,6 +21,7 @@ void	assign_to_team_next(Player *this, Server *s, char *team_name)
 	Team 	*tmp;
 	char	buf[64];
 	int 	find;
+	int 	nb_co;
 
 	find = 0;
 	tmp = s->team;
@@ -32,7 +33,10 @@ void	assign_to_team_next(Player *this, Server *s, char *team_name)
 		{
 			find = 1;
 			this->team_name = strdup(team_name);
+			set_player_data(this, s->map->width, s->map->height);
 			add_player(&tmp->player_list, this);
+			tmp->nb_player_actu++;
+			nb_co = tmp->nb_player_max - tmp->nb_player_actu;
 		}
 		tmp = tmp->next;
 	}
@@ -41,8 +45,7 @@ void	assign_to_team_next(Player *this, Server *s, char *team_name)
 		printf("---- ASSIGN PLAYER %d TO TEAM %s----\n", this->fd, team_name);
 		this->intro = FALSE;
 		this->mode = WRITE;
-		sprintf(buf, "%d %d\n", this->x, this->y);
+		sprintf(buf, "%d\n%d %d\n", nb_co, s->map->width, s->map->height);
 		add_str_in_buffer(&this->buffer_circular, buf);
-		printf("BUFFFFF = %s\n", buf);
 	}
 }

@@ -40,22 +40,21 @@ void 	Connexion::tryConnect()
 {
    QTextCursor c;
 
-  _connect->setEnabled(false);
-  if (checkData(_ip->text()) && checkData(_port->text()))  
+   _connect->setEnabled(false);
+   if (checkData(_ip->text()) && checkData(_port->text()))  
+   {
+    _console->setHtml(_console->toHtml() + 
+     "<font color=\"Green\">*** TRYING CONNECT TO SERVER ***\n</font>");
+    if (isConnected())
     {
-      _console->setHtml(_console->toHtml() + 
-			"<font color=\"Green\">*** TRYING TO BIND SERVER ***\n</font>");
-      if (isConnected())
-	{
-	  _mainUI->setServer(_server);
-	  _mainUI->setConsoleText(_console->toHtml());
-	  _window->hide();
-	  _mainUI->show();
-	  _mainUI->startGraphic();
-	}
+     _mainUI->setConsoleText(_console->toHtml());
+     _window->hide();
+     _mainUI->show();
+     _mainUI->startGraphic();
+   }
   }
   else
-     _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: Missing Arguments\n</font>");
+   _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: Missing Arguments\n</font>");
   c = _console->textCursor();
   c.movePosition(QTextCursor::End);
   _console->setTextCursor(c);
@@ -114,11 +113,6 @@ bool  Connexion::checkData(const QString &data)
   return (false);
 }
 
-Map   *Connexion::getMap() const
-{
-  return (_server.map);
-}
-
 bool  Connexion::isConnected()
 {
   // QString res;
@@ -132,5 +126,5 @@ bool  Connexion::isConnected()
   // _server.initialize = FALSE;
   // res = init_server(&_server, _width->text().toInt(), _height->text().toInt());
   // _console->setHtml(_console->toHtml() + res);
-  return (TRUE);
+  return (true);
 }

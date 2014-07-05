@@ -1,18 +1,16 @@
 #include "Player.h"
+#include "Server.h"
+#include "List.h"
 #include "xfunction.h"
 
 static void			set_inventory(Player *, Inventory *);
 static Inventory 	*get_inventory(Player *);
 
-int		init_player(Player *this, int fd, int width, int height)
+int		init_player(Player *this, int fd)
 {
 	this->fd = fd;
-	this->nb_request = 0;
-	this->x = rand() % width;
-	this->y = rand() % height;
-	this->dir = rand() % 4;
-	this->time = 0;
-	this->lvl = 0;
+	this->x = -1;
+	this->y = -1;
 	this->mode = WRITE;
 	this->intro = TRUE;
 	this->buffer_circular = NULL;
@@ -29,6 +27,16 @@ int		init_player(Player *this, int fd, int width, int height)
 	add_str_in_buffer(&this->buffer_circular, "BIENVENUE\n");
 	display_circular_buffer(this->buffer_circular, 1);
 	return (0);
+}
+
+void	set_player_data(Player *this, int width, int height)
+{
+	this->nb_request = 0;
+	this->x = rand() % width;
+	this->y = rand() % height;
+	this->dir = rand() % 4;
+	this->time = 0;
+	this->lvl = 0;
 }
 
 void 	copy_player(Player *this, Player *to_copy)
@@ -48,9 +56,24 @@ void 	copy_player(Player *this, Player *to_copy)
 	this->fct_read = to_copy->fct_read;
 }
 
-int 	destroy_player(Player *this)
+int 		destroy_player(Player *this, void *p)
 {
+	Server	*s;
+	Team	*tmp;
+
+	s = ((Server *)(p));
+	tmp = s->team;
+	while (tmp)
+	{
+		if (strcmp(tmp->name, this->team_name) == 0)
+		{
+			if (del_elem(&tmp->player_list, this->fd) == 0)
+				tmp->nb_player_actu--;
+		}
+		tmp = tmp->next;
+	}
 	free(this->inventory);
+	free(this->team_name);
 	//clear_circular_buffer(&this->buffer_circular);
 	return (0);
 }

@@ -6,7 +6,6 @@
 # include <QThread>
 # include <QTimer>
 # include <QTextEdit>
-# include "Server.h"
 
 class NetworkC : public QObject
 {
@@ -14,13 +13,11 @@ class NetworkC : public QObject
 public:
     NetworkC(Server *, QTextEdit *);
     ~NetworkC();
- 
 public slots:
     void    doWork();
 signals:
     void finished();
     void error(QString err);
- 
 private:
     Server      *_server;
     QTextEdit   *_console;
