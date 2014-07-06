@@ -1,5 +1,7 @@
 #include "command_functions.h"
 
+int		kick_cmd_next(Server *, Player *, Player *);
+
 int 	take_object_cmd(Server *s, Player *p, char *cmd)
 {
 	int i;
@@ -57,21 +59,12 @@ int 	put_object_cmd(Server *s, Player *p, char *cmd)
 
 int 		kick_cmd(Server *s, Player *p, char *cmd)
 {
-	int 	expulse;
 	Player	*tmp;
+	int 	expulse;
 
-	expulse = 0;
-	tmp = s->map->map[p->x][p->y].player;
 	p->mode = WRITE;
-	while (tmp)
-	{
-		if (tmp->fd != p->fd)
-		{
-			up_cmd(s, tmp, cmd);
-			expulse = 1;
-		}
-		tmp = tmp->next_square;
-	}
+	tmp = s->map->map[p->x][p->y].player;
+	expulse = kick_cmd_next(s, p, tmp);
 	if (expulse == 1)
 		add_str_in_buffer(&p->buffer_circular, "OK\n");
 	else

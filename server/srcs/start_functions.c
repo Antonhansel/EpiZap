@@ -29,7 +29,8 @@ void	assign_to_team_next(Player *this, Server *s, char *team_name)
 	this->buffer_circular = this->buffer_circular->head;
 	while (tmp)
 	{
-		if (strcmp(tmp->name, team_name) == 0)
+		if (strcmp(tmp->name, team_name) == 0
+			&& tmp->nb_player_actu < tmp->nb_player_max)
 		{
 			find = 1;
 			this->team_name = strdup(team_name);

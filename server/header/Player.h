@@ -37,7 +37,7 @@ typedef struct 		Player
 	int 			mode;
 	int 			dir;
 	int 			intro;
-	int 			access;
+	int 			sent;
 	int 			range;
 	char 			*team_name;
 	/* Methods */

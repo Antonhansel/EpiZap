@@ -19,7 +19,7 @@ int		init_player(Player *this, int fd)
 	this->fct_read = &fct_read;
 	this->next_square = NULL;
 	this->next_team = NULL;
-	this->access = 0;
+	this->sent = TRUE;
 	if (!(this->inventory = xmalloc(sizeof(Inventory))))
 		return (-1);
 	init_inventory(this->inventory, NULL, 0);

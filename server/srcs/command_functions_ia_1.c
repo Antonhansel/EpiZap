@@ -21,8 +21,11 @@ int 	up_cmd(Server *s, Player *p, char *cmd)
 		p->y = s->map->height - 1;
 	add_square(&s->map->map[p->x][p->y].player, p);
 	display_list_square(s->map->map[p->x][p->y].player);
-	add_str_in_buffer(&p->buffer_circular, "OK\n");
-	p->mode = WRITE;
+	if (p->sent == TRUE)
+	{
+		add_str_in_buffer(&p->buffer_circular, "OK\n");
+		p->mode = WRITE;
+	}
 	return (0);
 }
 
