@@ -14,13 +14,13 @@ int 	take_object_cmd(Server *s, Player *p, char *cmd)
 		i++;
 	}
 	cmd++;
-	printf("------ BEFORE GET_OBJ ------\n");
 	if ((i = get_obj(s, i, cmd)) != -1)
 	{
-		printf("INVENTORY OF OBJECT %s : %d\n", cmd, s->map->map[p->x][p->y].inventory->get_object(s->map->map[p->x][p->y].inventory, i));
-		if (s->map->map[p->x][p->y].inventory->get_object(s->map->map[p->x][p->y].inventory, i) > 0)
+		if (s->map->map[p->x][p->y].inventory->get_object(
+			s->map->map[p->x][p->y].inventory, i) > 0)
 		{
-			s->map->map[p->x][p->y].inventory->set_object(s->map->map[p->x][p->y].inventory, i, -1);
+			s->map->map[p->x][p->y].inventory->set_object(
+				s->map->map[p->x][p->y].inventory, i, -1);
 			p->inventory->set_object(p->inventory, i, 1);
 			add_str_in_buffer(&p->buffer_circular, "OK\n");
 			return (0);
@@ -46,14 +46,14 @@ int 	put_object_cmd(Server *s, Player *p, char *cmd)
 	{
 		if (p->inventory->get_object(p->inventory, i) > 0)
 		{
-			s->map->map[p->x][p->y].inventory->set_object(s->map->map[p->x][p->y].inventory, i, 1);
+			s->map->map[p->x][p->y].inventory->set_object(
+				s->map->map[p->x][p->y].inventory, i, 1);
 			p->inventory->set_object(p->inventory, i, -1);
 			add_str_in_buffer(&p->buffer_circular, "OK\n");
 			return (0);
 		}
 	}
 	add_str_in_buffer(&p->buffer_circular, "KO\n");
-	return (0);
 	return (0);
 }
 
