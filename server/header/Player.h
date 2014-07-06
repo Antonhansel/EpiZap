@@ -31,10 +31,13 @@ typedef struct 		Player
 	Inventory		*inventory;
 	int				nb_request;
 	struct Player 	*next;
+	struct Player 	*next_square;
+	struct Player 	*next_team;
 	CircularBuffer	*buffer_circular;
 	int 			mode;
 	int 			dir;
 	int 			intro;
+	int 			access;
 	int 			range;
 	char 			*team_name;
 	/* Methods */

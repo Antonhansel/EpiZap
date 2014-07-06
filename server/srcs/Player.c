@@ -17,6 +17,9 @@ int		init_player(Player *this, int fd)
 	this->get_inventory = &get_inventory;
 	this->set_inventory = &set_inventory;
 	this->fct_read = &fct_read;
+	this->next_square = NULL;
+	this->next_team = NULL;
+	this->access = 0;
 	if (!(this->inventory = xmalloc(sizeof(Inventory))))
 		return (-1);
 	init_inventory(this->inventory, NULL, 0);

@@ -1,10 +1,14 @@
 #include "command_functions.h"
 #include "List.h"
 
+void      display_list_square(Player *front_ptr);
+
 int 	up_cmd(Server *s, Player *p, char *cmd)
 {
 	(void)cmd;
-	del_elem(&s->map->map[p->x][p->y].player, p->fd);
+	display_list_square(s->map->map[p->x][p->y].player);
+	del_square(&s->map->map[p->x][p->y].player, p->fd);
+	display_list_square(s->map->map[p->x][p->y].player);
 	(p->dir == NORTH) ? p->y-- : (p->dir == EAST) ? p->x++ : (p->dir == WEST) ?
 		p->x-- : p->y++;
 	if (p->x >= s->map->width)
@@ -15,7 +19,8 @@ int 	up_cmd(Server *s, Player *p, char *cmd)
 		p->y = 0;
 	else if (p->y < 0)
 		p->y = s->map->height - 1;
-	add_player(&s->map->map[p->x][p->y].player, p);
+	add_square(&s->map->map[p->x][p->y].player, p);
+	display_list_square(s->map->map[p->x][p->y].player);
 	add_str_in_buffer(&p->buffer_circular, "OK\n");
 	p->mode = WRITE;
 	return (0);

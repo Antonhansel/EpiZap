@@ -55,10 +55,27 @@ int 	put_object_cmd(Server *s, Player *p, char *cmd)
 	return (0);
 }
 
-int 	kick_cmd(Server *s, Player *p, char *cmd)
+int 		kick_cmd(Server *s, Player *p, char *cmd)
 {
-	(void)s;
-	(void)p;
+	int 	expulse;
+	Player	*tmp;
+
+	expulse = 0;
+	tmp = s->map->map[p->x][p->y].player;
+	p->mode = WRITE;
+	while (tmp)
+	{
+		if (tmp->fd != p->fd)
+		{
+			up_cmd(s, tmp, cmd);
+			expulse = 1;
+		}
+		tmp = tmp->next_square;
+	}
+	if (expulse == 1)
+		add_str_in_buffer(&p->buffer_circular, "OK\n");
+	else
+		add_str_in_buffer(&p->buffer_circular, "KO\n");
 	(void)cmd;
 	return (0);
 }

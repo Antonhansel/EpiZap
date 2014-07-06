@@ -23,6 +23,48 @@ int       add_elem(Player **front_ptr, int fd)
   return (0);
 }
 
+int       add_square(Player **front_ptr, Player *player)
+{
+  Player  *tmp;
+
+  tmp = *front_ptr;
+  if (tmp == NULL)
+  {
+    *front_ptr = player;
+    player->next_square = NULL;
+  }
+  else
+  {
+    while (tmp->next_square)
+      tmp = tmp->next_square;
+    tmp->next_square = player;
+    player->next_square = NULL;
+  }
+  return (0);
+}
+
+int       del_square(Player **front_ptr, int fd)
+{
+  Player  *tmp;
+
+  tmp = *(front_ptr);
+  if (tmp && tmp->fd == fd)
+  {
+    *front_ptr = tmp->next_square;
+    return (0);
+  }
+  while (tmp->next_square)
+  {
+    if (tmp->next_square && tmp->next_square->fd == fd)
+    {
+      tmp->next_square = tmp->next_square->next_square;
+      return (0);
+    }
+    tmp = tmp->next_square;
+  }
+  return (1);
+}
+
 int       add_player(Player **front_ptr, Player *player)
 {
   Player  *node;
@@ -83,5 +125,22 @@ void      display_list(Player *front_ptr)
     printf("%d : %d\n", i, tmp->fd);
     i++;
     tmp = tmp->next;
+  }
+}
+
+void      display_list_square(Player *front_ptr)
+{
+  Player  *tmp;
+  int     i = 0;
+
+  printf("---- DISPLAY LIST ----\n");
+  tmp = front_ptr;
+  if (!tmp)
+    printf("NULL\n");
+  while (tmp)
+  {
+    //printf("%d : %d\n", i, tmp->fd);
+    i++;
+    tmp = tmp->next_square;
   }
 }

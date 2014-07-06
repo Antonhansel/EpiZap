@@ -80,7 +80,7 @@ char 		*get_data_of_buffer(CircularBuffer *cb)
 	cb = cb->head;
 	if (cb->c != BUFFER_CHAR)
 	{
-		while (cb->c != '\n')
+		while (cb->c != '\n' && i < BUFFER_SIZE)
 		{
 			str[i] = cb->c;
 			cb = cb->next;
