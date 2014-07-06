@@ -17,11 +17,7 @@
 
 # include <QMouseEvent>
 
-// # define PLAYER_UP 8
-// # define PLAYER_DOWN 9
-// # define PLAYER_RIGHT 6
-// # define PLAYER_LEFT 7
-# define NB_SPRITE 10
+# define NB_SPRITE 4
 # define NB_FLOORTEXT 8
 # define SP_SIZE 64
 # define NB_RESSOURCE 7
@@ -58,7 +54,6 @@ private:
 	Mix_Music		*_music;
 	SDL_Surface		*_screen;
 	SDL_Surface		*_floor[NB_FLOORTEXT];
-	SDL_Surface		*_player[NB_SPRITE];
 	SDL_Surface		*_ressource[NB_RESSOURCE];
 	TTF_Font		*_font;
 	SDL_Event 		_event;
@@ -76,12 +71,9 @@ private:
 	std::map<ROCK, std::pair<QString, int> > _stuff;
 	std::vector<std::string> 	_teamName;
 	bool 			_mouseReleased;
+
  private:
- 	std::map<DIR, SDL_Surface*> _botSprite;
- 	SDL_Surface		*_up;
- 	SDL_Surface		*_down;
- 	SDL_Surface		*_right;
- 	SDL_Surface		*_left;
+ 	SDL_Surface		*_bot[NB_SPRITE];
 };
 
 #endif /* !GRAPHIC_HPP_ */
