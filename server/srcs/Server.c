@@ -2,7 +2,7 @@
 #include "Server.h"
 #include "command_functions.h"
 
-static void	init_func_ptr(Server *, int, int);
+static int	init_func_ptr(Server *, int, int);
 static int 	loop(Server *);
 int	 		check_fd(Player **, Server *, fd_set *);
 
@@ -13,8 +13,9 @@ char 					*init_server(Server *this, int width, int height)
 	struct sockaddr_in	sin;
 
 	opt = 1;
-	this->player = NULL;
-	init_func_ptr(this, width, height);
+	//this->player = NULL;
+	if (init_func_ptr(this, width, height) == FALSE)
+		return ("<font color=\"Red\">*** ERROR ON SERVER INIT ***</font>");
 	if ((pe = getprotobyname("TCP")) == NULL)
 		return ("<font color=\"Red\">*** ERROR ON GETPROTOBYNAME ***</font>");
 	if ((this->socket = xsocket(AF_INET, SOCK_STREAM, pe->p_proto)) == FALSE)
@@ -33,39 +34,20 @@ char 					*init_server(Server *this, int width, int height)
 	return ("<font color=\"Green\">*** SUCCESSLY INIT ***</font>");
 }
 
-char	*destroy_server(Server *this)
+static int		init_func_ptr(Server *s, int width, int height)
 {
-	(void)this;
-	return ("<font color=\"Green\">*** SUCCESSLY DESTROY ***</font>");
-}
-
-static void		init_func_ptr(Server *this, int width, int height)
-{
-	this->accept_socket = &accept_socket;
-	this->loop = &loop;
-	if ((this->map = malloc(sizeof(Map))) == NULL)
-		exit(1);
-	init_map(this->map, width, height);
-	this->team = NULL;
-	this->ptr[AVANCE] = &up_cmd;
-	this->ptr[DROITE] = &right_cmd;
-	this->ptr[GAUCHE] = &left_cmd;
-	this->ptr[VOIR] = &see_cmd;
-	this->ptr[INVENTAIRE] = &inventory_cmd;
-	this->ptr[PREND_OBJET] = &take_object_cmd;
-	this->ptr[POSE_OBJET] = &put_object_cmd;
-	this->ptr[EXPULSE] = &kick_cmd;
-	this->ptr[BROADCAST_TEXTE] = &broadcast_text_cmd;
-	this->ptr[INCANTATION] = &incantation_cmd;
-	this->ptr[FORK] = &fork_cmd;
-	this->ptr[CONNECT_NBR] = &connect_nbr_cmd;
-	strcpy(this->obj[0], "linemate");
-	strcpy(this->obj[1], "deraumere");
-	strcpy(this->obj[2], "sibur");
-	strcpy(this->obj[3], "mendiane");
-	strcpy(this->obj[4], "phiras");
-	strcpy(this->obj[5], "thystame");
-	strcpy(this->obj[6], "food");
+	s->player = NULL;
+   	s->team = NULL;
+   	s->accept_socket = &accept_socket;
+   	s->loop = &loop;
+    if ((s->map = malloc(sizeof(Map))) == NULL)
+    	return (FALSE);
+  	init_map(s->map, width, height);
+  	init_tab_ptr(s);
+  	init_cmd_tab(s);
+  	init_time_tab(s);
+   	init_obj_tab(s);
+  	return (TRUE);
 }
 
 void init_all_team(Server *this, char *tab)

@@ -200,7 +200,7 @@ void 	Graphic::loopHud()
 	_stuff[PHIRAS].second = _map->map[_xhud + _viewx][_yhud + _viewy].inventory->get_object(_map->map[_xhud + _viewx][_yhud + _viewy].inventory, PHIRAS);
 	_stuff[THYSTAME].second = _map->map[_xhud + _viewx][_yhud + _viewy].inventory->get_object(_map->map[_xhud + _viewx][_yhud + _viewy].inventory, THYSTAME);
 	_stuff[FOOD].second = _map->map[_xhud + _viewx][_yhud + _viewy].inventory->get_object(_map->map[_xhud + _viewx][_yhud + _viewy].inventory, FOOD);
-	for (std::map<ROCK, std::pair<QString, int> >::const_iterator it = _stuff.begin(); it != _stuff.end(); ++it)
+	for (std::map<obj_type, std::pair<QString, int> >::const_iterator it = _stuff.begin(); it != _stuff.end(); ++it)
 		_parent->addData((*it).second.first + QString::number((*it).second.second), false);
 }
 

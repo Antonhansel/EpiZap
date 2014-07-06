@@ -32,7 +32,7 @@ int 	get_obj(Server *s, int i, char *cmd)
 	printf("CMD === |%s|\n", cmd);
 	while (i < 7)
 	{
-		if (strncmp(cmd, s->obj[i], strlen(cmd)) == 0)
+		if (strncmp(cmd, s->obj_type[i], strlen(cmd)) == 0)
 			return (i);
 		++i;
 	}	
