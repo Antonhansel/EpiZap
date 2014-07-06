@@ -35,10 +35,10 @@ static int 		alloc_map_attr(Map *this)
 			++i;
 		}
 	i = 0;
-	while (i < this->width)
+	while (i < this->height)
 	{
 		x = 0;
-		while (x < this->height)
+		while (x < this->width)
 		{
 			this->map[i][x].square_type = rand() % 7;
 			if (init_square(&this->map[i][x]) == FALSE)
