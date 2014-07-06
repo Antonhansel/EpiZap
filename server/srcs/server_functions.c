@@ -37,8 +37,7 @@ int 		check_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
 			if (FD_ISSET(tmp->fd, readfds))
 			{
 				printf("TOTO\n");
-				fct_read(tmp, this);
-				if (tmp->intro == TRUE)
+				if (fct_read(tmp, this) == TRUE && tmp->intro == TRUE)
 					assign_to_team(tmp, this);
 			}
 		}

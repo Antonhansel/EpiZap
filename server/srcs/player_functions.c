@@ -3,7 +3,7 @@
 #include "command_functions.h"
 
 void 	fct_write_next(Player *, Server *, char *);
-void 	fct_read_next(Player *, Server *, char *, int);
+int 	fct_read_next(Player *, Server *, char *, int);
 
 void 	player_socket_problem(Player *this, Server *s)
 {
@@ -34,14 +34,14 @@ int 		fct_read(Player *this, void *p)
 	{
 		/*sprintf(s->msg, "%s<font color=\"Green\">*** %s ***</font>",
 			(s->msg != NULL) ? s->msg : "", buf);*/
-		fct_read_next(this, s, buf, ret);
+		return (fct_read_next(this, s, buf, ret));
 	}
 	else
 		player_socket_problem(this, s);
-	return (0);
+	return (FALSE);
 }
 
-void 		fct_read_next(Player *this, Server *s, char *buf, int ret)
+int 		fct_read_next(Player *this, Server *s, char *buf, int ret)
 {
 	char 	*ptr;
 	int 	old_mode;
@@ -61,10 +61,12 @@ void 		fct_read_next(Player *this, Server *s, char *buf, int ret)
 			printf("X = %d & Y = %d & DIR = %s\n", this->x, this->y, (this->dir == 0) ? "NORTH" : (this->dir == 1) ? "EAST" : (this->dir == 2) ? "SOUTH" : "WEST");
 		}
 		free(ptr);
+		return (TRUE);
 	}
 	else
 		printf("Bad Command\n");
 	this->mode = old_mode;
+	return (FALSE);
 }
 
 int					fct_write(Player *this, void *p)
