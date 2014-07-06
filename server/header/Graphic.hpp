@@ -17,10 +17,6 @@
 
 # include <QMouseEvent>
 
-// # define PLAYER_UP 8
-// # define PLAYER_DOWN 9
-// # define PLAYER_RIGHT 6
-// # define PLAYER_LEFT 7
 # define NB_SPRITE 10
 # define NB_FLOORTEXT 8
 # define SP_SIZE 64
@@ -48,6 +44,7 @@ public:
   	void 	mouseMoveEvent(QMouseEvent *);
   	void 	dragMouse();
   	void 	caseClicked();
+  	void 	addPlayerHud(Player *);
   	void 	updateHud(const int, const int);
 	~Graphic();
 private:

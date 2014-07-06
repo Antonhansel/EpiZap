@@ -30,6 +30,8 @@
 # include <QTimer>
 # include <stdlib.h>
 # include <QWindow>
+# include <QTreeWidget>
+# include <QTreeWidgetItem>
 # include <QListWidget>
 # include <QListWidgetItem>
 # include "Connexion.hpp"
@@ -74,7 +76,8 @@ protected:
   QTextEdit     *_console;
   QTextEdit     *_data;
   QTextEdit     *_infos;
-  QListWidget   *_teams;
+  QTreeWidget   *_teams;
+  QTextEdit     *_curplayer;
   Server        *_server;
   bool          _start;
   Graphic       *_graphic;
