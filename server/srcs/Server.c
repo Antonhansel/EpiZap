@@ -13,7 +13,6 @@ char 					*init_server(Server *this, int width, int height)
 	struct sockaddr_in	sin;
 
 	opt = 1;
-	//this->player = NULL;
 	if (init_func_ptr(this, width, height) == FALSE)
 		return ("<font color=\"Red\">*** ERROR ON SERVER INIT ***</font>");
 	if ((pe = getprotobyname("TCP")) == NULL)

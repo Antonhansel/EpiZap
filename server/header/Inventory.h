@@ -6,17 +6,6 @@
 # include "string.h"
 # include "Network.h"
 
-enum ROCK
-{
-	LINEMATE,
-	DERAUMERE,
-	SIBUR,
-	MENDIANE,
-	PHIRAS,
-	THYSTAME,
-	FOOD
-};
-
 typedef struct 		Inventory
 {
 	/* data */

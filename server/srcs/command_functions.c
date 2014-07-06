@@ -34,7 +34,7 @@ int			command_functions(Server *s, Player *p, char *cmd)
 
 	if ((i = get_cmd_type(cmd)) != -1)
 	{
-		s->ptr[i](s, p, cmd);
+		s->exe_cmd[i](s, p, cmd);
 		return (TRUE);		
 	}
 	return (FALSE);
