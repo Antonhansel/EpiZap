@@ -31,6 +31,7 @@
 # include <stdlib.h>
 # include <QWindow>
 # include <QListWidget>
+# include <QListWidgetItem>
 # include "Connexion.hpp"
 # include "NetworkC.hpp"
 # include "Graphic.hpp" 
@@ -45,7 +46,9 @@ public:
   void  startGraphic();
   void  initRealUpdate();
   void  addData(QString const &, bool);
+  void  addToList(Team *);
 public slots:
+  void  refreshList();
   void  showAbout() const;
   void  updateInfos();
   void  updateGraphic();
