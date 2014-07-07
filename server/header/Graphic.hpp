@@ -71,6 +71,7 @@ private:
 	int 			_viewx;
 	int 			_viewy;
 	std::map<obj_type, std::pair<QString, int> > _stuff;
+	std::map<obj_type, std::pair<QString, int> > _stuffPlayer;
 	std::vector<std::string> 	_teamName;
 	bool 			_mouseReleased;
 	Player 			*_selectedPlayer;

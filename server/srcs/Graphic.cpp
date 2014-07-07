@@ -173,12 +173,27 @@ void 	Graphic::updatePlayerHud()
 {
 	QString data;
 
+	data = "Position: ";
+	data += QString::number(_selectedPlayer->x);
+	data += " - ";
+	data += QString::number(_selectedPlayer->y);
+	_parent->addData2(data, true);
 	data = "Player fd: ";
 	data += QString::number(_selectedPlayer->fd);
-	_parent->addData2(data, true);
+	_parent->addData2(data, false);
 	data = "Level : ";
 	data += QString::number(_selectedPlayer->lvl);
 	_parent->addData2(data, false);
+	_stuffPlayer[LINEMATE].second = _selectedPlayer->inventory->get_object(_selectedPlayer->inventory, LINEMATE);
+	_stuffPlayer[DERAUMERE].second = _selectedPlayer->inventory->get_object(_selectedPlayer->inventory, DERAUMERE);
+	_stuffPlayer[SIBUR].second = _selectedPlayer->inventory->get_object(_selectedPlayer->inventory, SIBUR);
+	_stuffPlayer[MENDIANE].second = _selectedPlayer->inventory->get_object(_selectedPlayer->inventory, MENDIANE);
+	_stuffPlayer[PHIRAS].second = _selectedPlayer->inventory->get_object(_selectedPlayer->inventory, PHIRAS);
+	_stuffPlayer[THYSTAME].second = _selectedPlayer->inventory->get_object(_selectedPlayer->inventory, THYSTAME);
+	_stuffPlayer[FOOD].second = _selectedPlayer->inventory->get_object(_selectedPlayer->inventory, FOOD);
+	for (std::map<obj_type, std::pair<QString, int> >::const_iterator it = _stuffPlayer.begin(); it != _stuffPlayer.end(); ++it)
+		_parent->addData2((*it).second.first + QString::number((*it).second.second), false);
+
 }
 
 void 	Graphic::displayPlayers()
@@ -260,6 +275,7 @@ void 	Graphic::loader()
 	_stuff[PHIRAS] = std::make_pair("<img src=\"./textures/phiras.png\"/> Phiras : ", 0);
 	_stuff[THYSTAME] = std::make_pair("<img src=\"./textures/thystame.png\"/> Thystame : ", 0);
 	_stuff[FOOD] = std::make_pair("<img src=\"./textures/food.png\"/> Food : ", 0);
+	_stuffPlayer = _stuff;
 	_floor[0] = Lib::loadImage("./textures/grass.png");
 	_floor[1] = _floor[0];
 	_floor[2] = _floor[0];
