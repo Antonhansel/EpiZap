@@ -16,6 +16,7 @@ void 	player_socket_problem(Player *this, Server *s)
 	printf("this = > %s\n", this->team_name);
 	destroy_player(this, s);
 	del_cmd_of_player(&s->cmd_list, this);
+	del_square(&s->map->map[this->x][this->y].player, this->fd);
 	printf("*** PLAYER %d DISCONNECTED ***", this->fd);
 	printf("----------- AVANT DELETE ----------\n");
 	display_list(s->player);
