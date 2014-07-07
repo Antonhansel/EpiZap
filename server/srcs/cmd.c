@@ -2,7 +2,7 @@
 #include "Server.h"
 #include "CircularBuffer.h"
 
-int 		set_cmd_information(Server *, Player *, t_cmd *);
+int 		set_cmd_information(Server *, Player *, t_cmd *, char *);
 
 int 		get_cmd_type(Server *s, char *cmd)
 {
@@ -17,9 +17,9 @@ int 		get_cmd_type(Server *s, char *cmd)
 	return (-1);
 }
 
-int			set_cmd_information(Server *s, Player *p, t_cmd *new_cmd)
+int			set_cmd_information(Server *s, Player *p, t_cmd *new_cmd, char *cmd)
 {
-	new_cmd->cmd = get_data_of_buffer(p->buffer_circular);
+	new_cmd->cmd = strdup(cmd);
 	if ((new_cmd->type = get_cmd_type(s, new_cmd->cmd)) == -1)
 		return (FALSE);
 	new_cmd->time = s->time_tab[new_cmd->type];
@@ -30,7 +30,7 @@ int			set_cmd_information(Server *s, Player *p, t_cmd *new_cmd)
 	return (TRUE);
 }
 
-t_cmd		*create_new_cmd(void *s, Player *p)
+t_cmd		*create_new_cmd(void *s, Player *p, char *cmd)
 {
 	t_cmd 	*new_cmd;
 	Server	*server;
@@ -38,7 +38,7 @@ t_cmd		*create_new_cmd(void *s, Player *p)
 	server = (Server *)s;
 	if (!(new_cmd = malloc(sizeof(t_cmd))))
 		return (NULL);
-	if (set_cmd_information(server, p, new_cmd) == FALSE)
+	if (set_cmd_information(server, p, new_cmd, cmd) == FALSE)
 	{
 		free(new_cmd->cmd);
 		free(new_cmd);
@@ -56,19 +56,40 @@ int			add_cmd_in_list(t_cmd *list, t_cmd *new_cmd)
 	save = NULL;
 	while (tmp)
 	{
+		printf("----- 1 -------\n");
 		if (tmp->num_cmd == new_cmd->num_cmd)
 		{
+			printf("----- 2 -------\n");
 			new_cmd->next = tmp->next;
+		printf("----- 3 -------\n");
+
 			tmp->next = new_cmd;
+		printf("----- 3 -------\n");
+
 			return (TRUE);
 		}
+		printf("----- 4 -------\n");
 		save = tmp;
+		printf("----- 5 -------\n");
 		tmp = tmp->next;
 	}
+		printf("----- 6 -------\n");
 	if (!save)
+	{
+		printf("----- 7 -------\n");
+
 		list = new_cmd;
+
+		printf("----- 8 -------\n");
+
+	}
 	else
+	{
+		printf("----- 9 -------\n");
 		save->next = new_cmd;
+
+		printf("----- 10 -------\n");
+	}
 	return (TRUE);
 }
 

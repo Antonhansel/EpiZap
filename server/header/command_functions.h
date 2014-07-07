@@ -5,20 +5,20 @@
 # include "Player.h"
 # include "List.h"
 
-int 	command_functions(Server *, Player *, char *);
-int 	get_cmd_type(Server *, char *);
-int 	up_cmd(Server *, Player *, char *);
-int 	right_cmd(Server *, Player *, char *);
-int 	left_cmd(Server *, Player *, char *);
-int 	see_cmd(Server *, Player *, char *);
-int 	inventory_cmd(Server *, Player *, char *);
-int 	take_object_cmd(Server *, Player *, char *);
-int 	put_object_cmd(Server *, Player *, char *);
-int 	kick_cmd(Server *, Player *, char *);
-int 	broadcast_text_cmd(Server *, Player *, char *);
-int 	incantation_cmd(Server *, Player *, char *);
-int 	fork_cmd(Server *, Player *, char *);
-int 	connect_nbr_cmd(Server *, Player *, char *);
-int 	get_obj(Server *, int, char *);
+int 	command_functions(void *, Player *, char *);
+int 	get_cmd_type(void *, char *);
+int 	up_cmd(void *, Player *, char *);
+int 	right_cmd(void *, Player *, char *);
+int 	left_cmd(void *, Player *, char *);
+int 	see_cmd(void *, Player *, char *);
+int 	inventory_cmd(void *, Player *, char *);
+int 	take_object_cmd(void *, Player *, char *);
+int 	put_object_cmd(void *, Player *, char *);
+int 	kick_cmd(void *, Player *, char *);
+int 	broadcast_text_cmd(void *, Player *, char *);
+int 	incantation_cmd(void *, Player *, char *);
+int 	fork_cmd(void *, Player *, char *);
+int 	connect_nbr_cmd(void *, Player *, char *);
+int 	get_obj(void *, int, char *);
 
 #endif /* COMMAND_FUNCTIONS_H_ */

@@ -56,7 +56,7 @@ int 		fct_read_next(Player *this, Server *s, char *buf, int ret)
 		{
 			reset_elem_in_buffer(&this->buffer_circular, strlen(ptr) + 1);
 			this->buffer_circular = this->buffer_circular->head;
-			new_cmd = create_new_cmd(s, this);
+			new_cmd = create_new_cmd(s, this, ptr);
 			add_cmd_in_list(s->cmd_list, new_cmd);
 			old_mode = this->mode;
 			this->nb_request++;

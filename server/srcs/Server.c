@@ -41,6 +41,7 @@ static int		init_func_ptr(Server *s, int width, int height)
    	s->loop = &loop;
     if ((s->map = malloc(sizeof(Map))) == NULL)
     	return (FALSE);
+    s->cmd_list = NULL;
   	init_map(s->map, width, height);
   	init_tab_ptr(s);
   	init_cmd_tab(s);

@@ -1,6 +1,6 @@
 #include "command_functions.h"
 
-int 	fork_cmd(Server *s, Player *p, char *cmd)
+int 	fork_cmd(void *s, Player *p, char *cmd)
 {
 	(void)s;
 	(void)p;
@@ -8,13 +8,13 @@ int 	fork_cmd(Server *s, Player *p, char *cmd)
 	return (0);
 }
 
-int 		connect_nbr_cmd(Server *s, Player *p, char *cmd)
+int 		connect_nbr_cmd(void *s, Player *p, char *cmd)
 {
 	Team	*tmp;
 	char	res[32];
 
 	(void)cmd;
-	tmp = s->team;
+	tmp = ((Server*)(s))->team;
 	while (tmp)
 	{
 		if (strcmp(tmp->name, p->team_name) == 0)
@@ -26,13 +26,13 @@ int 		connect_nbr_cmd(Server *s, Player *p, char *cmd)
 	return (0);
 }
 
-int 	get_obj(Server *s, int i, char *cmd)
+int 	get_obj(void *s, int i, char *cmd)
 {
 	i = 0;
 	printf("CMD === |%s|\n", cmd);
 	while (i < 7)
 	{
-		if (strncmp(cmd, s->obj_type[i], strlen(cmd)) == 0)
+		if (strncmp(cmd, ((Server*)(s))->obj_type[i], strlen(cmd)) == 0)
 			return (i);
 		++i;
 	}	
@@ -64,7 +64,7 @@ char		*get_dir(Player *expulse, Player *to_expulse)
 	return (str);
 }
 
-int			kick_cmd_next(Server *s, Player *p, Player *tmp)
+int			kick_cmd_next(void *s, Player *p, Player *tmp)
 {
 	int 	old_dir;
 	char	*res;
@@ -76,7 +76,7 @@ int			kick_cmd_next(Server *s, Player *p, Player *tmp)
 			tmp->sent = FALSE;
 			old_dir = tmp->dir;
 			tmp->dir = p->dir;
-			up_cmd(s, tmp, NULL);
+			up_cmd(((Server*)(s)), tmp, NULL);
 			tmp->dir = old_dir;
 			res = get_dir(p, tmp);
 			if (res != NULL)

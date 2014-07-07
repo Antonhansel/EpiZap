@@ -3,8 +3,11 @@
 
 void      display_list_square(Player *front_ptr);
 
-int 	up_cmd(Server *s, Player *p, char *cmd)
+int 		up_cmd(void *serv, Player *p, char *cmd)
 {
+	Server	*s;
+
+	s = ((Server*)(serv));
 	(void)cmd;
 	display_list_square(s->map->map[p->x][p->y].player);
 	del_square(&s->map->map[p->x][p->y].player, p->fd);
@@ -29,7 +32,7 @@ int 	up_cmd(Server *s, Player *p, char *cmd)
 	return (0);
 }
 
-int 	right_cmd(Server *s, Player *p, char *cmd)
+int 	right_cmd(void *s, Player *p, char *cmd)
 {
 	(void)s;
 	(void)cmd;
@@ -40,7 +43,7 @@ int 	right_cmd(Server *s, Player *p, char *cmd)
 	return (0);
 }
 
-int 	left_cmd(Server *s, Player *p, char *cmd)
+int 	left_cmd(void *s, Player *p, char *cmd)
 {
 	(void)s;
 	(void)cmd;
@@ -51,7 +54,7 @@ int 	left_cmd(Server *s, Player *p, char *cmd)
 	return (0);
 }
 
-int 	see_cmd(Server *s, Player *p, char *cmd)
+int 	see_cmd(void *s, Player *p, char *cmd)
 {
 	(void)cmd;
 	(void)s;
@@ -85,7 +88,7 @@ int 	see_cmd(Server *s, Player *p, char *cmd)
   
 }*/
 
-int 		inventory_cmd(Server *s, Player *p, char *cmd)
+int 		inventory_cmd(void *s, Player *p, char *cmd)
 {
 	char	str1[256];
 	char	str[512];
