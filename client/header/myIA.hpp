@@ -8,7 +8,6 @@
 
 enum Object
 {
-	FOOD,
 	PLAYERS,
 	LINEMATE,
 	DERAUMERE,
@@ -16,6 +15,7 @@ enum Object
 	MENDIANE,
 	PHIRAS,
 	THYSTAME,
+	FOOD
 };
 
 enum Direction
@@ -30,20 +30,28 @@ enum Direction
 class myIA
 {
 public:
-	std::list<std::string> 			_recieve;
-	std::list<std::string> 			_send;
-	std::vector<std::string>		_listRock;
-	std::vector<Object>				_objectifs;
-	std::vector<int[7]>				_tabElevation;
-	unsigned int 					_sizeQueue;
-	unsigned int 					_range;
+	std::list<std::string> 				_recieve;
+	std::list<std::string> 				_send;
+	std::vector<std::string>			_objects;
+	std::vector<std::string>			_objectifs;
+	std::vector< std::vector< int > >	_tabElevation;
+	unsigned int 						_sizeQueue;
+	unsigned int 						_range;
+
+	bool								_isAlive;
+	int 								_id;
+
+	Command 							*_cmd;
 
 public:
 	myIA();
 	~myIA();
-	// bool				initLoop();
+	bool				initLoop();
 	void				initTabElevation();
-	void				initRock();
+	void				initObjects();
+	void				initObjectifs();
+
+	bool				moveToward();
 
 	// const std::string	&sendCommand();
 	// bool				addCommand(const std::string &);
