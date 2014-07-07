@@ -30,6 +30,8 @@
 # include <QTimer>
 # include <stdlib.h>
 # include <QWindow>
+# include <QTreeWidget>
+# include <QTreeWidgetItem>
 # include <QListWidget>
 # include <QListWidgetItem>
 # include "Connexion.hpp"
@@ -46,6 +48,7 @@ public:
   void  startGraphic();
   void  initRealUpdate();
   void  addData(QString const &, bool);
+  void  addData2(QString const &, bool);
   void  addToList(Team *);
 public slots:
   void  refreshList();
@@ -74,7 +77,8 @@ protected:
   QTextEdit     *_console;
   QTextEdit     *_data;
   QTextEdit     *_infos;
-  QListWidget   *_teams;
+  QTreeWidget   *_teams;
+  QTextEdit     *_curplayer;
   Server        *_server;
   bool          _start;
   Graphic       *_graphic;

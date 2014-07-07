@@ -35,6 +35,7 @@ public:
 	bool 	update();
 	void 	draw();
 	void 	apply_floor();
+	void 	updatePlayerHud();
 	void 	loader();
 	void 	loopHud();
 	void 	teamName();
@@ -44,6 +45,7 @@ public:
   	void 	mouseMoveEvent(QMouseEvent *);
   	void 	dragMouse();
   	void 	caseClicked();
+  	void 	addPlayerHud(Player *);
   	void 	updateHud(const int, const int);
 	~Graphic();
 private:
@@ -69,9 +71,10 @@ private:
 	int 			_viewx;
 	int 			_viewy;
 	std::map<obj_type, std::pair<QString, int> > _stuff;
+	std::map<obj_type, std::pair<QString, int> > _stuffPlayer;
 	std::vector<std::string> 	_teamName;
 	bool 			_mouseReleased;
-
+	Player 			*_selectedPlayer;
  private:
  	SDL_Surface		*_bot[NB_SPRITE];
 };
