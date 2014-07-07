@@ -4,11 +4,18 @@
 class Command
 {
 private:
-	std::sting	_awser;
+	std::list<std::string> 		_recieve;
+	std::list<std::string> 		_send;
+	int							_ignore;
+	bool						_broadcast;
 
 public:
-	Command(arguments);
+	Command();
 	~Command();
+	void			cmdMove();
+	void			cmdRot(Direction);
+	std::string		cmdSee();
+	bool			cmdTake(std::string);
 };
 
 #endif /* !COMMAND_HPP */
