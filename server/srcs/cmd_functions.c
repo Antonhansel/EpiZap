@@ -15,7 +15,9 @@ double		get_min_time(t_cmd *list, double max_timer)
 		if (tmp->num_cmd == num_cmd)
 		{
 			if (tmp->time < timer)
+			{
 				timer = tmp->time;
+			}
 		}
 		tmp = tmp->next;
 	}
