@@ -6,5 +6,6 @@
 
 double	get_min_time(t_cmd *, double);
 int		set_new_timer(t_cmd **, Server *, double);
+void	del_cmd_of_player(t_cmd **, Player *);
 
 #endif

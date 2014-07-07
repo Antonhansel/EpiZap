@@ -37,7 +37,13 @@ int			set_new_timer(t_cmd **list, Server *s, double timer)
 			tmp->time -= timer;
 			if (tmp->time <= 0.0)
 			{
-				(*tmp->func)(((void*)(s)), tmp->owner, tmp->cmd);		
+				if (tmp->func != NULL)
+					(*tmp->func)(((void*)(s)), tmp->owner, tmp->cmd);
+				else
+				{
+					add_str_in_buffer(&tmp->owner->buffer_circular, "KO\n");
+					tmp->owner->mode = WRITE;
+				}		
 				del_cmd_in_list(list, tmp);
 				tmp->owner->nb_request--;
 			}
@@ -47,4 +53,17 @@ int			set_new_timer(t_cmd **list, Server *s, double timer)
 		tmp = tmp->next;
 	}
 	return (TRUE);
+}
+
+void		del_cmd_of_player(t_cmd **list, Player *p)
+{
+	t_cmd	*tmp;
+
+	tmp = (*list);
+	while (tmp)
+	{
+		if (tmp->owner == p)
+			del_cmd_in_list(list, tmp);
+		tmp = tmp->next;
+	}
 }

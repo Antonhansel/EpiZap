@@ -1,6 +1,7 @@
 #include "Server.h"
 #include "List.h"
 #include "command_functions.h"
+#include "cmd_functions.h"
 
 void 	fct_write_next(Player *, Server *, char *);
 int 	fct_read_next(Player *, Server *, char *, int);
@@ -14,6 +15,7 @@ void 	player_socket_problem(Player *this, Server *s)
 		(s->msg != NULL) ? s->msg : "", this->fd);*/
 	printf("this = > %s\n", this->team_name);
 	destroy_player(this, s);
+	del_cmd_of_player(&s->cmd_list, this);
 	printf("*** PLAYER %d DISCONNECTED ***", this->fd);
 	printf("----------- AVANT DELETE ----------\n");
 	display_list(s->player);
