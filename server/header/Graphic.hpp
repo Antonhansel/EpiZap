@@ -69,7 +69,7 @@ private:
 	Server			*_server;
 	int 			_viewx;
 	int 			_viewy;
-	std::map<ROCK, std::pair<QString, int> > _stuff;
+	std::map<obj_type, std::pair<QString, int> > _stuff;
 	std::vector<std::string> 	_teamName;
 	bool 			_mouseReleased;
 

@@ -1,9 +1,12 @@
 #include "Server.h"
 #include "List.h"
 #include "command_functions.h"
+#include "cmd_functions.h"
 
 void 	fct_write_next(Player *, Server *, char *);
 int 	fct_read_next(Player *, Server *, char *, int);
+
+void 	display_list_queue(t_cmd *);
 
 void 	player_socket_problem(Player *this, Server *s)
 {
@@ -12,6 +15,7 @@ void 	player_socket_problem(Player *this, Server *s)
 		(s->msg != NULL) ? s->msg : "", this->fd);*/
 	printf("this = > %s\n", this->team_name);
 	destroy_player(this, s);
+	del_cmd_of_player(&s->cmd_list, this);
 	printf("*** PLAYER %d DISCONNECTED ***", this->fd);
 	printf("----------- AVANT DELETE ----------\n");
 	display_list(s->player);
@@ -45,19 +49,24 @@ int 		fct_read_next(Player *this, Server *s, char *buf, int ret)
 {
 	char 	*ptr;
 	int 	old_mode;
+	t_cmd 	*new_cmd;
 
 	old_mode = this->mode;
 	this->mode = NONE;
-	if ((ret - 1) <= BUFFER_SIZE && add_str_in_buffer(&this->buffer_circular, buf) == TRUE)
+	if ((ret - 1) <= BUFFER_SIZE && this->nb_request < 9 && add_str_in_buffer(&this->buffer_circular, buf) == TRUE)
 	{
 		ptr = get_data_of_buffer(this->buffer_circular);
 		if (this->intro == FALSE)
 		{
 			reset_elem_in_buffer(&this->buffer_circular, strlen(ptr) + 1);
 			this->buffer_circular = this->buffer_circular->head;
-			if (command_functions(s, this, ptr) == FALSE)
-				printf("Unknow command\n");
+			new_cmd = create_new_cmd(s, this, ptr);
+			add_cmd_in_list(&s->cmd_list, new_cmd);
 			old_mode = this->mode;
+			this->nb_request++;
+			printf("---- BEGIN DISPLAY LIST ----\n");
+			display_list_queue(s->cmd_list);
+			printf("---- END DISPLAY LIST ----\n");
 			printf("X = %d & Y = %d & DIR = %s\n", this->x, this->y, (this->dir == 0) ? "NORTH" : (this->dir == 1) ? "EAST" : (this->dir == 2) ? "SOUTH" : "WEST");
 		}
 		free(ptr);

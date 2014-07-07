@@ -1,4 +1,5 @@
 #include "Inventory.h"
+#include "Server.h"
 
 static int 		get_object(Inventory *, int);
 static void 	set_object(Inventory *, int, int);
