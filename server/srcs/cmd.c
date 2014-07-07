@@ -19,13 +19,21 @@ int 		get_cmd_type(Server *s, char *cmd)
 
 int			set_cmd_information(Server *s, Player *p, t_cmd *new_cmd, char *cmd)
 {
+	int 	good;
+
+	good = TRUE;
 	new_cmd->cmd = strdup(cmd);
+	new_cmd->func = NULL;
+	new_cmd->time = 0;
 	if ((new_cmd->type = get_cmd_type(s, new_cmd->cmd)) == -1)
-		return (FALSE);
-	new_cmd->time = s->time_tab[new_cmd->type];
+		good = FALSE;
+	if (good == TRUE)
+	{
+		new_cmd->time = s->time_tab[new_cmd->type];
+		new_cmd->func = s->cmd_tab[new_cmd->type];
+	}
 	new_cmd->owner = p;
 	new_cmd->num_cmd = p->nb_request;
-	new_cmd->func = s->cmd_tab[new_cmd->type];
 	new_cmd->next = NULL;
 	return (TRUE);
 }
@@ -47,49 +55,28 @@ t_cmd		*create_new_cmd(void *s, Player *p, char *cmd)
 	return (new_cmd);
 }
 
-int			add_cmd_in_list(t_cmd *list, t_cmd *new_cmd)
+int			add_cmd_in_list(t_cmd **list, t_cmd *new_cmd)
 {
 	t_cmd 	*tmp;
 	t_cmd	*save;
 
-	tmp = list;
+	tmp = (*list);
 	save = NULL;
 	while (tmp)
 	{
-		printf("----- 1 -------\n");
 		if (tmp->num_cmd == new_cmd->num_cmd)
 		{
-			printf("----- 2 -------\n");
 			new_cmd->next = tmp->next;
-		printf("----- 3 -------\n");
-
 			tmp->next = new_cmd;
-		printf("----- 3 -------\n");
-
 			return (TRUE);
 		}
-		printf("----- 4 -------\n");
 		save = tmp;
-		printf("----- 5 -------\n");
 		tmp = tmp->next;
 	}
-		printf("----- 6 -------\n");
 	if (!save)
-	{
-		printf("----- 7 -------\n");
-
-		list = new_cmd;
-
-		printf("----- 8 -------\n");
-
-	}
+		(*list) = new_cmd;
 	else
-	{
-		printf("----- 9 -------\n");
 		save->next = new_cmd;
-
-		printf("----- 10 -------\n");
-	}
 	return (TRUE);
 }
 
@@ -119,4 +106,16 @@ int 		del_cmd_in_list(t_cmd *list, t_cmd *cmd)
 		}
 	}
 	return (FALSE);
+}
+
+void 	display_list_queue(t_cmd *list)
+{
+	t_cmd 	*tmp;
+
+	tmp = list;
+	while (tmp)
+	{
+		printf("---> %d : %s WITH %d\n", tmp->owner->fd, tmp->cmd, tmp->num_cmd);
+		tmp = tmp->next;
+	}
 }

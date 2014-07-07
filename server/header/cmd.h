@@ -15,7 +15,7 @@ typedef struct 		s_cmd
 }					t_cmd;
 
 t_cmd		*create_new_cmd(void *, Player *, char *);
-int 		add_cmd_in_list(t_cmd *, t_cmd *);
+int 		add_cmd_in_list(t_cmd **, t_cmd *);
 int 		del_cmd_in_list(t_cmd *, t_cmd *);
 
 #endif /* CMD_H_ */

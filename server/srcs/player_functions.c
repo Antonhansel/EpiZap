@@ -5,6 +5,8 @@
 void 	fct_write_next(Player *, Server *, char *);
 int 	fct_read_next(Player *, Server *, char *, int);
 
+void 	display_list_queue(t_cmd *);
+
 void 	player_socket_problem(Player *this, Server *s)
 {
 	/*sprintf(s->msg, 
@@ -57,9 +59,12 @@ int 		fct_read_next(Player *this, Server *s, char *buf, int ret)
 			reset_elem_in_buffer(&this->buffer_circular, strlen(ptr) + 1);
 			this->buffer_circular = this->buffer_circular->head;
 			new_cmd = create_new_cmd(s, this, ptr);
-			add_cmd_in_list(s->cmd_list, new_cmd);
+			add_cmd_in_list(&s->cmd_list, new_cmd);
 			old_mode = this->mode;
 			this->nb_request++;
+			printf("---- BEGIN DISPLAY LIST ----\n");
+			display_list_queue(s->cmd_list);
+			printf("---- END DISPLAY LIST ----\n");
 			printf("X = %d & Y = %d & DIR = %s\n", this->x, this->y, (this->dir == 0) ? "NORTH" : (this->dir == 1) ? "EAST" : (this->dir == 2) ? "SOUTH" : "WEST");
 		}
 		free(ptr);
