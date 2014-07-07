@@ -18,6 +18,7 @@ Graphic::Graphic(MainUI *parent)
 	_mouseClick = false;
 	_realUpdate = false;
 	_mouseDrag = false;
+	_selectedPlayer = NULL;
 	initSDL();
 }
 
@@ -165,14 +166,20 @@ void 	Graphic::apply_floor()
 
 void 	Graphic::addPlayerHud(Player *temp)
 {
+	_selectedPlayer = temp;
+	updatePlayerHud();
+}
+
+void 	Graphic::updatePlayerHud()
+{
 	QString data;
 
 	data = "Player fd: ";
-	data += QString::number(temp->fd);
-	_parent->addData(data, false);
+	data += QString::number(_selectedPlayer->fd);
+	_parent->addData2(data, true);
 	data = "Level : ";
-	data += QString::number(temp->lvl);
-	_parent->addData(data, false);
+	data += QString::number(_selectedPlayer->lvl);
+	_parent->addData2(data, false);
 }
 
 void 	Graphic::displayPlayers()
@@ -180,6 +187,8 @@ void 	Graphic::displayPlayers()
 	Player 	*temp = _server->player;
 	while (temp != NULL)
 	{
+		if (_selectedPlayer != NULL)
+			updatePlayerHud();
 		if (temp->x == _xhud && temp->y == _yhud)
 			addPlayerHud(temp);
 		if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewx && temp->y >= _viewy 

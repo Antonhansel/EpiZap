@@ -48,6 +48,7 @@ public:
   void  startGraphic();
   void  initRealUpdate();
   void  addData(QString const &, bool);
+  void  addData2(QString const &, bool);
   void  addToList(Team *);
 public slots:
   void  refreshList();

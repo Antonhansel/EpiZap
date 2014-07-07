@@ -35,6 +35,7 @@ public:
 	bool 	update();
 	void 	draw();
 	void 	apply_floor();
+	void 	updatePlayerHud();
 	void 	loader();
 	void 	loopHud();
 	void 	teamName();
@@ -72,7 +73,7 @@ private:
 	std::map<obj_type, std::pair<QString, int> > _stuff;
 	std::vector<std::string> 	_teamName;
 	bool 			_mouseReleased;
-
+	Player 			*_selectedPlayer;
  private:
  	SDL_Surface		*_bot[NB_SPRITE];
 };

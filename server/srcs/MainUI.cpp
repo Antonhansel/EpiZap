@@ -77,14 +77,11 @@ void	MainUI::initUi()
   _teams = new QTreeWidget(this);
   _teams->setFixedHeight(HEIGHT/6);
   _teams->setFixedWidth(WIDTH/6);
-  _teams->setColumnCount(2);
-  _teams->setHeaderLabel("Name");
-  _teams->setHeaderLabel("Slots");
+  _teams->setHeaderLabel("Teams - Slots");
   _curplayer = new QTextEdit(this);
   _curplayer->setFixedWidth(WIDTH/6);
   _curplayer->setReadOnly(true);
   _curplayer->setStyleSheet("color: white; background-image: url(./textures/bgbot.png)");
-  _teams->setStyleSheet("color: white; background-image: url(./textures/bgbot.png)");
 }
 
 void            MainUI::setServer(Server &s)
@@ -120,6 +117,13 @@ void          MainUI::addData(QString const &data, bool clear)
   _infos->append(data);
 }
 
+void          MainUI::addData2(QString const &data, bool clear)
+{
+  if (clear)
+    _curplayer->clear();
+  _curplayer->append(data);
+}
+
 MainUI::MainUI(bool status) : QWidget()
 {
   _status = status;
@@ -134,18 +138,15 @@ MainUI::MainUI(bool status) : QWidget()
 void  MainUI::addToList(Team *temp)
 {
   QTreeWidgetItem   *teamName;
-  QTreeWidgetItem   *slotCount;
   QString         slotText;
   
   teamName = new QTreeWidgetItem(_teams);
   slotText = QString(temp->name);
-  teamName->setText(1, slotText);
-  slotText = QString::number(temp->nb_player_actu);
+  slotText += " - ";
+  slotText += QString::number(temp->nb_player_actu);
   slotText += QString("/");
   slotText += QString::number(temp->nb_player_max);
-  teamName->setText(2, slotText);
-  teamName->setBackgroundColor(1, Qt::transparent);
-  teamName->setBackgroundColor(2, Qt::transparent);
+  teamName->setText(0, slotText);
   _teams->addTopLevelItem(teamName);
 }
 
