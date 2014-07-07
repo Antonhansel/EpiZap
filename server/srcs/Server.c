@@ -1,6 +1,7 @@
 #include "List.h"
 #include "Server.h"
 #include "command_functions.h"
+#include "cmd_functions.h"
 
 static int	init_func_ptr(Server *, int, int);
 static int 	loop(Server *);
@@ -59,15 +60,18 @@ static int 		loop(Server *this)
 {
 	fd_set 		readfds;
 	fd_set 		writefds;
+	int 		timer;
 
 	while (TRUE)
 	{
+		timer = get_min_time(this->cmd_list, 1000.0);
 		init_bits_fields(this, &readfds, &writefds);
 		if (select(this->max_fd + 1, &readfds, &writefds, NULL, NULL) != -1)
 		{
 			if (FD_ISSET(this->socket, &readfds))
 				accept_socket(this);
 			check_bits_fields(this, &readfds, &writefds);
+			set_new_timer(&this->cmd_list, this, timer);
 		}
 		else
 			sprintf(this->msg,

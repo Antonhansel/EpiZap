@@ -19,18 +19,18 @@ void	init_cmd_tab(Server *s)
 
 void	init_time_tab(Server *s)
 {
-	s->time_tab[AVANCE] = 7 / s->ctime;
-	s->time_tab[DROITE] = 7 / s->ctime;
-	s->time_tab[GAUCHE] = 7 / s->ctime;
-	s->time_tab[VOIR] = 7 / s->ctime;
-	s->time_tab[INVENTAIRE] = 1 / s->ctime;
-	s->time_tab[PREND_OBJET] = 7 / s->ctime;
-	s->time_tab[POSE_OBJET] = 7 / s->ctime;
-	s->time_tab[EXPULSE] = 7 / s->ctime;
-	s->time_tab[BROADCAST_TEXTE] = 7 / s->ctime;
-	s->time_tab[INCANTATION] = 300 / s->ctime;
-	s->time_tab[FORK] = 42 / s->ctime;
-	s->time_tab[CONNECT_NBR] = 0;
+	s->time_tab[AVANCE] = 7.0 / s->ctime;
+	s->time_tab[DROITE] = 7.0 / s->ctime;
+	s->time_tab[GAUCHE] = 7.0 / s->ctime;
+	s->time_tab[VOIR] = 7.0 / s->ctime;
+	s->time_tab[INVENTAIRE] = 1.0 / s->ctime;
+	s->time_tab[PREND_OBJET] = 7.0 / s->ctime;
+	s->time_tab[POSE_OBJET] = 7.0 / s->ctime;
+	s->time_tab[EXPULSE] = 7.0 / s->ctime;
+	s->time_tab[BROADCAST_TEXTE] = 7.0 / s->ctime;
+	s->time_tab[INCANTATION] = 300.0 / s->ctime;
+	s->time_tab[FORK] = 42.0 / s->ctime;
+	s->time_tab[CONNECT_NBR] = 0.0;
 }
 
 void	init_obj_tab(Server *s)

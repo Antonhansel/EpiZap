@@ -24,7 +24,7 @@ int			set_cmd_information(Server *s, Player *p, t_cmd *new_cmd, char *cmd)
 	good = TRUE;
 	new_cmd->cmd = strdup(cmd);
 	new_cmd->func = NULL;
-	new_cmd->time = 0;
+	new_cmd->time = 0.0;
 	if ((new_cmd->type = get_cmd_type(s, new_cmd->cmd)) == -1)
 		good = FALSE;
 	if (good == TRUE)
@@ -80,19 +80,21 @@ int			add_cmd_in_list(t_cmd **list, t_cmd *new_cmd)
 	return (TRUE);
 }
 
-int 		del_cmd_in_list(t_cmd *list, t_cmd *cmd)
+int 		del_cmd_in_list(t_cmd **list, t_cmd *cmd)
 {
 	t_cmd	*tmp;
 	t_cmd	*save;
 
-	if (list == cmd)
+	tmp = *list;
+	printf("-----> DELETE NODE IN LIST\n");
+	if (tmp == cmd)
 	{
-		list = tmp->next;
+		*list = tmp->next;
 		return (TRUE);
 	}
 	else
 	{
-		tmp = list;
+		tmp = *list;
 		while (tmp)
 		{
 			if (tmp->next == cmd)
@@ -115,7 +117,7 @@ void 	display_list_queue(t_cmd *list)
 	tmp = list;
 	while (tmp)
 	{
-		printf("---> %d : %s WITH %d\n", tmp->owner->fd, tmp->cmd, tmp->num_cmd);
+		printf("---> %d : %s WITH %d = %f\n", tmp->owner->fd, tmp->cmd, tmp->num_cmd, tmp->time);
 		tmp = tmp->next;
 	}
 }
