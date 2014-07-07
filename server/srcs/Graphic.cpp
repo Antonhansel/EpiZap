@@ -23,10 +23,8 @@ Graphic::Graphic(MainUI *parent)
 
 Graphic::~Graphic()
 {	
-	SDL_FreeSurface(_up);
-	SDL_FreeSurface(_down);	
-	SDL_FreeSurface(_right);
-	SDL_FreeSurface(_left);		
+	for (int i(0); i != 3; i++)
+		SDL_FreeSurface(_bot[(DIR)i]);
 	SDL_FreeSurface(_screen);
 	Mix_FreeMusic(_music);
 	Mix_CloseAudio();
@@ -44,10 +42,6 @@ void	Graphic::initSDL()
 	_music = Mix_LoadMUS("./music/main.mp3");
 	Mix_PlayMusic(_music, -1);
 	loader();
-	_botSprite[NORTH] = _up;
-	_botSprite[SOUTH] = _down;
-	_botSprite[EAST] = _right;
-	_botSprite[WEST] = _left;
 }
 
 void Graphic::mousePressEvent(QMouseEvent *e)
@@ -190,7 +184,7 @@ void 	Graphic::displayPlayers()
 			addPlayerHud(temp);
 		if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewx && temp->y >= _viewy 
 			&& temp->x <= (_viewx + FIELD_X) && temp->y <= (_viewy + FIELD_Y))
-			Lib::applySurface(((temp->x - _viewx) * SP_SIZE) + 10, ((temp->y - _viewy) * SP_SIZE), _botSprite[(DIR)temp->dir], _screen);
+			Lib::applySurface(((temp->x - _viewx) * SP_SIZE) + 10, ((temp->y - _viewy) * SP_SIZE), _bot[(DIR)temp->dir], _screen);
 		temp = temp->next;
 	}
 }
@@ -259,8 +253,8 @@ void 	Graphic::loader()
 	_ressource[PHIRAS] = Lib::loadImage("./textures/phiras.png");
 	_ressource[THYSTAME] = Lib::loadImage("./textures/thystame.png");
 	_ressource[FOOD] = Lib::loadImage("./textures/food.png");
-	_up = zoomSurface(Lib::loadImage("./textures/LinkRunU1.gif"), 2.5, 2.5, 1);
-	_down = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD1.gif"), 2.5, 2.5, 1);
-	_left = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL1.gif"), 2.5, 2.5, 1);
-	_right = zoomSurface(Lib::loadImage("./textures/LinkRunR1.gif"), 2.5, 2.5, 1);
+	_bot[NORTH] = zoomSurface(Lib::loadImage("./textures/LinkRunU1.gif"), 2.5, 2.5, 1);
+	_bot[SOUTH] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD1.gif"), 2.5, 2.5, 1);
+	_bot[EAST] = zoomSurface(Lib::loadImage("./textures/LinkRunR1.gif"), 2.5, 2.5, 1);
+	_bot[WEST] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL1.gif"), 2.5, 2.5, 1);
 }
