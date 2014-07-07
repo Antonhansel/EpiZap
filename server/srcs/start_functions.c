@@ -35,6 +35,7 @@ void	assign_to_team_next(Player *this, Server *s, char *team_name)
 			find = 1;
 			this->team_name = strdup(team_name);
 			set_player_data(this, s->map->width, s->map->height);
+			this->time = 1260.0 * (1.0 / s->ctime);
 			add_player(&tmp->player_list, this);
 			add_square(&s->map->map[this->x][this->y].player, this);
 			display_list(tmp->player_list);
