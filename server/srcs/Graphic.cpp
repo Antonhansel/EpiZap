@@ -101,10 +101,10 @@ void 	Graphic::dragMouse()
 			_viewy -= 1;
 		else if (((_lastPointPress.y() - _currentPos.y())/64) <= -1)
 			_viewy += 1;
-		if (_viewy + FIELD_Y >= _map->width)
-			_viewy = _map->width - FIELD_Y;
-		if (_viewx + FIELD_X >= _map->height)
-			_viewx = _map->height - FIELD_X;
+		if (_viewy + FIELD_X >= _map->width)
+			_viewy = _map->width - FIELD_X;
+		if (_viewx + FIELD_Y >= _map->height)
+			_viewx = _map->height - FIELD_Y;
 		if (_viewx < 0)
 			_viewx = 0;
 		if (_viewy < 0)
