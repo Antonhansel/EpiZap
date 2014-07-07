@@ -6,6 +6,7 @@
 # include "Map.h"
 # include "Team.h"
 # include "list_team.h"
+# include "cmd.h"
 
 enum cmd_type
 {
@@ -52,11 +53,12 @@ typedef struct 	Server
   	Team 		*team;
   	Map			*map;
 
-	int 		(*exe_cmd[12])(struct Server *, Player *, char *);
-
 	char		cmd_type[12][15];
-	int			time_tab[12];
+	double		time_tab[12];
 	char 		obj_type[10][15];
+	int 		(*cmd_tab[12])(void *, Player *, char *);
+
+	t_cmd		*cmd_list;
   	
   	/* Method */
 	int 		(*loop)(struct Server *);
@@ -69,6 +71,7 @@ typedef struct 	Server
 extern "C" {
 # endif
 	char 		*init_server(Server *, int, int);
+	char		*destroy_server(Server *);
 	void 		init_all_team(Server *, char *);
 # ifdef __cplusplus
 }

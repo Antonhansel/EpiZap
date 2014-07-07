@@ -6,7 +6,7 @@
 # include "List.h"
 
 int 	command_functions(Server *, Player *, char *);
-int 	get_cmd_type(char *);
+int 	get_cmd_type(Server *, char *);
 int 	up_cmd(Server *, Player *, char *);
 int 	right_cmd(Server *, Player *, char *);
 int 	left_cmd(Server *, Player *, char *);

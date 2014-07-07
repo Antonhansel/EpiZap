@@ -67,11 +67,11 @@ SOURCES       = srcs/main.cpp \
 		srcs/CircularBuffer.c \
 		srcs/start_functions.c \
 		srcs/list_team.c \
-		srcs/command_functions.c \
 		srcs/command_functions_ia_1.c \
 		srcs/command_functions_ia_2.c \
 		srcs/command_functions_ia_3.c \
-		srcs/init_server_tab.c .moc/moc_MainUI.cpp \
+		srcs/init_server_tab.c \
+		srcs/cmd.c .moc/moc_MainUI.cpp \
 		.moc/moc_Connexion.cpp \
 		.moc/moc_NetworkC.cpp \
 		.moc/moc_Graphic.cpp
@@ -97,11 +97,11 @@ OBJECTS       = .obj/main.o \
 		.obj/CircularBuffer.o \
 		.obj/start_functions.o \
 		.obj/list_team.o \
-		.obj/command_functions.o \
 		.obj/command_functions_ia_1.o \
 		.obj/command_functions_ia_2.o \
 		.obj/command_functions_ia_3.o \
 		.obj/init_server_tab.o \
+		.obj/cmd.o \
 		.obj/moc_MainUI.o \
 		.obj/moc_Connexion.o \
 		.obj/moc_NetworkC.o \
@@ -386,7 +386,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .obj/gui1.0.0 || mkdir -p .obj/gui1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .obj/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/Incantation.h header/List.h header/Square.h header/xfunction.h header/Graphic.hpp header/LibSDL.hh header/Exception.hh header/CircularBuffer.h header/command_functions.h header/start_functions.h header/list_team.h .obj/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/Incantation.c srcs/List.c srcs/Square.c srcs/xmalloc.c srcs/Graphic.cpp srcs/Lib.cpp srcs/Exception.cpp srcs/server_functions.c srcs/player_functions.c srcs/CircularBuffer.c srcs/start_functions.c srcs/list_team.c srcs/command_functions.c srcs/command_functions_ia_1.c srcs/command_functions_ia_2.c srcs/command_functions_ia_3.c srcs/init_server_tab.c .obj/gui1.0.0/ && (cd `dirname .obj/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .obj/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .obj/gui1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .obj/gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/Incantation.h header/List.h header/Square.h header/xfunction.h header/Graphic.hpp header/LibSDL.hh header/Exception.hh header/CircularBuffer.h header/start_functions.h header/list_team.h header/cmd.h .obj/gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/Incantation.c srcs/List.c srcs/Square.c srcs/xmalloc.c srcs/Graphic.cpp srcs/Lib.cpp srcs/Exception.cpp srcs/server_functions.c srcs/player_functions.c srcs/CircularBuffer.c srcs/start_functions.c srcs/list_team.c srcs/command_functions_ia_1.c srcs/command_functions_ia_2.c srcs/command_functions_ia_3.c srcs/init_server_tab.c srcs/cmd.c .obj/gui1.0.0/ && (cd `dirname .obj/gui1.0.0` && $(TAR) gui1.0.0.tar gui1.0.0 && $(COMPRESS) gui1.0.0.tar) && $(MOVE) `dirname .obj/gui1.0.0`/gui1.0.0.tar.gz . && $(DEL_FILE) -r .obj/gui1.0.0
 
 
 clean:compiler_clean 
@@ -714,6 +714,7 @@ compiler_moc_header_clean:
 		header/Square.h \
 		header/Team.h \
 		header/list_team.h \
+		header/cmd.h \
 		header/NetworkC.hpp \
 		/usr/include/qt5/QtCore/QDebug \
 		/usr/include/qt5/QtCore/QThread \
@@ -896,6 +897,7 @@ compiler_moc_header_clean:
 		header/Square.h \
 		header/Team.h \
 		header/list_team.h \
+		header/cmd.h \
 		header/Connexion.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include header/Connexion.hpp -o .moc/moc_Connexion.cpp
 
@@ -1031,6 +1033,7 @@ compiler_moc_header_clean:
 		header/Square.h \
 		header/Team.h \
 		header/list_team.h \
+		header/cmd.h \
 		header/NetworkC.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include header/NetworkC.hpp -o .moc/moc_NetworkC.cpp
 
@@ -1262,6 +1265,7 @@ compiler_moc_header_clean:
 		header/Server.h \
 		header/Team.h \
 		header/list_team.h \
+		header/cmd.h \
 		/usr/include/qt5/QtGui/QMouseEvent \
 		header/Graphic.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include header/Graphic.hpp -o .moc/moc_Graphic.cpp
@@ -1583,6 +1587,7 @@ compiler_clean: compiler_moc_header_clean
 		header/Square.h \
 		header/Team.h \
 		header/list_team.h \
+		header/cmd.h \
 		header/NetworkC.hpp \
 		/usr/include/qt5/QtCore/QDebug \
 		/usr/include/qt5/QtCore/QThread \
@@ -1896,6 +1901,7 @@ compiler_clean: compiler_moc_header_clean
 		header/Square.h \
 		header/Team.h \
 		header/list_team.h \
+		header/cmd.h \
 		header/NetworkC.hpp \
 		/usr/include/qt5/QtCore/QDebug \
 		/usr/include/qt5/QtCore/QThread \
@@ -2078,6 +2084,7 @@ compiler_clean: compiler_moc_header_clean
 		header/Square.h \
 		header/Team.h \
 		header/list_team.h \
+		header/cmd.h \
 		header/MainUI.hpp \
 		/usr/include/qt5/QtCore/QtCore \
 		/usr/include/qt5/QtCore/QtCoreDepends \
@@ -2232,6 +2239,7 @@ compiler_clean: compiler_moc_header_clean
 		header/Square.h \
 		header/Team.h \
 		header/list_team.h \
+		header/cmd.h \
 		header/command_functions.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/Server.o srcs/Server.c
 
@@ -2367,7 +2375,8 @@ compiler_clean: compiler_moc_header_clean
 		header/Map.h \
 		header/Square.h \
 		header/Team.h \
-		header/list_team.h
+		header/list_team.h \
+		header/cmd.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/NetworkC.o srcs/NetworkC.cpp
 
 .obj/Player.o: srcs/Player.c header/Player.h \
@@ -2379,6 +2388,7 @@ compiler_clean: compiler_moc_header_clean
 		header/Square.h \
 		header/Team.h \
 		header/list_team.h \
+		header/cmd.h \
 		header/List.h \
 		header/xfunction.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/Player.o srcs/Player.c
@@ -2391,7 +2401,8 @@ compiler_clean: compiler_moc_header_clean
 		header/Map.h \
 		header/Square.h \
 		header/Team.h \
-		header/list_team.h
+		header/list_team.h \
+		header/cmd.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/Inventory.o srcs/Inventory.c
 
 .obj/Team.o: srcs/Team.c header/Team.h \
@@ -2402,7 +2413,8 @@ compiler_clean: compiler_moc_header_clean
 		header/Server.h \
 		header/Map.h \
 		header/Square.h \
-		header/list_team.h
+		header/list_team.h \
+		header/cmd.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/Team.o srcs/Team.c
 
 .obj/Map.o: srcs/Map.c header/Map.h \
@@ -2428,7 +2440,8 @@ compiler_clean: compiler_moc_header_clean
 		header/Map.h \
 		header/Square.h \
 		header/Team.h \
-		header/list_team.h
+		header/list_team.h \
+		header/cmd.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/List.o srcs/List.c
 
 .obj/Square.o: srcs/Square.c header/Square.h \
@@ -2670,6 +2683,7 @@ compiler_clean: compiler_moc_header_clean
 		header/Server.h \
 		header/Team.h \
 		header/list_team.h \
+		header/cmd.h \
 		/usr/include/qt5/QtGui/QMouseEvent \
 		header/MainUI.hpp \
 		/usr/include/qt5/QtGui/QFont \
@@ -2770,6 +2784,7 @@ compiler_clean: compiler_moc_header_clean
 		header/Square.h \
 		header/Team.h \
 		header/list_team.h \
+		header/cmd.h \
 		header/List.h \
 		header/start_functions.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/server_functions.o srcs/server_functions.c
@@ -2783,6 +2798,7 @@ compiler_clean: compiler_moc_header_clean
 		header/Square.h \
 		header/Team.h \
 		header/list_team.h \
+		header/cmd.h \
 		header/List.h \
 		header/command_functions.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/player_functions.o srcs/player_functions.c
@@ -2801,6 +2817,7 @@ compiler_clean: compiler_moc_header_clean
 		header/Square.h \
 		header/Team.h \
 		header/list_team.h \
+		header/cmd.h \
 		header/List.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/start_functions.o srcs/start_functions.c
 
@@ -2812,19 +2829,6 @@ compiler_clean: compiler_moc_header_clean
 		header/CircularBuffer.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/list_team.o srcs/list_team.c
 
-.obj/command_functions.o: srcs/command_functions.c header/command_functions.h \
-		header/Server.h \
-		header/Network.h \
-		header/Player.h \
-		header/Inventory.h \
-		header/CircularBuffer.h \
-		header/Map.h \
-		header/Square.h \
-		header/Team.h \
-		header/list_team.h \
-		header/List.h
-	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/command_functions.o srcs/command_functions.c
-
 .obj/command_functions_ia_1.o: srcs/command_functions_ia_1.c header/command_functions.h \
 		header/Server.h \
 		header/Network.h \
@@ -2835,6 +2839,7 @@ compiler_clean: compiler_moc_header_clean
 		header/Square.h \
 		header/Team.h \
 		header/list_team.h \
+		header/cmd.h \
 		header/List.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/command_functions_ia_1.o srcs/command_functions_ia_1.c
 
@@ -2848,6 +2853,7 @@ compiler_clean: compiler_moc_header_clean
 		header/Square.h \
 		header/Team.h \
 		header/list_team.h \
+		header/cmd.h \
 		header/List.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/command_functions_ia_2.o srcs/command_functions_ia_2.c
 
@@ -2861,6 +2867,7 @@ compiler_clean: compiler_moc_header_clean
 		header/Square.h \
 		header/Team.h \
 		header/list_team.h \
+		header/cmd.h \
 		header/List.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/command_functions_ia_3.o srcs/command_functions_ia_3.c
 
@@ -2872,8 +2879,23 @@ compiler_clean: compiler_moc_header_clean
 		header/Map.h \
 		header/Square.h \
 		header/Team.h \
-		header/list_team.h
+		header/list_team.h \
+		header/cmd.h \
+		header/command_functions.h \
+		header/List.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/init_server_tab.o srcs/init_server_tab.c
+
+.obj/cmd.o: srcs/cmd.c header/cmd.h \
+		header/Player.h \
+		header/Inventory.h \
+		header/Network.h \
+		header/CircularBuffer.h \
+		header/Server.h \
+		header/Map.h \
+		header/Square.h \
+		header/Team.h \
+		header/list_team.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/cmd.o srcs/cmd.c
 
 .obj/moc_MainUI.o: .moc/moc_MainUI.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/moc_MainUI.o .moc/moc_MainUI.cpp
