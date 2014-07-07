@@ -167,7 +167,6 @@ void 	Graphic::apply_floor()
 void 	Graphic::addPlayerHud(Player *temp)
 {
 	_selectedPlayer = temp;
-	updatePlayerHud();
 }
 
 void 	Graphic::updatePlayerHud()
@@ -185,10 +184,11 @@ void 	Graphic::updatePlayerHud()
 void 	Graphic::displayPlayers()
 {
 	Player 	*temp = _server->player;
+	bool 	check;
+
+	check = false;
 	while (temp != NULL)
 	{
-		if (_selectedPlayer != NULL)
-			updatePlayerHud();
 		if (temp->x == _xhud && temp->y == _yhud)
 			addPlayerHud(temp);
 		if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewx && temp->y >= _viewy 
@@ -196,6 +196,19 @@ void 	Graphic::displayPlayers()
 			Lib::applySurface(((temp->x - _viewx) * SP_SIZE) + 10, ((temp->y - _viewy) * SP_SIZE), _bot[(DIR)temp->dir], _screen);
 		temp = temp->next;
 	}
+	temp = _server->player;
+	while (temp != NULL)
+	{
+		if (temp == _selectedPlayer)
+			check = true;
+		temp = temp->next;
+	}
+	if (check == false)
+		_selectedPlayer = NULL;
+	if (_selectedPlayer != NULL)
+		updatePlayerHud();
+	else
+		_parent->addData2(QString(""), true);
 }
 
 void 	Graphic::initRealUpdate(const Server *server)
