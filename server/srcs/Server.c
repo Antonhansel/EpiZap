@@ -86,6 +86,7 @@ static int 			loop(Server *this)
 				timer = (t1 - t);
 			if (timer <= (300.0 / this->ctime))
 				set_new_timer(&this->cmd_list, this, timer);
+			update_life(&this->player, (t1 - t));
 		}
 		else
 			snprintf(this->msg, BUFFER_SIZE,

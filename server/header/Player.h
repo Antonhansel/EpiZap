@@ -40,6 +40,7 @@ typedef struct 		Player
 	int 			sent;
 	int 			range;
 	char 			*team_name;
+	int 			is_alive;
 	/* Methods */
 	Inventory 		*(*get_inventory)(struct Player *);
 	void			(*set_inventory)(struct Player *, Inventory *);

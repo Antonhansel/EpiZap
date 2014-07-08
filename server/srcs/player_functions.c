@@ -15,6 +15,7 @@ void 	player_socket_problem(Player *this, Server *s)
 		(s->msg != NULL) ? s->msg : "", this->fd);*/
 	printf("this = > %s\n", this->team_name);
 	destroy_player(this, s);
+	close(this->fd);
 	del_cmd_of_player(&s->cmd_list, this);
 	del_square(&s->map->map[this->x][this->y].player, this->fd);
 	printf("*** PLAYER %d DISCONNECTED ***", this->fd);
@@ -102,6 +103,8 @@ int					fct_write(Player *this, void *p)
 		buf[i] = 0;
 		printf("WRITTING BUFF = %s", buf);
 		fct_write_next(this, s, buf);
+		if (this->is_alive == FALSE)
+			player_socket_problem(this, s);
 	}
 	return (TRUE);
 }

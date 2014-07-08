@@ -1,5 +1,7 @@
 #include "cmd_functions.h"
 
+void 	player_socket_problem(Player *, Server *);
+
 double		get_min_time(t_cmd *list, double max_timer)
 {
 	t_cmd	*tmp;
@@ -66,6 +68,27 @@ void		del_cmd_of_player(t_cmd **list, Player *p)
 	{
 		if (tmp->owner == p)
 			del_cmd_in_list(list, tmp);
+		tmp = tmp->next;
+	}
+}
+
+void		update_life(Player **player, int timer)
+{
+	Player 	*tmp;
+
+	tmp = (*player);
+	while (tmp)
+	{
+		if (tmp->intro == FALSE)
+		{
+			tmp->time -= timer;
+			if (tmp->time <= 0.0)
+			{
+				add_str_in_buffer(&tmp->buffer_circular, "mort\n");
+				tmp->mode = WRITE;
+				tmp->is_alive = FALSE;
+			}
+		}
 		tmp = tmp->next;
 	}
 }
