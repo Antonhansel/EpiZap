@@ -32,8 +32,8 @@ void	assign_to_team_next(Player *this, Server *s, char *team_name)
 			&& tmp->nb_player_actu < tmp->nb_player_max)
 		{
 			find = 1;
-			nb_co = tmp->nb_player_max - tmp->nb_player_actu;
 			assign_to_team_next_next(this, s, team_name, tmp);
+			nb_co = tmp->nb_player_max - tmp->nb_player_actu;
 		}
 		tmp = tmp->next;
 	}

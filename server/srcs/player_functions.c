@@ -11,7 +11,8 @@ void 	player_socket_problem(Player *this, Server *s)
 	snprintf(s->msg, 200,
 		"%s<font color=\"Red\">*** PLAYER %d DISCONNECTED ***</font>",
 		(s->msg != NULL) ? s->msg : "", this->fd);
-	del_square(&s->map->map[this->x][this->y].player, this->fd);
+	if (this->next_square != NULL)
+		del_square(&s->map->map[this->x][this->y].player, this->fd);
 	destroy_player(this, s);
 	close(this->fd);
 	del_cmd_of_player(&s->cmd_list, this);
