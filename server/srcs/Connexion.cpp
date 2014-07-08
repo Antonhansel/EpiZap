@@ -156,10 +156,10 @@ void 	Connexion::init()
  _portLabel->setText("Port :");
  _width = new QLineEdit();
  _widthLabel = new QLabel();
- _widthLabel->setText("Height :");
+ _widthLabel->setText("Width :");
  _height = new QLineEdit();
  _heightLabel = new QLabel();
- _heightLabel->setText("Width :");
+ _heightLabel->setText("Height :");
  _client = new QLineEdit();
  _clientLabel = new QLabel();
  _clientLabel->setText("Nb of customer :");

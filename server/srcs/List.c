@@ -47,20 +47,35 @@ int       del_square(Player **front_ptr, int fd)
 {
   Player  *tmp;
 
-  tmp = *(front_ptr);
-  if (tmp && tmp->fd == fd)
+  printf("--------- 0 --------\n");
+  if (*front_ptr)
   {
-    *front_ptr = tmp->next_square;
-    return (0);
-  }
-  while (tmp->next_square)
-  {
-    if (tmp->next_square && tmp->next_square->fd == fd)
+    tmp = *(front_ptr);
+    printf("--------- 1 --------\n");
+    if (tmp && tmp->fd == fd)
     {
-      tmp->next_square = tmp->next_square->next_square;
+      printf("--------- 2 --------\n");
+      *front_ptr = tmp->next_square;
       return (0);
     }
-    tmp = tmp->next_square;
+    printf("--------- 3 --------\n");
+    while (tmp->next_square)
+    {
+      printf("--------- 4 --------\n");
+      if (tmp->next_square && tmp->next_square->fd == fd)
+      {
+        printf("--------- 5 --------\n");
+
+        tmp->next_square = tmp->next_square->next_square;
+        printf("--------- 6 --------\n");
+
+        return (0);
+      }
+      printf("--------- 7 --------\n");
+
+      tmp = tmp->next_square;
+      printf("--------- 8 --------\n");
+    }
   }
   return (1);
 }
