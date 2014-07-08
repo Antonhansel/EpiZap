@@ -27,7 +27,6 @@ int 		check_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
 	Player 	*tmp;
 
 	tmp = this->player;
-	printf("check bits fields\n");
 	while (tmp != NULL)
 	{
 		if (FD_ISSET(tmp->fd, writefds))
@@ -36,7 +35,6 @@ int 		check_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
 		{
 			if (FD_ISSET(tmp->fd, readfds))
 			{
-				printf("TOTO\n");
 				if (fct_read(tmp, this) == TRUE && tmp->intro == TRUE)
 					assign_to_team(tmp, this);
 			}
@@ -51,35 +49,16 @@ int						accept_socket(Server *s)
 	struct sockaddr_in  client_sin; 
 	socklen_t 			len;
 	int 				fd;
-	//Player 				*tmp;
 
 	len = sizeof(client_sin);
 	if ((fd = xaccept(s->socket, &(client_sin), &len)) == FALSE)
 		return (FALSE);
 	if (add_elem(&s->player, fd) != 0)
 		return (FALSE);
-	else
-		sprintf(s->msg,
-			"<font color=\"Green\">*** CLIENT ADD IN LIST ***</font><br />");
-	/*tmp = s->player;
-	while (tmp)
-	{
-		printf("1111\n");
-		if (tmp->fd == fd)
-		{
-			printf("-------------------------- 2 ------------------------\n");
-			add_player(&s->map->map[tmp->x][tmp->y].player, tmp);
-			printf("-------------------------- 3 ------------------------\n");
-		}
-		tmp = tmp->next;
-	}*/
-	printf("-------------------------- 4 ------------------------\n");
-	//display_list(s->map->map[tmp->x][tmp->y].player);
-	printf("-------------------------- 5 ------------------------\n");
 	if (s->max_fd < fd)
 		s->max_fd = fd;
 	s->nb_player_co++;
-	sprintf(s->msg,
+	snprintf(s->msg, 300,
 		"%s<font color=\"Green\">*** NEW CONNECTION FROM IP %s ON PORT %d AND FD %d ***</font>", s->msg, inet_ntoa(client_sin.sin_addr), s->port, fd);
 	return (TRUE);
 }

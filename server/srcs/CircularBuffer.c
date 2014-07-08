@@ -29,7 +29,6 @@ int					create_circular_buffer(CircularBuffer **cb)
 		tmp = tmp->next;
 		i++;
 	}
-	printf("---- SUCCESS CREATING CIRCULAR BUFFER ------\n");
 	return (TRUE);
 }
 
@@ -61,7 +60,6 @@ void 				reset_elem_in_buffer(CircularBuffer **cb, int nb_char)
 	tmp = (*cb)->head;
 	while (i < nb_char)
 	{
-		printf("DELETE LOOP %c\n", tmp->c);
 		tmp->c = BUFFER_CHAR;
 		++i;
 		tmp = tmp->next;
@@ -90,29 +88,4 @@ char 		*get_data_of_buffer(CircularBuffer *cb)
 	}
 	free (str);
 	return (NULL);
-}
-
-void  				display_circular_buffer(CircularBuffer *front_ptr, int mode)
-{
-	CircularBuffer  *it;
-
-	int i;
-	it = front_ptr->head;
-	if (mode == 1)
-	{
-		for (i = 0; i < BUFFER_SIZE; i++)
-		{
-			printf("current = %p && next = %p && head = %p && c = %d\n", it, it->next, it->head, (it->c == 0) ? it->c + 48 : it->c);
-			it = it->next;
-		}
-
-	}
-	else
-	{
-		for (i = 0; it->c != BUFFER_CHAR && i < BUFFER_SIZE; i++)
-		{
-			printf("current = %p && next = %p && head = %p && c = %d\n", it, it->next, it->head, it->c);
-			it = it->next;
-		}
-	}
 }

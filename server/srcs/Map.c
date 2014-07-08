@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include "Map.h"
 #include "Square.h"
-#include "xfunction.h"
 
 static int 		alloc_map_attr(Map *);
 static void		free_map_attr(Map *);
@@ -25,12 +24,12 @@ static int 		alloc_map_attr(Map *this)
 {
 	int 		i;
 	int 		x;
-	if (!(this->map = xmalloc(sizeof(Square *) * (this->height)))) 
+	if (!(this->map = malloc(sizeof(Square *) * (this->height)))) 
 		return (FALSE);
 	i = 0;
 	while (i < this->height)
 		{
-			if (!(this->map[i] = xmalloc(sizeof(Square) * (this->width))))
+			if (!(this->map[i] = malloc(sizeof(Square) * (this->width))))
 				return (FALSE);
 			++i;
 		}

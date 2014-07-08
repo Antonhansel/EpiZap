@@ -47,21 +47,21 @@ int       del_square(Player **front_ptr, int fd)
 {
   Player  *tmp;
 
-  tmp = *(front_ptr);
-  if (tmp && tmp->fd == fd)
-  {
-    *front_ptr = tmp->next_square;
-    return (0);
-  }
-  while (tmp->next_square)
-  {
-    if (tmp->next_square && tmp->next_square->fd == fd)
+    tmp = *(front_ptr);
+    if (tmp && tmp->fd == fd)
     {
-      tmp->next_square = tmp->next_square->next_square;
+      *front_ptr = tmp->next_square;
       return (0);
     }
-    tmp = tmp->next_square;
-  }
+    while (tmp->next_square)
+    {
+      if (tmp->next_square && tmp->next_square->fd == fd)
+      {
+        tmp->next_square = tmp->next_square->next_square;
+        return (0);
+      }
+      tmp = tmp->next_square;
+    }
   return (1);
 }
 
@@ -84,7 +84,6 @@ int       add_player(Player **front_ptr, Player *player)
       tmp = tmp->next;
     tmp->next = node;
   }
-  display_list(*front_ptr);
   return (0);
 }
 
@@ -111,7 +110,7 @@ int	      del_elem(Player **front_ptr, int fd)
   return (1);
 }
 
-void      display_list(Player *front_ptr)
+/*void      display_list(Player *front_ptr)
 {
   Player  *tmp;
   int     i = 0;
@@ -143,4 +142,4 @@ void      display_list_square(Player *front_ptr)
     i++;
     tmp = tmp->next_square;
   }
-}
+}*/

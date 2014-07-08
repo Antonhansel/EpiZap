@@ -83,6 +83,8 @@ int 	broadcast_text_cmd(void *s, Player *p, char *cmd)
 
 int 	incantation_cmd(void *s, Player *p, char *cmd)
 {
+	add_str_in_buffer(&p->buffer_circular, "OK\n");
+	p->mode = WRITE;
 	(void)s;
 	(void)p;
 	(void)cmd;
