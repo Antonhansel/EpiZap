@@ -66,9 +66,9 @@ int 		fct_read_next(Player *this, Server *s, char *buf, int ret)
 			add_cmd_in_list(&s->cmd_list, new_cmd);
 			old_mode = this->mode;
 			this->nb_request++;
-			printf("---- BEGIN DISPLAY LIST ----\n");
+			/*printf("---- BEGIN DISPLAY LIST ----\n");
 			display_list_queue(s->cmd_list);
-			printf("---- END DISPLAY LIST ----\n");
+			printf("---- END DISPLAY LIST ----\n");*/
 			//printf("X = %d & Y = %d & DIR = %s\n", this->x, this->y, (this->dir == 0) ? "NORTH" : (this->dir == 1) ? "EAST" : (this->dir == 2) ? "SOUTH" : "WEST");
 		}
 		free(ptr);

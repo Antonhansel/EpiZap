@@ -27,7 +27,6 @@ int 		check_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
 	Player 	*tmp;
 
 	tmp = this->player;
-	printf("check bits fields\n");
 	while (tmp != NULL)
 	{
 		if (FD_ISSET(tmp->fd, writefds))
@@ -36,7 +35,6 @@ int 		check_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
 		{
 			if (FD_ISSET(tmp->fd, readfds))
 			{
-				printf("TOTO\n");
 				if (fct_read(tmp, this) == TRUE && tmp->intro == TRUE)
 					assign_to_team(tmp, this);
 			}
