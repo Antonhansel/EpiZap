@@ -1,7 +1,7 @@
-#ifndef 		MAP_H_
-# define 		MAP_H_
+#ifndef MAP_H_
+# define MAP_H_
 
-# include		"Square.h"
+# include "Square.h"
 
 typedef struct  Map
 {

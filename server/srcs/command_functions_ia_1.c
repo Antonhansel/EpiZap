@@ -9,9 +9,7 @@ int 		up_cmd(void *serv, Player *p, char *cmd)
 
 	s = ((Server*)(serv));
 	(void)cmd;
-	display_list_square(s->map->map[p->x][p->y].player);
 	del_square(&s->map->map[p->x][p->y].player, p->fd);
-	display_list_square(s->map->map[p->x][p->y].player);
 	(p->dir == NORTH) ? p->y-- : (p->dir == EAST) ? p->x++ : (p->dir == WEST) ?
 		p->x-- : p->y++;
 	if (p->x >= s->map->width)
@@ -23,7 +21,6 @@ int 		up_cmd(void *serv, Player *p, char *cmd)
 	else if (p->y < 0)
 		p->y = s->map->height - 1;
 	add_square(&s->map->map[p->x][p->y].player, p);
-	display_list_square(s->map->map[p->x][p->y].player);
 	if (p->sent == TRUE)
 	{
 		add_str_in_buffer(&p->buffer_circular, "OK\n");
@@ -82,11 +79,6 @@ int 	see_cmd(void *s, Player *p, char *cmd)
 	}*/
 	return (0);
 }
-
-/*void    see(int **map, int size, int i, int j, int range, int di, int dj)
-{
-  
-}*/
 
 int 		inventory_cmd(void *s, Player *p, char *cmd)
 {

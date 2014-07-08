@@ -51,15 +51,13 @@ static int		init_func_ptr(Server *s, int width, int height)
   	return (TRUE);
 }
 
-void init_all_team(Server *this, char *tab)
+void	init_all_team(Server *this, char *tab)
 {
 	add_elem_in_team(&this->team, tab, this->nb_player_team);
 }
 
 static int 			loop(Server *this)
 {
-	fd_set 			readfds;
-	fd_set 			writefds;
 	double 			timer;
 	struct timeval	tv;
 	time_t 			t;
@@ -69,29 +67,20 @@ static int 			loop(Server *this)
 	{
 		time(&t);
 		t1 = t;
-
 		timer = get_min_time(this->cmd_list, ((300.0 / this->ctime) + 2.0));
-		if (timer < 1.0)
-			tv.tv_sec = timer;
-		else
-			tv.tv_sec = 1.0;
-		init_bits_fields(this, &readfds, &writefds);
-		if (select(this->max_fd + 1, &readfds, &writefds, NULL, &tv) != -1)
+		(timer < 1.0) ? (tv.tv_sec = timer) : (tv.tv_sec = 1.0);
+		init_bits_fields(this, &this->rfds, &this->wfds);
+		if (select(this->max_fd + 1, &this->rfds, &this->wfds, NULL, &tv) != -1)
 		{
-			if (FD_ISSET(this->socket, &readfds))
+			if (FD_ISSET(this->socket, &this->rfds))
 				accept_socket(this);
-			check_bits_fields(this, &readfds, &writefds);
+			check_bits_fields(this, &this->rfds, &this->wfds);
 			time(&t1);
-			if (((int)(t1)) < (((int)(t)) + timer))
-				timer = (t1 - t);
-			if (timer <= (300.0 / this->ctime))
-				set_new_timer(&this->cmd_list, this, timer);
+			(((int)(t1)) < (((int)(t)) + timer)) ? timer = (t1 - t) : 0;
+			(timer <= (300.0 / this->ctime)) ?
+				set_new_timer(&this->cmd_list, this, timer) : 0;
 			update_life(&this->player, (t1 - t));
 		}
-		else
-			snprintf(this->msg, BUFFER_SIZE,
-				"%s<font color=\"Red\">*** ERROR ON SELECT ***</font>",
-					this->msg);
 	}
 	return (0);
 }

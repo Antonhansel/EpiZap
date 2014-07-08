@@ -48,6 +48,8 @@ typedef struct 	Server
 	int 		nb_teams;
 	int 		nb_player_team;
 	char		msg[BUFFER_SIZE];
+	fd_set 		rfds;
+	fd_set 		wfds;
 
   	Player		*player;
   	Team 		*team;

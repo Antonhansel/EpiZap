@@ -86,7 +86,6 @@ int 		del_cmd_in_list(t_cmd **list, t_cmd *cmd)
 	t_cmd	*save;
 
 	tmp = *list;
-	printf("-----> DELETE NODE IN LIST\n");
 	if (tmp == cmd)
 	{
 		*list = tmp->next;
@@ -94,7 +93,6 @@ int 		del_cmd_in_list(t_cmd **list, t_cmd *cmd)
 	}
 	else
 	{
-		tmp = *list;
 		while (tmp)
 		{
 			if (tmp->next == cmd)
@@ -110,7 +108,7 @@ int 		del_cmd_in_list(t_cmd **list, t_cmd *cmd)
 	return (FALSE);
 }
 
-void 	display_list_queue(t_cmd *list)
+/*void 	display_list_queue(t_cmd *list)
 {
 	t_cmd 	*tmp;
 
@@ -120,4 +118,4 @@ void 	display_list_queue(t_cmd *list)
 		printf("---> %d : %s WITH %d = %f\n", tmp->owner->fd, tmp->cmd, tmp->num_cmd, tmp->time);
 		tmp = tmp->next;
 	}
-}
+}*/

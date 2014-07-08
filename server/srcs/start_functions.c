@@ -2,13 +2,13 @@
 #include "List.h"
 
 void	assign_to_team_next(Player *, Server *, char *);
+void	assign_to_team_next_next(Player *, Server *, char *, Team *);
+void	assign_to_team_end(Player *, Server *, int);
 
 void 		assign_to_team(Player *this, Server *s)
 {
 	char	*team_name;
 
-	printf("PLAYER = %d\n", this->fd);
-	display_circular_buffer(this->buffer_circular, 1);
 	team_name = get_data_of_buffer(this->buffer_circular);
 	if (team_name != NULL)
 		assign_to_team_next(this, s, team_name);
@@ -19,7 +19,6 @@ void 		assign_to_team(Player *this, Server *s)
 void	assign_to_team_next(Player *this, Server *s, char *team_name)
 {
 	Team 	*tmp;
-	char	buf[64];
 	int 	find;
 	int 	nb_co;
 
@@ -33,23 +32,31 @@ void	assign_to_team_next(Player *this, Server *s, char *team_name)
 			&& tmp->nb_player_actu < tmp->nb_player_max)
 		{
 			find = 1;
-			this->team_name = strdup(team_name);
-			set_player_data(this, s->map->width, s->map->height);
-			this->time = 1260.0 * (1.0 / s->ctime);
-			add_player(&tmp->player_list, this);
-			add_square(&s->map->map[this->x][this->y].player, this);
-			display_list(tmp->player_list);
-			tmp->nb_player_actu++;
 			nb_co = tmp->nb_player_max - tmp->nb_player_actu;
+			assign_to_team_next_next(this, s, team_name, tmp);
 		}
 		tmp = tmp->next;
 	}
 	if (find == 1)
-	{
-		printf("---- ASSIGN PLAYER %d TO TEAM %s----\n", this->fd, team_name);
-		this->intro = FALSE;
-		this->mode = WRITE;
-		sprintf(buf, "%d\n%d %d\n", nb_co, s->map->width, s->map->height);
-		add_str_in_buffer(&this->buffer_circular, buf);
-	}
+		assign_to_team_end(this, s, nb_co);
+}
+
+void	assign_to_team_next_next(Player *this, Server *s, char *name, Team *tmp)
+{
+	this->team_name = strdup(name);
+	set_player_data(this, s->map->width, s->map->height);
+	this->time = 1260.0 * (1.0 / s->ctime);
+	add_player(&tmp->player_list, this);
+	add_square(&s->map->map[this->x][this->y].player, this);
+	tmp->nb_player_actu++;
+}
+
+void	assign_to_team_end(Player *this, Server *s, int nb_co)
+{
+	char	buf[64];
+
+	this->intro = FALSE;
+	this->mode = WRITE;
+	snprintf(buf, 64, "%d\n%d %d\n", nb_co, s->map->width, s->map->height);
+	add_str_in_buffer(&this->buffer_circular, buf);
 }

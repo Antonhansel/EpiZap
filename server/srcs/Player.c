@@ -1,7 +1,6 @@
 #include "Player.h"
 #include "Server.h"
 #include "List.h"
-#include "xfunction.h"
 
 static void			set_inventory(Player *, Inventory *);
 static Inventory 	*get_inventory(Player *);
@@ -22,15 +21,14 @@ int		init_player(Player *this, int fd)
 	this->sent = TRUE;
 	this->nb_request = 0;
 	this->is_alive = TRUE;
-	if (!(this->inventory = xmalloc(sizeof(Inventory))))
+	if (!(this->inventory = malloc(sizeof(Inventory))))
 		return (-1);
 	init_inventory(this->inventory, NULL, 0);
-	if (!(this->buffer_circular = xmalloc(sizeof(CircularBuffer))))
+	if (!(this->buffer_circular = malloc(sizeof(CircularBuffer))))
 		return (-1);
 	if (create_circular_buffer(&this->buffer_circular) == FALSE)
 		return (-1);
 	add_str_in_buffer(&this->buffer_circular, "BIENVENUE\n");
-	display_circular_buffer(this->buffer_circular, 1);
 	return (0);
 }
 
@@ -70,7 +68,6 @@ int 		destroy_player(Player *this, void *p)
 	tmp = s->team;
 	while (tmp)
 	{
-		printf("--------> %s && %s\n", tmp->name, this->team_name);
 		if (this->team_name && strcmp(tmp->name, this->team_name) == 0)
 		{
 			if (del_elem(&tmp->player_list, this->fd) == 0)
@@ -80,7 +77,6 @@ int 		destroy_player(Player *this, void *p)
 	}
 	free(this->inventory);
 	free(this->team_name);
-	//clear_circular_buffer(&this->buffer_circular);
 	return (0);
 }
 
