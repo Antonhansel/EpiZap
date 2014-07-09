@@ -70,8 +70,8 @@ void 	Graphic::caseClicked()
 		data += QString::number(_lastPointPress.y()/64);
 		_parent->addData(data, true);
 		data = "Block type: ";
-		data += QString::number(_map->map[_lastPointPress.x()/64]
-			[_lastPointPress.y()/64].square_type);
+		data += QString::number(_map->map[_lastPointPress.y()/64]
+			[_lastPointPress.x()/64].square_type);
 		_parent->addData(data, false);
 		updateHud(_lastPointPress.x()/64, _lastPointPress.y()/64);
 	}
