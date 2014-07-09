@@ -34,7 +34,7 @@ enum Direction
 class Command
 {
 public:
-	std::list<std::string> 		_recieve;
+	std::list<std::string> 		_receive;
 	std::list<std::string> 		_send;
 	int							_ignore;
 	bool						_broadcast;

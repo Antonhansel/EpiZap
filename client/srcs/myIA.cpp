@@ -12,40 +12,51 @@ myIA::myIA()
 
 myIA::~myIA() {}
 
+void	myIA::initThread()
+{
+	Network  *net = new Network(_receive, _send);
+	QThread   *q = new QThread();
+	net->moveToThread(q);
+	connect(q, SIGNAL(started()), net, SLOT(doWork()));
+	q->start();
+}
+
 bool				myIA::initLoop()
 {
 	std::ostringstream convert;
 
 
-	initObjects();
+	initThread();
+	while (true);;
+/*	initObjects();
 	initTabElevation();
 	while (_isAlive == true && (_range = _level) < 8)
 	{
-		_isAlive = false; /* -------------------------------------------------------- */
-		initObjectifs();
-		/*while (_objectifs.size() > 2)
-		{
-			searchRock();
-		}
+_isAlive = false;  -------------------------------------------------------- */
+		/*initObjectifs();
+while (_objectifs.size() > 2)
+{
+searchRock();
+}
 
-		if (_broadcast == true)
-		{
-			convert << _range;
-			cmdBroadcast("[broadcast][answer][" + convert.str() + "]");
-			moveToward();
-		}
-		else
-		{
-			convert << _range;
-			cmdBroadcast("[broadcast][call][" + convert.str() + "]");
-			while (_broadcast != true)
-			{
-				searchRock();
-			}
-			draw();
-		}*/
-	}
-	return (true);
+if (_broadcast == true)
+{
+convert << _range;
+cmdBroadcast("[broadcast][answer][" + convert.str() + "]");
+moveToward();
+}
+else
+{
+convert << _range;
+cmdBroadcast("[broadcast][call][" + convert.str() + "]");
+while (_broadcast != true)
+{
+searchRock();
+}
+draw();
+}
+}*/
+return (true);
 }
 
 bool 			myIA::moveToward()
@@ -78,7 +89,7 @@ bool 			myIA::moveToward()
 bool 			myIA::draw()
 {
 	int 		pos = 1;
-	int 		direction = 1;
+//int 		direction = 1;
 	std::ostringstream convert;
 
 	while (pos != 0)
@@ -122,7 +133,7 @@ void			myIA::initObjects()
 
 bool				myIA::isObject(std::string &object)
 {
-	int 	x = 0;
+	unsigned int 	x = 0;
 
 	while (x < _objectifs.size())
 	{
@@ -188,61 +199,61 @@ Direction			myIA::checkRock()
 
 void			myIA::searchRock()
 {
-	int 		i = 0;
-	Direction 	see = NO;
-	std::string food = "food";
+/*int 		i = 0;
+Direction 	see = NO;
+std::string food = "food";
 
-	if (_startrange >= _x && _dir == X || _startrange >= _y && _dir == Y)
-	{
-		cmdRot(RIGHT);
-		cmdMove(_range * 2);
-		cmdRot(LEFT);
-		_startrange = 0;
-	}
-	while (i++ < 4 && (see = checkRock()) == NO)
-		cmdRot(RIGHT);
-	if (see == NO)
-		cmdMove(_range * 2);
-	else if (see == ON)
-	{
-		cmdTake(food);
-		_startrange = 0;
-	}
-	else if (see == FRONT)
-		cmdMove(1);
-	else
-	{
-		cmdRot(see);
-		cmdMove(1);
-		if (see == RIGHT)
-			cmdRot(LEFT);
-		else
-			cmdRot(RIGHT);
-		cmdMove(1);
-	}
+if (_startrange >= _x && _dir == X || _startrange >= _y && _dir == Y)
+{
+cmdRot(RIGHT);
+cmdMove(_range * 2);
+cmdRot(LEFT);
+_startrange = 0;
+}
+while (i++ < 4 && (see = checkRock()) == NO)
+cmdRot(RIGHT);
+if (see == NO)
+cmdMove(_range * 2);
+else if (see == ON)
+{
+cmdTake(food);
+_startrange = 0;
+}
+else if (see == FRONT)
+cmdMove(1);
+else
+{
+cmdRot(see);
+cmdMove(1);
+if (see == RIGHT)
+cmdRot(LEFT);
+else
+cmdRot(RIGHT);
+cmdMove(1);
+}*/
 }
 
 void				myIA::initTabElevation()
 {
-	int level1[7] = { 1, 1, 0, 0, 0, 0, 0 };
-	std::vector<int> tabLevel1(level1, level1 + 7);
-	int level2[7] = { 2, 1, 1, 1, 0, 0, 0 };
-	std::vector<int> tabLevel2(level1, level1 + 7);
-	int level3[7] = { 2, 2, 0, 1, 0, 2, 0 };
-	std::vector<int> tabLevel3(level1, level1 + 7);
-	int level4[7] = { 4, 1, 1, 2, 0, 1, 0 };
-	std::vector<int> tabLevel4(level1, level1 + 7);
-	int level5[7] = { 4, 1, 2, 1, 3, 0, 0 };
-	std::vector<int> tabLevel5(level1, level1 + 7);
-	int level6[7] = { 6, 1, 2, 3, 0, 1, 0 };
-	std::vector<int> tabLevel6(level1, level1 + 7);
-	int level7[7] = { 6, 2, 2, 2, 2, 2, 1 };
-	std::vector<int> tabLevel7(level1, level1 + 7);
-	_tabElevation.push_back(tabLevel1);
-	_tabElevation.push_back(tabLevel2);
-	_tabElevation.push_back(tabLevel3);
-	_tabElevation.push_back(tabLevel4);
-	_tabElevation.push_back(tabLevel5);
-	_tabElevation.push_back(tabLevel6);
-	_tabElevation.push_back(tabLevel7);
+/*	int level1[7] = { 1, 1, 0, 0, 0, 0, 0 };
+std::vector<int> tabLevel1(level1, level1 + 7);
+int level2[7] = { 2, 1, 1, 1, 0, 0, 0 };
+std::vector<int> tabLevel2(level1, level1 + 7);
+int level3[7] = { 2, 2, 0, 1, 0, 2, 0 };
+std::vector<int> tabLevel3(level1, level1 + 7);
+int level4[7] = { 4, 1, 1, 2, 0, 1, 0 };
+std::vector<int> tabLevel4(level1, level1 + 7);
+int level5[7] = { 4, 1, 2, 1, 3, 0, 0 };
+std::vector<int> tabLevel5(level1, level1 + 7);
+int level6[7] = { 6, 1, 2, 3, 0, 1, 0 };
+std::vector<int> tabLevel6(level1, level1 + 7);
+int level7[7] = { 6, 2, 2, 2, 2, 2, 1 };
+std::vector<int> tabLevel7(level1, level1 + 7);
+_tabElevation.push_back(tabLevel1);
+_tabElevation.push_back(tabLevel2);
+_tabElevation.push_back(tabLevel3);
+_tabElevation.push_back(tabLevel4);
+_tabElevation.push_back(tabLevel5);
+_tabElevation.push_back(tabLevel6);
+_tabElevation.push_back(tabLevel7);*/
 }

@@ -63,8 +63,8 @@ std::string		Command::cmdBroadcast(const std::string &message)
 	while (!recieve)
 	{
 		// MUTEX TODO
-		str = _recieve.back();
-		_recieve.pop_back();
+		str = _receive.back();
+		_receive.pop_back();
 		if (checkBroadcast(str) == true)
 		{
 			if (_type.compare("broadcast") && _level == _range)
@@ -97,9 +97,9 @@ bool			Command::checkBroadcast(std::string &str)
 
 bool Command::checkRecieve(std::string str)
 {
-	if (str.find("deplacement") >= 0)
+	if (str.find("deplacement") != std::string::npos)
 		return (true);
-	if (str.find("message") >= 0)
+	if (str.find("message") != std::string::npos)
 		return (true);
 	return (false);
 }
@@ -119,20 +119,20 @@ std::string Command::cmdSee()
 	else
 		usleep(100000);
 	while (_ignore-- > 0)
-	if (!checkRecieve(_recieve.front()))
-		_recieve.pop_front();
+	if (!checkRecieve(_receive.front()))
+		_receive.pop_front();
 	else
 		usleep(100000);
 	while (!recieve)
 	{
-		if (!checkRecieve(_recieve.front()))
+		if (!checkRecieve(_receive.front()))
 		{
-			see = _recieve.front();
+			see = _receive.front();
 			recieve = true;
 		}
 		else
 			usleep(100000);
-		_recieve.pop_front();
+		_receive.pop_front();
 	}*/
 	std::string q;
 	return (q);
@@ -153,22 +153,22 @@ bool Command::cmdTake(std::string)
 	else
 		usleep(100000);
 	while (_ignore-- > 0)
-		if (!checkRecieve(_recieve.front()))
-			_recieve.pop_front();
+		if (!checkRecieve(_receive.front()))
+			_receive.pop_front();
 		else
 			usleep(100000);
 	while (!recieve)
 	{
-		if (!checkRecieve(_recieve.front()))
+		if (!checkRecieve(_receive.front()))
 		{
-			ret = _recieve.front();
+			ret = _receive.front();
 			recieve = true;
 		}
 		else
 			usleep(100000);
-		_recieve.pop_front();
+		_receive.pop_front();
 	}
-	if (ret.find("ok") >= 0)
+	if (ret.find("ok") != std::string::npos)
 		return (true);
 	return (false);
 }

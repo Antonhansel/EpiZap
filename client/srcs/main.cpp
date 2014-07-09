@@ -2,8 +2,8 @@
 
 int 	main()
 {
-	myIA 	toto;
+	myIA 	ia;
 
-	toto.initLoop();
+	ia.initLoop();
 	return (0);
 }
