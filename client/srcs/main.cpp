@@ -1,26 +1,9 @@
-#include "MainUI.hpp"
-#include "Graphic.hpp"
-#include <QtCore>
-#include <QFont>
-#include <QPainter>
-#include <QDesktopServices>
-#include <QtWidgets/QApplication>
+#include "../header/myIA.hpp"
 
-
-int		main(int argc, char **argv)
+int 	main()
 {
-  QApplication	app(argc, argv);
-  MainUI	Client;
-  QSize size = Client.sizeHint();
-  QDesktopWidget* desktop = QApplication::desktop();
-  srand(time(NULL));
-  int width = desktop->width();
-  int height = desktop->height();
-  int mw = size.width();
-  int mh = size.height();
-  int centerW = (width/2) - (mw/2);
-  int centerH = (height/2) - (mh/2);
-  Client.setFixedSize(1764, 878);
-  Client.move(centerW, centerH);
-  return (app.exec());
+	myIA 	toto;
+
+	toto.initLoop();
+	return (0);
 }
