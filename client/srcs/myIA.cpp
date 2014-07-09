@@ -10,27 +10,30 @@ myIA::~myIA() {}
 
 bool				myIA::initLoop()
 {
+	std::ostringstream convert;
+
 	initObjects();
 	initTabElevation();
-	while (_isAlive == true && _cmd.getLevel() < 8)
+	while (_isAlive == true && (_range = _level) < 8)
 	{
 		initObjectifs();
-		_range = _cmd.getLevel();
 		while (_objectifs.size() > 2)
 		{
 			searchRock();
 		}
 
-		if (_cmd.getBroadCast() == true)
+		if (_broadcast == true)
 		{
-			_cmd.upBroadCast("up_answer_" + _range);
+			convert << _range;
+			cmdBroadcast("[broadcast][answer][" + convert.str() + "]");
 			moveToward();
 		}
 		else
 		{
-			while (_cmd.getBroadCast() != true)
+			convert << _range;
+			cmdBroadcast("[broadcast][call][" + convert.str() + "]");
+			while (_broadcast != true)
 			{
-				_cmd.upBroadCast("up_call_" + _range);
 				searchRock();
 			}
 			draw();
@@ -42,26 +45,27 @@ bool				myIA::initLoop()
 
 bool 			myIA::moveToward()
 {
+	std::ostringstream convert;
 	int 		direction = 1;
 	int 		pos = 1;
 
 	while (pos != 0)
 	{
-		std::string answer = _cmd.cmdBroadcast();
-		pos = getPos(answer);
+		convert << _range;
+		std::string answer = cmdBroadcast("[broadcast][okay][" + convert.str() + "]");
+		pos = _k;
 
 		if (pos != 0)
 		{
-			while (direction != pos)
+			while (direction != pos / 2)
 			{
-				_cmd.cmdRot(LEFT);
+				cmdRot(LEFT);
+				direction++;
 			}
-			_cmd.cmdMove(1);
+			cmdMove(1);
 		}
-		else
-		{
-			_cmd.cmdBroadcast("up_start");
-		}
+		convert << _range;
+		cmdBroadcast("[broadcast][start][" + convert.str() + "]");
 	}
 	return (true);
 }
@@ -70,11 +74,14 @@ bool 			myIA::draw()
 {
 	int 		pos = 1;
 	int 		direction = 1;
+	std::ostringstream convert;
 
 	while (pos != 0)
 	{
-		std::string answer = _cmd.cmdBroadcast();
-		pos = getPos(answer);
+		convert << _range;
+		std::string answer = cmdBroadcast("[broadcast][come][" + convert.str() + "]");
+		if (answer.compare("okay"))
+			pos = _level;
 	}
 	return (true);
 }
@@ -133,9 +140,9 @@ std::string 	&myIA::replaceinString(std::string &str, const std::string &toFind,
 	return(str);
 }
 
-Direction			myIA::checkRock(std::string &see)
+Direction			myIA::checkRock()
 {
-	//std::string		see = cmdSee();
+	std::string		see = cmdSee();
 	int 			range = 0;
 	int 			x = 0;
 	Direction		arrow = FRONT;
@@ -173,26 +180,22 @@ Direction			myIA::checkRock(std::string &see)
 	return (NO);
 }
 
+
 void			myIA::searchRock()
 {
 	int i = 0;
-	Direction see = 0;
+	Direction see = NO;
+	std::string 	food = "food";
+	cmdRot(RIGHT);
+	cmdMove(_range * 2);
+	cmdRot(LEFT);
 
-	if (_startsearch == NULL)
-		_startsearch = _pos;
-	else if (_startsearch == _pos)
-	{
-		cmdRot(RIGHT);
-		cmdMove(_range * 2);
-		cmdRot(LEFT);
-		_startsearch = _pos;
-	}
 	while (i++ < 4 && (see = checkRock()) == NO)
 		cmdRot(RIGHT);
 	if (see == NO)
 		cmdMove(_range * 2);
 	else if (see == ON)
-		cmdTake(chooseRock(_lastsee));
+		cmdTake(food);
 	else if (see == FRONT)
 		cmdMove(1);
 	else
@@ -205,62 +208,7 @@ void			myIA::searchRock()
 			cmdRot(RIGHT);
 		cmdMove(1);
 	}
-}​
-
-
-// const std::string	&myIA::sendCommand()
-// {
-// 	std::string cmd = "";
-// 	if (!_send.empty())
-// 	{
-// 		cmd = _send.front();
-// 		_send.pop_front();
-// 	}
-// 	return (cmd);
-// }
-
-// bool				myIA::addCommand(const std::string &cmd)
-// {
-// 	if (_send.size() < 10)
-// 	{
-// 		_send.push_back(cmd);
-// 		return (true);
-// 	}
-// 	return (false);
-// }
-
-// std::string			&myIA::recieveAwser()
-// {
-// 	std::string cmd = "";
-// 	if (!_recieve.empty())
-// 	{
-// 		cmd = _recieve.front();
-// 		_recieve.pop_front();
-// 	}
-// 	return (cmd);
-// }
-
-// void				myIA::addRecieveAwser(std::string &cmdR)
-// {
-// 	_recieve.push_back(cmdR);
-// }
-
-// // void				myIA::addRock(Object obj)
-// // {
-// // 	_listRock.push_back(obj);
-// // }
-
-// // void				myIA::delRock(Object obj)
-// // {
-// // 	_listRock.remove(obj);
-// // }
-
-// bool				myIA::isReadyRock()
-// {
-// 	if (_listRock.empty() == true)
-// 		return (true);
-// 	return (false);
-// }
+}
 
 void				myIA::initTabElevation()
 {
