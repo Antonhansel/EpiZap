@@ -39,9 +39,9 @@ void  MainUI::menuBar()
   connect(_about, SIGNAL(triggered()), this, SLOT(showAbout()));
 }
 
-void  MainUI::initConnexionStuff()
+void  MainUI::initConnexionStuff(std::map<std::string, int> &option)
 {
-  _connexion = new Connexion(this);
+  _connexion = new Connexion(this, option);
 }
 
 void MainUI::startGraphic()
@@ -50,10 +50,10 @@ void MainUI::startGraphic()
   _graphic->initRealUpdate(_connexion->getServer());
 }
 
-void	MainUI::initLayouts()
+void	MainUI::initLayouts(std::map<std::string, int> &option)
 {
   menuBar();
-  initConnexionStuff();
+  initConnexionStuff(option);
 }
 
 void	MainUI::initUi()
@@ -124,12 +124,12 @@ void          MainUI::addData2(QString const &data, bool clear)
   _curplayer->append(data);
 }
 
-MainUI::MainUI(bool status) : QWidget()
+MainUI::MainUI(bool status, std::map<std::string, int> &option) : QWidget()
 {
   _status = status;
   _graphic = NULL;
   initUi();
-  initLayouts();
+  initLayouts(option);
   applyLayouts();
   connectSlots();
   setLayout(_mainLayout);

@@ -8,6 +8,7 @@
 # include <iostream>
 # include <QtCore>
 # include <QFont>
+# include <map>
 # include <QPainter>
 # include <QDesktopServices>
 # include <QtWidgets/QApplication>
@@ -42,7 +43,7 @@ class	MainUI: public	QWidget
 {
   Q_OBJECT
 public:
-  MainUI(bool);
+  MainUI(bool, std::map<std::string, int> &);
   void  setConsoleText(const QString &);
   void  setServer(Server &);
   void  startGraphic();
@@ -57,11 +58,11 @@ public slots:
   void  updateGraphic();
 private:
   void  connectSlots();
-  void  initLayouts();
+  void  initLayouts(std::map<std::string, int> &);
   void  initUi();
   void  applyLayouts();
   void  menuBar();
-  void  initConnexionStuff();
+  void  initConnexionStuff(std::map<std::string, int> &);
 protected:
   Connexion    *_connexion;
   QPushButton  *_quit;
@@ -85,5 +86,8 @@ protected:
   bool          _continue;
   bool          _status;
 };
+
+void            setArgument(char **, int , bool &);
+int             convertToInt(const std::string &s, std::map<std::string, int> &);
 
 #endif /* MAIN_UI_HPP_ */

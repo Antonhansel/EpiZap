@@ -31,9 +31,9 @@ class Connexion : public QWidget
 {
 	Q_OBJECT
 public:
-	Connexion(MainUI *);
+	Connexion(MainUI *, std::map<std::string, int> &);
 	~Connexion();
-	void 	setLayouts();
+	void 	setLayouts(std::map<std::string, int> &);
 	void 	init();
 	void 	connectSlots();
   const Server   *getServer() const;

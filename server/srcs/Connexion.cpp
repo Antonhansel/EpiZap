@@ -1,7 +1,7 @@
 #include "Connexion.hpp"
 #include "MainUI.hpp"
 
-Connexion::Connexion(MainUI *mainui)
+Connexion::Connexion(MainUI *mainui, std::map<std::string, int> &option)
 {
   _mainUI = mainui;
   _window = new QWidget;
@@ -9,7 +9,7 @@ Connexion::Connexion(MainUI *mainui)
   this->_window->setFixedSize(300, 400);
   this->_window->setWindowTitle(tr("Connexion"));
   init();
-  setLayouts();
+  setLayouts(option);
   connectSlots();
   _window->setLayout(_mainLayout);
   QSize size = sizeHint();
@@ -120,27 +120,27 @@ _console->setTextCursor(c);
 _connect->setEnabled(true);
 }
 
-void 	Connexion::setLayouts()
+void 	Connexion::setLayouts(std::map<std::string, int> &option)
 {
   _connect->setText("Create");
   _mainLayout->addWidget(_portLabel, 0, 0);
   _mainLayout->addWidget(_port, 0, 1);
-  _port->setText("4242");
+  _port->setText((option["-p"] == 0) ? "4242" : QString::number(option["-p"]));
   _mainLayout->addWidget(_widthLabel, 1, 0);
   _mainLayout->addWidget(_width, 1, 1);
-  _width->setText("50");
+  _width->setText((option["-x"] == 0) ? "50" : QString::number(option["-x"]));
   _mainLayout->addWidget(_heightLabel, 2, 0);
   _mainLayout->addWidget(_height, 2, 1);
-  _height->setText("50");
+  _height->setText((option["-y"] == 0) ? "50" : QString::number(option["-y"]));
   _mainLayout->addWidget(_clientLabel, 3, 0);
   _mainLayout->addWidget(_client, 3, 1);
-  _client->setText("10");
+  _client->setText((option["-c"] == 0) ? "10" : QString::number(option["-c"]));
   _mainLayout->addWidget(_teamLabel, 4, 0);
   _mainLayout->addWidget(_team, 4, 1);
   _team->setText("10");
   _mainLayout->addWidget(_delayLabel, 5, 0);
   _mainLayout->addWidget(_delay, 5, 1);
-  _delay->setText("10");
+  _delay->setText((option["-t"] == 0) ? "10" : QString::number(option["-t"]));
   _mainLayout->addWidget(_connect, 6, 0, 1, 2);
   _mainLayout->addWidget(_quit, 7, 0, 1, 2);
   _mainLayout->addWidget(_console, 8, 0, 1, 2);
