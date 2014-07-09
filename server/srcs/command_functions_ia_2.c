@@ -1,20 +1,25 @@
 #include "command_functions.h"
 
 int		kick_cmd_next(void *, Player *, Player *);
+char	**my_str_to_wordtab(char *);
 
-int 	take_object_cmd(void *s, Player *p, char *cmd)
+int 		take_object_cmd(void *s, Player *p, char *cmd)
 {
-	int i;
+	int 	i;
+	char	**tab;
 
 	i = 0;
 	p->mode = WRITE;
+	tab = my_str_to_wordtab(cmd);
+	/*
 	while (i < ((int)(strlen(cmd))) && *cmd != ' ')
 	{
 		cmd++;
 		i++;
 	}
-	cmd++;
-	if ((i = get_obj(((Server*)(s)), i, cmd)) != -1)
+	cmd++;s
+	*/
+	if ((i = get_obj(((Server*)(s)), i, tab[1])) != -1)
 	{
 		if (((Server*)(s))->map->map[p->x][p->y].inventory->get_object(
 			((Server*)(s))->map->map[p->x][p->y].inventory, i) > 0)

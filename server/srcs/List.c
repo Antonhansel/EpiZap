@@ -47,21 +47,21 @@ int       del_square(Player **front_ptr, int fd)
 {
   Player  *tmp;
 
-    tmp = *(front_ptr);
-    if (tmp && tmp->fd == fd)
+  tmp = *(front_ptr);
+  if (tmp && tmp->fd == fd)
+  {
+    *front_ptr = tmp->next_square;
+    return (0);
+  }
+  while (tmp->next_square)
+  {
+    if (tmp->next_square->fd == fd)
     {
-      *front_ptr = tmp->next_square;
+      tmp->next_square = tmp->next_square->next_square;
       return (0);
     }
-    while (tmp->next_square)
-    {
-      if (tmp->next_square && tmp->next_square->fd == fd)
-      {
-        tmp->next_square = tmp->next_square->next_square;
-        return (0);
-      }
-      tmp = tmp->next_square;
-    }
+    tmp = tmp->next_square;
+  }
   return (1);
 }
 
