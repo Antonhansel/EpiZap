@@ -46,22 +46,25 @@ int       add_square(Player **front_ptr, Player *player)
 int       del_square(Player **front_ptr, int fd)
 {
   Player  *tmp;
+  Player  *tmp1;
 
-    tmp = *(front_ptr);
-    if (tmp && tmp->fd == fd)
+  tmp = *(front_ptr);
+  if (tmp && tmp->fd == fd)
+  {
+    *front_ptr = tmp->next_square;
+    return (0);
+  }
+  while (tmp->next_square)
+  {
+    if (tmp->next_square->fd == fd)
     {
-      *front_ptr = tmp->next_square;
+      tmp1 = tmp->next_square;
+      tmp->next_square = tmp1->next_square;
+      tmp1->next_square = NULL;
       return (0);
     }
-    while (tmp->next_square)
-    {
-      if (tmp->next_square && tmp->next_square->fd == fd)
-      {
-        tmp->next_square = tmp->next_square->next_square;
-        return (0);
-      }
-      tmp = tmp->next_square;
-    }
+    tmp = tmp->next_square;
+  }
   return (1);
 }
 
@@ -126,20 +129,21 @@ int	      del_elem(Player **front_ptr, int fd)
     tmp = tmp->next;
   }
 }
-
+*/
 void      display_list_square(Player *front_ptr)
 {
   Player  *tmp;
   int     i = 0;
 
-  printf("---- DISPLAY LIST ----\n");
+  printf("---- DISPLAY LIST BEGIN ----\n");
   tmp = front_ptr;
   if (!tmp)
     printf("NULL\n");
   while (tmp)
   {
-    //printf("%d : %d\n", i, tmp->fd);
+    printf("%d : %d\n", i, tmp->fd);
     i++;
     tmp = tmp->next_square;
   }
-}*/
+  printf("---- DISPLAY LIST END ----\n");
+}

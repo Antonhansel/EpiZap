@@ -5,14 +5,22 @@
 
 void 	fct_write_next(Player *, Server *, char *);
 int 	fct_read_next(Player *, Server *, char *, int);
+void      display_list_square(Player *front_ptr);
+
 
 void 	player_socket_problem(Player *this, Server *s)
 {
 	snprintf(s->msg, 200,
 		"%s<font color=\"Red\">*** PLAYER %d DISCONNECTED ***</font>",
 		(s->msg != NULL) ? s->msg : "", this->fd);
-	if (this->next_square != NULL)
+	if (this->intro == FALSE)
+	{
+		printf("----- BEFORE DELETIN PLAYER IN SQUARE DUE TO DEATH ----\n");
+		display_list_square(s->map->map[this->x][this->y].player);
 		del_square(&s->map->map[this->x][this->y].player, this->fd);
+		printf("----- BEFORE ADDING PLAYER IN SQUARE DUE TO DEATH ----\n");
+		display_list_square(s->map->map[this->x][this->y].player);
+	}
 	destroy_player(this, s);
 	close(this->fd);
 	del_cmd_of_player(&s->cmd_list, this);

@@ -8,13 +8,14 @@ int 	take_object_cmd(void *s, Player *p, char *cmd)
 
 	i = 0;
 	p->mode = WRITE;
+	printf("-------->|%s|\n", cmd);
 	while (i < ((int)(strlen(cmd))) && *cmd != ' ')
 	{
 		cmd++;
 		i++;
 	}
 	cmd++;
-	if ((i = get_obj(((Server*)(s)), i, cmd)) != -1)
+	if ((i = get_obj(((Server*)(s)), (i + 1), cmd)) != -1)
 	{
 		if (((Server*)(s))->map->map[p->x][p->y].inventory->get_object(
 			((Server*)(s))->map->map[p->x][p->y].inventory, i) > 0)
