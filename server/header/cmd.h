@@ -5,7 +5,7 @@
 
 typedef struct 		s_cmd
 {
-	char 			*cmd;
+	char 			**cmd;
 	int 			type;
 	double			time;
 	Player			*owner;

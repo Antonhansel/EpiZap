@@ -1,19 +1,14 @@
 #include "command_functions.h"
 
 int		kick_cmd_next(void *, Player *, Player *);
+char	**my_str_to_wordtab(char *);
 
-int 	take_object_cmd(void *s, Player *p, char *cmd)
+int 		take_object_cmd(void *s, Player *p, char *cmd)
 {
-	int i;
+	int 	i;
 
 	i = 0;
 	p->mode = WRITE;
-	while (i < ((int)(strlen(cmd))) && *cmd != ' ')
-	{
-		cmd++;
-		i++;
-	}
-	cmd++;
 	if ((i = get_obj(((Server*)(s)), i, cmd)) != -1)
 	{
 		if (((Server*)(s))->map->map[p->x][p->y].inventory->get_object(
@@ -62,6 +57,7 @@ int 		kick_cmd(void *s, Player *p, char *cmd)
 	Player	*tmp;
 	int 	expulse;
 
+	(void)cmd;
 	p->mode = WRITE;
 	tmp = ((Server*)(s))->map->map[p->x][p->y].player;
 	expulse = kick_cmd_next(((Server*)(s)), p, tmp);
@@ -69,7 +65,6 @@ int 		kick_cmd(void *s, Player *p, char *cmd)
 		add_str_in_buffer(&p->buffer_circular, "OK\n");
 	else
 		add_str_in_buffer(&p->buffer_circular, "KO\n");
-	(void)cmd;
 	return (0);
 }
 

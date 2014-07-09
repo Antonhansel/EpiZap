@@ -208,7 +208,7 @@ void 	Graphic::displayPlayers()
 			addPlayerHud(temp);
 		if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewx && temp->y >= _viewy 
 			&& temp->x <= (_viewx + FIELD_X) && temp->y <= (_viewy + FIELD_Y))
-			Lib::applySurface(((temp->x - _viewx) * SP_SIZE) + 10, ((temp->y - _viewy) * SP_SIZE), _bot[(DIR)temp->dir], _screen);
+			Lib::applySurface(((temp->y - _viewy) * SP_SIZE + 10), ((temp->x - _viewx) * SP_SIZE), _bot[(DIR)temp->dir], _screen);
 		temp = temp->next;
 	}
 	temp = _server->player;
@@ -291,8 +291,8 @@ void 	Graphic::loader()
 	_ressource[PHIRAS] = Lib::loadImage("./textures/phiras.png");
 	_ressource[THYSTAME] = Lib::loadImage("./textures/thystame.png");
 	_ressource[FOOD] = Lib::loadImage("./textures/food.png");
-	_bot[NORTH] = zoomSurface(Lib::loadImage("./textures/LinkRunU1.gif"), 2.5, 2.5, 1);
-	_bot[SOUTH] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD1.gif"), 2.5, 2.5, 1);
-	_bot[EAST] = zoomSurface(Lib::loadImage("./textures/LinkRunR1.gif"), 2.5, 2.5, 1);
-	_bot[WEST] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL1.gif"), 2.5, 2.5, 1);
+	_bot[WEST] = zoomSurface(Lib::loadImage("./textures/LinkRunU1.gif"), 2.5, 2.5, 1);
+	_bot[EAST] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD1.gif"), 2.5, 2.5, 1);
+	_bot[SOUTH] = zoomSurface(Lib::loadImage("./textures/LinkRunR1.gif"), 2.5, 2.5, 1);
+	_bot[NORTH] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL1.gif"), 2.5, 2.5, 1);
 }

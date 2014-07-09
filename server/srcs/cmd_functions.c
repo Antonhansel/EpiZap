@@ -52,7 +52,7 @@ int			set_new_timer(t_cmd **list, Server *s, double timer)
 void	do_action(t_cmd **list, Server *s, t_cmd *tmp)
 {
 	if (tmp->func != NULL)
-		(*tmp->func)(((void*)(s)), tmp->owner, tmp->cmd);
+		(*tmp->func)(((void*)(s)), tmp->owner, tmp->cmd[1]);
 	else
 	{
 		add_str_in_buffer(&tmp->owner->buffer_circular, "KO\n");

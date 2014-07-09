@@ -3,6 +3,8 @@
 #include "CircularBuffer.h"
 
 int 		set_cmd_information(Server *, Player *, t_cmd *, char *);
+char		**my_str_to_wordtab(char *);
+void		my_free_str_to_wordtab(char **);
 
 int 		get_cmd_type(Server *s, char *cmd)
 {
@@ -22,10 +24,11 @@ int			set_cmd_information(Server *s, Player *p, t_cmd *new_cmd, char *cmd)
 	int 	good;
 
 	good = TRUE;
-	new_cmd->cmd = strdup(cmd);
+	new_cmd->cmd = my_str_to_wordtab(cmd);
+	// new_cmd->cmd = strdup(cmd);
 	new_cmd->func = NULL;
 	new_cmd->time = 0.0;
-	if ((new_cmd->type = get_cmd_type(s, new_cmd->cmd)) == -1)
+	if ((new_cmd->type = get_cmd_type(s, new_cmd->cmd[0])) == -1)
 		good = FALSE;
 	if (good == TRUE)
 	{
@@ -97,6 +100,7 @@ int 		del_cmd_in_list(t_cmd **list, t_cmd *cmd)
 		{
 			if (tmp->next == cmd)
 			{
+				my_free_str_to_wordtab(cmd->cmd);
 				save = tmp->next;
 				tmp->next = tmp->next->next;
 				free(save);

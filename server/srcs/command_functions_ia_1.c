@@ -41,8 +41,8 @@ int 	right_cmd(void *s, Player *p, char *cmd)
 {
 	(void)s;
 	(void)cmd;
-	(p->dir == NORTH) ? (p->dir = EAST) : (p->dir == EAST) ? (p->dir = SOUTH) :
-	(p->dir == SOUTH) ? (p->dir = WEST) : (p->dir = NORTH);
+	(p->dir == NORTH) ? (p->dir = WEST) : (p->dir == WEST) ? (p->dir = SOUTH) :
+	(p->dir == SOUTH) ? (p->dir = EAST) : (p->dir = NORTH);
 	add_str_in_buffer(&p->buffer_circular, "OK\n");
 	p->mode = WRITE;
 	return (0);
@@ -52,8 +52,8 @@ int 	left_cmd(void *s, Player *p, char *cmd)
 {
 	(void)s;
 	(void)cmd;
-	(p->dir == NORTH) ? (p->dir = WEST) : (p->dir == WEST) ? (p->dir = SOUTH) :
-	(p->dir == SOUTH) ? (p->dir = EAST) : (p->dir = NORTH);
+	(p->dir == NORTH) ? (p->dir = EAST) : (p->dir == EAST) ? (p->dir = SOUTH) :
+	(p->dir == SOUTH) ? (p->dir = WEST) : (p->dir = NORTH);
 	add_str_in_buffer(&p->buffer_circular, "OK\n");
 	p->mode = WRITE;
 	return (0);
