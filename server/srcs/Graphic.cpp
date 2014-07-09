@@ -70,8 +70,8 @@ void 	Graphic::caseClicked()
 		data += QString::number(_lastPointPress.y()/64);
 		_parent->addData(data, true);
 		data = "Block type: ";
-		data += QString::number(_map->map[_lastPointPress.x()/64]
-			[_lastPointPress.y()/64].square_type);
+		data += QString::number(_map->map[_lastPointPress.y()/64]
+			[_lastPointPress.x()/64].square_type);
 		_parent->addData(data, false);
 		updateHud(_lastPointPress.x()/64, _lastPointPress.y()/64);
 	}
@@ -79,8 +79,8 @@ void 	Graphic::caseClicked()
 
 void	Graphic::updateHud(const int x, const int y)
 {
-	_xhud = x;
-	_yhud = y;
+	_xhud = y;
+	_yhud = x;
 }
 
 void 	Graphic::mouseMoveEvent(QMouseEvent *e)
@@ -94,17 +94,17 @@ void 	Graphic::dragMouse()
 		|| (_lastPointPress.y()/64 - _currentPos.y()/64) != 0)
 	{
 		if (((_lastPointPress.x() - _currentPos.x())/64) >= 1)
-			_viewx -= 1;
-		else if (((_lastPointPress.x() - _currentPos.x())/64) <= -1)
-			_viewx += 1;
-		if (((_lastPointPress.y() - _currentPos.y())/64) >= 1)
 			_viewy -= 1;
-		else if (((_lastPointPress.y() - _currentPos.y())/64) <= -1)
+		else if (((_lastPointPress.x() - _currentPos.x())/64) <= -1)
 			_viewy += 1;
-		if (_viewy + FIELD_Y >= _map->width)
-			_viewy = _map->width - FIELD_Y;
-		if (_viewx + FIELD_X >= _map->height)
-			_viewx = _map->height - FIELD_X;
+		if (((_lastPointPress.y() - _currentPos.y())/64) >= 1)
+			_viewx -= 1;
+		else if (((_lastPointPress.y() - _currentPos.y())/64) <= -1)
+			_viewx += 1;
+		if (_viewy + FIELD_X >= _map->width)
+			_viewy = _map->width - FIELD_X;
+		if (_viewx + FIELD_Y >= _map->height)
+			_viewx = _map->height - FIELD_Y;
 		if (_viewx < 0)
 			_viewx = 0;
 		if (_viewy < 0)
@@ -139,26 +139,26 @@ void 	Graphic::apply_floor()
 	int x = 0;
 	int y = 0;
 
-	for (x = 0; x < FIELD_X && x < _map->height; x++)
+	for (x = 0; x < FIELD_Y && x < _map->height; x++)
 	{
-		for (y = 0; y < FIELD_Y && y < _map->width; y++)
+		for (y = 0; y < FIELD_X && y < _map->width; y++)
 		{
-			Lib::applySurface(x * SP_SIZE, y* SP_SIZE, 
+			Lib::applySurface(y * SP_SIZE, x * SP_SIZE, 
 				_floor[_map->map[x + _viewx][y + _viewy].square_type], _screen);
 			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, LINEMATE))
-				Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 10, _ressource[LINEMATE], _screen);
+				Lib::applySurface((y * SP_SIZE) + 15, (x * SP_SIZE) + 10, _ressource[LINEMATE], _screen);
 			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, DERAUMERE))
-				Lib::applySurface((x * SP_SIZE) + 20, (y * SP_SIZE) + 15, _ressource[DERAUMERE], _screen);
+				Lib::applySurface((y * SP_SIZE) + 20, (x * SP_SIZE) + 15, _ressource[DERAUMERE], _screen);
 			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, SIBUR))
-				Lib::applySurface((x * SP_SIZE) + 30, (y * SP_SIZE) + 25, _ressource[SIBUR], _screen);
+				Lib::applySurface((y * SP_SIZE) + 30, (x * SP_SIZE) + 25, _ressource[SIBUR], _screen);
 			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, MENDIANE))
-				Lib::applySurface((x * SP_SIZE) + 40, (y * SP_SIZE) + 10, _ressource[MENDIANE], _screen);
+				Lib::applySurface((y * SP_SIZE) + 40, (x * SP_SIZE) + 10, _ressource[MENDIANE], _screen);
 			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, PHIRAS))
-				Lib::applySurface((x * SP_SIZE) + 30, (y * SP_SIZE) + 10, _ressource[PHIRAS], _screen);
+				Lib::applySurface((y * SP_SIZE) + 30, (x * SP_SIZE) + 10, _ressource[PHIRAS], _screen);
 			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, THYSTAME))
-				Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 30, _ressource[THYSTAME], _screen);
+				Lib::applySurface((y * SP_SIZE) + 15, (x * SP_SIZE) + 30, _ressource[THYSTAME], _screen);
 			if (_map->map[x + _viewx][y + _viewy].inventory->get_object(_map->map[x + _viewx][y + _viewy].inventory, FOOD))
-				Lib::applySurface((x * SP_SIZE) + 15, (y * SP_SIZE) + 45, _ressource[FOOD], _screen);
+				Lib::applySurface((y * SP_SIZE) + 15, (x * SP_SIZE) + 45, _ressource[FOOD], _screen);
 		}
 	}
 	displayPlayers();
@@ -238,9 +238,9 @@ void 	Graphic::loopHud()
 	QString data;
 
 	data = "Position: ";
-	data += QString::number(_xhud + _viewx);
-	data += " - ";
 	data += QString::number(_yhud + _viewy);
+	data += " - ";
+	data += QString::number(_xhud + _viewx);
 	_parent->addData(data, true);
 	data = "Block type: ";
 	data += QString::number(_map->map[_xhud + _viewx][_yhud + _viewy].square_type);
