@@ -9,12 +9,12 @@ int 		up_cmd(void *serv, Player *p, char *cmd)
 
 	s = ((Server*)(serv));
 	(void)cmd;
-	printf("----- BEFORE DELETING PLAYER IN SQUARE ----\n");
+	/*printf("----- BEFORE DELETING PLAYER IN SQUARE ----\n");
 	display_list_square(s->map->map[p->x][p->y].player);
-	del_square(&s->map->map[p->x][p->y].player, p->fd);
-	printf("----- BEFORE DELETING PLAYER IN SQUARE ----\n");
+*/	del_square(&s->map->map[p->x][p->y].player, p->fd);
+/*	printf("----- BEFORE DELETING PLAYER IN SQUARE ----\n");
 	display_list_square(s->map->map[p->x][p->y].player);
-	(p->dir == NORTH) ? p->y-- : (p->dir == EAST) ? p->x++ : (p->dir == WEST) ?
+*/	(p->dir == NORTH) ? p->y-- : (p->dir == EAST) ? p->x++ : (p->dir == WEST) ?
 	p->x-- : p->y++;
 	if (p->x >= s->map->width)
 		p->x = 0;
@@ -24,12 +24,12 @@ int 		up_cmd(void *serv, Player *p, char *cmd)
 		p->y = 0;
 	else if (p->y < 0)
 		p->y = s->map->height - 1;
-	printf("----- BEFORE ADDING PLAYER IN SQUARE ----\n");
+/*	printf("----- BEFORE ADDING PLAYER IN SQUARE ----\n");
 	display_list_square(s->map->map[p->x][p->y].player);
-	add_square(&s->map->map[p->x][p->y].player, p);
-	printf("----- AFTER ADDING PLAYER IN SQUARE ----\n");
+*/	add_square(&s->map->map[p->x][p->y].player, p);
+/*	printf("----- AFTER ADDING PLAYER IN SQUARE ----\n");
 	display_list_square(s->map->map[p->x][p->y].player);
-	if (p->sent == TRUE)
+*/	if (p->sent == TRUE)
 	{
 		add_str_in_buffer(&p->buffer_circular, "OK\n");
 		p->mode = WRITE;

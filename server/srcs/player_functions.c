@@ -15,12 +15,12 @@ void 	player_socket_problem(Player *this, Server *s)
 		(s->msg != NULL) ? s->msg : "", this->fd);
 	if (this->intro == FALSE)
 	{
-		printf("----- BEFORE DELETIN PLAYER IN SQUARE DUE TO DEATH ----\n");
+		/*printf("----- BEFORE DELETIN PLAYER IN SQUARE DUE TO DEATH ----\n");
 		display_list_square(s->map->map[this->x][this->y].player);
-		del_square(&s->map->map[this->x][this->y].player, this->fd);
-		printf("----- BEFORE ADDING PLAYER IN SQUARE DUE TO DEATH ----\n");
+	*/	del_square(&s->map->map[this->x][this->y].player, this->fd);
+	/*	printf("----- BEFORE ADDING PLAYER IN SQUARE DUE TO DEATH ----\n");
 		display_list_square(s->map->map[this->x][this->y].player);
-	}
+	*/}
 	destroy_player(this, s);
 	close(this->fd);
 	del_cmd_of_player(&s->cmd_list, this);
