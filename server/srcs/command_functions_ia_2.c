@@ -6,20 +6,10 @@ char	**my_str_to_wordtab(char *);
 int 		take_object_cmd(void *s, Player *p, char *cmd)
 {
 	int 	i;
-	char	**tab;
 
 	i = 0;
 	p->mode = WRITE;
-	tab = my_str_to_wordtab(cmd);
-	/*
-	while (i < ((int)(strlen(cmd))) && *cmd != ' ')
-	{
-		cmd++;
-		i++;
-	}
-	cmd++;s
-	*/
-	if ((i = get_obj(((Server*)(s)), i, tab[1])) != -1)
+	if ((i = get_obj(((Server*)(s)), i, cmd)) != -1)
 	{
 		if (((Server*)(s))->map->map[p->x][p->y].inventory->get_object(
 			((Server*)(s))->map->map[p->x][p->y].inventory, i) > 0)
@@ -67,6 +57,7 @@ int 		kick_cmd(void *s, Player *p, char *cmd)
 	Player	*tmp;
 	int 	expulse;
 
+	(void)cmd;
 	p->mode = WRITE;
 	tmp = ((Server*)(s))->map->map[p->x][p->y].player;
 	expulse = kick_cmd_next(((Server*)(s)), p, tmp);
@@ -74,7 +65,6 @@ int 		kick_cmd(void *s, Player *p, char *cmd)
 		add_str_in_buffer(&p->buffer_circular, "OK\n");
 	else
 		add_str_in_buffer(&p->buffer_circular, "KO\n");
-	(void)cmd;
 	return (0);
 }
 

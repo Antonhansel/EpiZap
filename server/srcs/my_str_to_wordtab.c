@@ -69,3 +69,13 @@ char 		**my_str_to_wordtab(char *s)
 	tab[i] = '\0';
 	return (tab);
 }
+
+void		my_free_str_to_wordtab(char **tab)
+{
+	int		i;
+
+	i = -1;
+	while (tab[++i])
+		free(tab[i]);
+	free(tab);
+}

@@ -30,7 +30,7 @@ int 	get_obj(void *s, int i, char *cmd)
 {
 	i = 0;
 	printf("CMD === |%s|\n", cmd);
-	while (i < 7)
+	while (cmd && i < 7)
 	{
 		if (strncmp(cmd, ((Server*)(s))->obj_type[i], strlen(cmd)) == 0)
 			return (i);

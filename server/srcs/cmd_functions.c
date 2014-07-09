@@ -52,7 +52,7 @@ int			set_new_timer(t_cmd **list, Server *s, double timer)
 void	do_action(t_cmd **list, Server *s, t_cmd *tmp)
 {
 	if (tmp->func != NULL)
-		(*tmp->func)(((void*)(s)), tmp->owner, tmp->cmd);
+		(*tmp->func)(((void*)(s)), tmp->owner, tmp->cmd[1]);
 	else
 	{
 		add_str_in_buffer(&tmp->owner->buffer_circular, "KO\n");
@@ -75,7 +75,7 @@ void		del_cmd_of_player(t_cmd **list, Player *p)
 	}
 }
 
-void		update_life(Player **player, int timer)
+void		update_life(Player **player, int timer, int ctime)
 {
 	Player 	*tmp;
 
@@ -85,11 +85,16 @@ void		update_life(Player **player, int timer)
 		if (tmp->intro == FALSE)
 		{
 			tmp->time -= timer;
-			if (tmp->time <= 0.0)
+			if (tmp->time <= 0.0 && tmp->inventory->get_object(tmp->inventory, FOOD) <= 0)
 			{
 				add_str_in_buffer(&tmp->buffer_circular, "mort\n");
 				tmp->mode = WRITE;
 				tmp->is_alive = FALSE;
+			}
+			else if (tmp->time <= 0.0)
+			{
+				tmp->inventory->set_object(tmp->inventory, FOOD, -1);
+				tmp->time = 126.0 * (1.0 / ctime);
 			}
 		}
 		tmp = tmp->next;
