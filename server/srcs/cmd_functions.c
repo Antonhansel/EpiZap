@@ -55,7 +55,7 @@ void	do_action(t_cmd **list, Server *s, t_cmd *tmp)
 		(*tmp->func)(((void*)(s)), tmp->owner, tmp->cmd[1]);
 	else
 	{
-		add_str_in_buffer(&tmp->owner->buffer_circular, "KO\n");
+		add_str_in_buffer(&tmp->owner->buffer_circular, "ko\n");
 		tmp->owner->mode = WRITE;
 	}		
 	del_cmd_in_list(list, tmp);
