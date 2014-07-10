@@ -32,11 +32,12 @@ int			set_new_timer(t_cmd **list, Server *s, double timer)
 	t_cmd	*tmp;
 	int		num_cmd;
 
+	num_cmd = -2;
 	tmp = (*list);
-	(tmp != NULL) ? (num_cmd = tmp->num_cmd) : 0;
 	while (tmp)
 	{
-		if (tmp->num_cmd == num_cmd)
+		(num_cmd == -2 && tmp->num_cmd != -1) ? (num_cmd = tmp->num_cmd) : 0;
+		if (tmp->num_cmd == num_cmd || tmp->num_cmd == -1)
 		{
 			tmp->time -= timer;
 			if (tmp->time <= 0.0)

@@ -10,12 +10,13 @@ int 				get_cmd_type(Server *s, char *cmd)
 {
 	int 			i;
 
+	i = -1;
 	if (cmd != NULL)
 	{
 		while (++i < 12)
 		{
 			if (strncmp(s->cmd_type[i], cmd, strlen(s->cmd_type[i])) == 0)
-				return (i);
+				return (i);				
 		}
 
 	}
@@ -33,7 +34,6 @@ int			set_cmd_information(Server *s, Player *p, t_cmd *new_cmd, char *cmd)
 	new_cmd->time = 0.0;
 	if ((new_cmd->type = get_cmd_type(s, new_cmd->cmd[0])) == -1)
 		good = FALSE;
-	printf("GOOD ======= %d\n", good);
 	if (good == TRUE)
 	{
 		new_cmd->time = s->time_tab[new_cmd->type];

@@ -6,7 +6,7 @@ int 		fork_cmd(void *s, Player *p, char *cmd)
 
 	printf("CMD = %s\n", cmd);
 	new_cmd = create_new_cmd(s, p, "fork");
-	new_cmd->num_cmd = p->nb_request;
+	new_cmd->num_cmd = -1;
 	new_cmd->func = &fork_egg;
 	new_cmd->time = 620.0 / ((Server*)(s))->ctime;
 	add_cmd_in_list(&((Server*)(s))->cmd_list, new_cmd);
