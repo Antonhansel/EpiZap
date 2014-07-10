@@ -70,7 +70,12 @@ void  Connexion::getTeamName()
 
 void  Connexion::teamName()
 {
-  if (_delay->text().toInt() > 0)
+  if (_delay->text().toInt() > 0 && _port->text().toInt() > 0 
+    && _width->text().toInt() > 0 && _height->text().toInt() > 0 
+    && _team->text().toInt() > 0 && _client->text().toInt() > 0
+    && checkData(_port->text()) && checkData(_width->text()) 
+    && checkData(_height->text()) && checkData(_client->text()) 
+    && checkData(_delay->text()) && checkData(_team->text()))
   {
     if (checkData(_team->text()))
     {
