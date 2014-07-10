@@ -19,6 +19,18 @@
 # include <unistd.h>
 # include "CircularBuffer.hh"
 
+enum Mode
+{
+	WRITE,
+	READ
+};
+
+enum Action
+{
+	SEND,
+	NOT_SEND
+};
+
 int		xconnect(int, struct sockaddr_in *, socklen_t);
 
 class Network : public QObject
@@ -30,6 +42,10 @@ public:
 
 private:
 	bool	initSocket();
+	void	checkBitsField(fd_set *, fd_set *);
+	bool	fctRead();
+	bool	fctWrite();
+	bool	socketProblem();
 
 public slots:
     void    doWork();
@@ -44,6 +60,10 @@ private:
 	int 						_port;
 	std::list<std::string> 		_receive;
 	std::list<std::string> 		_send;
+	std::string					_ipAddr;
+	int 						_flag;
 	CircularBuffer				*_circularBuffer;
+	Mode						_mode;
+	Action						_action;
 };
 #endif

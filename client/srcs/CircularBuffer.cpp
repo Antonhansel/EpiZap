@@ -33,7 +33,7 @@ bool				createCircularBuffer(CircularBuffer **cb)
 	return (true);
 }
 
-bool				addStrInBuffer(CircularBuffer **cb, char *str)
+bool				addStrInBuffer(CircularBuffer **cb, const char *str)
 {
 	CircularBuffer 	*tmp;
 	int				i;
@@ -67,7 +67,7 @@ void 				resetElemInBuffer(CircularBuffer **cb, int nb_char)
 	}
 }
 
-const std::string	*getDataOfBuffer(CircularBuffer *cb)
+std::string	*getDataOfBuffer(CircularBuffer *cb)
 {
 	int				i;
 	std::string		*s;
@@ -79,7 +79,7 @@ const std::string	*getDataOfBuffer(CircularBuffer *cb)
 	{
 		while (cb->c != '\n' && i < BUFFER_SIZE)
 		{
-			s->append(cb->c + "");
+			s->push_back(cb->c);
 			cb = cb->next;
 			++i;
 		}

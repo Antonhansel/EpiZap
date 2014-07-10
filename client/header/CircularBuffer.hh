@@ -19,9 +19,9 @@ typedef struct 				CircularBuffer
 
 bool	createCircularBuffer(CircularBuffer **);
 void	displayCircularBuffer(CircularBuffer *, const int);
-bool	addStrInBuffer(CircularBuffer **, const std::string &);
+bool	addStrInBuffer(CircularBuffer **, const char *);
 void 	resetElemInBuffer(CircularBuffer **, const int);
-const std::string	*getDataOfBuffer(CircularBuffer *cb);
+std::string	*getDataOfBuffer(CircularBuffer *cb);
 void	clearCircularBuffer(CircularBuffer **);
 
 #endif /* CIRCULAR_BUFFER_HH_ */

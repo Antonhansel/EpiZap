@@ -20,12 +20,15 @@
 # include <sys/socket.h>
 # include <sys/mman.h>
 # include <unistd.h>
+# include <iostream>
 
 bool		xconnect(int sockfd, struct sockaddr_in *addr, socklen_t addrlen)
 {
 	int	ret;
 
+	std::cout << "-------- 1--------\n";
 	ret = connect(sockfd, (const struct sockaddr *)addr, addrlen);
+	std::cout << "-------- 2--------\n";
 	if (ret == -1)
 	{
 		return (false);
