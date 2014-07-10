@@ -9,32 +9,32 @@ int 		up_cmd(void *serv, Player *p, char *cmd)
 
 	s = ((Server*)(serv));
 	(void)cmd;
-	/*printf("----- BEFORE DELETING PLAYER IN SQUARE ----\n");
-	display_list_square(s->map->map[p->x][p->y].player);
+/*printf("----- BEFORE DELETING PLAYER IN SQUARE ----\n");
+display_list_square(s->map->map[p->x][p->y].player);
 */	del_square(&s->map->map[p->x][p->y].player, p->fd);
 /*	printf("----- BEFORE DELETING PLAYER IN SQUARE ----\n");
-	display_list_square(s->map->map[p->x][p->y].player);
+display_list_square(s->map->map[p->x][p->y].player);
 */	(p->dir == NORTH) ? p->y-- : (p->dir == EAST) ? p->x++ : (p->dir == WEST) ?
-	p->x-- : p->y++;
-	if (p->x >= s->map->width)
-		p->x = 0;
-	else if (p->x < 0)
-		p->x = s->map->width - 1;
-	if (p->y >= s->map->height)
-		p->y = 0;
-	else if (p->y < 0)
-		p->y = s->map->height - 1;
+p->x-- : p->y++;
+if (p->x >= s->map->width)
+	p->x = 0;
+else if (p->x < 0)
+	p->x = s->map->width - 1;
+if (p->y >= s->map->height)
+	p->y = 0;
+else if (p->y < 0)
+	p->y = s->map->height - 1;
 /*	printf("----- BEFORE ADDING PLAYER IN SQUARE ----\n");
-	display_list_square(s->map->map[p->x][p->y].player);
+display_list_square(s->map->map[p->x][p->y].player);
 */	add_square(&s->map->map[p->x][p->y].player, p);
 /*	printf("----- AFTER ADDING PLAYER IN SQUARE ----\n");
-	display_list_square(s->map->map[p->x][p->y].player);
+display_list_square(s->map->map[p->x][p->y].player);
 */	if (p->sent == TRUE)
-	{
-		add_str_in_buffer(&p->buffer_circular, "ok\n");
-		p->mode = WRITE;
-	}
-	return (0);
+{
+	add_str_in_buffer(&p->buffer_circular, "ok\n");
+	p->mode = WRITE;
+}
+return (0);
 }
 
 int 	right_cmd(void *s, Player *p, char *cmd)
@@ -61,31 +61,32 @@ int 	left_cmd(void *s, Player *p, char *cmd)
 
 int 	see_cmd(void *s, Player *p, char *cmd)
 {
-	(void)cmd;
-	(void)s;
-	(void)p;
-/*int 	r;
-int 	c;
-int 	x;
-int 	y;
-char 	str[512];
+	int 	r;
+	int 	c;
+	int 	x;
+	int 	y;
+	char	*str;
 
-r = 0;
-while (r < p->range)
-{
-c = -r;
-while (c <= r)
-{
-x = (p->x + r * di + c * dj + s->map->width) % s->map->width;
-y = (p->y + c * di + r * dj * -1 + s->map->height) % s->map->height;
-printf("SEE : x : %d && y : %d\n", x, y);
-//printf("[%.3d]", s->map->map[x][y]);
-c++;
-}
-printf("\n");
-r++;
-}*/
-return (0);
+	r = 0;
+	str = NULL;
+	while (r < p->range)
+	{
+		c = r;
+		while (c >= -r)
+		{
+			y = (p->x + r * /*di*/1 + c * /*dj*/0 + ((Server*)(s))->map->width) % ((Server*)(s))->map->width;
+			x = (p->y + c * /*di*/1 + r * /*dj*/0 * -1 + ((Server*)(s))->map->height) % ((Server*)(s))->map->height;
+			printf("SEE : x : %d && y : %d\n", x, y);
+			str = see_next(s, str, x, y);
+			c--;
+		}
+		r++;
+	}
+	printf("---------------------------------------\n");
+	//snprintf(str, BUFFER_SIZE, "%s\n", str);
+	printf("---> {%s}\n", str);
+	(void)cmd;
+	return (0);
 }
 
 int 		inventory_cmd(void *s, Player *p, char *cmd)

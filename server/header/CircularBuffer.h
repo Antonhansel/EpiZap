@@ -3,7 +3,7 @@
 
 # include "Network.h"
 
-# define BUFFER_SIZE	512
+# define BUFFER_SIZE	1024
 # define BUFFER_CHAR	0
 
 typedef struct 				CircularBuffer

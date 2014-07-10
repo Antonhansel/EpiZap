@@ -39,6 +39,7 @@ void	set_player_data(Player *this, int width, int height)
 	this->y = rand() % height;
 	this->dir = rand() % 4;
 	this->time = 0;
+	this->range = 2;
 	this->lvl = 0;
 }
 
