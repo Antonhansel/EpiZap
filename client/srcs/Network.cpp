@@ -71,8 +71,9 @@ bool			Network::fctWrite()
 	std::string	*ptr;
 	unsigned int ret;
 
-	_send.pop_front();
 	ptr = getDataOfBuffer(_circularBuffer);
+	std::cout << "TO SEND = " << *ptr << std::endl; 
+	ptr->push_back('\n');
 	if ((ret = write(_fd, ptr->c_str(), ptr->length())) > 0)
 	{
 		resetElemInBuffer(&_circularBuffer, ret);
@@ -82,7 +83,7 @@ bool			Network::fctWrite()
 			_send.pop_front();
 			_action = SEND;
 		}
-		//delete ptr;
+		delete ptr;
 	}
 	return (true);
 }
