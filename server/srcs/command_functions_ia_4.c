@@ -25,12 +25,12 @@ char		*see_next(void *serv, char *str, int x, int y)
 {
 	int		i;
 	int 	nb;
-	int 	ret;
+	//int 	ret;
 	Server	*s;
 
 	i = -1;
 	s = ((Server*)(serv));
-	ret = 0;
+	//ret = 0;
 	if (str == NULL)
 	{
 		if ((str = malloc(sizeof(char) * BUFFER_SIZE)) == NULL)
