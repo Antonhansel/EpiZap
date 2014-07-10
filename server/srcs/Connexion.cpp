@@ -70,22 +70,25 @@ void  Connexion::getTeamName()
 
 void  Connexion::teamName()
 {
-  if (checkData(_team->text()))
+  if (_delay->text().toInt() > 0)
   {
-    if (_tempTeam == -2)
+    if (checkData(_team->text()))
     {
-      _window->hide();
-      _tempTeam = _team->text().toInt();
-      _windowteam->show();
-      QObject::connect(_teamButton, SIGNAL(clicked()), this,SLOT(getTeamName(void)));
+      if (_tempTeam == -2)
+      {
+        _window->hide();
+        _tempTeam = _team->text().toInt();
+        _windowteam->show();
+        QObject::connect(_teamButton, SIGNAL(clicked()), this,SLOT(getTeamName(void)));
+      }
+      _teamName = "Team";
+      _teamName += QString::number(_tempTeam);
+      _teamLineEdit->setText(_teamName);
+      _tempTeam--;
     }
-    _teamName = "Team";
-    _teamName += QString::number(_tempTeam);
-    _teamLineEdit->setText(_teamName);
-    _tempTeam--;
+    else
+      tryConnect();
   }
-  else
-    tryConnect();
 }
 
 void 	Connexion::tryConnect()
