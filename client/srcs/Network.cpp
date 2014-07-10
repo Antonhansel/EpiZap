@@ -67,7 +67,11 @@ bool			Network::fctWrite()
 		{
 			_circularBuffer = _circularBuffer->head;
 			_send.pop_front();
+			std::cout << "STACK SIZE = " << _send.size() << std::endl;
 			_action = SEND;
+			usleep(20000);
+			std::cout << "SENT |" << *ptr << "|" << std::endl;
+			std::cout << "SENTED " << ret << " ON " << ptr->length() << std::endl;
 		}
 		delete ptr;
 	}
@@ -99,7 +103,7 @@ bool		Network::fctRead()
 			resetElemInBuffer(&_circularBuffer, ret + 1);
 			_circularBuffer = _circularBuffer->head;
 			_receive.push_back(*s);
-			std::cout << "|" << *s << "|" << std::endl;	
+			std::cout << "|" << buf << "|" << std::endl;	
 		}
 	}
 	else
@@ -115,17 +119,39 @@ void		Network::doWork()
 	int 	i;
 
 	i = 0;
+	_send.push_back("avance\n");
+	_send.push_back("avance\n");
+	_send.push_back("avance\n");
+	_send.push_back("avance\n");
+	_send.push_back("droite\n");
+	_send.push_back("avance\n");
+	_send.push_back("gauche\n");
+	_send.push_back("gauche\n");
+	_send.push_back("avance\n");
+	_send.push_back("avance\n");
 	while (_run)
 	{
 		FD_ZERO(&readfds);
 		FD_ZERO(&writefds);
-		if (_send.size() > 0 && i > 0)
+		if (_send.size() > 0 && (i == 1 || i > 2))
 		{
+			std::cout << "WRITE LOOP NEXT\n";
 			FD_SET(_fd, &writefds);
 			if (_action == SEND)
 			{
-				addStrInBuffer(&_circularBuffer, _send.front().c_str());
 				_action = NOT_SEND;
+				addStrInBuffer(&_circularBuffer, _send.front().c_str());
+				_circularBuffer = _circularBuffer->head;
+
+				CircularBuffer *tmp;
+				tmp = _circularBuffer;
+				int j = 0;
+				while (tmp && j < BUFFER_SIZE)
+				{
+					std::cout << tmp << " WITH HEAD = " << tmp->head << " " << tmp->c << std::endl; 
+					tmp = tmp->next;
+					++j;
+				}
 			}
 			_mode = WRITE;
 		}
@@ -138,7 +164,7 @@ void		Network::doWork()
 		{
 			checkBitsField(&readfds, &writefds);
 		}
-		++i;
+		i++;
 	}
 }
 
