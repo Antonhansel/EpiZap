@@ -31,7 +31,7 @@ int 		up_cmd(void *serv, Player *p, char *cmd)
 	display_list_square(s->map->map[p->x][p->y].player);
 */	if (p->sent == TRUE)
 	{
-		add_str_in_buffer(&p->buffer_circular, "OK\n");
+		add_str_in_buffer(&p->buffer_circular, "ok\n");
 		p->mode = WRITE;
 	}
 	return (0);
@@ -43,7 +43,7 @@ int 	right_cmd(void *s, Player *p, char *cmd)
 	(void)cmd;
 	(p->dir == NORTH) ? (p->dir = WEST) : (p->dir == WEST) ? (p->dir = SOUTH) :
 	(p->dir == SOUTH) ? (p->dir = EAST) : (p->dir = NORTH);
-	add_str_in_buffer(&p->buffer_circular, "OK\n");
+	add_str_in_buffer(&p->buffer_circular, "ok\n");
 	p->mode = WRITE;
 	return (0);
 }
@@ -54,7 +54,7 @@ int 	left_cmd(void *s, Player *p, char *cmd)
 	(void)cmd;
 	(p->dir == NORTH) ? (p->dir = EAST) : (p->dir == EAST) ? (p->dir = SOUTH) :
 	(p->dir == SOUTH) ? (p->dir = WEST) : (p->dir = NORTH);
-	add_str_in_buffer(&p->buffer_circular, "OK\n");
+	add_str_in_buffer(&p->buffer_circular, "ok\n");
 	p->mode = WRITE;
 	return (0);
 }

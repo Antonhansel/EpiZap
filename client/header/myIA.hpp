@@ -7,24 +7,18 @@
 # include "Command.hpp"
 # include "Network.hpp"
 
-enum Dir
-{
-	X = 1,
-	Y = -1,
-};
-
 class myIA : public QObject, public Command
 {
     Q_OBJECT
 private:
-	int 								_startrange;
 	std::vector<std::string>			_objects;
 	std::vector<std::string>			_objectifs;
 	std::vector< std::vector< int > >	_tabElevation;
 
+	int 								_startsearch;
 	bool								_isAlive;
-	int 								_x;
-	int 								_y;
+	std::pair<int, int>					_dim;
+	std::string 						_saveObj;
 public:
 	myIA();
 	~myIA();
@@ -33,13 +27,16 @@ public:
 	void				initObjects();
 	void				initObjectifs();
 	void				initThread();
-	bool				moveToward();
-	bool 				draw();
-	bool				isReadyRock();
-	bool				isObject(std::string &);
+	//bool				moveToward();
+	//bool 				draw();
+	//bool				isReadyRock();
+	bool				isObjectif(std::string &);
 	Direction			checkRock();
 	void				searchRock();
 	std::string 		&replaceinString(std::string &, const std::string &, const std::string &);
+
+	void				displayObjectifs();
+	std::vector< std::vector< int > >	getTabElevation() const;
 };
 
 #endif /* !MYIA_HPP */

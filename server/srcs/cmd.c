@@ -6,15 +6,19 @@ int 		set_cmd_information(Server *, Player *, t_cmd *, char *);
 char		**my_str_to_wordtab(char *);
 void		my_free_str_to_wordtab(char **);
 
-int 		get_cmd_type(Server *s, char *cmd)
+int 				get_cmd_type(Server *s, char *cmd)
 {
-	int 	i;
+	int 			i;
 
 	i = -1;
-	while (++i < 12)
+	if (cmd != NULL)
 	{
-		if (strncmp(s->cmd_type[i], cmd, strlen(s->cmd_type[i])) == 0)
-			return (i);
+		while (++i < 12)
+		{
+			if (strncmp(s->cmd_type[i], cmd, strlen(s->cmd_type[i])) == 0)
+				return (i);				
+		}
+
 	}
 	return (-1);
 }
@@ -25,7 +29,7 @@ int			set_cmd_information(Server *s, Player *p, t_cmd *new_cmd, char *cmd)
 
 	good = TRUE;
 	new_cmd->cmd = my_str_to_wordtab(cmd);
-	// new_cmd->cmd = strdup(cmd);
+// new_cmd->cmd = strdup(cmd);
 	new_cmd->func = NULL;
 	new_cmd->time = 0.0;
 	if ((new_cmd->type = get_cmd_type(s, new_cmd->cmd[0])) == -1)
@@ -114,12 +118,12 @@ int 		del_cmd_in_list(t_cmd **list, t_cmd *cmd)
 
 /*void 	display_list_queue(t_cmd *list)
 {
-	t_cmd 	*tmp;
+t_cmd 	*tmp;
 
-	tmp = list;
-	while (tmp)
-	{
-		printf("---> %d : %s WITH %d = %f\n", tmp->owner->fd, tmp->cmd, tmp->num_cmd, tmp->time);
-		tmp = tmp->next;
-	}
+tmp = list;
+while (tmp)
+{
+printf("---> %d : %s WITH %d = %f\n", tmp->owner->fd, tmp->cmd, tmp->num_cmd, tmp->time);
+tmp = tmp->next;
+}
 }*/

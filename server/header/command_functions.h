@@ -20,5 +20,6 @@ int 	incantation_cmd(void *, Player *, char *);
 int 	fork_cmd(void *, Player *, char *);
 int 	connect_nbr_cmd(void *, Player *, char *);
 int 	get_obj(void *, int, char *);
+int 	fork_egg(void *, Player *, char *);
 
 #endif /* COMMAND_FUNCTIONS_H_ */

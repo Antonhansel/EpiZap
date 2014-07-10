@@ -17,11 +17,11 @@ int 		take_object_cmd(void *s, Player *p, char *cmd)
 			((Server*)(s))->map->map[p->x][p->y].inventory->set_object(
 				((Server*)(s))->map->map[p->x][p->y].inventory, i, -1);
 			p->inventory->set_object(p->inventory, i, 1);
-			add_str_in_buffer(&p->buffer_circular, "OK\n");
+			add_str_in_buffer(&p->buffer_circular, "ok\n");
 			return (0);
 		}
 	}
-	add_str_in_buffer(&p->buffer_circular, "KO\n");
+	add_str_in_buffer(&p->buffer_circular, "ko\n");
 	return (0);
 }
 
@@ -44,11 +44,11 @@ int 	put_object_cmd(void *s, Player *p, char *cmd)
 			((Server*)(s))->map->map[p->x][p->y].inventory->set_object(
 				((Server*)(s))->map->map[p->x][p->y].inventory, i, 1);
 			p->inventory->set_object(p->inventory, i, -1);
-			add_str_in_buffer(&p->buffer_circular, "OK\n");
+			add_str_in_buffer(&p->buffer_circular, "ok\n");
 			return (0);
 		}
 	}
-	add_str_in_buffer(&p->buffer_circular, "KO\n");
+	add_str_in_buffer(&p->buffer_circular, "ko\n");
 	return (0);
 }
 
@@ -62,9 +62,9 @@ int 		kick_cmd(void *s, Player *p, char *cmd)
 	tmp = ((Server*)(s))->map->map[p->x][p->y].player;
 	expulse = kick_cmd_next(((Server*)(s)), p, tmp);
 	if (expulse == 1)
-		add_str_in_buffer(&p->buffer_circular, "OK\n");
+		add_str_in_buffer(&p->buffer_circular, "ok\n");
 	else
-		add_str_in_buffer(&p->buffer_circular, "KO\n");
+		add_str_in_buffer(&p->buffer_circular, "ko\n");
 	return (0);
 }
 
@@ -78,7 +78,7 @@ int 	broadcast_text_cmd(void *s, Player *p, char *cmd)
 
 int 	incantation_cmd(void *s, Player *p, char *cmd)
 {
-	add_str_in_buffer(&p->buffer_circular, "OK\n");
+	add_str_in_buffer(&p->buffer_circular, "ok\n");
 	p->mode = WRITE;
 	(void)s;
 	(void)p;

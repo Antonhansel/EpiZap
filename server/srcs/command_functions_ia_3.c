@@ -1,10 +1,19 @@
 #include "command_functions.h"
 
-int 	fork_cmd(void *s, Player *p, char *cmd)
+int 		fork_cmd(void *s, Player *p, char *cmd)
 {
-	(void)s;
-	(void)p;
+	t_cmd 	*new_cmd;
+
+	printf("CMD = %s\n", cmd);
+	new_cmd = create_new_cmd(s, p, "fork");
+	new_cmd->num_cmd = -1;
+	new_cmd->func = &fork_egg;
+	new_cmd->time = 620.0 / ((Server*)(s))->ctime;
+	add_cmd_in_list(&((Server*)(s))->cmd_list, new_cmd);
+	add_str_in_buffer(&p->buffer_circular, "ok\n");
+	p->mode = WRITE;
 	(void)cmd;
+	(void)s;
 	return (0);
 }
 

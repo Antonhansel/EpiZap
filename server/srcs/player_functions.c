@@ -55,6 +55,7 @@ int 		fct_read_next(Player *this, Server *s, char *buf, int ret)
 	if ((ret - 1) <= BUFFER_SIZE && this->nb_request < 9
 		&& add_str_in_buffer(&this->buffer_circular, buf) == TRUE)
 	{
+		printf("RECEIVE => %s\n", buf);
 		ptr = get_data_of_buffer(this->buffer_circular);
 		if (this->intro == FALSE)
 		{
