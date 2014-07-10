@@ -10,10 +10,22 @@ myIA::myIA()
 
 myIA::~myIA() {}
 
+void	myIA::initThread()
+{
+	Network  *net = new Network(_receive, _send, "10.12.181.101", 4242, "Team10\n");
+	QThread   *q = new QThread();
+	net->moveToThread(q);
+	connect(q, SIGNAL(started()), net, SLOT(doWork()));
+	q->start();
+}
+
 bool				myIA::initLoop()
 {
 	std::ostringstream convert;
 
+
+	initThread();
+//	while (true);;
 	initObjects();
 	initTabElevation();
 	while (_isAlive == true && _range < 8)
@@ -60,6 +72,54 @@ void				myIA::displayObjectifs()
 		std::cout << _objectifs[x++] << std::endl;
 }
 
+void			myIA::initObjectifs()
+{
+	int 				x = _objects.size() - 2;
+
+	_objectifs.push_back("food");
+	while (x >= 0)
+	{
+		int 	i = _tabElevation[_range - 1][x];
+		if (i > 0)
+		{
+			_objectifs.push_back(_objects[x]);
+			_tabElevation[_range - 1][x] -= 1;
+		}
+		else if (i == 0)
+			x--;
+	}
+}
+
+void			myIA::initObjects()
+{
+	_objects.push_back("player");
+	_objects.push_back("linemate");
+	_objects.push_back("deraumere");
+	_objects.push_back("sibur");
+	_objects.push_back("mendiane");
+	_objects.push_back("phiras");
+	_objects.push_back("thystame");
+	_objects.push_back("food");
+}
+
+bool				myIA::isObjectif(std::string &object)
+{
+	unsigned int 	x = 0;
+
+	while (x < _objectifs.size())
+		if (object.compare(_objectifs[x++]) == 0)
+			return (true);
+	return (false);
+}
+
+std::string 	&myIA::replaceinString(std::string &str, const std::string &toFind, const std::string &toReplace)
+{
+	size_t pos = 0;
+	for (pos = str.find(toFind); pos != std::string::npos; pos = str.find(toFind, pos))
+		str.replace(pos, 1, toReplace);
+	return(str);
+}
+
 Direction			myIA::checkRock()
 {
 	std::cout << "Envoie command SEE" << std::endl;
@@ -81,7 +141,7 @@ Direction			myIA::checkRock()
 			arrow = FRONT;
 		else
 			arrow = RIGHT;
-		if (!object.empty() && isInObjectifs(object) == true)
+		if (!object.empty() && isObjectif(object) == true)
 		{
 			if (range == 0)
 			{
@@ -105,7 +165,6 @@ Direction			myIA::checkRock()
 	}
 	return (NO);
 }
-
 
 void			myIA::searchRock()
 {
@@ -143,128 +202,6 @@ void			myIA::searchRock()
 	}
 }
 
-
-// bool 			myIA::incantation()
-// {
-// 	bool		error = true;
-// 	std::ostringstream convert;
-
-// 	convert << _range;
-// 	error = cmdBroadcast("broadcast [begin][" + convert.str() + "]\n");
-// 	if (_order.compare("incantaction") == true)
-// 		error = cmdBroadcast("broadcast [incantaction][" + convert.str() + "]\n");
-// 	return (true);
-// }
-
-// bool 			myIA::moveToward()
-// {
-// 	std::ostringstream convert;
-// 	int 		direction = 1;
-// 	int 		pos = 1;
-// 	bool		error = true;
-
-// 	while (_order.compare("arrived") != true)
-// 	{
-// 		convert << _range;
-// 		if (_order.compare("start") == true)
-// 		{
-// 			error = cmdBroadcast("broadcast [start][" + convert.str() + "]\n");
-// 			pos = _k;
-// 			if (pos != 0)
-// 			{
-// 				while (direction != pos / 2)
-// 				{
-// 					cmdRot(LEFT);
-// 					direction++;
-// 				}
-// 				cmdMove(1);
-// 			}
-// 		}
-// 		else if (_order.compare("come") == true)
-// 			error = cmdBroadcast("broadcast [okay][" + convert.str() + "]\n");
-// 	}
-// 	return (true);
-// }
-
-// bool 			myIA::draw()
-// {
-// 	int 		pos = 1;
-// 	int 		direction = 1;
-// 	bool		error = true;
-// 	std::ostringstream convert;
-
-// 	while (pos != 0)
-// 	{
-// 		convert << _range;
-// 		error = cmdBroadcast("broadcast [come][" + convert.str() + "]\n");
-// 		if (error == false)
-// 			return (false);
-// 		if (_order.compare("okay"))
-// 			pos = _level;
-// 	}
-// 	return (true);
-// }
-
-bool				myIA::isInObjectifs(std::string &object)
-{
-	unsigned int 	x = 0;
-
-	while (x < _objectifs.size())
-	{
-		if (object.compare(_objectifs[x]) == 0)
-		{
-			return (true);
-		}
-		x++;
-	}
-	return (false);
-}
-
-std::string 	&myIA::replaceinString(std::string &str, const std::string &toFind, const std::string &toReplace)
-{
-	size_t pos = 0;
-	for (pos = str.find(toFind); pos != std::string::npos; pos = str.find(toFind, pos))
-	{
-		str.replace(pos, 1, toReplace);
-	}
-	return(str);
-}
-
-std::vector< std::vector< int > >	myIA::getTabElevation() const
-{
-	return (_tabElevation);
-}
-
-void			myIA::initObjectifs()
-{
-	int 				x = _objects.size() - 2;
-
-	_objectifs.push_back("food");
-	while (x >= 0)
-	{
-		int 	i = _tabElevation[_range - 1][x];
-		if (i > 0)
-		{
-			_objectifs.push_back(_objects[x]);
-			_tabElevation[_range - 1][x] -= 1;
-		}
-		else if (i == 0)
-			x--;
-	}
-}
-
-void			myIA::initObjects()
-{
-	_objects.push_back("player");
-	_objects.push_back("linemate");
-	_objects.push_back("deraumere");
-	_objects.push_back("sibur");
-	_objects.push_back("mendiane");
-	_objects.push_back("phiras");
-	_objects.push_back("thystame");
-	_objects.push_back("food");
-}
-
 void				myIA::initTabElevation()
 {
 	int level1[7] = { 1, 1, 0, 0, 0, 0, 0 };
@@ -291,3 +228,48 @@ void				myIA::initTabElevation()
 	_tabElevation.push_back(tabLevel6);
 	_tabElevation.push_back(tabLevel7);
 }
+
+/*
+bool 			myIA::moveToward()
+{
+	std::ostringstream convert;
+	int 		direction = 1;
+	int 		pos = 1;
+
+	while (pos != 0)
+	{
+		convert << _range;
+		std::string answer = cmdBroadcast("[broadcast][okay][" + convert.str() + "]");
+		pos = _k;
+
+		if (pos != 0)
+		{
+			while (direction != pos / 2)
+			{
+				cmdRot(LEFT);
+				direction++;
+			}
+			cmdMove(1);
+		}
+		convert << _range;
+		cmdBroadcast("[broadcast][start][" + convert.str() + "]");
+	}
+	return (true);
+}
+
+bool 			myIA::draw()
+{
+	int 		pos = 1;
+//int 		direction = 1;
+	std::ostringstream convert;
+
+	while (pos != 0)
+	{
+		convert << _range;
+		std::string answer = cmdBroadcast("[broadcast][come][" + convert.str() + "]");
+		if (answer.compare("okay"))
+			pos = _level;
+	}
+	return (true);
+}
+*/

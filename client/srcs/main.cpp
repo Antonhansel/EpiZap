@@ -5,5 +5,5 @@ int 	main()
 	myIA 	ia;
 
 	ia.initLoop();
-
+	return (0);
 }

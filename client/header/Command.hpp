@@ -34,28 +34,28 @@ enum Direction
 class Command
 {
 protected:
-	std::list<std::string> 		_recieve;
+	std::list<std::string> 		_receive;
 	std::list<std::string> 		_send;
 	int							_ignore;
 	int 						_range;
-	int							_dir;
+	int 						_dir;
 
-// protected:
-// 	std::string					_message;
-// 	std::string					_order;
-// 	int 						_level;
-// 	int 						_k;
+//public:
+//	std::string					_type;
+//	std::string					_order;
+//	int 						_level;
+//	int 						_k;
+//	bool						_broadcast;
 
-protected:
+public:
 	Command();
 	~Command();
 	void			cmdMove(int );
 	void			cmdRot(Direction);
 	std::string		cmdSee();
-	// bool			cmdBroadcast(const std::string &);
-	// std::string		reciveBroadcast();
+//	std::string		cmdBroadcast(const std::string &);
 	bool			cmdTake(std::string);
-	// bool			checkBroadcast(std::string &);
+//	bool			checkBroadcast(std::string &);
 	bool			checkRecieve(std::string);
 };
 
