@@ -68,6 +68,7 @@ bool			Network::fctWrite()
 			_circularBuffer = _circularBuffer->head;
 			_send.pop_front();
 			_action = SEND;
+			std::cout << "SENDED\n";
 		}
 		delete ptr;
 	}
@@ -115,6 +116,16 @@ void		Network::doWork()
 	int 	i;
 
 	i = 0;
+	_send.push_back("avance\n");
+	_send.push_back("avance\n");
+	_send.push_back("avance\n");
+	_send.push_back("avance\n");
+	_send.push_back("droite\n");
+	_send.push_back("avance\n");
+	_send.push_back("gauche\n");
+	_send.push_back("gauche\n");
+	_send.push_back("avance\n");
+	_send.push_back("avance\n");
 	while (_run)
 	{
 		FD_ZERO(&readfds);
@@ -138,7 +149,7 @@ void		Network::doWork()
 		{
 			checkBitsField(&readfds, &writefds);
 		}
-		++i;
+		i++;
 	}
 }
 
