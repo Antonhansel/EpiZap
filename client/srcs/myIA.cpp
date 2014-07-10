@@ -14,7 +14,7 @@ myIA::~myIA() {}
 
 void	myIA::initThread()
 {
-	Network  *net = new Network(_receive, _send);
+	Network  *net = new Network(_receive, _send, "10.12.181.101", 4242, "Team10\n");
 	QThread   *q = new QThread();
 	net->moveToThread(q);
 	connect(q, SIGNAL(started()), net, SLOT(doWork()));

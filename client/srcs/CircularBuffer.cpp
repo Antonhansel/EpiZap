@@ -77,7 +77,7 @@ std::string	*getDataOfBuffer(CircularBuffer *cb)
 	s = new std::string("");
 	if (cb->c != BUFFER_CHAR)
 	{
-		while (cb->c != '\n' && i < BUFFER_SIZE)
+		while (cb->c != BUFFER_CHAR && i < BUFFER_SIZE)
 		{
 			s->push_back(cb->c);
 			cb = cb->next;

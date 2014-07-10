@@ -37,7 +37,7 @@ class Network : public QObject
 {
     Q_OBJECT
 public:
-    Network(std::list<std::string> &, std::list<std::string> &);
+    Network(std::list<std::string> &, std::list<std::string> &, const std::string &, int, const std::string &);
     ~Network();
 
 private:
@@ -57,10 +57,10 @@ signals:
 private:
 	bool						_run;
 	int							_fd;
-	int 						_port;
 	std::list<std::string> 		_receive;
 	std::list<std::string> 		_send;
 	std::string					_ipAddr;
+	int 						_port;
 	int 						_flag;
 	CircularBuffer				*_circularBuffer;
 	Mode						_mode;
