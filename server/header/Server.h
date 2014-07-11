@@ -35,6 +35,17 @@ enum obj_type
 	FOOD
 };
 
+enum inc_lvl
+{
+	LVL2,
+	LVL3,
+	LVL4,
+	LVL5,
+	LVL6,
+	LVL7,
+	LVL8
+};
+
 typedef struct 	Server
 {
 	/* data */
@@ -59,6 +70,8 @@ typedef struct 	Server
 	double		time_tab[12];
 	char 		obj_type[10][15];
 	int 		(*cmd_tab[12])(void *, Player *, char *);
+
+	int 		inc_tab[7][7];
 
 	t_cmd		*cmd_list;
   	
@@ -87,6 +100,9 @@ void	init_cmd_tab(Server *);
 void	init_time_tab(Server *);
 void	init_obj_tab(Server *);
 void	init_tab_ptr(Server *);
-
+void	init_inc_tab(Server *);
+void	init_inc_tab_1(Server *);
+void	init_inc_tab_2(Server *);
+void	init_inc_tab_3(Server *);
 
 #endif /* SERVER_H_ */

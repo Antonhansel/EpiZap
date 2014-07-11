@@ -48,6 +48,7 @@ static int		init_func_ptr(Server *s, int width, int height)
   	init_cmd_tab(s);
   	init_time_tab(s);
    	init_obj_tab(s);
+   	init_inc_tab(s);
   	return (TRUE);
 }
 

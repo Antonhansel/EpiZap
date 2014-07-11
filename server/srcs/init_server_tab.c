@@ -59,3 +59,10 @@ void	init_tab_ptr(Server *s)
 	s->cmd_tab[FORK] = &fork_cmd;
 	s->cmd_tab[CONNECT_NBR] = &connect_nbr_cmd;
 }
+
+void	init_inc_tab(Server *s)
+{
+	init_inc_tab_1(s);
+	init_inc_tab_2(s);
+	init_inc_tab_3(s);
+}
