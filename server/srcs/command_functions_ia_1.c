@@ -80,12 +80,12 @@ int 		inventory_cmd(void *s, t_player *p, char *cmd)
 
 	(void)s;
 	(void)cmd;
-	snprintf(str1, 256, "linemate %d, sibur %d, deraumere %d, mendiane %d",
+	snprintf(str1, 256, "{linemate %d, sibur %d, deraumere %d, mendiane %d",
 		p->inventory->get_object(p->inventory, LINEMATE),
 		p->inventory->get_object(p->inventory, SIBUR),
 		p->inventory->get_object(p->inventory, DERAUMERE),
 		p->inventory->get_object(p->inventory, MENDIANE));
-	snprintf(str, 512, "%s, phiras %d, thystame %d, nourriture %d\n", str1,
+	snprintf(str, 512, "%s, phiras %d, thystame %d, nourriture %d}\n", str1,
 		p->inventory->get_object(p->inventory, PHIRAS),
 		p->inventory->get_object(p->inventory, THYSTAME),
 		p->inventory->get_object(p->inventory, FOOD));
