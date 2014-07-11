@@ -59,31 +59,16 @@ int 	left_cmd(void *s, Player *p, char *cmd)
 	return (0);
 }
 
-int 	see_cmd(void *s, Player *p, char *cmd)
+int 		see_cmd(void *s, Player *p, char *cmd)
 {
-	int 	r;
-	int 	c;
-	int 	x;
-	int 	y;
-	char	*str;
+	int 	di;
+	int 	dj;
 
-	r = 0;
-	str = NULL;
-	while (r < p->range)
-	{
-		c = r;
-		while (c >= -r)
-		{
-			y = (p->x + r * /*di*/1 + c * /*dj*/0 + ((Server*)(s))->map->width) % ((Server*)(s))->map->width;
-			x = (p->y + c * /*di*/1 + r * /*dj*/0 * -1 + ((Server*)(s))->map->height) % ((Server*)(s))->map->height;
-			str = see_next(s, str, x, y);
-			c--;
-		}
-		r++;
-	}
-	str = strcat(str, "\b}\n");
-	add_str_in_buffer(&p->buffer_circular, str);
-	p->mode = WRITE;
+	di = 0;
+	dj = 0;
+	(p->dir == NORTH) ? (dj = 1) : (p->dir == SOUTH) ? (dj = -1) :
+	(p->dir == WEST) ? (di = -1) : (p->dir == EAST) ? (di = 1) : 0;
+	see_loop(s, p, di, dj);
 	(void)cmd;
 	return (0);
 }

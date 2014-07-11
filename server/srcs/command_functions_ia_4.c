@@ -48,3 +48,31 @@ char		*see_next(void *serv, char *str, int x, int y)
 	str = strcat(str, ",");
 	return (str);
 }
+
+int 		see_loop(void *s, Player *p, int di, int dj)
+{
+	int 	r;
+	int 	c;
+	int 	x;
+	int 	y;
+	char	*str;
+
+	r = 0;
+	str = NULL;
+	while (r < p->range)
+	{
+		c = r;
+		while (c >= -r)
+		{
+			y = (p->x + r * di + c * dj + ((Server*)(s))->map->width) % ((Server*)(s))->map->width;
+			x = (p->y + c * di + r * dj * -1 + ((Server*)(s))->map->height) % ((Server*)(s))->map->height;
+			str = see_next(s, str, x, y);
+			c--;
+		}
+		r++;
+	}
+	str = strcat(str, "\b}\n");
+	add_str_in_buffer(&p->buffer_circular, str);
+	p->mode = WRITE;
+	return (0);
+}
