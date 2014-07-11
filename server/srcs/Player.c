@@ -40,7 +40,7 @@ void	set_player_data(t_player *this, int width, int height)
 	this->dir = rand() % 4;
 	this->time = 0;
 	this->range = 2;
-	this->lvl = 0;
+	this->lvl = LVL1;
 }
 
 void 	copy_player(t_player *this, t_player *to_copy)

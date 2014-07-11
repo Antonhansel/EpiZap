@@ -1,13 +1,13 @@
 #include "Incantation.h"
 
-static t_inventory	*get_lvl(Incantation *this, int lvl);
+static t_inventory	*get_lvl(t_incantation *this, int lvl);
 
-void	create_incantation(Incantation *this)
+void	create_incantation(t_incantation *this)
 {
 	this->get_lvl = &get_lvl;
 }
 
-static t_inventory	*get_lvl(Incantation *this, int lvl)
+static t_inventory	*get_lvl(t_incantation *this, int lvl)
 {
 	return (this->level[lvl]);
 }

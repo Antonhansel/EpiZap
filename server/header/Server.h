@@ -37,6 +37,7 @@ enum obj_type
 
 enum inc_lvl
 {
+	LVL1,
 	LVL2,
 	LVL3,
 	LVL4,
@@ -71,7 +72,7 @@ typedef struct 	s_server
 	char 		obj_type[10][15];
 	int 		(*cmd_tab[12])(void *, t_player *, char *);
 
-	int 		inc_tab[7][7];
+	int 		inc_tab[8][7];
 
 	t_cmd		*cmd_list;
   	
