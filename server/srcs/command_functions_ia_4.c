@@ -1,12 +1,12 @@
 #include "command_functions.h"
 
-int			fork_egg(void *s, Player *p, char *cmd)
+int			fork_egg(void *s, t_player *p, char *cmd)
 {
-	Team 	*tmp;
+	t_team 	*tmp;
 	int 	ret;
 
 	ret = 0;
-	tmp = ((Server*)(s))->team;
+	tmp = ((t_server*)(s))->team;
 	printf("OPENING SLOT\n");
 	while (ret != 1 && tmp)
 	{
@@ -25,10 +25,10 @@ char		*see_next(void *serv, char *str, int x, int y)
 {
 	int		i;
 	int 	nb;
-	Server	*s;
+	t_server	*s;
 
 	i = -1;
-	s = ((Server*)(serv));
+	s = ((t_server*)(serv));
 	if (str == NULL)
 	{
 		if ((str = malloc(sizeof(char) * BUFFER_SIZE)) == NULL)
@@ -49,7 +49,7 @@ char		*see_next(void *serv, char *str, int x, int y)
 	return (str);
 }
 
-int 		see_loop(void *s, Player *p, int di, int dj)
+int 		see_loop(void *s, t_player *p, int di, int dj)
 {
 	int 	r;
 	int 	c;
@@ -64,8 +64,8 @@ int 		see_loop(void *s, Player *p, int di, int dj)
 		c = r;
 		while (c >= -r)
 		{
-			y = (p->x + r * di + c * dj + ((Server*)(s))->map->width) % ((Server*)(s))->map->width;
-			x = (p->y + c * di + r * dj * -1 + ((Server*)(s))->map->height) % ((Server*)(s))->map->height;
+			y = (p->x + r * di + c * dj + ((t_server*)(s))->map->width) % ((t_server*)(s))->map->width;
+			x = (p->y + c * di + r * dj * -1 + ((t_server*)(s))->map->height) % ((t_server*)(s))->map->height;
 			str = see_next(s, str, x, y);
 			c--;
 		}

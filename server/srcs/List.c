@@ -1,12 +1,12 @@
 #include "List.h"
 #include "Server.h"
 
-int       add_elem(Player **front_ptr, int fd)
+int       add_elem(t_player **front_ptr, int fd)
 {
-  Player	*node;
-  Player	*tmp;
+  t_player	*node;
+  t_player	*tmp;
 
-  node = malloc(sizeof(Player));
+  node = malloc(sizeof(t_player));
   if (node == NULL)
     return (-1);
   init_player(node, fd);
@@ -23,9 +23,9 @@ int       add_elem(Player **front_ptr, int fd)
   return (0);
 }
 
-int       add_square(Player **front_ptr, Player *player)
+int       add_square(t_player **front_ptr, t_player *player)
 {
-  Player  *tmp;
+  t_player  *tmp;
 
   tmp = *front_ptr;
   if (tmp == NULL)
@@ -43,10 +43,10 @@ int       add_square(Player **front_ptr, Player *player)
   return (0);
 }
 
-int       del_square(Player **front_ptr, int fd)
+int       del_square(t_player **front_ptr, int fd)
 {
-  Player  *tmp;
-  Player  *tmp1;
+  t_player  *tmp;
+  t_player  *tmp1;
 
   tmp = *(front_ptr);
   if (tmp && tmp->fd == fd)
@@ -68,12 +68,12 @@ int       del_square(Player **front_ptr, int fd)
   return (1);
 }
 
-int       add_player(Player **front_ptr, Player *player)
+int       add_player(t_player **front_ptr, t_player *player)
 {
-  Player  *node;
-  Player  *tmp;
+  t_player  *node;
+  t_player  *tmp;
 
-  node = malloc(sizeof(Player));
+  node = malloc(sizeof(t_player));
   if (node == NULL)
     return (-1);
   copy_player(node, player);
@@ -90,9 +90,9 @@ int       add_player(Player **front_ptr, Player *player)
   return (0);
 }
 
-int	      del_elem(Player **front_ptr, int fd)
+int	      del_elem(t_player **front_ptr, int fd)
 {
-  Player	*tmp;
+  t_player	*tmp;
 
   tmp = *(front_ptr);
   if (tmp && tmp->fd == fd)
@@ -130,9 +130,9 @@ int	      del_elem(Player **front_ptr, int fd)
   }
 }
 */
-void      display_list_square(Player *front_ptr)
+void      display_list_square(t_player *front_ptr)
 {
-  Player  *tmp;
+  t_player  *tmp;
   int     i = 0;
 
   printf("---- DISPLAY LIST BEGIN ----\n");

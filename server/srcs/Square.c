@@ -1,11 +1,11 @@
 #include "Square.h"
 
-static Inventory 	*get_inventory(Square *);
-static void			set_inventory(Square *, Inventory *);
+static t_inventory 	*get_inventory(t_square *);
+static void			set_inventory(t_square *, t_inventory *);
 
-int 	init_square(Square *this)
+int 	init_square(t_square *this)
 {
-	if ((this->inventory = malloc(sizeof(Inventory))) == NULL)
+	if ((this->inventory = malloc(sizeof(t_inventory))) == NULL)
 		return (FALSE);
 	if (init_inventory(this->inventory, NULL, 1) == FALSE)
 		return (FALSE);
@@ -15,18 +15,18 @@ int 	init_square(Square *this)
 	return (TRUE);
 }
 
-int 	destroy_square(Square *this)
+int 	destroy_square(t_square *this)
 {
 	free(this->inventory);
 	return (0);
 }
 
-static Inventory 	*get_inventory(Square *this)
+static t_inventory 	*get_inventory(t_square *this)
 {
 	return (this->inventory);
 }
 
-static void		set_inventory(Square *this, Inventory *i)
+static void		set_inventory(t_square *this, t_inventory *i)
 {
 	this->inventory = i;
 }

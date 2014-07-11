@@ -12,7 +12,7 @@ class NetworkC : public QObject
 {
     Q_OBJECT
 public:
-    NetworkC(Server *, QTextEdit *);
+    NetworkC(t_server *, QTextEdit *);
     ~NetworkC();
  
 public slots:
@@ -22,7 +22,7 @@ signals:
     void error(QString err);
  
 private:
-    Server      *_server;
+    t_server      *_server;
     QTextEdit   *_console;
 };
 #endif

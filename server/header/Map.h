@@ -3,15 +3,15 @@
 
 # include "Square.h"
 
-typedef struct  Map
+typedef struct  s_map
 {
 	/* Attributes */
 	int			width;
 	int			height;
-	Square		**map;
-}				Map;
+	t_square		**map;
+}				t_map;
 
-int				init_map(struct Map *, int, int);
-int 			destroy_map(struct Map *);
+int				init_map(t_map *, int, int);
+int 			destroy_map(t_map *);
 
 #endif

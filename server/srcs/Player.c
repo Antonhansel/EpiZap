@@ -2,10 +2,10 @@
 #include "Server.h"
 #include "List.h"
 
-static void			set_inventory(Player *, Inventory *);
-static Inventory 	*get_inventory(Player *);
+static void			set_inventory(t_player *, t_inventory *);
+static t_inventory 	*get_inventory(t_player *);
 
-int		init_player(Player *this, int fd)
+int		init_player(t_player *this, int fd)
 {
 	this->fd = fd;
 	this->x = -1;
@@ -21,10 +21,10 @@ int		init_player(Player *this, int fd)
 	this->sent = TRUE;
 	this->nb_request = 0;
 	this->is_alive = TRUE;
-	if (!(this->inventory = malloc(sizeof(Inventory))))
+	if (!(this->inventory = malloc(sizeof(t_inventory))))
 		return (-1);
 	init_inventory(this->inventory, NULL, 0);
-	if (!(this->buffer_circular = malloc(sizeof(CircularBuffer))))
+	if (!(this->buffer_circular = malloc(sizeof(t_circular_buffer))))
 		return (-1);
 	if (create_circular_buffer(&this->buffer_circular) == FALSE)
 		return (-1);
@@ -32,7 +32,7 @@ int		init_player(Player *this, int fd)
 	return (0);
 }
 
-void	set_player_data(Player *this, int width, int height)
+void	set_player_data(t_player *this, int width, int height)
 {
 	this->nb_request = 0;
 	this->x = rand() % width;
@@ -43,7 +43,7 @@ void	set_player_data(Player *this, int width, int height)
 	this->lvl = 0;
 }
 
-void 	copy_player(Player *this, Player *to_copy)
+void 	copy_player(t_player *this, t_player *to_copy)
 {
 	this->fd = to_copy->fd;
 	this->lvl = to_copy->lvl;
@@ -60,12 +60,12 @@ void 	copy_player(Player *this, Player *to_copy)
 	this->fct_read = to_copy->fct_read;
 }
 
-int 		destroy_player(Player *this, void *p)
+int 		destroy_player(t_player *this, void *p)
 {
-	Server	*s;
-	Team	*tmp;
+	t_server	*s;
+	t_team	*tmp;
 
-	s = ((Server *)(p));
+	s = ((t_server *)(p));
 	tmp = s->team;
 	while (tmp)
 	{
@@ -81,12 +81,12 @@ int 		destroy_player(Player *this, void *p)
 	return (0);
 }
 
-static void		set_inventory(Player *this, Inventory *i)
+static void		set_inventory(t_player *this, t_inventory *i)
 {
 	this->inventory = i;
 }
 
-static Inventory 	*get_inventory(Player *this)
+static t_inventory 	*get_inventory(t_player *this)
 {
 	return (this->inventory);
 }

@@ -164,7 +164,7 @@ void 	Graphic::apply_floor()
 	displayPlayers();
 }
 
-void 	Graphic::addPlayerHud(Player *temp)
+void 	Graphic::addPlayerHud(t_player *temp)
 {
 	_selectedPlayer = temp;
 }
@@ -198,7 +198,7 @@ void 	Graphic::updatePlayerHud()
 
 void 	Graphic::displayPlayers()
 {
-	Player 	*temp = _server->player;
+	t_player 	*temp = _server->player;
 	bool 	check;
 
 	check = false;
@@ -226,10 +226,10 @@ void 	Graphic::displayPlayers()
 		_parent->addData2(QString(""), true);
 }
 
-void 	Graphic::initRealUpdate(const Server *server)
+void 	Graphic::initRealUpdate(const t_server *server)
 {
 	_map = server->map;
-	_server = (Server *)server;
+	_server = (t_server *)server;
 	_realUpdate = true;
 }
 

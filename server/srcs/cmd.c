@@ -2,11 +2,11 @@
 #include "Server.h"
 #include "CircularBuffer.h"
 
-int 		set_cmd_information(Server *, Player *, t_cmd *, char *);
+int 		set_cmd_information(t_server *, t_player *, t_cmd *, char *);
 char		**my_str_to_wordtab(char *);
 void		my_free_str_to_wordtab(char **);
 
-int 				get_cmd_type(Server *s, char *cmd)
+int 				get_cmd_type(t_server *s, char *cmd)
 {
 	int 			i;
 
@@ -23,7 +23,7 @@ int 				get_cmd_type(Server *s, char *cmd)
 	return (-1);
 }
 
-int			set_cmd_information(Server *s, Player *p, t_cmd *new_cmd, char *cmd)
+int			set_cmd_information(t_server *s, t_player *p, t_cmd *new_cmd, char *cmd)
 {
 	int 	good;
 
@@ -45,12 +45,12 @@ int			set_cmd_information(Server *s, Player *p, t_cmd *new_cmd, char *cmd)
 	return (TRUE);
 }
 
-t_cmd		*create_new_cmd(void *s, Player *p, char *cmd)
+t_cmd		*create_new_cmd(void *s, t_player *p, char *cmd)
 {
 	t_cmd 	*new_cmd;
-	Server	*server;
+	t_server	*server;
 
-	server = (Server *)s;
+	server = (t_server *)s;
 	if (!(new_cmd = malloc(sizeof(t_cmd))))
 		return (NULL);
 	if (set_cmd_information(server, p, new_cmd, cmd) == FALSE)

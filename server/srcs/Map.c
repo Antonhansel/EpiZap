@@ -2,10 +2,10 @@
 #include "Map.h"
 #include "Square.h"
 
-static int 		alloc_map_attr(Map *);
-static void		free_map_attr(Map *);
+static int 		alloc_map_attr(t_map *);
+static void		free_map_attr(t_map *);
 
-int		init_map(Map *this, int w, int h)
+int		init_map(t_map *this, int w, int h)
 {
 	this->width = w;
 	this->height = h;
@@ -14,22 +14,22 @@ int		init_map(Map *this, int w, int h)
 	return (0);
 }
 
-int 	destroy_map(Map *this)
+int 	destroy_map(t_map *this)
 {
 	free_map_attr(this);
 	return (0);
 }
 
-static int 		alloc_map_attr(Map *this)
+static int 		alloc_map_attr(t_map *this)
 {
 	int 		i;
 	int 		x;
-	if (!(this->map = malloc(sizeof(Square *) * (this->height)))) 
+	if (!(this->map = malloc(sizeof(t_square *) * (this->height)))) 
 		return (FALSE);
 	i = 0;
 	while (i < this->height)
 		{
-			if (!(this->map[i] = malloc(sizeof(Square) * (this->width))))
+			if (!(this->map[i] = malloc(sizeof(t_square) * (this->width))))
 				return (FALSE);
 			++i;
 		}
@@ -49,7 +49,7 @@ static int 		alloc_map_attr(Map *this)
 	return (TRUE);
 }
 
-static void		free_map_attr(Map *this)
+static void		free_map_attr(t_map *this)
 {
 	int 		i;
 

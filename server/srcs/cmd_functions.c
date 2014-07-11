@@ -1,7 +1,7 @@
 #include "cmd_functions.h"
 
-void 	player_socket_problem(Player *, Server *);
-void	do_action(t_cmd **, Server *, t_cmd *);
+void 	player_socket_problem(t_player *, t_server *);
+void	do_action(t_cmd **, t_server *, t_cmd *);
 
 double		get_min_time(t_cmd *list, double max_timer)
 {
@@ -27,7 +27,7 @@ double		get_min_time(t_cmd *list, double max_timer)
 	return (timer);
 }
 
-int			set_new_timer(t_cmd **list, Server *s, double timer)
+int			set_new_timer(t_cmd **list, t_server *s, double timer)
 {
 	t_cmd	*tmp;
 	int		num_cmd;
@@ -50,7 +50,7 @@ int			set_new_timer(t_cmd **list, Server *s, double timer)
 	return (TRUE);
 }
 
-void	do_action(t_cmd **list, Server *s, t_cmd *tmp)
+void	do_action(t_cmd **list, t_server *s, t_cmd *tmp)
 {
 	if (tmp->func != NULL)
 		(*tmp->func)(((void*)(s)), tmp->owner, tmp->cmd[1]);
@@ -63,7 +63,7 @@ void	do_action(t_cmd **list, Server *s, t_cmd *tmp)
 	tmp->owner->nb_request--;
 }
 
-void		del_cmd_of_player(t_cmd **list, Player *p)
+void		del_cmd_of_player(t_cmd **list, t_player *p)
 {
 	t_cmd	*tmp;
 
@@ -76,9 +76,9 @@ void		del_cmd_of_player(t_cmd **list, Player *p)
 	}
 }
 
-void		update_life(Player **player, int timer, int ctime)
+void		update_life(t_player **player, int timer, int ctime)
 {
-	Player 	*tmp;
+	t_player 	*tmp;
 
 	tmp = (*player);
 	while (tmp)

@@ -1,10 +1,10 @@
 #include "Inventory.h"
 #include "Server.h"
 
-static int 		get_object(Inventory *, int);
-static void 	set_object(Inventory *, int, int);
+static int 		get_object(t_inventory *, int);
+static void 	set_object(t_inventory *, int, int);
 
-int		init_inventory(Inventory *this, pthread_mutex_t *mutex, int mode)
+int		init_inventory(t_inventory *this, pthread_mutex_t *mutex, int mode)
 {
 	this->nbPlayer = -1;
 	if (mode == 0)
@@ -25,13 +25,13 @@ int		init_inventory(Inventory *this, pthread_mutex_t *mutex, int mode)
 	return (TRUE);
 }
 
-int 	destroy_inventory(Inventory *this)
+int 	destroy_inventory(t_inventory *this)
 {
 	(void)this;
 	return (0);
 }
 
-void	generate_inventory(Inventory *this)
+void	generate_inventory(t_inventory *this)
 {
 	this->tab[LINEMATE] = 0;
 	this->tab[DERAUMERE] = 0;
@@ -58,12 +58,12 @@ void	generate_inventory(Inventory *this)
 	}
 }
 
-static int 		get_object(Inventory *this, int type)
+static int 		get_object(t_inventory *this, int type)
 {
 	return (this->tab[type]);
 }
 
-static void		set_object(Inventory *this, int type, int add_val)
+static void		set_object(t_inventory *this, int type, int add_val)
 {
 	this->tab[type] += add_val;
 }

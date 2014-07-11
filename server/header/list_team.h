@@ -3,7 +3,7 @@
 
 # include "Team.h"
 
-int	add_elem_in_team(Team **, char *, int);
-int del_elem_in_team(Team **, char *);
+int	add_elem_in_team(t_team **, char *, int);
+int del_elem_in_team(t_team **, char *);
 
 #endif

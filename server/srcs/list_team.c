@@ -1,11 +1,11 @@
 #include "list_team.h"
 
-int     add_elem_in_team(Team **front_ptr, char *name, int nb)
+int     add_elem_in_team(t_team **front_ptr, char *name, int nb)
 {
-  Team	*node;
-  Team	*tmp;
+  t_team	*node;
+  t_team	*tmp;
 
-  node = malloc(sizeof(Team));
+  node = malloc(sizeof(t_team));
   if (node == NULL)
     return (FALSE);
   init_team(node, name, nb);
@@ -22,9 +22,9 @@ int     add_elem_in_team(Team **front_ptr, char *name, int nb)
   return (TRUE);
 }
 
-int     del_elem_in_team(Team **front_ptr, char *name)
+int     del_elem_in_team(t_team **front_ptr, char *name)
 {
-  Team	*tmp;
+  t_team	*tmp;
 
   tmp = *(front_ptr);
   if (tmp && strcmp(name, tmp->name) == 0)

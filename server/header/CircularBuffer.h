@@ -6,19 +6,19 @@
 # define BUFFER_SIZE	1024
 # define BUFFER_CHAR	0
 
-typedef struct 				CircularBuffer
+typedef struct 					s_circular_buffer
 {
 	/* data */
-	char					c;
-	struct CircularBuffer 	*next;
-	struct CircularBuffer 	*head;
-}							CircularBuffer;
+	char						c;
+	struct s_circular_buffer 	*next;
+	struct s_circular_buffer 	*head;
+}								t_circular_buffer;
 
-int		create_circular_buffer(CircularBuffer **);
-void	display_circular_buffer(CircularBuffer *, int);
-int		add_str_in_buffer(CircularBuffer **, char *);
-void 	reset_elem_in_buffer(CircularBuffer **, int);
-char 	*get_data_of_buffer(CircularBuffer *);
-void	clear_circular_buffer(CircularBuffer **);
+int		create_circular_buffer(t_circular_buffer **);
+void	display_circular_buffer(t_circular_buffer *, int);
+int		add_str_in_buffer(t_circular_buffer **, char *);
+void 	reset_elem_in_buffer(t_circular_buffer **, int);
+char 	*get_data_of_buffer(t_circular_buffer *);
+void	clear_circular_buffer(t_circular_buffer **);
 
 #endif

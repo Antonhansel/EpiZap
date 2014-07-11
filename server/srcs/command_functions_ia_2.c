@@ -1,21 +1,21 @@
 #include "command_functions.h"
 
-int		kick_cmd_next(void *, Player *, Player *);
+int		kick_cmd_next(void *, t_player *, t_player *);
 char	**my_str_to_wordtab(char *);
 
-int 		take_object_cmd(void *s, Player *p, char *cmd)
+int 		take_object_cmd(void *s, t_player *p, char *cmd)
 {
 	int 	i;
 
 	i = 0;
 	p->mode = WRITE;
-	if ((i = get_obj(((Server*)(s)), i, cmd)) != -1)
+	if ((i = get_obj(((t_server*)(s)), i, cmd)) != -1)
 	{
-		if (((Server*)(s))->map->map[p->x][p->y].inventory->get_object(
-			((Server*)(s))->map->map[p->x][p->y].inventory, i) > 0)
+		if (((t_server*)(s))->map->map[p->x][p->y].inventory->get_object(
+			((t_server*)(s))->map->map[p->x][p->y].inventory, i) > 0)
 		{
-			((Server*)(s))->map->map[p->x][p->y].inventory->set_object(
-				((Server*)(s))->map->map[p->x][p->y].inventory, i, -1);
+			((t_server*)(s))->map->map[p->x][p->y].inventory->set_object(
+				((t_server*)(s))->map->map[p->x][p->y].inventory, i, -1);
 			p->inventory->set_object(p->inventory, i, 1);
 			add_str_in_buffer(&p->buffer_circular, "ok\n");
 			return (0);
@@ -25,7 +25,7 @@ int 		take_object_cmd(void *s, Player *p, char *cmd)
 	return (0);
 }
 
-int 	put_object_cmd(void *s, Player *p, char *cmd)
+int 	put_object_cmd(void *s, t_player *p, char *cmd)
 {
 	int i;
 
@@ -37,12 +37,12 @@ int 	put_object_cmd(void *s, Player *p, char *cmd)
 		i++;
 	}
 	cmd++;
-	if ((i = get_obj(((Server*)(s)), i, cmd)) != -1)
+	if ((i = get_obj(((t_server*)(s)), i, cmd)) != -1)
 	{
 		if (p->inventory->get_object(p->inventory, i) > 0)
 		{
-			((Server*)(s))->map->map[p->x][p->y].inventory->set_object(
-				((Server*)(s))->map->map[p->x][p->y].inventory, i, 1);
+			((t_server*)(s))->map->map[p->x][p->y].inventory->set_object(
+				((t_server*)(s))->map->map[p->x][p->y].inventory, i, 1);
 			p->inventory->set_object(p->inventory, i, -1);
 			add_str_in_buffer(&p->buffer_circular, "ok\n");
 			return (0);
@@ -52,15 +52,15 @@ int 	put_object_cmd(void *s, Player *p, char *cmd)
 	return (0);
 }
 
-int 		kick_cmd(void *s, Player *p, char *cmd)
+int 		kick_cmd(void *s, t_player *p, char *cmd)
 {
-	Player	*tmp;
+	t_player	*tmp;
 	int 	expulse;
 
 	(void)cmd;
 	p->mode = WRITE;
-	tmp = ((Server*)(s))->map->map[p->x][p->y].player;
-	expulse = kick_cmd_next(((Server*)(s)), p, tmp);
+	tmp = ((t_server*)(s))->map->map[p->x][p->y].player;
+	expulse = kick_cmd_next(((t_server*)(s)), p, tmp);
 	if (expulse == 1)
 		add_str_in_buffer(&p->buffer_circular, "ok\n");
 	else
@@ -68,7 +68,7 @@ int 		kick_cmd(void *s, Player *p, char *cmd)
 	return (0);
 }
 
-int 	broadcast_text_cmd(void *s, Player *p, char *cmd)
+int 	broadcast_text_cmd(void *s, t_player *p, char *cmd)
 {
 	(void)s;
 	(void)p;
@@ -76,7 +76,7 @@ int 	broadcast_text_cmd(void *s, Player *p, char *cmd)
 	return (0);
 }
 
-int 	incantation_cmd(void *s, Player *p, char *cmd)
+int 	incantation_cmd(void *s, t_player *p, char *cmd)
 {
 	add_str_in_buffer(&p->buffer_circular, "ok\n");
 	p->mode = WRITE;

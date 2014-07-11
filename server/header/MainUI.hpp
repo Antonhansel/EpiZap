@@ -45,12 +45,12 @@ class	MainUI: public	QWidget
 public:
   MainUI(bool, std::map<std::string, int> &);
   void  setConsoleText(const QString &);
-  void  setServer(Server &);
+  void  setServer(t_server &);
   void  startGraphic();
   void  initRealUpdate();
   void  addData(QString const &, bool);
   void  addData2(QString const &, bool);
-  void  addToList(Team *);
+  void  addToList(t_team *);
 public slots:
   void  refreshList();
   void  showAbout() const;
@@ -80,7 +80,7 @@ protected:
   QTextEdit     *_infos;
   QTreeWidget   *_teams;
   QTextEdit     *_curplayer;
-  Server        *_server;
+  t_server        *_server;
   bool          _start;
   Graphic       *_graphic;
   bool          _continue;

@@ -3,9 +3,9 @@
 #include "CircularBuffer.h"
 #include "start_functions.h"
 
-int 		init_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
+int 		init_bits_fields(t_server *this, fd_set *readfds, fd_set *writefds)
 {
-	Player 	*tmp;
+	t_player 	*tmp;
 
 	tmp = this->player;
 	FD_ZERO(readfds);
@@ -22,9 +22,9 @@ int 		init_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
 	return (0);
 }
 
-int 		check_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
+int 		check_bits_fields(t_server *this, fd_set *readfds, fd_set *writefds)
 {
-	Player 	*tmp;
+	t_player 	*tmp;
 
 	tmp = this->player;
 	while (tmp != NULL)
@@ -44,7 +44,7 @@ int 		check_bits_fields(Server *this, fd_set *readfds, fd_set *writefds)
 	return (0);
 }
 
-int						accept_socket(Server *s)
+int						accept_socket(t_server *s)
 {
 	struct sockaddr_in  client_sin; 
 	socklen_t 			len;

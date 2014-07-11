@@ -20,7 +20,7 @@ enum DIR
 	WEST
 };
 
-typedef struct 		Player
+typedef struct 		s_player
 {
 	/* Attributes */
 	int				fd;
@@ -28,12 +28,12 @@ typedef struct 		Player
 	float			time;
 	int 		 	x;
 	int 			y;
-	Inventory		*inventory;
+	t_inventory		*inventory;
 	int				nb_request;
-	struct Player 	*next;
-	struct Player 	*next_square;
-	struct Player 	*next_team;
-	CircularBuffer	*buffer_circular;
+	struct s_player 	*next;
+	struct s_player 	*next_square;
+	struct s_player 	*next_team;
+	t_circular_buffer	*buffer_circular;
 	int 			mode;
 	int 			dir;
 	int 			intro;
@@ -42,15 +42,15 @@ typedef struct 		Player
 	char 			*team_name;
 	int 			is_alive;
 	/* Methods */
-	Inventory 		*(*get_inventory)(struct Player *);
-	void			(*set_inventory)(struct Player *, Inventory *);
-	int 			(*fct_read)(struct Player *, void *);
-}					Player;
+	t_inventory 		*(*get_inventory)(struct s_player *);
+	void			(*set_inventory)(struct s_player *, t_inventory *);
+	int 			(*fct_read)(struct s_player *, void *);
+}					t_player;
 
-int 	init_player(struct Player *, int);
-int 	destroy_player(struct Player *, void *);
-int 	fct_read(Player *, void *);
-void 	copy_player(Player *, Player *);
-void	set_player_data(Player *, int, int);
+int 	init_player(t_player *, int);
+int 	destroy_player(t_player *, void *);
+int 	fct_read(t_player *, void *);
+void 	copy_player(t_player *, t_player *);
+void	set_player_data(t_player *, int, int);
 
 #endif 	/* PLAYER_H_ */

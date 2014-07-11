@@ -1,13 +1,13 @@
 #include "command_functions.h"
 #include "List.h"
 
-void      display_list_square(Player *front_ptr);
+void      display_list_square(t_player *front_ptr);
 
-int 		up_cmd(void *serv, Player *p, char *cmd)
+int 		up_cmd(void *serv, t_player *p, char *cmd)
 {
-	Server	*s;
+	t_server	*s;
 
-	s = ((Server*)(serv));
+	s = ((t_server*)(serv));
 	(void)cmd;
 /*printf("----- BEFORE DELETING PLAYER IN SQUARE ----\n");
 display_list_square(s->map->map[p->x][p->y].player);
@@ -37,7 +37,7 @@ display_list_square(s->map->map[p->x][p->y].player);
 return (0);
 }
 
-int 	right_cmd(void *s, Player *p, char *cmd)
+int 	right_cmd(void *s, t_player *p, char *cmd)
 {
 	(void)s;
 	(void)cmd;
@@ -48,7 +48,7 @@ int 	right_cmd(void *s, Player *p, char *cmd)
 	return (0);
 }
 
-int 	left_cmd(void *s, Player *p, char *cmd)
+int 	left_cmd(void *s, t_player *p, char *cmd)
 {
 	(void)s;
 	(void)cmd;
@@ -59,7 +59,7 @@ int 	left_cmd(void *s, Player *p, char *cmd)
 	return (0);
 }
 
-int 		see_cmd(void *s, Player *p, char *cmd)
+int 		see_cmd(void *s, t_player *p, char *cmd)
 {
 	int 	di;
 	int 	dj;
@@ -73,7 +73,7 @@ int 		see_cmd(void *s, Player *p, char *cmd)
 	return (0);
 }
 
-int 		inventory_cmd(void *s, Player *p, char *cmd)
+int 		inventory_cmd(void *s, t_player *p, char *cmd)
 {
 	char	str1[256];
 	char	str[512];

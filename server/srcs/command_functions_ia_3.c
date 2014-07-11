@@ -1,6 +1,6 @@
 #include "command_functions.h"
 
-int 		fork_cmd(void *s, Player *p, char *cmd)
+int 		fork_cmd(void *s, t_player *p, char *cmd)
 {
 	t_cmd 	*new_cmd;
 
@@ -8,8 +8,8 @@ int 		fork_cmd(void *s, Player *p, char *cmd)
 	new_cmd = create_new_cmd(s, p, "fork");
 	new_cmd->num_cmd = -1;
 	new_cmd->func = &fork_egg;
-	new_cmd->time = 620.0 / ((Server*)(s))->ctime;
-	add_cmd_in_list(&((Server*)(s))->cmd_list, new_cmd);
+	new_cmd->time = 620.0 / ((t_server*)(s))->ctime;
+	add_cmd_in_list(&((t_server*)(s))->cmd_list, new_cmd);
 	add_str_in_buffer(&p->buffer_circular, "ok\n");
 	p->mode = WRITE;
 	(void)cmd;
@@ -17,13 +17,13 @@ int 		fork_cmd(void *s, Player *p, char *cmd)
 	return (0);
 }
 
-int 		connect_nbr_cmd(void *s, Player *p, char *cmd)
+int 		connect_nbr_cmd(void *s, t_player *p, char *cmd)
 {
-	Team	*tmp;
+	t_team	*tmp;
 	char	res[32];
 
 	(void)cmd;
-	tmp = ((Server*)(s))->team;
+	tmp = ((t_server*)(s))->team;
 	while (tmp)
 	{
 		if (strcmp(tmp->name, p->team_name) == 0)
@@ -41,14 +41,14 @@ int 	get_obj(void *s, int i, char *cmd)
 	printf("CMD === |%s|\n", cmd);
 	while (cmd && i < 7)
 	{
-		if (strncmp(cmd, ((Server*)(s))->obj_type[i], strlen(cmd)) == 0)
+		if (strncmp(cmd, ((t_server*)(s))->obj_type[i], strlen(cmd)) == 0)
 			return (i);
 		++i;
 	}	
 	return (-1);
 }
 
-char		*get_dir(Player *expulse, Player *to_expulse)
+char		*get_dir(t_player *expulse, t_player *to_expulse)
 {
 	char	*str;
 	int		dir;
@@ -73,7 +73,7 @@ char		*get_dir(Player *expulse, Player *to_expulse)
 	return (str);
 }
 
-int			kick_cmd_next(void *s, Player *p, Player *tmp)
+int			kick_cmd_next(void *s, t_player *p, t_player *tmp)
 {
 	int 	old_dir;
 	char	*res;
@@ -85,7 +85,7 @@ int			kick_cmd_next(void *s, Player *p, Player *tmp)
 			tmp->sent = FALSE;
 			old_dir = tmp->dir;
 			tmp->dir = p->dir;
-			up_cmd(((Server*)(s)), tmp, NULL);
+			up_cmd(((t_server*)(s)), tmp, NULL);
 			tmp->dir = old_dir;
 			res = get_dir(p, tmp);
 			if (res != NULL)

@@ -6,8 +6,8 @@
 typedef struct 	Incantation
 {
 	/* data */
-	Inventory	*level[10];
-	Inventory	*(*get_lvl)(struct Incantation *, int);
+	t_inventory	*level[10];
+	t_inventory	*(*get_lvl)(struct Incantation *, int);
 }				Incantation;
 
 #endif /* INCANTATION_H_ */

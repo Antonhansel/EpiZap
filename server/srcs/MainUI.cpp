@@ -84,7 +84,7 @@ void	MainUI::initUi()
   _curplayer->setStyleSheet("color: white; background-image: url(./textures/bgbot.png)");
 }
 
-void            MainUI::setServer(Server &s)
+void            MainUI::setServer(t_server &s)
 {
   _server = &s;
   NetworkC  *net = new NetworkC(&s, _console);
@@ -135,7 +135,7 @@ MainUI::MainUI(bool status, std::map<std::string, int> &option) : QWidget()
   setLayout(_mainLayout);
 }
 
-void  MainUI::addToList(Team *temp)
+void  MainUI::addToList(t_team *temp)
 {
   QTreeWidgetItem   *teamName;
   QString         slotText;
@@ -154,7 +154,7 @@ void MainUI::refreshList()
 { 
   if (_status && _continue)
   {
-    Team  *temp;
+    t_team  *temp;
     temp = _server->team;
     _teams->clear();
     while (temp != NULL)

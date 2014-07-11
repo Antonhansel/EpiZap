@@ -1,7 +1,7 @@
 #include "Server.h"
 #include "command_functions.h"
 
-void	init_cmd_tab(Server *s)
+void	init_cmd_tab(t_server *s)
 {
 	strcpy(s->cmd_type[AVANCE], "avance");
 	strcpy(s->cmd_type[DROITE], "droite");
@@ -17,7 +17,7 @@ void	init_cmd_tab(Server *s)
 	strcpy(s->cmd_type[CONNECT_NBR], "connect_nbr");
 }
 
-void	init_time_tab(Server *s)
+void	init_time_tab(t_server *s)
 {
 	s->time_tab[AVANCE] = 7.0 / s->ctime;
 	s->time_tab[DROITE] = 7.0 / s->ctime;
@@ -33,7 +33,7 @@ void	init_time_tab(Server *s)
 	s->time_tab[CONNECT_NBR] = 0.0;
 }
 
-void	init_obj_tab(Server *s)
+void	init_obj_tab(t_server *s)
 {
 	strcpy(s->obj_type[LINEMATE], "linemate");
 	strcpy(s->obj_type[DERAUMERE], "deraumere");
@@ -44,7 +44,7 @@ void	init_obj_tab(Server *s)
 	strcpy(s->obj_type[FOOD], "food");	
 }
 
-void	init_tab_ptr(Server *s)
+void	init_tab_ptr(t_server *s)
 {
 	s->cmd_tab[AVANCE] = &up_cmd;
 	s->cmd_tab[DROITE] = &right_cmd;
@@ -60,7 +60,7 @@ void	init_tab_ptr(Server *s)
 	s->cmd_tab[CONNECT_NBR] = &connect_nbr_cmd;
 }
 
-void	init_inc_tab(Server *s)
+void	init_inc_tab(t_server *s)
 {
 	init_inc_tab_1(s);
 	init_inc_tab_2(s);

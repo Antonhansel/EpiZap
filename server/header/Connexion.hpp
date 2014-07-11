@@ -36,7 +36,7 @@ public:
 	void 	setLayouts(std::map<std::string, int> &);
 	void 	init();
 	void 	connectSlots();
-  const Server   *getServer() const;
+  const t_server   *getServer() const;
   public slots:
   void  getTeamName();
   void  teamName();
@@ -66,7 +66,7 @@ private:
   QLineEdit     *_delay;
   QPushButton 	*_quit;
   QTextEdit     *_console;
-  Server        _server;
+  t_server       _server;
   int           _tempTeam;
   std::vector<std::string>  _teamNamevec;
 private:

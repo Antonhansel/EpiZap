@@ -196,7 +196,7 @@ bool  Connexion::checkData(const QString &data)
   return (false);
 }
 
-const Server   *Connexion::getServer() const
+const t_server   *Connexion::getServer() const
 {
   return (&_server);
 }

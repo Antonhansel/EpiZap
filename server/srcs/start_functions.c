@@ -1,11 +1,11 @@
 #include "start_functions.h"
 #include "List.h"
 
-void	assign_to_team_next(Player *, Server *, char *);
-void	assign_to_team_next_next(Player *, Server *, char *, Team *);
-void	assign_to_team_end(Player *, Server *, int);
+void	assign_to_team_next(t_player *, t_server *, char *);
+void	assign_to_team_next_next(t_player *, t_server *, char *, t_team *);
+void	assign_to_team_end(t_player *, t_server *, int);
 
-void 		assign_to_team(Player *this, Server *s)
+void 		assign_to_team(t_player *this, t_server *s)
 {
 	char	*team_name;
 
@@ -16,9 +16,9 @@ void 		assign_to_team(Player *this, Server *s)
 	s = s;
 }
 
-void	assign_to_team_next(Player *this, Server *s, char *team_name)
+void	assign_to_team_next(t_player *this, t_server *s, char *team_name)
 {
-	Team 	*tmp;
+	t_team 	*tmp;
 	int 	find;
 	int 	nb_co;
 
@@ -41,7 +41,7 @@ void	assign_to_team_next(Player *this, Server *s, char *team_name)
 		assign_to_team_end(this, s, nb_co);
 }
 
-void	assign_to_team_next_next(Player *this, Server *s, char *name, Team *tmp)
+void	assign_to_team_next_next(t_player *this, t_server *s, char *name, t_team *tmp)
 {
 	this->team_name = strdup(name);
 	set_player_data(this, s->map->width, s->map->height);
@@ -51,7 +51,7 @@ void	assign_to_team_next_next(Player *this, Server *s, char *name, Team *tmp)
 	tmp->nb_player_actu++;
 }
 
-void	assign_to_team_end(Player *this, Server *s, int nb_co)
+void	assign_to_team_end(t_player *this, t_server *s, int nb_co)
 {
 	char	buf[64];
 

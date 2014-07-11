@@ -3,12 +3,12 @@
 #include "command_functions.h"
 #include "cmd_functions.h"
 
-void 	fct_write_next(Player *, Server *, char *);
-int 	fct_read_next(Player *, Server *, char *, int);
-void      display_list_square(Player *front_ptr);
+void 	fct_write_next(t_player *, t_server *, char *);
+int 	fct_read_next(t_player *, t_server *, char *, int);
+void      display_list_square(t_player *front_ptr);
 
 
-void 	player_socket_problem(Player *this, Server *s)
+void 	player_socket_problem(t_player *this, t_server *s)
 {
 	snprintf(s->msg, 200,
 		"%s<font color=\"Red\">*** PLAYER %d DISCONNECTED ***</font>",
@@ -29,13 +29,13 @@ void 	player_socket_problem(Player *this, Server *s)
 		s->max_fd--;
 }
 
-int 		fct_read(Player *this, void *p)
+int 		fct_read(t_player *this, void *p)
 {
 	char	buf[512];
-	Server	*s;
+	t_server	*s;
 	int 	ret;
 
-	s = ((Server *)(p));
+	s = ((t_server *)(p));
 	memset(buf, 0, 512);
 	if ((ret = read(this->fd, buf, 511)) > 0)
 		return (fct_read_next(this, s, buf, ret));
@@ -44,7 +44,7 @@ int 		fct_read(Player *this, void *p)
 	return (FALSE);
 }
 
-int 		fct_read_next(Player *this, Server *s, char *buf, int ret)
+int 		fct_read_next(t_player *this, t_server *s, char *buf, int ret)
 {
 	char 	*ptr;
 	int 	old_mode;
@@ -73,14 +73,14 @@ int 		fct_read_next(Player *this, Server *s, char *buf, int ret)
 	return (FALSE);
 }
 
-int					fct_write(Player *this, void *p)
+int					fct_write(t_player *this, void *p)
 {
-	Server			*s;
-	CircularBuffer 	*tmp;
+	t_server			*s;
+	t_circular_buffer 	*tmp;
 	char 			buf[BUFFER_SIZE];
 	int 			i;
 
-	s = ((Server *)(p));
+	s = ((t_server *)(p));
 	s->max_fd = s->max_fd;
 	tmp = this->buffer_circular->head;
 	i = 0;
@@ -100,7 +100,7 @@ int					fct_write(Player *this, void *p)
 	return (TRUE);
 }
 
-void 				fct_write_next(Player *this, Server *s, char *buf)
+void 				fct_write_next(t_player *this, t_server *s, char *buf)
 {
 	unsigned int	ret;
 

@@ -1,10 +1,10 @@
 #include "CircularBuffer.h"
 
-int 				create_elem_in_buffer(CircularBuffer *cb, char c)
+int 				create_elem_in_buffer(t_circular_buffer *cb, char c)
 {
-	CircularBuffer	*node;
+	t_circular_buffer	*node;
 
-	if ((node = malloc(sizeof(CircularBuffer))) == NULL)
+	if ((node = malloc(sizeof(t_circular_buffer))) == NULL)
 		return (FALSE);
 	node->c = c;
 	node->next = cb->next;
@@ -13,9 +13,9 @@ int 				create_elem_in_buffer(CircularBuffer *cb, char c)
 	return (TRUE);
 }
 
-int					create_circular_buffer(CircularBuffer **cb)
+int					create_circular_buffer(t_circular_buffer **cb)
 {
-	CircularBuffer 	*tmp;
+	t_circular_buffer 	*tmp;
 	int				i;
 
 	i = 0;
@@ -32,9 +32,9 @@ int					create_circular_buffer(CircularBuffer **cb)
 	return (TRUE);
 }
 
-int					add_str_in_buffer(CircularBuffer **cb, char *str)
+int					add_str_in_buffer(t_circular_buffer **cb, char *str)
 {
-	CircularBuffer 	*tmp;
+	t_circular_buffer 	*tmp;
 	int				i;
 
 	i = 0;
@@ -51,9 +51,9 @@ int					add_str_in_buffer(CircularBuffer **cb, char *str)
 	return (FALSE);
 }
 
-void 				reset_elem_in_buffer(CircularBuffer **cb, int nb_char)
+void 				reset_elem_in_buffer(t_circular_buffer **cb, int nb_char)
 {
-	CircularBuffer 	*tmp;
+	t_circular_buffer 	*tmp;
 	int 			i;
 
 	i = 0;
@@ -66,7 +66,7 @@ void 				reset_elem_in_buffer(CircularBuffer **cb, int nb_char)
 	}
 }
 
-char 		*get_data_of_buffer(CircularBuffer *cb)
+char 		*get_data_of_buffer(t_circular_buffer *cb)
 {
 	char 	*str;
 	int		i;

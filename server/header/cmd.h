@@ -8,13 +8,13 @@ typedef struct 		s_cmd
 	char 			**cmd;
 	int 			type;
 	double			time;
-	Player			*owner;
+	t_player			*owner;
 	int 			num_cmd;
-	int 			(*func)(void *, Player *, char *);
+	int 			(*func)(void *, t_player *, char *);
 	struct s_cmd 	*next;
 }					t_cmd;
 
-t_cmd		*create_new_cmd(void *, Player *, char *);
+t_cmd		*create_new_cmd(void *, t_player *, char *);
 int 		add_cmd_in_list(t_cmd **, t_cmd *);
 int 		del_cmd_in_list(t_cmd **, t_cmd *);
 

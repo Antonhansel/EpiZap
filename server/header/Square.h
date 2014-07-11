@@ -6,19 +6,19 @@
 # include "Inventory.h"
 # include "Player.h"
 
-typedef struct	Square
+typedef struct	s_square
 {
 	/* Attributes */
 	int 		square_type;
-	Inventory	*inventory;
-	Player		*player;
+	t_inventory	*inventory;
+	t_player		*player;
 	/* Methods*/
-	Inventory 	*(*get_inventory)(struct Square *);
-	void		(*set_inventory)(struct Square *, struct Inventory *);
-	Player 		*(*get_player)(struct Square *);
-}				Square;
+	t_inventory 	*(*get_inventory)(struct s_square *);
+	void		(*set_inventory)(struct s_square *, struct s_inventory *);
+	t_player 		*(*get_player)(struct s_square *);
+}				t_square;
 
-int 	init_square(struct Square *);
-int 	destroy_square(struct Square *);
+int 	init_square(t_square *);
+int 	destroy_square(t_square *);
 
 #endif

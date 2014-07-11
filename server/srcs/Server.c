@@ -3,11 +3,11 @@
 #include "command_functions.h"
 #include "cmd_functions.h"
 
-static int	init_func_ptr(Server *, int, int);
-static int 	loop(Server *);
-int	 		check_fd(Player **, Server *, fd_set *);
+static int	init_func_ptr(t_server *, int, int);
+static int 	loop(t_server *);
+int	 		check_fd(t_player **, t_server *, fd_set *);
 
-char 					*init_server(Server *this, int width, int height)
+char 					*init_server(t_server *this, int width, int height)
 {
 	int 				opt;
 	struct protoent		*pe;
@@ -34,13 +34,13 @@ char 					*init_server(Server *this, int width, int height)
 	return ("<font color=\"Green\">*** SUCCESSLY INIT ***</font>");
 }
 
-static int		init_func_ptr(Server *s, int width, int height)
+static int		init_func_ptr(t_server *s, int width, int height)
 {
 	s->player = NULL;
    	s->team = NULL;
    	s->accept_socket = &accept_socket;
    	s->loop = &loop;
-    if ((s->map = malloc(sizeof(Map))) == NULL)
+    if ((s->map = malloc(sizeof(t_map))) == NULL)
     	return (FALSE);
     s->cmd_list = NULL;
   	init_map(s->map, width, height);
@@ -52,12 +52,12 @@ static int		init_func_ptr(Server *s, int width, int height)
   	return (TRUE);
 }
 
-void	init_all_team(Server *this, char *tab)
+void	init_all_team(t_server *this, char *tab)
 {
 	add_elem_in_team(&this->team, tab, this->nb_player_team);
 }
 
-static int 			loop(Server *this)
+static int 			loop(t_server *this)
 {
 	double 			timer;
 	struct timeval	tv;

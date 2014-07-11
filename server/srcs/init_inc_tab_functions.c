@@ -1,6 +1,6 @@
 #include "Server.h"
 
-void	init_inc_tab_1(Server *s)
+void	init_inc_tab_1(t_server *s)
 {
 	s->inc_tab[LVL2][LINEMATE] = 1;
 	s->inc_tab[LVL2][DERAUMERE] = 0;
@@ -25,7 +25,7 @@ void	init_inc_tab_1(Server *s)
 	s->inc_tab[LVL4][6] = 2;
 }
 
-void	init_inc_tab_2(Server *s)
+void	init_inc_tab_2(t_server *s)
 {
 	s->inc_tab[LVL5][LINEMATE] = 1;
 	s->inc_tab[LVL5][DERAUMERE] = 1;
@@ -50,7 +50,7 @@ void	init_inc_tab_2(Server *s)
 	s->inc_tab[LVL7][6] = 6;
 }
 
-void 	init_inc_tab_3(Server *s)
+void 	init_inc_tab_3(t_server *s)
 {
 	s->inc_tab[LVL8][LINEMATE] = 2;
 	s->inc_tab[LVL8][DERAUMERE] = 2;
