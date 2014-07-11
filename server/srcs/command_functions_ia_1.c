@@ -76,15 +76,14 @@ int 	see_cmd(void *s, Player *p, char *cmd)
 		{
 			y = (p->x + r * /*di*/1 + c * /*dj*/0 + ((Server*)(s))->map->width) % ((Server*)(s))->map->width;
 			x = (p->y + c * /*di*/1 + r * /*dj*/0 * -1 + ((Server*)(s))->map->height) % ((Server*)(s))->map->height;
-			printf("SEE : x : %d && y : %d\n", x, y);
 			str = see_next(s, str, x, y);
 			c--;
 		}
 		r++;
 	}
-	printf("---------------------------------------\n");
-	//snprintf(str, BUFFER_SIZE, "%s\n", str);
-	printf("---> {%s}\n", str);
+	str = strcat(str, "\b}\n");
+	add_str_in_buffer(&p->buffer_circular, str);
+	p->mode = WRITE;
 	(void)cmd;
 	return (0);
 }
