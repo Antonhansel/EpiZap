@@ -8,7 +8,8 @@ typedef struct 		s_cmd
 	char 			**cmd;
 	int 			type;
 	double			time;
-	t_player			*owner;
+	t_player		*owner;
+	char			*team_name;
 	int 			num_cmd;
 	int 			(*func)(void *, t_player *, char *);
 	struct s_cmd 	*next;

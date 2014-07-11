@@ -52,8 +52,13 @@ int			set_new_timer(t_cmd **list, t_server *s, double timer)
 
 void	do_action(t_cmd **list, t_server *s, t_cmd *tmp)
 {
-	if (tmp->func != NULL)
+	if (tmp->func != NULL && tmp->team_name == NULL)
 		(*tmp->func)(((void*)(s)), tmp->owner, tmp->cmd[1]);
+	else if (tmp->func != NULL && tmp->team_name != NULL)
+	{
+		(*tmp->func)(((void*)(s)), tmp->owner, tmp->team_name);
+		tmp->owner->nb_request++;		
+	}
 	else
 	{
 		add_str_in_buffer(&tmp->owner->buffer_circular, "ko\n");
@@ -70,7 +75,7 @@ void		del_cmd_of_player(t_cmd **list, t_player *p)
 	tmp = (*list);
 	while (tmp)
 	{
-		if (tmp->owner == p)
+		if (tmp->owner == p && tmp->team_name == NULL)
 			del_cmd_in_list(list, tmp);
 		tmp = tmp->next;
 	}

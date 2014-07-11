@@ -4,11 +4,11 @@ int 		fork_cmd(void *s, t_player *p, char *cmd)
 {
 	t_cmd 	*new_cmd;
 
-	printf("CMD = %s\n", cmd);
 	new_cmd = create_new_cmd(s, p, "fork");
 	new_cmd->num_cmd = -1;
 	new_cmd->func = &fork_egg;
-	new_cmd->time = 620.0 / ((t_server*)(s))->ctime;
+	new_cmd->team_name = strdup(p->team_name);
+	new_cmd->time = 120.0 / ((t_server*)(s))->ctime;
 	add_cmd_in_list(&((t_server*)(s))->cmd_list, new_cmd);
 	add_str_in_buffer(&p->buffer_circular, "ok\n");
 	p->mode = WRITE;

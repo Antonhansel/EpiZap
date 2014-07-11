@@ -6,18 +6,17 @@ int			fork_egg(void *s, t_player *p, char *cmd)
 	int 	ret;
 
 	ret = 0;
+	(void)p;
 	tmp = ((t_server*)(s))->team;
-	printf("OPENING SLOT\n");
 	while (ret != 1 && tmp)
 	{
-		if (strcmp(tmp->name, p->team_name) == 0)
+		if (strcmp(tmp->name, cmd) == 0)
 		{
 			tmp->nb_player_max++;
 			ret = 1;			
 		}
 		tmp = tmp->next;
 	}
-	(void)cmd;
 	return (0);
 }
 

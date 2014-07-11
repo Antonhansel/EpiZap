@@ -29,9 +29,9 @@ int			set_cmd_information(t_server *s, t_player *p, t_cmd *new_cmd, char *cmd)
 
 	good = TRUE;
 	new_cmd->cmd = my_str_to_wordtab(cmd);
-// new_cmd->cmd = strdup(cmd);
 	new_cmd->func = NULL;
 	new_cmd->time = 0.0;
+	new_cmd->team_name = NULL;
 	if ((new_cmd->type = get_cmd_type(s, new_cmd->cmd[0])) == -1)
 		good = FALSE;
 	if (good == TRUE)
