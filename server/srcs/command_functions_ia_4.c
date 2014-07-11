@@ -76,3 +76,27 @@ int 		see_loop(void *s, t_player *p, int di, int dj)
 	p->mode = WRITE;
 	return (0);
 }
+
+int 		get_rock(void *s, t_player *p)
+{
+	char	str[64];
+	int 	i;
+
+	i = 0;
+	while (i < 6)
+	{
+		if (((t_server*)(s))->map->map[p->x][p->y].inventory->
+				get_object(((t_server*)(s))->map->map[p->x][p->y].inventory, i)
+				< ((t_server*)(s))->inc_tab[p->lvl + 1][i])
+		{
+			return (FALSE);
+		}
+		++i;
+	}
+	memset(str, 0, 64);
+	snprintf(str, 64, "elevation en cours niveau actuel : %d\n", p->lvl + 1);
+	add_str_in_buffer(&p->buffer_circular, str);
+	p->lvl += 1;
+	p->range += 1;
+	return (TRUE);
+}

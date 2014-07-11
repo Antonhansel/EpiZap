@@ -41,7 +41,7 @@ void	init_obj_tab(t_server *s)
 	strcpy(s->obj_type[MENDIANE], "mendiane");
 	strcpy(s->obj_type[PHIRAS], "phiras");
 	strcpy(s->obj_type[THYSTAME], "thystame");
-	strcpy(s->obj_type[FOOD], "food");	
+	strcpy(s->obj_type[FOOD], "nourriture");	
 }
 
 void	init_tab_ptr(t_server *s)

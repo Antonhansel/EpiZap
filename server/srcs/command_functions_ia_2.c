@@ -52,10 +52,10 @@ int 	put_object_cmd(void *s, t_player *p, char *cmd)
 	return (0);
 }
 
-int 		kick_cmd(void *s, t_player *p, char *cmd)
+int 			kick_cmd(void *s, t_player *p, char *cmd)
 {
 	t_player	*tmp;
-	int 	expulse;
+	int 		expulse;
 
 	(void)cmd;
 	p->mode = WRITE;
@@ -76,12 +76,25 @@ int 	broadcast_text_cmd(void *s, t_player *p, char *cmd)
 	return (0);
 }
 
-int 	incantation_cmd(void *s, t_player *p, char *cmd)
+int 			incantation_cmd(void *s, t_player *p, char *cmd)
 {
-	add_str_in_buffer(&p->buffer_circular, "ok\n");
-	p->mode = WRITE;
-	(void)s;
-	(void)p;
+	t_player	*tmp;
+	int 		i;
+	
+
 	(void)cmd;
+	p->mode = WRITE;
+	tmp = ((t_server*)(s))->map->map[p->x][p->y].player;
+	i = 0;
+	while (tmp)
+	{
+		if (tmp->lvl == p->lvl)
+			++i;
+		tmp = tmp->next;
+	}
+	if (p->lvl < LVL8 && i >= ((t_server*)(s))->inc_tab[p->lvl + 1][6])
+		if (get_rock(s, p) == TRUE)
+			return (0);
+	add_str_in_buffer(&p->buffer_circular, "ko\n");
 	return (0);
 }

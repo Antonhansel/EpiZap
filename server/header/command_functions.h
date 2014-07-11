@@ -23,5 +23,6 @@ int 	get_obj(void *, int, char *);
 int 	fork_egg(void *, t_player *, char *);
 char	*see_next(void *, char *, int, int);
 int 	see_loop(void *, t_player *, int, int);
+int 	get_rock(void *, t_player *);
 
 #endif /* COMMAND_FUNCTIONS_H_ */
