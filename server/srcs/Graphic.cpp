@@ -238,9 +238,9 @@ void 	Graphic::loopHud()
 	QString data;
 
 	data = "Position: ";
-	data += QString::number(_yhud + _viewy);
-	data += " - ";
 	data += QString::number(_xhud + _viewx);
+	data += " - ";
+	data += QString::number(_yhud + _viewy);
 	_parent->addData(data, true);
 	data = "Block type: ";
 	data += QString::number(_map->map[_xhud + _viewx][_yhud + _viewy].square_type);
@@ -291,8 +291,8 @@ void 	Graphic::loader()
 	_ressource[PHIRAS] = Lib::loadImage("./textures/phiras.png");
 	_ressource[THYSTAME] = Lib::loadImage("./textures/thystame.png");
 	_ressource[FOOD] = Lib::loadImage("./textures/food.png");
-	_bot[WEST] = zoomSurface(Lib::loadImage("./textures/LinkRunU1.gif"), 2.5, 2.5, 1);
-	_bot[EAST] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD1.gif"), 2.5, 2.5, 1);
-	_bot[SOUTH] = zoomSurface(Lib::loadImage("./textures/LinkRunR1.gif"), 2.5, 2.5, 1);
-	_bot[NORTH] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL1.gif"), 2.5, 2.5, 1);
+	_bot[NORTH] = zoomSurface(Lib::loadImage("./textures/LinkRunU1.gif"), 2.5, 2.5, 1);
+	_bot[SOUTH] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD1.gif"), 2.5, 2.5, 1);
+	_bot[EAST] = zoomSurface(Lib::loadImage("./textures/LinkRunR1.gif"), 2.5, 2.5, 1);
+	_bot[WEST] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL1.gif"), 2.5, 2.5, 1);
 }
