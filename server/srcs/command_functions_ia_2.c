@@ -16,7 +16,10 @@ int 		take_object_cmd(void *s, t_player *p, char *cmd)
 		{
 			((t_server*)(s))->map->map[p->x][p->y].inventory->set_object(
 				((t_server*)(s))->map->map[p->x][p->y].inventory, i, -1);
-			p->inventory->set_object(p->inventory, i, 1);
+			if (i == FOOD)
+				p->time += 126.0 * (1.0 / ((t_server*)(s))->ctime);
+			else
+				p->inventory->set_object(p->inventory, i, 1);
 			add_str_in_buffer(&p->buffer_circular, "ok\n");
 			return (0);
 		}

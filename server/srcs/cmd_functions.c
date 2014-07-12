@@ -91,16 +91,11 @@ void		update_life(t_player **player, int timer, int ctime)
 		if (tmp->intro == FALSE)
 		{
 			tmp->time -= timer;
-			if (tmp->time <= 0.0 && tmp->inventory->get_object(tmp->inventory, FOOD) <= 0)
+			if (tmp->time <= 0.0)
 			{
 				add_str_in_buffer(&tmp->buffer_circular, "mort\n");
 				tmp->mode = WRITE;
 				tmp->is_alive = FALSE;
-			}
-			else if (tmp->time <= 0.0)
-			{
-				tmp->inventory->set_object(tmp->inventory, FOOD, -1);
-				tmp->time = 126.0 * (1.0 / ctime);
 			}
 		}
 		tmp = tmp->next;

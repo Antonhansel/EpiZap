@@ -88,7 +88,7 @@ int 		inventory_cmd(void *s, t_player *p, char *cmd)
 	snprintf(str, 512, "%s, phiras %d, thystame %d, nourriture %d}\n", str1,
 		p->inventory->get_object(p->inventory, PHIRAS),
 		p->inventory->get_object(p->inventory, THYSTAME),
-		p->inventory->get_object(p->inventory, FOOD));
+		((int)(p->time)));
 	add_str_in_buffer(&p->buffer_circular, str);
 	p->mode = WRITE;
 	return (0);
