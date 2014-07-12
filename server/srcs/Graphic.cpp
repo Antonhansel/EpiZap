@@ -73,7 +73,7 @@ void 	Graphic::caseClicked()
 		data += QString::number(_map->map[_lastPointPress.y()/64]
 			[_lastPointPress.x()/64].square_type);
 		_parent->addData(data, false);
-		updateHud(_lastPointPress.x()/64, _lastPointPress.y()/64);
+		updateHud(_lastPointPress.y()/64, _lastPointPress.x()/64);
 	}
 }
 
@@ -190,7 +190,7 @@ void 	Graphic::updatePlayerHud()
 	_stuffPlayer[MENDIANE].second = _selectedPlayer->inventory->get_object(_selectedPlayer->inventory, MENDIANE);
 	_stuffPlayer[PHIRAS].second = _selectedPlayer->inventory->get_object(_selectedPlayer->inventory, PHIRAS);
 	_stuffPlayer[THYSTAME].second = _selectedPlayer->inventory->get_object(_selectedPlayer->inventory, THYSTAME);
-	_stuffPlayer[FOOD].second = _selectedPlayer->inventory->get_object(_selectedPlayer->inventory, FOOD);
+	_stuffPlayer[FOOD].second = (int)_selectedPlayer->time;
 	for (std::map<obj_type, std::pair<QString, int> >::const_iterator it = _stuffPlayer.begin(); it != _stuffPlayer.end(); ++it)
 		_parent->addData2((*it).second.first + QString::number((*it).second.second), false);
 
