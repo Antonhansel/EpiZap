@@ -16,23 +16,23 @@ void	assign_to_team(t_player *this, t_server *s)
   s = s;
 }
 
-void	assign_to_team_next(t_player *this, t_server *s, char *team_name)
+void		assign_to_team_next(t_player *this, t_server *s, char *team)
 {
   t_team	*tmp;
-  int	find;
-  int	nb_co;
+  int		find;
+  int		nb_co;
 
   find = 0;
   tmp = s->team;
-  reset_elem_in_buffer(&this->buffer_circular, strlen(team_name) + 1);
+  reset_elem_in_buffer(&this->buffer_circular, strlen(team) + 1);
   this->buffer_circular = this->buffer_circular->head;
   while (tmp)
     {
-      if (strcmp(tmp->name, team_name) == 0
+      if (strcmp(tmp->name, team) == 0
 	  && tmp->nb_player_actu < tmp->nb_player_max)
 	{
 	  find = 1;
-	  assign_to_team_next_next(this, s, team_name, tmp);
+	  assign_to_team_next_next(this, s, team, tmp);
 	  nb_co = tmp->nb_player_max - tmp->nb_player_actu;
 	}
       tmp = tmp->next;
@@ -41,15 +41,15 @@ void	assign_to_team_next(t_player *this, t_server *s, char *team_name)
     assign_to_team_end(this, s, nb_co);
 }
 
-void	assign_to_team_next_next(t_player *this, t_server *s, char *name, t_team *tmp)
+void	assign_to_team_next_next(t_player *p, t_server *s, char *n, t_team *t)
 {
-  this->team_name = strdup(name);
-  set_player_data(this, s->map->width, s->map->height);
-  this->time = 1260.0 * (1.0 / s->ctime);
-  add_player(&tmp->player_list, this);
-  printf("X = %d && Y = %d && DIR = %d\n", this->x, this->y, this->dir);
-  add_square(&s->map->map[this->y][this->x].player, this);
-  tmp->nb_player_actu++;
+  p->team_name = strdup(n);
+  set_player_data(p, s->map->width, s->map->height);
+  p->time = 1260.0 * (1.0 / s->ctime);
+  add_player(&t->player_list, p);
+  printf("X = %d && Y = %d && DIR = %d\n", p->x, p->y, p->dir);
+  add_square(&s->map->map[p->y][p->x].player, p);
+  t->nb_player_actu++;
 }
 
 void	assign_to_team_end(t_player *this, t_server *s, int nb_co)

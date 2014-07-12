@@ -3,37 +3,37 @@
 #include "CircularBuffer.h"
 #include "start_functions.h"
 
-int		init_bits_fields(t_server *this, fd_set *readfds, fd_set *writefds)
+int		init_bits_fields(t_server *this, fd_set *rfds, fd_set *wfds)
 {
   t_player	*tmp;
 
   tmp = this->player;
-  FD_ZERO(readfds);
-  FD_ZERO(writefds);
-  FD_SET(this->socket, readfds);
+  FD_ZERO(rfds);
+  FD_ZERO(wfds);
+  FD_SET(this->socket, rfds);
   while (tmp != NULL)
     {
       if (tmp->mode == WRITE)
-	FD_SET(tmp->fd, writefds);
+	FD_SET(tmp->fd, wfds);
       else
-	FD_SET(tmp->fd, readfds);
+	FD_SET(tmp->fd, rfds);
       tmp = tmp->next;
     }
   return (0);
 }
 
-int		check_bits_fields(t_server *this, fd_set *readfds, fd_set *writefds)
+int		check_bits_fields(t_server *this, fd_set *rfds, fd_set *wfds)
 {
   t_player	*tmp;
 
   tmp = this->player;
   while (tmp != NULL)
     {
-      if (FD_ISSET(tmp->fd, writefds))
+      if (FD_ISSET(tmp->fd, wfds))
 	fct_write(tmp, this);
       else
 	{
-	  if (FD_ISSET(tmp->fd, readfds))
+	  if (FD_ISSET(tmp->fd, rfds))
 	    {
 	      if (fct_read(tmp, this) == TRUE && tmp->intro == TRUE)
 		assign_to_team(tmp, this);
@@ -59,6 +59,7 @@ int			accept_socket(t_server *s)
     s->max_fd = fd;
   s->nb_player_co++;
   snprintf(s->msg, 300,
-	   "%s<font color=\"Green\">*** NEW CONNECTION FROM IP %s ON PORT %d AND FD %d ***</font>", s->msg, inet_ntoa(client_sin.sin_addr), s->port, fd);
+	   "%s<font color=\"Green\">*** NEW CONNECTION FROM IP %s ON PORT %d AND FD %d ***</font>",
+	   s->msg, inet_ntoa(client_sin.sin_addr), s->port, fd);
   return (TRUE);
 }
