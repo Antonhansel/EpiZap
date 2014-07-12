@@ -31,13 +31,13 @@ void 	player_socket_problem(t_player *this, t_server *s)
 
 int 		fct_read(t_player *this, void *p)
 {
-	char	buf[512];
+	char	buf[BUFFER_SIZE];
 	t_server	*s;
 	int 	ret;
 
 	s = ((t_server *)(p));
-	memset(buf, 0, 512);
-	if ((ret = read(this->fd, buf, 511)) > 0)
+	memset(buf, 0, BUFFER_SIZE);
+	if ((ret = read(this->fd, buf, BUFFER_SIZE - 1)) > 0)
 		return (fct_read_next(this, s, buf, ret));
 	else
 		player_socket_problem(this, s);
@@ -55,18 +55,17 @@ int 		fct_read_next(t_player *this, t_server *s, char *buf, int ret)
 	if ((ret - 1) <= BUFFER_SIZE && this->nb_request < 9
 		&& add_str_in_buffer(&this->buffer_circular, buf) == TRUE)
 	{
-		printf("RECEIVE => %s\n", buf);
-		ptr = get_data_of_buffer(this->buffer_circular);
 		if (this->intro == FALSE)
 		{
+			ptr = get_data_of_buffer(this->buffer_circular);
 			reset_elem_in_buffer(&this->buffer_circular, strlen(ptr) + 1);
 			this->buffer_circular = this->buffer_circular->head;
 			new_cmd = create_new_cmd(s, this, ptr);
 			add_cmd_in_list(&s->cmd_list, new_cmd);
 			old_mode = this->mode;
 			this->nb_request++;
+			free(ptr);
 		}
-		free(ptr);
 		return (TRUE);
 	}
 	this->mode = old_mode;

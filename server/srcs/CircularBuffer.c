@@ -23,7 +23,7 @@ int					create_circular_buffer(t_circular_buffer **cb)
 	(*cb)->head = (*cb);
 	(*cb)->next = (*cb);
 	tmp = (*cb);
-	while (i < BUFFER_SIZE - 1)
+	while (i < BUFFER_SIZE)
 	{
 		create_elem_in_buffer(tmp, BUFFER_CHAR);
 		tmp = tmp->next;
@@ -72,9 +72,9 @@ char 		*get_data_of_buffer(t_circular_buffer *cb)
 	int		i;
 
 	i = 0;
-	if ((str = malloc(sizeof(char) * 64)) == NULL)
+	if ((str = malloc(sizeof(char) * BUFFER_SIZE)) == NULL)
 		return (NULL);
-	str = memset(str, 0, 64);
+	str = memset(str, 0, BUFFER_SIZE);
 	cb = cb->head;
 	if (cb->c != BUFFER_CHAR)
 	{
