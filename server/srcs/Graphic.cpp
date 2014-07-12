@@ -73,7 +73,7 @@ void 	Graphic::caseClicked()
 		data += QString::number(_map->map[_lastPointPress.y()/64]
 			[_lastPointPress.x()/64].square_type);
 		_parent->addData(data, false);
-		updateHud(_lastPointPress.y()/64, _lastPointPress.x()/64);
+		updateHud(_lastPointPress.x()/64, _lastPointPress.y()/64);
 	}
 }
 
@@ -206,7 +206,10 @@ void 	Graphic::displayPlayers()
 	{
 		if (temp->x == _xhud && temp->y == _yhud)
 			addPlayerHud(temp);
-		if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewx && temp->y >= _viewy 
+		if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewy && temp->y >= _viewx
+			&& temp->x <= (_viewy + FIELD_Y) && temp->y <= (_viewx + FIELD_X))
+			Lib::applySurface(((temp->x - _viewy) * SP_SIZE + 10), ((temp->y - _viewx) * SP_SIZE), _bot[(DIR)temp->dir], _screen);
+		else if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewx && temp->y >= _viewy
 			&& temp->x <= (_viewx + FIELD_X) && temp->y <= (_viewy + FIELD_Y))
 			Lib::applySurface(((temp->x - _viewx) * SP_SIZE + 10), ((temp->y - _viewy) * SP_SIZE), _bot[(DIR)temp->dir], _screen);
 		temp = temp->next;
@@ -238,9 +241,9 @@ void 	Graphic::loopHud()
 	QString data;
 
 	data = "Position: ";
-	data += QString::number(_xhud + _viewx);
-	data += " - ";
 	data += QString::number(_yhud + _viewy);
+	data += " - ";
+	data += QString::number(_xhud + _viewx);
 	_parent->addData(data, true);
 	data = "Block type: ";
 	data += QString::number(_map->map[_xhud + _viewx][_yhud + _viewy].square_type);
@@ -268,31 +271,31 @@ void 	Graphic::draw()
 
 void 	Graphic::loader()
 {
-	_stuff[LINEMATE] = std::make_pair("<br><img src=\"./textures/linemate.png\"/> Linemate : ", 0);
-	_stuff[DERAUMERE] = std::make_pair("<img src=\"./textures/deraumere.png\"/> Deraumere : ", 0);
-	_stuff[SIBUR] = std::make_pair("<img src=\"./textures/sibur.png\"/> Sibur : ", 0);
-	_stuff[MENDIANE] = std::make_pair("<img src=\"./textures/mendiane.png\"/> Mendiane : ", 0);
-	_stuff[PHIRAS] = std::make_pair("<img src=\"./textures/phiras.png\"/> Phiras : ", 0);
-	_stuff[THYSTAME] = std::make_pair("<img src=\"./textures/thystame.png\"/> Thystame : ", 0);
-	_stuff[FOOD] = std::make_pair("<img src=\"./textures/food.png\"/> Food : ", 0);
+	_stuff[LINEMATE] = std::make_pair("<br><img src=\"./server/textures/linemate.png\"/> Linemate : ", 0);
+	_stuff[DERAUMERE] = std::make_pair("<img src=\"./server/textures/deraumere.png\"/> Deraumere : ", 0);
+	_stuff[SIBUR] = std::make_pair("<img src=\"./server/textures/sibur.png\"/> Sibur : ", 0);
+	_stuff[MENDIANE] = std::make_pair("<img src=\"./server/textures/mendiane.png\"/> Mendiane : ", 0);
+	_stuff[PHIRAS] = std::make_pair("<img src=\"./server/textures/phiras.png\"/> Phiras : ", 0);
+	_stuff[THYSTAME] = std::make_pair("<img src=\"./server/textures/thystame.png\"/> Thystame : ", 0);
+	_stuff[FOOD] = std::make_pair("<img src=\"./server/textures/food.png\"/> Food : ", 0);
 	_stuffPlayer = _stuff;
-	_floor[0] = Lib::loadImage("./textures/grass.png");
+	_floor[0] = Lib::loadImage("./server/textures/grass.png");
 	_floor[1] = _floor[0];
 	_floor[2] = _floor[0];
 	_floor[3] = _floor[0];
 	_floor[4] = _floor[0];
-	_floor[5] = Lib::loadImage("./textures/mud.png");
-	_floor[6] = Lib::loadImage("./textures/mud2.png");
-	_floor[7] = Lib::loadImage("./textures/mud3.png");
-	_ressource[LINEMATE] = Lib::loadImage("./textures/linemate.png");
-	_ressource[DERAUMERE] = Lib::loadImage("./textures/deraumere.png");
-	_ressource[SIBUR] = Lib::loadImage("./textures/sibur.png");
-	_ressource[MENDIANE] = Lib::loadImage("./textures/mendiane.png");
-	_ressource[PHIRAS] = Lib::loadImage("./textures/phiras.png");
-	_ressource[THYSTAME] = Lib::loadImage("./textures/thystame.png");
-	_ressource[FOOD] = Lib::loadImage("./textures/food.png");
-	_bot[NORTH] = zoomSurface(Lib::loadImage("./textures/LinkRunU1.gif"), 2.5, 2.5, 1);
-	_bot[SOUTH] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldD1.gif"), 2.5, 2.5, 1);
-	_bot[EAST] = zoomSurface(Lib::loadImage("./textures/LinkRunR1.gif"), 2.5, 2.5, 1);
-	_bot[WEST] = zoomSurface(Lib::loadImage("./textures/LinkRunShieldL1.gif"), 2.5, 2.5, 1);
+	_floor[5] = Lib::loadImage("./server/textures/mud.png");
+	_floor[6] = Lib::loadImage("./server/textures/mud2.png");
+	_floor[7] = Lib::loadImage("./server/textures/mud3.png");
+	_ressource[LINEMATE] = Lib::loadImage("./server/textures/linemate.png");
+	_ressource[DERAUMERE] = Lib::loadImage("./server/textures/deraumere.png");
+	_ressource[SIBUR] = Lib::loadImage("./server/textures/sibur.png");
+	_ressource[MENDIANE] = Lib::loadImage("./server/textures/mendiane.png");
+	_ressource[PHIRAS] = Lib::loadImage("./server/textures/phiras.png");
+	_ressource[THYSTAME] = Lib::loadImage("./server/textures/thystame.png");
+	_ressource[FOOD] = Lib::loadImage("./server/textures/food.png");
+	_bot[NORTH] = zoomSurface(Lib::loadImage("./server/textures/LinkRunU1.gif"), 2.5, 2.5, 1);
+	_bot[SOUTH] = zoomSurface(Lib::loadImage("./server/textures/LinkRunShieldD1.gif"), 2.5, 2.5, 1);
+	_bot[EAST] = zoomSurface(Lib::loadImage("./server/textures/LinkRunR1.gif"), 2.5, 2.5, 1);
+	_bot[WEST] = zoomSurface(Lib::loadImage("./server/textures/LinkRunShieldL1.gif"), 2.5, 2.5, 1);
 }

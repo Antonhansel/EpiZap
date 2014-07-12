@@ -10,64 +10,64 @@
 
 #include "Network.h"
 
-int		xbind(int sockfd, struct sockaddr_in *addr, socklen_t addrlen)
+int	xbind(int sockfd, struct sockaddr_in *addr, socklen_t addrlen)
 {
-	int	rbind;
+  int	rbind;
 
-	rbind = bind(sockfd, (const struct sockaddr *)addr, addrlen);
-	if (rbind == -1)
-	{
-		close(sockfd);
-		return (FALSE);
-	}
-	return (TRUE);
+  rbind = bind(sockfd, (const struct sockaddr *)addr, addrlen);
+  if (rbind == -1)
+    {
+      close(sockfd);
+      return (FALSE);
+    }
+  return (TRUE);
 }
 
-int		xsocket(int domain, int type, int protocol)
+int	xsocket(int domain, int type, int protocol)
 {
-	int	fd;
+  int	fd;
 
-	fd = socket(domain, type, protocol);
-	if (fd == -1)
-	{
-		return (FALSE);
-	}
-	return (fd);
+  fd = socket(domain, type, protocol);
+  if (fd == -1)
+    {
+      return (FALSE);
+    }
+  return (fd);
 }
 
-int		xaccept(int sockfd, struct sockaddr_in *addr, socklen_t *len)
+int	xaccept(int sockfd, struct sockaddr_in *addr, socklen_t *len)
 {
-	int	ret;
+  int	ret;
 
-	ret = accept(sockfd, (struct sockaddr *)addr, len);
-	if (ret == -1)
-	{
-		close(sockfd);
-		return (FALSE);
-	}
-	return (ret);
+  ret = accept(sockfd, (struct sockaddr *)addr, len);
+  if (ret == -1)
+    {
+      close(sockfd);
+      return (FALSE);
+    }
+  return (ret);
 }
 
-int		xlisten(int sockfd, int backlog)
+int	xlisten(int sockfd, int backlog)
 {
-	int	ret;
+  int	ret;
 
-	ret = listen(sockfd, backlog);
-	if (ret == -1)
-	{
-		return (FALSE);
-	}
-	return (TRUE);
+  ret = listen(sockfd, backlog);
+  if (ret == -1)
+    {
+      return (FALSE);
+    }
+  return (TRUE);
 }
 
-int		xconnect(int sockfd, struct sockaddr_in *addr, socklen_t addrlen)
+int	xconnect(int sockfd, struct sockaddr_in *addr, socklen_t addrlen)
 {
-	int	ret;
+  int	ret;
 
-	ret = connect(sockfd, (const struct sockaddr *)addr, addrlen);
-	if (ret == -1)
-	{
-		return (FALSE);
-	}
-	return (TRUE);
+  ret = connect(sockfd, (const struct sockaddr *)addr, addrlen);
+  if (ret == -1)
+    {
+      return (FALSE);
+    }
+  return (TRUE);
 }

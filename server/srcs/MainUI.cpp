@@ -73,7 +73,7 @@ void	MainUI::initUi()
   _infos->setText("Click on a square to reveal its data");
   _infos->setReadOnly(true);
   _infos->setFixedWidth(WIDTH/6);
-  _infos->setStyleSheet("color: white; background-image: url(./textures/bg.png)");
+  _infos->setStyleSheet("color: white; background-image: url(./server/textures/bg.png)");
   _teams = new QTreeWidget(this);
   _teams->setFixedHeight(HEIGHT/6);
   _teams->setFixedWidth(WIDTH/6);
@@ -81,7 +81,7 @@ void	MainUI::initUi()
   _curplayer = new QTextEdit(this);
   _curplayer->setFixedWidth(WIDTH/6);
   _curplayer->setReadOnly(true);
-  _curplayer->setStyleSheet("color: white; background-image: url(./textures/bgbot.png)");
+  _curplayer->setStyleSheet("color: white; background-image: url(./server/textures/bgbot.png)");
 }
 
 void            MainUI::setServer(t_server &s)
