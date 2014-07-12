@@ -35,12 +35,6 @@ int	init_inventory(t_inventory *this, pthread_mutex_t *mutex, int mode)
   return (TRUE);
 }
 
-int	destroy_inventory(t_inventory *this)
-{
-  (void)this;
-  return (0);
-}
-
 void	generate_inventory(t_inventory *this)
 {
   this->tab[LINEMATE] = 0;

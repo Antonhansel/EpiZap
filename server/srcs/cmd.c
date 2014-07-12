@@ -27,7 +27,7 @@ int 	get_cmd_type(t_server *s, char *cmd)
 	{
 	  if (strncmp(s->cmd_type[i], cmd, strlen(s->cmd_type[i])) == 0)
 	    return (i);
-	}
+	}   
     }
   return (-1);
 }
