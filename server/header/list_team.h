@@ -4,6 +4,6 @@
 # include "Team.h"
 
 int	add_elem_in_team(t_team **, char *, int);
-int del_elem_in_team(t_team **, char *);
+int	del_elem_in_team(t_team **, char *);
 
 #endif
