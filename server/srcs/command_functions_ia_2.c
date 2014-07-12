@@ -50,8 +50,8 @@ int 	put_object_cmd(void *s, t_player *p, char *cmd)
 	{
 		if (p->inventory->get_object(p->inventory, i) > 0)
 		{
-			((t_server*)(s))->map->map[p->x][p->y].inventory->set_object(
-				((t_server*)(s))->map->map[p->x][p->y].inventory, i, 1);
+			((t_server*)(s))->map->map[p->y][p->x].inventory->set_object(
+				((t_server*)(s))->map->map[p->y][p->x].inventory, i, 1);
 			p->inventory->set_object(p->inventory, i, -1);
 			add_str_in_buffer(&p->buffer_circular, "ok\n");
 			return (0);
@@ -70,7 +70,7 @@ int 			kick_cmd(void *s, t_player *p, char *cmd)
 	p->mode = WRITE;
 	tmp = ((t_server*)(s))->map->map[p->y][p->x].player;
 	expulse = kick_cmd_next(((t_server*)(s)), p, tmp);
-	if (expulse == 1)
+	if (expulse != 0)
 		add_str_in_buffer(&p->buffer_circular, "ok\n");
 	else
 		add_str_in_buffer(&p->buffer_circular, "ko\n");
@@ -93,7 +93,7 @@ int 			incantation_cmd(void *s, t_player *p, char *cmd)
 
 	(void)cmd;
 	p->mode = WRITE;
-	tmp = ((t_server*)(s))->map->map[p->x][p->y].player;
+	tmp = ((t_server*)(s))->map->map[p->y][p->x].player;
 	i = 0;
 	while (tmp)
 	{

@@ -77,7 +77,9 @@ int			kick_cmd_next(void *s, t_player *p, t_player *tmp)
 {
 	int 	old_dir;
 	char	*res;
+	int 	ret;
 
+	ret = 0;
 	while (tmp)
 	{
 		if (tmp->fd != p->fd)
@@ -94,10 +96,11 @@ int			kick_cmd_next(void *s, t_player *p, t_player *tmp)
 				tmp->mode = WRITE;
 				free(res);
 			}
+			ret++;
 			tmp->sent = TRUE;
-			return (1);
 		}
+		printf("-------->   FFFFFFF\n");
 		tmp = tmp->next_square;
 	}
-	return (0);
+	return (ret);
 }

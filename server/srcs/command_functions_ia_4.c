@@ -84,8 +84,8 @@ int 		get_rock(void *s, t_player *p)
 	i = 0;
 	while (i < 6)
 	{
-		if (((t_server*)(s))->map->map[p->x][p->y].inventory->
-				get_object(((t_server*)(s))->map->map[p->x][p->y].inventory, i)
+		if (((t_server*)(s))->map->map[p->y][p->x].inventory->
+				get_object(((t_server*)(s))->map->map[p->y][p->x].inventory, i)
 				< ((t_server*)(s))->inc_tab[p->lvl + 1][i])
 		{
 			return (FALSE);
