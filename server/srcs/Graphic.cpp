@@ -73,7 +73,7 @@ void 	Graphic::caseClicked()
 		data += QString::number(_map->map[_lastPointPress.y()/64]
 			[_lastPointPress.x()/64].square_type);
 		_parent->addData(data, false);
-		updateHud(_lastPointPress.y()/64, _lastPointPress.x()/64);
+		updateHud(_lastPointPress.x()/64, _lastPointPress.y()/64);
 	}
 }
 
@@ -206,7 +206,10 @@ void 	Graphic::displayPlayers()
 	{
 		if (temp->x == _xhud && temp->y == _yhud)
 			addPlayerHud(temp);
-		if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewx && temp->y >= _viewy 
+		if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewy && temp->y >= _viewx
+			&& temp->x <= (_viewy + FIELD_Y) && temp->y <= (_viewx + FIELD_X))
+			Lib::applySurface(((temp->x - _viewy) * SP_SIZE + 10), ((temp->y - _viewx) * SP_SIZE), _bot[(DIR)temp->dir], _screen);
+		else if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewx && temp->y >= _viewy
 			&& temp->x <= (_viewx + FIELD_X) && temp->y <= (_viewy + FIELD_Y))
 			Lib::applySurface(((temp->x - _viewx) * SP_SIZE + 10), ((temp->y - _viewy) * SP_SIZE), _bot[(DIR)temp->dir], _screen);
 		temp = temp->next;
@@ -238,9 +241,9 @@ void 	Graphic::loopHud()
 	QString data;
 
 	data = "Position: ";
-	data += QString::number(_xhud + _viewx);
-	data += " - ";
 	data += QString::number(_yhud + _viewy);
+	data += " - ";
+	data += QString::number(_xhud + _viewx);
 	_parent->addData(data, true);
 	data = "Block type: ";
 	data += QString::number(_map->map[_xhud + _viewx][_yhud + _viewy].square_type);
