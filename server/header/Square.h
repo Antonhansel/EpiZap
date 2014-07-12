@@ -1,3 +1,13 @@
+/*
+** Square.h for Square.h in /home/david_c/B4/systemUnix/psu_2013_zappy/server/header
+**
+** Made by Flavien David
+** Login   <david_c@epitech.net>
+**
+** Started on  sam. juil.  12 18:18:37 2014 Flavien David
+** Last update sam. juil.  12 18:18:37 2014 Flavien David
+*/
+
 #ifndef	SQUARE_H_
 # define SQUARE_H_
 

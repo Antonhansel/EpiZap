@@ -1,3 +1,13 @@
+/*
+** cmd_functions.h for cmd_functions.h in /home/david_c/B4/systemUnix/psu_2013_zappy/server/header
+**
+** Made by Flavien David
+** Login   <david_c@epitech.net>
+**
+** Started on  sam. juil.  12 18:19:12 2014 Flavien David
+** Last update sam. juil.  12 18:19:12 2014 Flavien David
+*/
+
 #ifndef CMD_FUNCTIONS_H_
 # define CMD_FUNCTIONS_H_
 
