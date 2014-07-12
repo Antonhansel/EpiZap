@@ -9,13 +9,10 @@ int 		up_cmd(void *serv, t_player *p, char *cmd)
 
 	s = ((t_server*)(serv));
 	(void)cmd;
-/*printf("----- BEFORE DELETING PLAYER IN SQUARE ----\n");
-display_list_square(s->map->map[p->x][p->y].player);
-*/	del_square(&s->map->map[p->x][p->y].player, p->fd);
-/*	printf("----- BEFORE DELETING PLAYER IN SQUARE ----\n");
-display_list_square(s->map->map[p->x][p->y].player);
-*/	(p->dir == NORTH) ? p->y-- : (p->dir == EAST) ? p->x++ : (p->dir == WEST) ?
+	del_square(&s->map->map[p->y][p->x].player, p->fd);
+	(p->dir == NORTH) ? p->y-- : (p->dir == EAST) ? p->x++ : (p->dir == WEST) ?
 p->x-- : p->y++;
+printf("X = %d Y : %d DIR = %d\n", p->x, p->y, p->dir);
 if (p->x >= s->map->width)
 	p->x = 0;
 else if (p->x < 0)
@@ -24,12 +21,8 @@ if (p->y >= s->map->height)
 	p->y = 0;
 else if (p->y < 0)
 	p->y = s->map->height - 1;
-/*	printf("----- BEFORE ADDING PLAYER IN SQUARE ----\n");
-display_list_square(s->map->map[p->x][p->y].player);
-*/	add_square(&s->map->map[p->x][p->y].player, p);
-/*	printf("----- AFTER ADDING PLAYER IN SQUARE ----\n");
-display_list_square(s->map->map[p->x][p->y].player);
-*/	if (p->sent == TRUE)
+	add_square(&s->map->map[p->y][p->x].player, p);
+	if (p->sent == TRUE)
 {
 	add_str_in_buffer(&p->buffer_circular, "ok\n");
 	p->mode = WRITE;
@@ -41,8 +34,8 @@ int 	right_cmd(void *s, t_player *p, char *cmd)
 {
 	(void)s;
 	(void)cmd;
-	(p->dir == NORTH) ? (p->dir = WEST) : (p->dir == WEST) ? (p->dir = SOUTH) :
-	(p->dir == SOUTH) ? (p->dir = EAST) : (p->dir = NORTH);
+	(p->dir == NORTH) ? (p->dir = EAST) : (p->dir == EAST) ? (p->dir = SOUTH) :
+	(p->dir == SOUTH) ? (p->dir = WEST) : (p->dir = NORTH);
 	add_str_in_buffer(&p->buffer_circular, "ok\n");
 	p->mode = WRITE;
 	return (0);
@@ -52,8 +45,8 @@ int 	left_cmd(void *s, t_player *p, char *cmd)
 {
 	(void)s;
 	(void)cmd;
-	(p->dir == NORTH) ? (p->dir = EAST) : (p->dir == EAST) ? (p->dir = SOUTH) :
-	(p->dir == SOUTH) ? (p->dir = WEST) : (p->dir = NORTH);
+	(p->dir == NORTH) ? (p->dir = WEST) : (p->dir == WEST) ? (p->dir = SOUTH) :
+	(p->dir == SOUTH) ? (p->dir = EAST) : (p->dir = NORTH);
 	add_str_in_buffer(&p->buffer_circular, "ok\n");
 	p->mode = WRITE;
 	return (0);
