@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = gui
+TARGET = ../server_gui
 INCLUDEPATH += . header
 
 QT += widgets

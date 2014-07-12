@@ -54,7 +54,7 @@ static void		free_map_attr(t_map *this)
 	int 		i;
 
 	i = 0;
-	while (i < this->height + 1)
+	while (i < this->height)
 		{
 			free(this->map[i]);
 			++i;
