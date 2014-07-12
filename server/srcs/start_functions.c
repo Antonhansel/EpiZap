@@ -47,7 +47,7 @@ void	assign_to_team_next_next(t_player *this, t_server *s, char *name, t_team *t
 	set_player_data(this, s->map->width, s->map->height);
 	this->time = 1260.0 * (1.0 / s->ctime);
 	add_player(&tmp->player_list, this);
-	printf("X = %d Y : %d DIR = %d\n", this->x, this->y, this->dir);
+	printf("X = %d && Y = %d && DIR = %d\n", this->x, this->y, this->dir);
 	add_square(&s->map->map[this->y][this->x].player, this);
 	tmp->nb_player_actu++;
 }

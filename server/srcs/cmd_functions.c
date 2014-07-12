@@ -81,7 +81,7 @@ void		del_cmd_of_player(t_cmd **list, t_player *p)
 	}
 }
 
-void		update_life(t_player **player, int timer, int ctime)
+void		update_life(t_player **player, int timer)
 {
 	t_player 	*tmp;
 

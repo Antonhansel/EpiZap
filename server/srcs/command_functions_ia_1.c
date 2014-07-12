@@ -11,23 +11,22 @@ int 		up_cmd(void *serv, t_player *p, char *cmd)
 	(void)cmd;
 	del_square(&s->map->map[p->y][p->x].player, p->fd);
 	(p->dir == NORTH) ? p->y-- : (p->dir == EAST) ? p->x++ : (p->dir == WEST) ?
-p->x-- : p->y++;
-printf("X = %d Y : %d DIR = %d\n", p->x, p->y, p->dir);
-if (p->x >= s->map->width)
-	p->x = 0;
-else if (p->x < 0)
-	p->x = s->map->width - 1;
-if (p->y >= s->map->height)
-	p->y = 0;
-else if (p->y < 0)
-	p->y = s->map->height - 1;
+	p->x-- : p->y++;
+	if (p->x >= s->map->width)
+		p->x = 0;
+	else if (p->x < 0)
+		p->x = s->map->width - 1;
+	if (p->y >= s->map->height)
+		p->y = 0;
+	else if (p->y < 0)
+		p->y = s->map->height - 1;
 	add_square(&s->map->map[p->y][p->x].player, p);
 	if (p->sent == TRUE)
-{
-	add_str_in_buffer(&p->buffer_circular, "ok\n");
-	p->mode = WRITE;
-}
-return (0);
+	{
+		add_str_in_buffer(&p->buffer_circular, "ok\n");
+		p->mode = WRITE;
+	}
+	return (0);
 }
 
 int 	right_cmd(void *s, t_player *p, char *cmd)

@@ -63,8 +63,8 @@ int 		see_loop(void *s, t_player *p, int di, int dj)
 		c = r;
 		while (c >= -r)
 		{
-			y = (p->x + r * di + c * dj + ((t_server*)(s))->map->width) % ((t_server*)(s))->map->width;
-			x = (p->y + c * di + r * dj * -1 + ((t_server*)(s))->map->height) % ((t_server*)(s))->map->height;
+			x = (p->x + r * di + c * dj + ((t_server*)(s))->map->width) % ((t_server*)(s))->map->width;
+			y = (p->y + c * di + r * dj * -1 + ((t_server*)(s))->map->height) % ((t_server*)(s))->map->height;
 			str = see_next(s, str, x, y);
 			c--;
 		}

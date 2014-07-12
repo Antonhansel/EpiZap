@@ -14,13 +14,7 @@ void 	player_socket_problem(t_player *this, t_server *s)
 		"%s<font color=\"Red\">*** PLAYER %d DISCONNECTED ***</font>",
 		(s->msg != NULL) ? s->msg : "", this->fd);
 	if (this->intro == FALSE)
-	{
-		/*printf("----- BEFORE DELETIN PLAYER IN SQUARE DUE TO DEATH ----\n");
-		display_list_square(s->map->map[this->x][this->y].player);
-	*/	del_square(&s->map->map[this->x][this->y].player, this->fd);
-	/*	printf("----- BEFORE ADDING PLAYER IN SQUARE DUE TO DEATH ----\n");
-		display_list_square(s->map->map[this->x][this->y].player);
-	*/}
+		del_square(&s->map->map[this->y][this->x].player, this->fd);
 	destroy_player(this, s);
 	close(this->fd);
 	del_cmd_of_player(&s->cmd_list, this);

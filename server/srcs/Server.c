@@ -80,7 +80,7 @@ static int 			loop(t_server *this)
 			(((int)(t1)) < (((int)(t)) + timer)) ? timer = (t1 - t) : 0;
 			(timer <= (300.0 / this->ctime)) ?
 				set_new_timer(&this->cmd_list, this, timer) : 0;
-			update_life(&this->player, (t1 - t), this->ctime);
+			update_life(&this->player, (t1 - t));
 		}
 	}
 	return (0);
