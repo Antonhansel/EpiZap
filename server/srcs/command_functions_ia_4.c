@@ -13,7 +13,7 @@ int		fork_egg(void *s, t_player *p, char *cmd)
       if (strcmp(tmp->name, cmd) == 0)
 	{
 	  tmp->nb_player_max++;
-	  ret = 1;			
+	  ret = 1;
 	}
       tmp = tmp->next;
     }

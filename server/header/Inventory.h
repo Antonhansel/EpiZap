@@ -18,7 +18,6 @@ typedef struct 		s_inventory
 }					t_inventory;
 
 int 	init_inventory(t_inventory *, pthread_mutex_t *, int);
-int 	destroy_inventory(t_inventory *);
 void	generate_inventory(t_inventory *);
 
 #endif 			/* INVENTORY_H_ */
