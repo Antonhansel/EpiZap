@@ -1,3 +1,13 @@
+/*
+** cmd.c for cmd.c in /home/david_c/B4/systemUnix/psu_2013_zappy/server/srcs
+**
+** Made by Flavien David
+** Login   <david_c@epitech.net>
+**
+** Started on  sam. juil.  12 18:06:30 2014 Flavien David
+** Last update sam. juil.  12 18:06:30 2014 Flavien David
+*/
+
 #include "cmd.h"
 #include "Server.h"
 #include "CircularBuffer.h"
@@ -90,7 +100,7 @@ int		del_cmd_in_list(t_cmd **list, t_cmd *cmd)
 {
   t_cmd		*tmp;
   t_cmd		*save;
-  
+
   tmp = *list;
   if (tmp == cmd)
     {

@@ -1,3 +1,13 @@
+/*
+** cmd_functions.c for cmd_functions.c in /home/david_c/B4/systemUnix/psu_2013_zappy/server/srcs
+**
+** Made by Flavien David
+** Login   <david_c@epitech.net>
+**
+** Started on  sam. juil.  12 18:06:37 2014 Flavien David
+** Last update sam. juil.  12 18:06:37 2014 Flavien David
+*/
+
 #include "cmd_functions.h"
 
 void 	player_socket_problem(t_player *, t_server *);
@@ -57,13 +67,13 @@ void	do_action(t_cmd **list, t_server *s, t_cmd *tmp)
   else if (tmp->func != NULL && tmp->team_name != NULL)
     {
       (*tmp->func)(((void*)(s)), tmp->owner, tmp->team_name);
-      tmp->owner->nb_request++;		
+      tmp->owner->nb_request++;
     }
   else
     {
       add_str_in_buffer(&tmp->owner->buffer_circular, "ko\n");
       tmp->owner->mode = WRITE;
-    }		
+    }
   del_cmd_in_list(list, tmp);
   tmp->owner->nb_request--;
 }
