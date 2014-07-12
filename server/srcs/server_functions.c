@@ -1,3 +1,13 @@
+/*
+** server_functions.c for server_functions.c in /home/david_c/B4/systemUnix/psu_2013_zappy/server/srcs
+**
+** Made by Flavien David
+** Login   <david_c@epitech.net>
+**
+** Started on  sam. juil.  12 18:03:40 2014 Flavien David
+** Last update sam. juil.  12 18:03:40 2014 Flavien David
+*/
+
 #include "Server.h"
 #include "List.h"
 #include "CircularBuffer.h"
@@ -59,7 +69,7 @@ int			accept_socket(t_server *s)
     s->max_fd = fd;
   s->nb_player_co++;
   snprintf(s->msg, 300,
-	   "%s<font color=\"Green\">*** NEW CONNECTION FROM IP %s ON PORT %d AND FD %d ***</font>",
-	   s->msg, inet_ntoa(client_sin.sin_addr), s->port, fd);
+	   "%s<font color=\"Green\">*** CONNECTION FROM IP %s, FD %d ***</font>",
+	   s->msg, inet_ntoa(client_sin.sin_addr), fd);
   return (TRUE);
 }

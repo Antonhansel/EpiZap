@@ -1,3 +1,13 @@
+/*
+** player_functions.c for player_functions.c in /home/david_c/B4/systemUnix/psu_2013_zappy/server/srcs
+**
+** Made by Flavien David
+** Login   <david_c@epitech.net>
+**
+** Started on  sam. juil.  12 18:08:21 2014 Flavien David
+** Last update sam. juil.  12 18:08:21 2014 Flavien David
+*/
+
 #include "Server.h"
 #include "List.h"
 #include "command_functions.h"

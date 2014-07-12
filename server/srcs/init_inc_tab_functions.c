@@ -1,3 +1,13 @@
+/*
+** init_inc_tab_functions.c for init_inc_tab.c in /home/david_c/B4/systemUnix/psu_2013_zappy/server/srcs
+**
+** Made by Flavien David
+** Login   <david_c@epitech.net>
+**
+** Started on  sam. juil.  12 18:07:29 2014 Flavien David
+** Last update sam. juil.  12 18:07:29 2014 Flavien David
+*/
+
 #include "Server.h"
 
 void	init_inc_tab_1(t_server *s)
@@ -65,5 +75,5 @@ void	init_inc_tab_3(t_server *s)
   s->inc_tab[LVL8][MENDIANE] = 2;
   s->inc_tab[LVL8][PHIRAS] = 2;
   s->inc_tab[LVL8][THYSTAME] = 1;
-  s->inc_tab[LVL8][6] = 6;	
+  s->inc_tab[LVL8][6] = 6;
 }

@@ -1,3 +1,13 @@
+/*
+** command_functions_ia_4.c for command_functions_ia_4.c in /home/david_c/B4/systemUnix/psu_2013_zappy/server/srcs
+**
+** Made by Flavien David
+** Login   <david_c@epitech.net>
+**
+** Started on  sam. juil.  12 18:07:21 2014 Flavien David
+** Last update sam. juil.  12 18:07:21 2014 Flavien David
+*/
+
 #include "command_functions.h"
 
 int		fork_egg(void *s, t_player *p, char *cmd)
@@ -13,7 +23,7 @@ int		fork_egg(void *s, t_player *p, char *cmd)
       if (strcmp(tmp->name, cmd) == 0)
 	{
 	  tmp->nb_player_max++;
-	  ret = 1;			
+	  ret = 1;
 	}
       tmp = tmp->next;
     }
@@ -23,7 +33,6 @@ int		fork_egg(void *s, t_player *p, char *cmd)
 char		*see_next(void *serv, char *str, int x, int y)
 {
   int		i;
-  int		nb;
   t_server	*s;
 
   i = -1;
@@ -37,8 +46,8 @@ char		*see_next(void *serv, char *str, int x, int y)
     }
   while (++i < 7)
     {
-      nb = s->map->map[y][x].inventory->get_object(s->map->map[y][x].inventory, i);
-      if (nb != 0)
+      if (s->map->map[y][x].inventory->get_object(
+        s->map->map[y][x].inventory, i) != 0)
 	{
 	  str = strcat(str, " ");
 	  str = strcat(str, s->obj_type[i]);

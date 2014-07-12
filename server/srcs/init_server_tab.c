@@ -1,3 +1,13 @@
+/*
+** init_server_tab.c for init_server_tab.c in /home/david_c/B4/systemUnix/psu_2013_zappy/server/srcs
+**
+** Made by Flavien David
+** Login   <david_c@epitech.net>
+**
+** Started on  sam. juil.  12 18:07:38 2014 Flavien David
+** Last update sam. juil.  12 18:07:38 2014 Flavien David
+*/
+
 #include "Server.h"
 #include "command_functions.h"
 
@@ -41,7 +51,7 @@ void	init_obj_tab(t_server *s)
 	strcpy(s->obj_type[MENDIANE], "mendiane");
 	strcpy(s->obj_type[PHIRAS], "phiras");
 	strcpy(s->obj_type[THYSTAME], "thystame");
-	strcpy(s->obj_type[FOOD], "nourriture");	
+	strcpy(s->obj_type[FOOD], "nourriture");
 }
 
 void	init_tab_ptr(t_server *s)

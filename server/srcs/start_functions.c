@@ -1,3 +1,13 @@
+/*
+** start_functions.c for start_functions.c in /home/david_c/B4/systemUnix/psu_2013_zappy/server/srcs
+**
+** Made by Flavien David
+** Login   <david_c@epitech.net>
+**
+** Started on  sam. juil.  12 18:08:35 2014 Flavien David
+** Last update sam. juil.  12 18:08:35 2014 Flavien David
+*/
+
 #include "start_functions.h"
 #include "List.h"
 

@@ -1,3 +1,13 @@
+/*
+** Map.c for Map.c in /home/david_c/B4/systemUnix/psu_2013_zappy/server/srcs
+**
+** Made by Flavien David
+** Login   <david_c@epitech.net>
+**
+** Started on  sam. juil.  12 18:04:26 2014 Flavien David
+** Last update sam. juil.  12 18:04:26 2014 Flavien David
+*/
+
 #include <stdlib.h>
 #include "Map.h"
 #include "Square.h"
@@ -25,7 +35,7 @@ static int	alloc_map_attr(t_map *this)
   int		i;
   int		x;
 
-  if (!(this->map = malloc(sizeof(t_square *) * (this->height)))) 
+  if (!(this->map = malloc(sizeof(t_square *) * (this->height))))
     return (FALSE);
   i = -1;
   while (++i < this->height)
