@@ -1,3 +1,13 @@
+/*
+** Square.h for Square.h in /home/david_c/B4/systemUnix/psu_2013_zappy/server/header
+**
+** Made by Flavien David
+** Login   <david_c@epitech.net>
+**
+** Started on  sam. juil.  12 18:18:37 2014 Flavien David
+** Last update sam. juil.  12 18:18:37 2014 Flavien David
+*/
+
 #ifndef	SQUARE_H_
 # define SQUARE_H_
 
@@ -6,19 +16,18 @@
 # include "Inventory.h"
 # include "Player.h"
 
-typedef struct	Square
+typedef struct		s_square
 {
-	/* Attributes */
-	int 		square_type;
-	Inventory	*inventory;
-	Player		*player;
-	/* Methods*/
-	Inventory 	*(*get_inventory)(struct Square *);
-	void		(*set_inventory)(struct Square *, struct Inventory *);
-	Player 		*(*get_player)(struct Square *);
-}				Square;
+  int			square_type;
+  t_inventory		*inventory;
+  t_player		*player;
+  t_inventory		*(*get_inventory)(struct s_square *);
+  void			(*set_inventory)(struct s_square *,
+					 struct s_inventory *);
+  t_player		*(*get_player)(struct s_square *);
+}			t_square;
 
-int 	init_square(struct Square *);
-int 	destroy_square(struct Square *);
+int			init_square(t_square *);
+int			destroy_square(t_square *);
 
 #endif

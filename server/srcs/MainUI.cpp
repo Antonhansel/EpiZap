@@ -73,7 +73,7 @@ void	MainUI::initUi()
   _infos->setText("Click on a square to reveal its data");
   _infos->setReadOnly(true);
   _infos->setFixedWidth(WIDTH/6);
-  _infos->setStyleSheet("color: white; background-image: url(./textures/bg.png)");
+  _infos->setStyleSheet("color: white; background-image: url(./server/textures/bg.png)");
   _teams = new QTreeWidget(this);
   _teams->setFixedHeight(HEIGHT/6);
   _teams->setFixedWidth(WIDTH/6);
@@ -81,10 +81,10 @@ void	MainUI::initUi()
   _curplayer = new QTextEdit(this);
   _curplayer->setFixedWidth(WIDTH/6);
   _curplayer->setReadOnly(true);
-  _curplayer->setStyleSheet("color: white; background-image: url(./textures/bgbot.png)");
+  _curplayer->setStyleSheet("color: white; background-image: url(./server/textures/bgbot.png)");
 }
 
-void            MainUI::setServer(Server &s)
+void            MainUI::setServer(t_server &s)
 {
   _server = &s;
   NetworkC  *net = new NetworkC(&s, _console);
@@ -135,7 +135,7 @@ MainUI::MainUI(bool status, std::map<std::string, int> &option) : QWidget()
   setLayout(_mainLayout);
 }
 
-void  MainUI::addToList(Team *temp)
+void  MainUI::addToList(t_team *temp)
 {
   QTreeWidgetItem   *teamName;
   QString         slotText;
@@ -154,7 +154,7 @@ void MainUI::refreshList()
 { 
   if (_status && _continue)
   {
-    Team  *temp;
+    t_team  *temp;
     temp = _server->team;
     _teams->clear();
     while (temp != NULL)

@@ -1,91 +1,101 @@
+/*
+** CircularBuffer.c for CircularBuffer.c in /home/david_c/B4/systemUnix/psu_2013_zappy/server/srcs
+**
+** Made by Flavien David
+** Login   <david_c@epitech.net>
+**
+** Started on  sam. juil.  12 18:05:22 2014 Flavien David
+** Last update sam. juil.  12 18:05:22 2014 Flavien David
+*/
+
 #include "CircularBuffer.h"
 
-int 				create_elem_in_buffer(CircularBuffer *cb, char c)
+int			create_elem_in_buffer(t_circular_buffer *cb, char c)
 {
-	CircularBuffer	*node;
+  t_circular_buffer	*node;
 
-	if ((node = malloc(sizeof(CircularBuffer))) == NULL)
-		return (FALSE);
-	node->c = c;
-	node->next = cb->next;
-	node->head = cb->head;
-	cb->next = node;
-	return (TRUE);
+  if ((node = malloc(sizeof(t_circular_buffer))) == NULL)
+    return (FALSE);
+  node->c = c;
+  node->next = cb->next;
+  node->head = cb->head;
+  cb->next = node;
+  return (TRUE);
 }
 
-int					create_circular_buffer(CircularBuffer **cb)
+int			create_circular_buffer(t_circular_buffer **cb)
 {
-	CircularBuffer 	*tmp;
-	int				i;
+  t_circular_buffer	*tmp;
+  int			i;
 
-	i = 0;
-	(*cb)->c = BUFFER_CHAR;
-	(*cb)->head = (*cb);
-	(*cb)->next = (*cb);
-	tmp = (*cb);
-	while (i < BUFFER_SIZE - 1)
-	{
-		create_elem_in_buffer(tmp, BUFFER_CHAR);
-		tmp = tmp->next;
-		i++;
-	}
-	return (TRUE);
+  i = 0;
+  (*cb)->c = BUFFER_CHAR;
+  (*cb)->head = (*cb);
+  (*cb)->next = (*cb);
+  tmp = (*cb);
+  while (i < BUFFER_SIZE)
+    {
+      create_elem_in_buffer(tmp, BUFFER_CHAR);
+      tmp = tmp->next;
+      i++;
+    }
+  return (TRUE);
 }
 
-int					add_str_in_buffer(CircularBuffer **cb, char *str)
+int			add_str_in_buffer(t_circular_buffer **cb, char *str)
 {
-	CircularBuffer 	*tmp;
-	int				i;
+  t_circular_buffer	*tmp;
+  int			i;
 
-	i = 0;
-	tmp = (*cb);
-	while (str[i] != 0)
-	{
-		tmp->c = str[i];
-		tmp = tmp->next;
-		i++;
-	}
-	*(cb) = tmp;
-	if (str[i - 1] == '\n')
-		return (TRUE);
-	return (FALSE);
+  i = 0;
+  tmp = (*cb);
+  while (str[i] != 0)
+    {
+      tmp->c = str[i];
+      tmp = tmp->next;
+      i++;
+    }
+  *(cb) = tmp;
+  if (str[i - 1] == '\n')
+    return (TRUE);
+  return (FALSE);
 }
 
-void 				reset_elem_in_buffer(CircularBuffer **cb, int nb_char)
+void			reset_elem_in_buffer(t_circular_buffer **cb, int nb_char)
 {
-	CircularBuffer 	*tmp;
-	int 			i;
+  t_circular_buffer	*tmp;
+  int 			i;
 
-	i = 0;
-	tmp = (*cb)->head;
-	while (i < nb_char)
-	{
-		tmp->c = BUFFER_CHAR;
-		++i;
-		tmp = tmp->next;
-	}
+  i = 0;
+  tmp = (*cb)->head;
+  while (i < nb_char)
+    {
+      tmp->c = BUFFER_CHAR;
+      ++i;
+      tmp = tmp->next;
+    }
 }
 
-char 		*get_data_of_buffer(CircularBuffer *cb)
+char	*get_data_of_buffer(t_circular_buffer *cb)
 {
-	char 	*str;
-	int		i;
+  char	*str;
+  int	i;
 
-	i = 0;
-	if ((str = malloc(sizeof(char) * 64)) == NULL)
-		return (NULL);
-	str = memset(str, 0, 64);
-	cb = cb->head;
-	if (cb->c != BUFFER_CHAR)
+  i = 0;
+  if ((str = malloc(sizeof(char) * BUFFER_SIZE)) == NULL)
+    return (NULL);
+  str = memset(str, 0, BUFFER_SIZE);
+  cb = cb->head;
+  if (cb->c != BUFFER_CHAR)
+    {
+      while (cb->c != '\n' && i < BUFFER_SIZE)
 	{
-		while (cb->c != '\n' && i < BUFFER_SIZE)
-		{
-			str[i] = cb->c;
-			cb = cb->next;
-			++i;
-		}
-		return (str);
+	  str[i] = cb->c;
+	  cb = cb->next;
+	  ++i;
 	}
-	free (str);
-	return (NULL);
+      return (str);
+    }
+  free (str);
+  return (NULL);
 }

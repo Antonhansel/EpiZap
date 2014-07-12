@@ -39,13 +39,13 @@ public:
 	void 	loader();
 	void 	loopHud();
 	void 	teamName();
-	void 	initRealUpdate(const Server *);
+	void 	initRealUpdate(const t_server *);
 	void 	mouseReleaseEvent(QMouseEvent *);
   	void 	mousePressEvent(QMouseEvent *);
   	void 	mouseMoveEvent(QMouseEvent *);
   	void 	dragMouse();
   	void 	caseClicked();
-  	void 	addPlayerHud(Player *);
+  	void 	addPlayerHud(t_player *);
   	void 	updateHud(const int, const int);
 	~Graphic();
 private:
@@ -66,15 +66,15 @@ private:
 	QPoint			_currentPos;
 	QPoint 			_lastPointPress;
 	QPoint			_lastPointReleased;
-	Map 			*_map;
-	Server			*_server;
+	t_map 			*_map;
+	t_server			*_server;
 	int 			_viewx;
 	int 			_viewy;
 	std::map<obj_type, std::pair<QString, int> > _stuff;
 	std::map<obj_type, std::pair<QString, int> > _stuffPlayer;
 	std::vector<std::string> 	_teamName;
 	bool 			_mouseReleased;
-	Player 			*_selectedPlayer;
+	t_player 			*_selectedPlayer;
  private:
  	SDL_Surface		*_bot[NB_SPRITE];
 };

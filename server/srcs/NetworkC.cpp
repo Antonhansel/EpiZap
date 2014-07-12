@@ -1,7 +1,7 @@
 #include <iostream>
 #include "NetworkC.hpp"
 
-NetworkC::NetworkC(Server *server, QTextEdit *console) : _server(server), _console(console)
+NetworkC::NetworkC(t_server *server, QTextEdit *console) : _server(server), _console(console)
 {
 }
  

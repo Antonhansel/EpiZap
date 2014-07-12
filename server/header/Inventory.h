@@ -1,3 +1,13 @@
+/*
+** Inventory.h for Inventory.h in /home/david_c/B4/systemUnix/psu_2013_zappy/server/header
+**
+** Made by Flavien David
+** Login   <david_c@epitech.net>
+**
+** Started on  sam. juil.  12 18:17:52 2014 Flavien David
+** Last update sam. juil.  12 18:17:52 2014 Flavien David
+*/
+
 #ifndef INVENTORY_H_
 # define INVENTORY_H_
 
@@ -6,19 +16,16 @@
 # include "string.h"
 # include "Network.h"
 
-typedef struct 		Inventory
+typedef struct		s_inventory
 {
-	/* data */
-	int 			nbPlayer; // NB PLAYER OF THE CASE
-	int 			tab[10]; // TABLEAU DE CORRESPONDANCE
-	pthread_mutex_t	*mutex;
-	/* Method */
-	int				(*get_object)(struct Inventory *, int);
-	void 			(*set_object)(struct Inventory *, int, int);
-}					Inventory;
+  int			nbPlayer;
+  int			tab[10];
+  pthread_mutex_t	*mutex;
+  int			(*get_object)(struct s_inventory *, int);
+  void			(*set_object)(struct s_inventory *, int, int);
+}			t_inventory;
 
-int 	init_inventory(Inventory *, pthread_mutex_t *, int);
-int 	destroy_inventory(Inventory *);
-void	generate_inventory(Inventory *);
+int			init_inventory(t_inventory *, pthread_mutex_t *, int);
+void			generate_inventory(t_inventory *);
 
-#endif 			/* INVENTORY_H_ */
+#endif /* !INVENTORY_H_ */
