@@ -208,7 +208,7 @@ void 	Graphic::displayPlayers()
 			addPlayerHud(temp);
 		if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewx && temp->y >= _viewy 
 			&& temp->x <= (_viewx + FIELD_X) && temp->y <= (_viewy + FIELD_Y))
-			Lib::applySurface(((temp->y - _viewy) * SP_SIZE + 10), ((temp->x - _viewx) * SP_SIZE), _bot[(DIR)temp->dir], _screen);
+			Lib::applySurface(((temp->x - _viewx) * SP_SIZE + 10), ((temp->y - _viewy) * SP_SIZE), _bot[(DIR)temp->dir], _screen);
 		temp = temp->next;
 	}
 	temp = _server->player;
