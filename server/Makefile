@@ -73,7 +73,9 @@ SOURCES       = srcs/main.cpp \
 		srcs/cmd_functions.c \
 		srcs/my_str_to_wordtab.c \
 		srcs/command_functions_ia_4.c \
-		srcs/init_inc_tab_functions.c .moc/moc_MainUI.cpp \
+		srcs/init_inc_tab_functions.c \
+		srcs/command_functions_ia_5.c \
+		srcs/cmd_functions_2.c .moc/moc_MainUI.cpp \
 		.moc/moc_Connexion.cpp \
 		.moc/moc_NetworkC.cpp \
 		.moc/moc_Graphic.cpp
@@ -106,6 +108,8 @@ OBJECTS       = .obj/main.o \
 		.obj/my_str_to_wordtab.o \
 		.obj/command_functions_ia_4.o \
 		.obj/init_inc_tab_functions.o \
+		.obj/command_functions_ia_5.o \
+		.obj/cmd_functions_2.o \
 		.obj/moc_MainUI.o \
 		.obj/moc_Connexion.o \
 		.obj/moc_NetworkC.o \
@@ -147,8 +151,11 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sensors.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_serialport.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_svg.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_svg_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkit.pri \
@@ -157,8 +164,12 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkitwidgets_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_x11extras.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xmlpatterns.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xmlpatterns_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_phonon4qt5.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_functions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf \
@@ -251,8 +262,11 @@ Makefile: gui.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf 
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sensors.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_serialport.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_svg.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_svg_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkit.pri \
@@ -261,8 +275,12 @@ Makefile: gui.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf 
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkitwidgets_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_x11extras.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xmlpatterns.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xmlpatterns_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_phonon4qt5.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_functions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf \
@@ -326,8 +344,11 @@ Makefile: gui.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf 
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sensors.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_serialport.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_svg.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_svg_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkit.pri:
@@ -336,8 +357,12 @@ Makefile: gui.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf 
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkitwidgets_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_x11extras.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xmlpatterns.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xmlpatterns_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_phonon4qt5.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_functions.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf:
@@ -370,7 +395,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .obj/server_gui1.0.0 || mkdir -p .obj/server_gui1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .obj/server_gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/List.h header/Square.h header/Graphic.hpp header/LibSDL.hh header/Exception.hh header/CircularBuffer.h header/start_functions.h header/list_team.h header/cmd.h header/cmd_functions.h .obj/server_gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/List.c srcs/Square.c srcs/Graphic.cpp srcs/Lib.cpp srcs/Exception.cpp srcs/server_functions.c srcs/player_functions.c srcs/CircularBuffer.c srcs/start_functions.c srcs/list_team.c srcs/command_functions_ia_1.c srcs/command_functions_ia_2.c srcs/command_functions_ia_3.c srcs/init_server_tab.c srcs/cmd.c srcs/cmd_functions.c srcs/my_str_to_wordtab.c srcs/command_functions_ia_4.c srcs/init_inc_tab_functions.c .obj/server_gui1.0.0/ && (cd `dirname .obj/server_gui1.0.0` && $(TAR) server_gui1.0.0.tar server_gui1.0.0 && $(COMPRESS) server_gui1.0.0.tar) && $(MOVE) `dirname .obj/server_gui1.0.0`/server_gui1.0.0.tar.gz . && $(DEL_FILE) -r .obj/server_gui1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .obj/server_gui1.0.0/ && $(COPY_FILE) --parents header/MainUI.hpp header/Connexion.hpp header/Network.h header/Server.h header/NetworkC.hpp header/Player.h header/Inventory.h header/Team.h header/Map.h header/List.h header/Square.h header/Graphic.hpp header/LibSDL.hh header/Exception.hh header/CircularBuffer.h header/start_functions.h header/list_team.h header/cmd.h header/cmd_functions.h .obj/server_gui1.0.0/ && $(COPY_FILE) --parents srcs/main.cpp srcs/MainUI.cpp srcs/Connexion.cpp srcs/Network.c srcs/Server.c srcs/NetworkC.cpp srcs/Player.c srcs/Inventory.c srcs/Team.c srcs/Map.c srcs/List.c srcs/Square.c srcs/Graphic.cpp srcs/Lib.cpp srcs/Exception.cpp srcs/server_functions.c srcs/player_functions.c srcs/CircularBuffer.c srcs/start_functions.c srcs/list_team.c srcs/command_functions_ia_1.c srcs/command_functions_ia_2.c srcs/command_functions_ia_3.c srcs/init_server_tab.c srcs/cmd.c srcs/cmd_functions.c srcs/my_str_to_wordtab.c srcs/command_functions_ia_4.c srcs/init_inc_tab_functions.c srcs/command_functions_ia_5.c srcs/cmd_functions_2.c .obj/server_gui1.0.0/ && (cd `dirname .obj/server_gui1.0.0` && $(TAR) server_gui1.0.0.tar server_gui1.0.0 && $(COMPRESS) server_gui1.0.0.tar) && $(MOVE) `dirname .obj/server_gui1.0.0`/server_gui1.0.0.tar.gz . && $(DEL_FILE) -r .obj/server_gui1.0.0
 
 
 clean:compiler_clean 
@@ -2939,6 +2964,32 @@ compiler_clean: compiler_moc_header_clean
 		header/list_team.h \
 		header/cmd.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/init_inc_tab_functions.o srcs/init_inc_tab_functions.c
+
+.obj/command_functions_ia_5.o: srcs/command_functions_ia_5.c header/cmd_functions.h \
+		header/cmd.h \
+		header/Player.h \
+		header/Inventory.h \
+		header/Network.h \
+		header/CircularBuffer.h \
+		header/Server.h \
+		header/Map.h \
+		header/Square.h \
+		header/Team.h \
+		header/list_team.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/command_functions_ia_5.o srcs/command_functions_ia_5.c
+
+.obj/cmd_functions_2.o: srcs/cmd_functions_2.c header/cmd_functions.h \
+		header/cmd.h \
+		header/Player.h \
+		header/Inventory.h \
+		header/Network.h \
+		header/CircularBuffer.h \
+		header/Server.h \
+		header/Map.h \
+		header/Square.h \
+		header/Team.h \
+		header/list_team.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o .obj/cmd_functions_2.o srcs/cmd_functions_2.c
 
 .obj/moc_MainUI.o: .moc/moc_MainUI.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj/moc_MainUI.o .moc/moc_MainUI.cpp
