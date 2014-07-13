@@ -72,6 +72,7 @@ void  Connexion::teamName()
 {
   if (_delay->text().toInt() > 0 && _port->text().toInt() > 0 
     && _width->text().toInt() > 0 && _height->text().toInt() > 0 
+    && _height->text().toInt() <= 1500 && _width->text().toInt() <= 1500
     && _team->text().toInt() > 0 && _client->text().toInt() > 0
     && checkData(_port->text()) && checkData(_width->text()) 
     && checkData(_height->text()) && checkData(_client->text()) 
@@ -93,6 +94,10 @@ void  Connexion::teamName()
     }
     else
       tryConnect();
+  }
+  else
+  {
+  _console->setHtml(_console->toHtml() + "<font color=\"Red\">*** ERROR ON ARGUMENTS ***\n</font>");
   }
 }
 
