@@ -182,7 +182,7 @@ void 	Graphic::updatePlayerHud()
 	data += QString::number(_selectedPlayer->fd);
 	_parent->addData2(data, false);
 	data = "Level : ";
-	data += QString::number(_selectedPlayer->lvl);
+	data += QString::number(_selectedPlayer->lvl + 1);
 	_parent->addData2(data, false);
 	_stuffPlayer[LINEMATE].second = _selectedPlayer->inventory->get_object(_selectedPlayer->inventory, LINEMATE);
 	_stuffPlayer[DERAUMERE].second = _selectedPlayer->inventory->get_object(_selectedPlayer->inventory, DERAUMERE);
