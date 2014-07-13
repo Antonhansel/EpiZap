@@ -119,6 +119,12 @@ void 	Connexion::tryConnect()
     _mainUI->show();
     _mainUI->startGraphic();
   }
+  else
+  {
+    _window->show();
+    _windowteam->hide();
+    _tempTeam = -2;
+  }
 }
 else
  _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: Missing Arguments\n</font>");
@@ -148,7 +154,7 @@ void 	Connexion::setLayouts(std::map<std::string, int> &option)
   _team->setText("10");
   _mainLayout->addWidget(_delayLabel, 5, 0);
   _mainLayout->addWidget(_delay, 5, 1);
-  _delay->setText((option["-t"] == 0) ? "10" : QString::number(option["-t"]));
+  _delay->setText((option["-t"] == 0) ? "100" : QString::number(option["-t"]));
   _mainLayout->addWidget(_connect, 6, 0, 1, 2);
   _mainLayout->addWidget(_quit, 7, 0, 1, 2);
   _mainLayout->addWidget(_console, 8, 0, 1, 2);
