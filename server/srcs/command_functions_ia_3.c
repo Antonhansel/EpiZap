@@ -98,8 +98,7 @@ int	kick_cmd_next(void *s, t_player *p, t_player *tmp)
 	  tmp->dir = p->dir;
 	  up_cmd(((t_server*)(s)), tmp, NULL);
 	  tmp->dir = old_dir;
-	  res = get_dir(p, tmp);
-	  if (res != NULL)
+	  if ((res = get_dir(p, tmp)) != NULL)
 	    {
 	      add_str_in_buffer(&tmp->buffer_circular, res);
 	      tmp->mode = WRITE;

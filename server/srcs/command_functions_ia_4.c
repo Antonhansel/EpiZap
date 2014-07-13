@@ -65,19 +65,20 @@ int	see_loop(void *s, t_player *p, int di, int dj)
   int	y;
   char	*str;
 
-  r = 0;
+  r = -1;
   str = NULL;
-  while (r < p->range)
+  while (++r < p->range)
     {
       c = -r;
       while (c <= r)
 	{
-	  x = (p->x + r * di + c * dj + ((t_server*)(s))->map->width) % ((t_server*)(s))->map->width;
-	  y = (p->y + c * di + r * dj * -1 + ((t_server*)(s))->map->height) % ((t_server*)(s))->map->height;
+	  x = (p->x + r * di + c * dj + ((t_server*)(s))->map->width) %
+	    ((t_server*)(s))->map->width;
+	  y = (p->y + c * di + r * dj * -1 + ((t_server*)(s))->map->height) %
+	    ((t_server*)(s))->map->height;
 	  str = see_next(s, str, x, y);
 	  c++;
 	}
-      r++;
     }
   str = strcat(str, "\b}\n");
   add_str_in_buffer(&p->buffer_circular, str);

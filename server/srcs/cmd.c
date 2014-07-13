@@ -28,7 +28,7 @@ int 	get_cmd_type(t_server *s, char *cmd)
 	{
 	  if (strncmp(s->cmd_type[i], cmd, strlen(s->cmd_type[i])) == 0)
 	    return (i);
-	}   
+	}
     }
   return (-1);
 }
@@ -36,7 +36,7 @@ int 	get_cmd_type(t_server *s, char *cmd)
 int	set_cmd_information(t_server *s, t_player *p, t_cmd *new_cmd, char *cmd)
 {
   int	good;
-  
+
   good = TRUE;
   new_cmd->cmd = my_str_to_wordtab(cmd);
   new_cmd->func = NULL;
