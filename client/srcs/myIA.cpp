@@ -10,11 +10,11 @@ myIA::myIA()
 
 myIA::~myIA() {}
 
-bool				myIA::initLoop()
+bool				myIA::initLoop(const std::string &ipAddr, const std::string &team, const int port)
 {
-	_ipAddr = "10.12.181.118";
-	_port = 4242;
-	_teamName = "Team10\n";
+	_ipAddr = ipAddr;
+	_port = port;
+	_teamName = team;
 	_socket = -1;
 	_run = initSocket();
 	return (_run);

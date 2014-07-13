@@ -35,8 +35,7 @@ public:
 	myIA();
 	~myIA();
 	void 				loop();
-	bool				initLoop();
-	void				initTabElevation();
+	bool				initLoop(const std::string &, const std::string &, const int);
 	void				initObjects();
 	void				initObjectifs();
 	void				initThread();
