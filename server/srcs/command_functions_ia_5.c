@@ -69,3 +69,19 @@ int calc_angle(t_player *p1, t_player *p2, void *s)
     return (8);
   return (0);
 }
+
+void	check_object(void *s, t_player *p, int i)
+{
+  int	x;
+  int	y;
+  if (i == FOOD)
+    {
+      y = rand() % ((t_server*)(s))->map->height;
+      x = rand() % ((t_server*)(s))->map->width;
+      p->time += 126.0 * (1.0 / ((t_server*)(s))->ctime);
+      ((t_server*)(s))->map->map[y][x].inventory->
+	set_object(((t_server*)(s))->map->map[y][x].inventory, i, 1);
+    }
+  else
+    p->inventory->set_object(p->inventory, i, 1);
+}

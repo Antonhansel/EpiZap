@@ -57,7 +57,7 @@ int	get_obj(void *s, int i, char *cmd)
   return (-1);
 }
 
-char	*get_dir(t_player *expulse, t_player *to_expulse)
+char	*get_dir(t_player *expulse, t_player *to_expulse, int old_dir)
 {
   char	*str;
   int	dir;
@@ -65,6 +65,7 @@ char	*get_dir(t_player *expulse, t_player *to_expulse)
   int	dir_to_expulse;
 
   square = 1;
+  to_expulse->dir = old_dir;
   dir = to_expulse->dir;
   dir_to_expulse = expulse->dir + 2;
   (dir_to_expulse > 3) ? (dir_to_expulse = dir_to_expulse - 4) : 0;
@@ -97,8 +98,7 @@ int	kick_cmd_next(void *s, t_player *p, t_player *tmp)
 	  old_dir = tmp->dir;
 	  tmp->dir = p->dir;
 	  up_cmd(((t_server*)(s)), tmp, NULL);
-	  tmp->dir = old_dir;
-	  if ((res = get_dir(p, tmp)) != NULL)
+	  if ((res = get_dir(p, tmp, old_dir)) != NULL)
 	    {
 	      add_str_in_buffer(&tmp->buffer_circular, res);
 	      tmp->mode = WRITE;

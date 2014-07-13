@@ -23,16 +23,12 @@ int		take_object_cmd(void *serv, t_player *p, char *cmd)
   s = ((t_server*)(serv));
   if ((i = get_obj(s, i, cmd)) != -1)
     {
-      if (s->map->map[p->y][p->x].inventory->get_object(s->map->map[p->y][p->x].inventory, i) > 0)
+      if (s->map->map[p->y][p->x].inventory->
+        get_object(s->map->map[p->y][p->x].inventory, i) > 0)
 	{
-	  s->map->map[p->y][p->x].inventory->set_object(s->map->map[p->y][p->x].inventory, i, -1);
-	  if (i == FOOD)
-	    {
-	      p->time += 126.0 * (1.0 / s->ctime);
-	      s->map->map[rand() % s->map->height][rand() % s->map->width].inventory->set_object(s->map->map[rand() % s->map->height][rand() % s->map->width].inventory, i, 1);
-	    }
-	  else
-	    p->inventory->set_object(p->inventory, i, 1);
+	  s->map->map[p->y][p->x].inventory->
+    set_object(s->map->map[p->y][p->x].inventory, i, -1);
+	  check_object(serv, p, i);
 	  add_str_in_buffer(&p->buffer_circular, "ok\n");
 	  return (0);
 	}
@@ -57,7 +53,8 @@ int	put_object_cmd(void *s, t_player *p, char *cmd)
     {
       if (p->inventory->get_object(p->inventory, i) > 0)
 	{
-	  ((t_server*)(s))->map->map[p->y][p->x].inventory->set_object(((t_server*)(s))->map->map[p->y][p->x].inventory, i, 1);
+	  ((t_server*)(s))->map->map[p->y][p->x].inventory->
+	    set_object(((t_server*)(s))->map->map[p->y][p->x].inventory, i, 1);
 	  p->inventory->set_object(p->inventory, i, -1);
 	  add_str_in_buffer(&p->buffer_circular, "ok\n");
 	  return (0);
