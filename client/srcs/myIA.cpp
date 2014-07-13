@@ -10,265 +10,130 @@ myIA::myIA()
 
 myIA::~myIA() {}
 
-void	myIA::initThread()
-{
-	Network  *net = new Network(_receive, _send, "10.12.181.101", 4242, "Team10\n");
-	QThread   *q = new QThread();
-	net->moveToThread(q);
-	connect(q, SIGNAL(started()), net, SLOT(doWork()));
-	q->start();
-}
-
 bool				myIA::initLoop()
 {
-	std::ostringstream convert;
-
-
-	initThread();
-	_send.push_back("avance\n");
-//	while (true);;
-/*	initObjects();
-	initTabElevation();
-	while (_isAlive == true && _range < 8)
-	{
-		initObjectifs();*/
-		
-		/* ### TEST Objectifs ### */
-		/*displayObjectifs();
-		
-		while (_objectifs.size() > 2)
-			searchRock();*/
-		/* ###  POUR TESTER ON INCREMENTE RANGE MANUELLEMENT ### */
-		//_range++;
-
-		// if (_broadcast == true)
-		// {
-		// 	convert << _range;
-		// 	cmdBroadcast("broadcast [answer][" + convert.str() + "]\n");
-		// 	moveToward();
-		// 	incantation();
-		// }
-		// else
-		// {
-		// 	convert << _range;
-		// 	cmdBroadcast("broadcast [call][" + convert.str() + "]\n");
-		// 	while (_broadcast != true)
-		// 	{
-		// 		searchRock();
-		// 	}
-		// 	draw();
-		// }
-//	}
+	_ipAddr = "10.12.181.118";
+	_port = 4242;
+	_teamName = "Team10\n";
+	_socket = -1;
+	_mode = READ;
+	_run = initSocket();
 	return (true);
 }
 
-void				myIA::displayObjectifs()
+bool			myIA::initSocket()
 {
-	unsigned int 	x = 0;
+  struct protoent	*pe;
+  struct sockaddr_in	sin;
 
-	std::cout << "Objectifs:" << std::endl;
-	while (x < _objectifs.size())
-		std::cout << _objectifs[x++] << std::endl;
+  if (_socket != -1)
+    {
+      close(_socket);
+      _socket = -1;
+    }
+  if ((pe = getprotobyname("TCP")) == NULL)
+    return (false);
+  if ((_socket = socket(AF_INET, SOCK_STREAM, pe->p_proto)) == -1)
+    return (false);
+  sin.sin_family = AF_INET;
+  sin.sin_port = htons(_port);
+  sin.sin_addr.s_addr = inet_addr(_ipAddr.c_str());
+  if (connect(_socket,
+	      (const struct sockaddr *)&sin, sizeof(sin)) == -1)
+    {
+      close(_socket);
+      _socket = -1;
+      return (false);
+    }
+  return (true);
 }
 
-void			myIA::initObjectifs()
+void		myIA::checkBitsField(fd_set *readfds, fd_set *writefds)
 {
-	int 				x = _objects.size() - 2;
-
-	_objectifs.push_back("nourriture");
-	while (x >= 0)
+	if (FD_ISSET(_socket, writefds))
 	{
-		int 	i = _tabElevation[_range - 1][x];
-		if (i > 0)
-		{
-			_objectifs.push_back(_objects[x]);
-			_tabElevation[_range - 1][x] -= 1;
-		}
-		else if (i == 0)
-			x--;
+		fctWrite();
+	}
+	else if (FD_ISSET(_socket, readfds))
+	{
+		fctRead();
 	}
 }
 
-void			myIA::initObjects()
+bool			myIA::fctWrite()
 {
-	_objects.push_back("player");
-	_objects.push_back("linemate");
-	_objects.push_back("deraumere");
-	_objects.push_back("sibur");
-	_objects.push_back("mendiane");
-	_objects.push_back("phiras");
-	_objects.push_back("thystame");
-	_objects.push_back("nourriture");
+	unsigned int ret;
+
+	std::cout << "ssss " << _send.front() << std::endl;
+	if ((ret = write(_socket, _send.front().c_str(), _send.front().length())) > 0)
+	{
+		_send.pop_front();
+	}
+	return (true);
 }
 
-bool				myIA::isObjectif(std::string &object)
+bool		myIA::socketProblem()
 {
-	unsigned int 	x = 0;
-
-	while (x < _objectifs.size())
-		if (object.compare(_objectifs[x++]) == 0)
-			return (true);
+	close(_socket);
 	return (false);
 }
 
-std::string 	&myIA::replaceinString(std::string &str, const std::string &toFind, const std::string &toReplace)
+bool		myIA::fctRead()
 {
-	size_t pos = 0;
-	for (pos = str.find(toFind); pos != std::string::npos; pos = str.find(toFind, pos))
-		str.replace(pos, 1, toReplace);
-	return(str);
-}
+	char	buf[512];
+	int 	ret;
+	std::string 	t;
 
-Direction			myIA::checkRock()
-{
-	std::cout << "Envoie command SEE" << std::endl;
-//	std::string		see = cmdSee();
-	std::string		see = "{,,, thystame,, nourriture,,,,, thystame,,,,,}";	
-	std::cout << "Recus:\n" << see << std::endl;
-	int 			range = 0;
-	int 			x = 0;
-	Direction		arrow = FRONT;
-
-	see = replaceinString(see, "{", "");
-	see = replaceinString(see, "}", "");
-	while (see != "")
+	memset(buf, 0, 512);
+	if ((ret = read(_socket, buf, 511)) > 0)
 	{
-		std::string object = see.substr(0, see.find(","));
-		object = replaceinString(object, " ", "");
-		if (x < 0)
-			arrow = LEFT;
-		else if (x == 0)
-			arrow = FRONT;
-		else
-			arrow = RIGHT;
-		if (!object.empty() && isObjectif(object) == true)
+		std::string	*s;
+		s = new std::string(buf);
+		if (s->compare("BIENVENUE\n") == 0)
 		{
-			if (range == 0)
-			{
-				_saveObj = object;
-				return (ON);
-			}
-			else
-			{
-				_saveObj = "";
-				return (arrow);
-			}
-		}
-		if (x == range)
-		{
-			range++;
-			x = range * -1;
+			_send.push_back(_teamName);
+			_send.push_back("avance\n");
+			_send.push_back("droite\n");			
 		}
 		else
-			x++;
-		see = see.substr(see.find(",") + 1);
+			_receive.push_back(*s);
+		std::cout << "|" << buf << "|" << std::endl;
 	}
-	return (NO);
-}
-
-void			myIA::searchRock()
-{
-	Direction 	see = NO;
-
-	if ((_startsearch >= _dim.first && _dir == 1) || (_startsearch >= _dim.second && _dir == -1))
-	{
-		_startsearch = 0;
-		cmdRot(RIGHT);
-		cmdMove(_range * 2);
-		cmdRot(LEFT);
-	}
-	for (int i = 0; i < 4 && (see = checkRock()) == NO; i++)
-		cmdRot(RIGHT);
-	if (see == NO)
-		cmdMove(_range * 2);
-	else if (see == ON)
-	{
-		/* ### FOR TESTING ### */
-		std::cout << "We are taking " << _saveObj << std::endl;
-		cmdTake(_saveObj);
-	}
-	else if (see == FRONT)
-		cmdMove(1);
 	else
-	{
-		cmdRot(see);
-		cmdMove(1);
-		if (see == RIGHT)
-			cmdRot(LEFT);
-		else
-			cmdRot(RIGHT);
-		cmdMove(1);
-	}
+		return (socketProblem());
+	return (true);
 }
 
-void				myIA::initTabElevation()
+void 				myIA::loop()
 {
-	int level1[7] = { 1, 1, 0, 0, 0, 0, 0 };
-	int level2[7] = { 2, 1, 1, 1, 0, 0, 0 };
-	int level3[7] = { 2, 2, 0, 1, 0, 2, 0 };
-	int level4[7] = { 4, 1, 1, 2, 0, 1, 0 };
-	int level5[7] = { 4, 1, 2, 1, 3, 0, 0 };
-	int level6[7] = { 6, 1, 2, 3, 0, 1, 0 };
-	int level7[7] = { 6, 2, 2, 2, 2, 2, 1 };
+	fd_set 			readfds;
+	fd_set 			writefds;
+	struct timeval	tv;
+	bool			flag;
 
-	std::vector<int> tabLevel1(level1, level1 + 7);
-	std::vector<int> tabLevel2(level2, level2 + 7);
-	std::vector<int> tabLevel3(level3, level3 + 7);
-	std::vector<int> tabLevel4(level4, level4 + 7);
-	std::vector<int> tabLevel5(level5, level5 + 7);
-	std::vector<int> tabLevel6(level6, level6 + 7);
-	std::vector<int> tabLevel7(level7, level7 + 7);
-
-	_tabElevation.push_back(tabLevel1);
-	_tabElevation.push_back(tabLevel2);
-	_tabElevation.push_back(tabLevel3);
-	_tabElevation.push_back(tabLevel4);
-	_tabElevation.push_back(tabLevel5);
-	_tabElevation.push_back(tabLevel6);
-	_tabElevation.push_back(tabLevel7);
-}
-
-/*
-bool 			myIA::moveToward()
-{
-	std::ostringstream convert;
-	int 		direction = 1;
-	int 		pos = 1;
-
-	while (pos != 0)
+	flag = true;
+	tv.tv_usec = 12000;
+	while (_run && _isAlive)
 	{
-		convert << _range;
-		std::string answer = cmdBroadcast("[broadcast][okay][" + convert.str() + "]");
-		pos = _k;
-
-		if (pos != 0)
+		FD_ZERO(&readfds);
+		FD_ZERO(&writefds);
+		if (_send.size() > 0 && flag == false)
 		{
-			while (direction != pos / 2)
-			{
-				cmdRot(LEFT);
-				direction++;
-			}
-			cmdMove(1);
+			FD_SET(_socket, &writefds);
+			_mode = WRITE;
+			flag = true;
 		}
-		convert << _range;
-		cmdBroadcast("[broadcast][start][" + convert.str() + "]");
+		else
+		{
+			FD_SET(_socket, &readfds);
+			_mode = READ;
+			flag = false;
+		}
+		if (select(_socket + 1, &readfds, &writefds, NULL, &tv) != -1)
+		{
+			checkBitsField(&readfds, &writefds);
+		}
+		else
+			std::cerr << "[ERROR]: error on select" << std::endl;
 	}
-	return (true);
 }
-
-bool 			myIA::draw()
-{
-	int 		pos = 1;
-//int 		direction = 1;
-	std::ostringstream convert;
-
-	while (pos != 0)
-	{
-		convert << _range;
-		std::string answer = cmdBroadcast("[broadcast][come][" + convert.str() + "]");
-		if (answer.compare("okay"))
-			pos = _level;
-	}
-	return (true);
-}
-*/
