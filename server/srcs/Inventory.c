@@ -57,9 +57,9 @@ void	generate_inventory(t_inventory *this)
 	  this->tab[MENDIANE] = rand() % 2;
 	  this->tab[PHIRAS] = rand() % 2;
 	  this->tab[THYSTAME] = rand() % 2;
-	  this->tab[FOOD] = rand() % 2;
 	}
     }
+    this->tab[FOOD] = rand() % 2;
 }
 
 static int	get_object(t_inventory *this, int type)

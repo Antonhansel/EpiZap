@@ -108,6 +108,7 @@ int	broadcast_text_cmd(void *s, t_player *p, char *cmd)
         add_str_in_buffer(&p->buffer_circular, "ok\n");
     tmp = tmp->next;
   }
+  p->mode = WRITE;
   return (0);
 }
 
