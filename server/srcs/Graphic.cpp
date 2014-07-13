@@ -204,7 +204,7 @@ void 	Graphic::displayPlayers()
 	check = false;
 	while (temp != NULL)
 	{
-		if (temp->x == _xhud && temp->y == _yhud)
+		if (temp->x == _yhud && temp->y == _xhud)
 			addPlayerHud(temp);
 		if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewy && temp->y >= _viewx
 			&& temp->x <= (_viewy + FIELD_Y) && temp->y <= (_viewx + FIELD_X))
