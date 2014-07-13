@@ -204,14 +204,11 @@ void 	Graphic::displayPlayers()
 	check = false;
 	while (temp != NULL)
 	{
-		if (temp->x == _yhud && temp->y == _xhud)
+		if (temp->x == _yhud + _viewy && temp->y == _xhud + _viewx)
 			addPlayerHud(temp);
 		if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewy && temp->y >= _viewx
-			&& temp->x <= (_viewy + FIELD_Y) && temp->y <= (_viewx + FIELD_X))
+			&& temp->x <= (_viewy + FIELD_X) && temp->y <= (_viewx + FIELD_Y))
 			Lib::applySurface(((temp->x - _viewy) * SP_SIZE + 10), ((temp->y - _viewx) * SP_SIZE), _bot[(DIR)temp->dir], _screen);
-		else if (temp->x >= 0 && temp->y >= 0 && temp->x >= _viewx && temp->y >= _viewy
-			&& temp->x <= (_viewx + FIELD_X) && temp->y <= (_viewy + FIELD_Y))
-			Lib::applySurface(((temp->x - _viewx) * SP_SIZE + 10), ((temp->y - _viewy) * SP_SIZE), _bot[(DIR)temp->dir], _screen);
 		temp = temp->next;
 	}
 	temp = _server->player;
