@@ -11,9 +11,9 @@
 #include "command_functions.h"
 #include "List.h"
 
-void	display_list_square(t_player *front_ptr);
+void		display_list_square(t_player *);
 
-int	up_cmd(void *serv, t_player *p, char *cmd)
+int		up_cmd(void *serv, t_player *p, char *cmd)
 {
   t_server	*s;
 

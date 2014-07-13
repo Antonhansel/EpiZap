@@ -10,7 +10,7 @@
 
 #include "cmd_functions.h"
 
-void 	player_socket_problem(t_player *, t_server *);
+void	player_socket_problem(t_player *, t_server *);
 void	do_action(t_cmd **, t_server *, t_cmd *);
 
 double		get_min_time(t_cmd *list, double max_timer)
@@ -28,9 +28,7 @@ double		get_min_time(t_cmd *list, double max_timer)
       if (tmp->num_cmd == num_cmd)
 	{
 	  if (tmp->time < timer)
-	    {
-	      timer = tmp->time;
-	    }
+	    timer = tmp->time;
 	}
       tmp = tmp->next;
     }

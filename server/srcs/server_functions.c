@@ -69,7 +69,7 @@ int			accept_socket(t_server *s)
     s->max_fd = fd;
   s->nb_player_co++;
   snprintf(s->msg, 300,
-	   "%s<font color=\"Green\">*** CONNECTION FROM IP %s, FD %d ***</font>",
+	   "%s<font color=\"Green\">** CONNECTION FROM IP %s, FD %d **</font>",
 	   s->msg, inet_ntoa(client_sin.sin_addr), fd);
   return (TRUE);
 }
