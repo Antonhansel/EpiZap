@@ -75,6 +75,7 @@ void	check_object(void *s, t_player *p, int i)
 {
   int	x;
   int	y;
+
   if (i == FOOD)
     {
       y = rand() % ((t_server*)(s))->map->height;
@@ -87,28 +88,28 @@ void	check_object(void *s, t_player *p, int i)
     p->inventory->set_object(p->inventory, i, 1);
 }
 
-int   move_player(void *s, t_player *p, int *tab, int ret)
+int		move_player(void *s, t_player *p, int *tab, int ret)
 {
-  t_player  *tmp;
-  int       i;
-  int       old_dir;
+  t_player	*tmp;
+  int		i;
+  int		old_dir;
 
   tmp = ((t_server*)(s))->player;
   while (tmp)
-  {
-    i = -1;
-    while (tab[++i] != 0)
-      if (tab[i] == tmp->fd)
-      {
-        tmp->sent = FALSE;
-        old_dir = tmp->dir;
-        tmp->dir = p->dir;
-        up_cmd(((t_server*)(s)), tmp, NULL);
-        get_dir(p, tmp, old_dir);
-        ret++;
-        tmp->sent = TRUE;
-      }
+    {
+      i = -1;
+      while (tab[++i] != 0)
+	if (tab[i] == tmp->fd)
+	  {
+	    tmp->sent = FALSE;
+	    old_dir = tmp->dir;
+	    tmp->dir = p->dir;
+	    up_cmd(((t_server*)(s)), tmp, NULL);
+	    get_dir(p, tmp, old_dir);
+	    ret++;
+	    tmp->sent = TRUE;
+	  }
       tmp = tmp->next;
     }
-    return (ret);
-  }
+  return (ret);
+}

@@ -30,9 +30,9 @@ int		fork_egg(void *s, t_player *p, char *cmd)
   return (0);
 }
 
-char  *get_player_of_square(t_server *s, char *str, int x, int y)
+char		*get_player_of_square(t_server *s, char *str, int x, int y)
 {
-  t_player *tmp;
+  t_player	*tmp;
 
   tmp = s->map->map[y][x].player;
   while (tmp)
