@@ -76,6 +76,7 @@ typedef struct	s_server
   t_map		*map;
   int   mi;
   int   mj;
+  int   player_fd;
   char		cmd_type[12][15];
   double	time_tab[12];
   char		obj_type[10][15];
