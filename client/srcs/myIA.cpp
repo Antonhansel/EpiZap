@@ -64,7 +64,6 @@ bool			myIA::fctWrite()
 {
 	unsigned int ret;
 
-	std::cout << "ssss " << _send.front() << std::endl;
 	if ((ret = write(_socket, _send.front().c_str(), _send.front().length())) > 0)
 	{
 		_send.pop_front();

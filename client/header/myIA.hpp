@@ -40,14 +40,10 @@ public:
 	void				initObjects();
 	void				initObjectifs();
 	void				initThread();
-	//bool				moveToward();
-	//bool 				draw();
-	//bool				isReadyRock();
 	bool				isObjectif(std::string &);
 	Direction			checkRock();
 	void				searchRock();
 	std::string 		&replaceinString(std::string &, const std::string &, const std::string &);
-
 	void				displayObjectifs();
 	std::vector< std::vector< int > >	getTabElevation() const;
 
