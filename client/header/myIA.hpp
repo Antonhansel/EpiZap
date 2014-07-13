@@ -1,8 +1,19 @@
 #ifndef MYIA_HPP
 # define MYIA_HPP
 
+# include <sys/types.h>
+# include <stdlib.h>
+# include <netdb.h>
+# include <stdio.h>
+# include <netinet/in.h>
+# include <arpa/inet.h>
+# include <string.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <sys/socket.h>
+# include <sys/mman.h>
+# include <unistd.h>
 # include "Command.hpp"
-# include "Network.hpp"
 
 class myIA : public Command
 {
@@ -10,7 +21,6 @@ private:
 	std::vector<std::string>			_objects;
 	std::vector<std::string>			_objectifs;
 	std::vector< std::vector< int > >	_tabElevation;
-	Network								*_net;
 	std::string 						_ipAddr;
 	std::string 						_teamName;
 	int 								_port;
@@ -20,7 +30,6 @@ private:
 	bool								_isAlive;
 	std::pair<int, int>					_dim;
 	std::string 						_saveObj;
-	Mode								_mode;
 	bool 								_run;
 public:
 	myIA();

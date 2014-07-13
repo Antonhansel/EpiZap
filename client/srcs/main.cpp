@@ -4,7 +4,9 @@ int 	main()
 {
 	myIA 	ia;
 
-	ia.initLoop();
-	ia.loop();
+	if (ia.initLoop() == false)
+		std::cerr << "Can't initialize server" << std::endl;
+	else
+		ia.loop();
 	return (0);
 }

@@ -16,9 +16,8 @@ bool				myIA::initLoop()
 	_port = 4242;
 	_teamName = "Team10\n";
 	_socket = -1;
-	_mode = READ;
 	_run = initSocket();
-	return (true);
+	return (_run);
 }
 
 bool			myIA::initSocket()
@@ -120,13 +119,11 @@ void 				myIA::loop()
 		if (_send.size() > 0 && flag == false)
 		{
 			FD_SET(_socket, &writefds);
-			_mode = WRITE;
 			flag = true;
 		}
 		else
 		{
 			FD_SET(_socket, &readfds);
-			_mode = READ;
 			flag = false;
 		}
 		if (select(_socket + 1, &readfds, &writefds, NULL, &tv) != -1)
