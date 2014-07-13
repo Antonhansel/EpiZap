@@ -97,7 +97,7 @@ int	see_loop(void *s, t_player *p, int di, int dj)
 	  str = see_next(s, str, x, y);
 	  c++;
 	}
-    }    
+    }
   str = strcat(str, "\b}\n");
   add_str_in_buffer(&p->buffer_circular, str);
   p->mode = WRITE;
