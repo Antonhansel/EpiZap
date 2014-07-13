@@ -42,7 +42,7 @@ int 							main(int argc, char **argv)
       			return (0);
       		}
       	else
-      		s1.assign((*it).second);
+      		s1.assign((*it).second + "\n");
       	if ((*it).second.compare("") == 0 && (*it).first.compare("-h") == 0)
       		it->second = "127.0.0.1";
       	else
