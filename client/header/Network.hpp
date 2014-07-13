@@ -1,10 +1,6 @@
 #ifndef NETWORK_HPP_
 # define NETWORK_HPP_
 
-# include <QObject>
-# include <QDebug>
-# include <QThread>
-# include <QTimer>
 # include <sys/types.h>
 # include <stdlib.h>
 # include <netdb.h>
@@ -17,7 +13,6 @@
 # include <sys/socket.h>
 # include <sys/mman.h>
 # include <unistd.h>
-# include "CircularBuffer.hh"
 
 enum Mode
 {
@@ -33,37 +28,33 @@ enum Action
 
 int		xconnect(int, struct sockaddr_in *, socklen_t);
 
-class Network : public QObject
+class Network
 {
-    Q_OBJECT
 public:
-    Network(std::list<std::string> &, std::list<std::string> &, const std::string &, int, const std::string &);
+    Network(const std::string &, int);
     ~Network();
-
-private:
+    bool	getRunState() const;
+	int 	getFd() const;
+	void	setAction(Action);
+	Action 	getAction() const;
+	void	addStringToBuf(const std::string &);	
 	bool	initSocket();
 	void	checkBitsField(fd_set *, fd_set *);
+	std::string 	*getReceive() const;
+	bool		getIsInit() const;
+
+private:
 	bool	fctRead();
 	bool	fctWrite();
 	bool	socketProblem();
 
-public slots:
-    void    doWork();
-
-signals:
-    void finished();
-    void error(QString err);
- 
 private:
 	bool						_run;
 	int							_fd;
-	std::list<std::string> 		_receive;
-	std::list<std::string> 		_send;
 	std::string					_ipAddr;
 	int 						_port;
-	int 						_flag;
-	CircularBuffer				*_circularBuffer;
-	Mode						_mode;
 	Action						_action;
+	std::string 				*_receive;
+	bool						_isInit;
 };
 #endif
