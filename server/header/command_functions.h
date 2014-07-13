@@ -37,5 +37,7 @@ int	get_rock(void *, t_player *);
 int	calc_angle(t_player *, t_player *, void *);
 int	search(t_player *, t_player *, void *);
 void	check_object(void *, t_player *, int);
+int   move_player(void *, t_player *, int *, int);
+char	*get_dir(t_player *, t_player *, int);
 
 #endif /* COMMAND_FUNCTIONS_H_ */
