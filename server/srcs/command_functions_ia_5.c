@@ -15,8 +15,8 @@ int calc_long(t_player *p1, t_player *p2, t_server *s)
   int i;
   int j;
 
-  i = p2->y - p1->y + s->map->height /*y */ * s->mi;
-  j = p2->x - p1->x + s->map->width /* x */ * s->mj;
+  i = p2->y - p1->y + s->map->height * s->mi;
+  j = p2->x - p1->x + s->map->width * s->mj;
   return (abs(i) + abs(j));
 }
 
@@ -51,7 +51,6 @@ int calc_angle(t_player *p1, t_player *p2, void *s)
   
   i = p2->y - p1->y + ((t_server*)(s))->map->height * ((t_server*)(s))->mi;
   j = p2->x - p1->x + ((t_server*)(s))->map->width * ((t_server*)(s))->mj;
-  printf("---------------- i: %d\t j: %d\n", i, j);
   if (abs(i) * 3 <= j && j > 0)
     return (1);
   if (i * 3 >= j && i < j * 3 && i > 0 && j > 0)
