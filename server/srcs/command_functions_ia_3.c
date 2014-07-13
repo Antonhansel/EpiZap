@@ -92,6 +92,7 @@ int	kick_cmd_next(void *s, t_player *p, t_player *tmp)
   ret = 0;
   while (tmp)
     {
+      printf("Player ADDR %p && FD = %d\n", tmp, tmp->fd);
       if (tmp->fd != p->fd)
 	{
 	  tmp->sent = FALSE;
