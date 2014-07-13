@@ -34,5 +34,7 @@ int	fork_egg(void *, t_player *, char *);
 char	*see_next(void *, char *, int, int);
 int	see_loop(void *, t_player *, int, int);
 int	get_rock(void *, t_player *);
+int calc_angle(t_player *, t_player *, void *);
+int	search(t_player *, t_player *, void *);
 
 #endif /* COMMAND_FUNCTIONS_H_ */

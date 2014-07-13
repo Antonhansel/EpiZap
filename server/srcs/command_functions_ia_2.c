@@ -85,9 +85,29 @@ int		kick_cmd(void *s, t_player *p, char *cmd)
 
 int	broadcast_text_cmd(void *s, t_player *p, char *cmd)
 {
-  (void)s;
-  (void)p;
-  (void)cmd;
+  char  str[BUFFER_SIZE];
+  t_player  *tmp;
+  int   res;
+  int   angle;
+
+  tmp = ((t_server*)(s))->player;
+  while (tmp)
+  {
+    if (tmp->fd != p->fd)
+    {
+      res = search(p, tmp, s);
+      ((t_server*)(s))->mi = (res - 1) / 3 - 1;
+      ((t_server*)(s))->mj = (res - 1) % 3 - 1;
+      angle = calc_angle(p, tmp, s);
+      memset(str, 0, BUFFER_SIZE);
+      snprintf(str, BUFFER_SIZE - 1, "message %d, %s\n", angle, cmd);
+      add_str_in_buffer(&tmp->buffer_circular, str);
+      tmp->mode = WRITE;
+    }
+    else
+        add_str_in_buffer(&p->buffer_circular, "ok\n");
+    tmp = tmp->next;
+  }
   return (0);
 }
 
