@@ -25,6 +25,7 @@ private:
 	std::string 						_teamName;
 	int 								_port;
 	int 								_socket;
+	int 								_fl;
 
 	int 								_startsearch;
 	bool								_isAlive;

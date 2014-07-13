@@ -4,6 +4,7 @@ myIA::myIA()
 {
 	_isAlive = true;
 	_range = 1;
+	_fl = 0;
 	_startsearch = 0;
 	_dim = std::make_pair(10, 10);
 }
@@ -91,11 +92,10 @@ bool		myIA::fctRead()
 		if (s->compare("BIENVENUE\n") == 0)
 		{
 			_send.push_back(_teamName);
-			_send.push_back("avance\n");
-			_send.push_back("droite\n");			
 		}
 		else
 			_receive.push_back(*s);
+		_fl++;
 		std::cout << "|" << buf << "|" << std::endl;
 	}
 	else

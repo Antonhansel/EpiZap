@@ -40,22 +40,13 @@ protected:
 	int 						_range;
 	int 						_dir;
 
-//public:
-//	std::string					_type;
-//	std::string					_order;
-//	int 						_level;
-//	int 						_k;
-//	bool						_broadcast;
-
 public:
 	Command();
 	~Command();
 	void			cmdMove(int );
 	void			cmdRot(Direction);
 	std::string		cmdSee();
-//	std::string		cmdBroadcast(const std::string &);
 	bool			cmdTake(std::string);
-//	bool			checkBroadcast(std::string &);
 	bool			checkRecieve(std::string);
 };
 

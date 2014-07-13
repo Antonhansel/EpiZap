@@ -28,7 +28,7 @@ void  setArgument(char **argv, int argc, std::map<std::string, std::string> &fla
 int 							main(int argc, char **argv)
 {
  	std::map<std::string, std::string>	flags;
-	myIA 						ia;
+	myIA 					ia;
 	std::string				s1;
 	std::string				s2;
 	std::string				s3;
