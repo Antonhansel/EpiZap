@@ -57,7 +57,7 @@ int	get_obj(void *s, int i, char *cmd)
   return (-1);
 }
 
-char *get_dir(t_player *expulse, t_player *to_expulse, int old_dir)
+char	*get_dir(t_player *expulse, t_player *to_expulse, int old_dir)
 {
   char	*str;
   int	dir;
@@ -88,9 +88,9 @@ char *get_dir(t_player *expulse, t_player *to_expulse, int old_dir)
 
 int	kick_cmd_next(void *s, t_player *p, t_player *tmp)
 {
-  int 	ret;
-  int   tab[((t_server*)(s))->nb_player + 1];
-  int   i;
+  int	ret;
+  int	tab[((t_server*)(s))->nb_player + 1];
+  int	i;
 
   ret = 0;
   i = 0;
@@ -98,12 +98,12 @@ int	kick_cmd_next(void *s, t_player *p, t_player *tmp)
     {
       if (tmp->fd != p->fd)
 	{
-    tab[i] = tmp->fd;
-    i++;
+	  tab[i] = tmp->fd;
+	  i++;
 	}
       tmp = tmp->next_square;
     }
-    tab[i] = 0;
-    move_player(s, p, tab, ret);
+  tab[i] = 0;
+  move_player(s, p, tab, ret);
   return (ret);
 }

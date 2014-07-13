@@ -61,7 +61,8 @@ int			add_str_in_buffer(t_circular_buffer **cb, char *str)
   return (FALSE);
 }
 
-void			reset_elem_in_buffer(t_circular_buffer **cb, int nb_char)
+void			reset_elem_in_buffer(t_circular_buffer **cb,
+					     int nb_char)
 {
   t_circular_buffer	*tmp;
   int 			i;

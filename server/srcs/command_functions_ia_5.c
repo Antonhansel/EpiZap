@@ -11,10 +11,10 @@
 #include "cmd_functions.h"
 #include "command_functions.h"
 
-int calc_long(t_player *p1, t_player *p2, t_server *s)
+int	calc_long(t_player *p1, t_player *p2, t_server *s)
 {
-  int i;
-  int j;
+  int	i;
+  int	j;
 
   i = p2->y - p1->y + s->map->height * s->mi;
   j = p2->x - p1->x + s->map->width * s->mj;
@@ -36,7 +36,7 @@ int	search(t_player *p1, t_player *p2, void *s)
     {
       j = -2;
       while (++j < 2)
-	   if (calc_long(p1, p2, ((t_server*)(s))) < save)
+	if (calc_long(p1, p2, ((t_server*)(s))) < save)
 	  {
 	    save = calc_long(p1, p2, ((t_server*)(s)));
 	    dir = i * 3 + j + 5;
@@ -45,10 +45,10 @@ int	search(t_player *p1, t_player *p2, void *s)
   return (dir);
 }
 
-int calc_angle(t_player *p1, t_player *p2, void *s)
+int	calc_angle(t_player *p1, t_player *p2, void *s)
 {
-  int i;
-  int j;
+  int	i;
+  int	j;
 
   i = p2->y - p1->y + ((t_server*)(s))->map->height * ((t_server*)(s))->mi;
   j = p2->x - p1->x + ((t_server*)(s))->map->width * ((t_server*)(s))->mj;
