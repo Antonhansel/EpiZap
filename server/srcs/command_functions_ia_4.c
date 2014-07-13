@@ -30,6 +30,23 @@ int		fork_egg(void *s, t_player *p, char *cmd)
   return (0);
 }
 
+char		*get_player_of_square(t_server *s, char *str, int x, int y)
+{
+  t_player	*tmp;
+
+  tmp = s->map->map[y][x].player;
+  while (tmp)
+  {
+    if (tmp->fd != s->player_fd)
+    {
+      str = strcat(str, " joueur");
+      return (str);
+    }
+    tmp = tmp->next_square;
+  }
+  return (str);
+}
+
 char		*see_next(void *serv, char *str, int x, int y)
 {
   int		i;
@@ -53,6 +70,7 @@ char		*see_next(void *serv, char *str, int x, int y)
 	  str = strcat(str, s->obj_type[i]);
 	}
     }
+    str = get_player_of_square(s, str, x, y);
   str = strcat(str, ",");
   return (str);
 }
@@ -65,20 +83,21 @@ int	see_loop(void *s, t_player *p, int di, int dj)
   int	y;
   char	*str;
 
-  r = 0;
+  r = -1;
   str = NULL;
-  while (r < p->range)
+  while (++r < p->range)
     {
-      c = r;
-      while (c >= -r)
+      c = -r;
+      while (c <= r)
 	{
-	  x = (p->x + r * di + c * dj + ((t_server*)(s))->map->width) % ((t_server*)(s))->map->width;
-	  y = (p->y + c * di + r * dj * -1 + ((t_server*)(s))->map->height) % ((t_server*)(s))->map->height;
+	  x = (p->x + r * di + c * dj + ((t_server*)(s))->map->width) %
+	    ((t_server*)(s))->map->width;
+	  y = (p->y + c * di + r * dj * -1 + ((t_server*)(s))->map->height) %
+	    ((t_server*)(s))->map->height;
 	  str = see_next(s, str, x, y);
-	  c--;
+	  c++;
 	}
-      r++;
-    }
+    }    
   str = strcat(str, "\b}\n");
   add_str_in_buffer(&p->buffer_circular, str);
   p->mode = WRITE;

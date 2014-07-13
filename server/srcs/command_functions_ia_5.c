@@ -9,20 +9,21 @@
 */
 
 #include "cmd_functions.h"
+#include "command_functions.h"
 
 int calc_long(t_player *p1, t_player *p2, t_server *s)
 {
   int i;
   int j;
 
-  i = p2->y - p1->y + s->map->height /*y */ * s->mi;
-  j = p2->x - p1->x + s->map->width /* x */ * s->mj;
+  i = p2->y - p1->y + s->map->height * s->mi;
+  j = p2->x - p1->x + s->map->width * s->mj;
   return (abs(i) + abs(j));
 }
 
 int	search(t_player *p1, t_player *p2, void *s)
 {
-  int	dir;;
+  int	dir;
   int	save;
   int	i;
   int	j;
@@ -48,10 +49,9 @@ int calc_angle(t_player *p1, t_player *p2, void *s)
 {
   int i;
   int j;
-  
+
   i = p2->y - p1->y + ((t_server*)(s))->map->height * ((t_server*)(s))->mi;
   j = p2->x - p1->x + ((t_server*)(s))->map->width * ((t_server*)(s))->mj;
-  printf("---------------- i: %d\t j: %d\n", i, j);
   if (abs(i) * 3 <= j && j > 0)
     return (1);
   if (i * 3 >= j && i < j * 3 && i > 0 && j > 0)
@@ -69,4 +69,47 @@ int calc_angle(t_player *p1, t_player *p2, void *s)
   if (-i <= j * 3 && -i * 3 > j && i < 0 && j > 0)
     return (8);
   return (0);
+}
+
+void	check_object(void *s, t_player *p, int i)
+{
+  int	x;
+  int	y;
+
+  if (i == FOOD)
+    {
+      y = rand() % ((t_server*)(s))->map->height;
+      x = rand() % ((t_server*)(s))->map->width;
+      p->time += 126.0 * (1.0 / ((t_server*)(s))->ctime);
+      ((t_server*)(s))->map->map[y][x].inventory->
+	set_object(((t_server*)(s))->map->map[y][x].inventory, i, 1);
+    }
+  else
+    p->inventory->set_object(p->inventory, i, 1);
+}
+
+int		move_player(void *s, t_player *p, int *tab, int ret)
+{
+  t_player	*tmp;
+  int		i;
+  int		old_dir;
+
+  tmp = ((t_server*)(s))->player;
+  while (tmp)
+    {
+      i = -1;
+      while (tab[++i] != 0)
+	if (tab[i] == tmp->fd)
+	  {
+	    tmp->sent = FALSE;
+	    old_dir = tmp->dir;
+	    tmp->dir = p->dir;
+	    up_cmd(((t_server*)(s)), tmp, NULL);
+	    get_dir(p, tmp, old_dir);
+	    ret++;
+	    tmp->sent = TRUE;
+	  }
+      tmp = tmp->next;
+    }
+  return (ret);
 }

@@ -57,7 +57,7 @@ int	get_obj(void *s, int i, char *cmd)
   return (-1);
 }
 
-char	*get_dir(t_player *expulse, t_player *to_expulse)
+char *get_dir(t_player *expulse, t_player *to_expulse, int old_dir)
 {
   char	*str;
   int	dir;
@@ -65,6 +65,7 @@ char	*get_dir(t_player *expulse, t_player *to_expulse)
   int	dir_to_expulse;
 
   square = 1;
+  to_expulse->dir = old_dir;
   dir = to_expulse->dir;
   dir_to_expulse = expulse->dir + 2;
   (dir_to_expulse > 3) ? (dir_to_expulse = dir_to_expulse - 4) : 0;
@@ -79,36 +80,30 @@ char	*get_dir(t_player *expulse, t_player *to_expulse)
     }
   memset(str, 0, 256);
   snprintf(str, 256, "deplacement: %d\n", square);
-  return (str);
+  add_str_in_buffer(&to_expulse->buffer_circular, str);
+  to_expulse->mode = WRITE;
+  free(str);
+  return ("ok");
 }
 
 int	kick_cmd_next(void *s, t_player *p, t_player *tmp)
 {
-  int 	old_dir;
-  char	*res;
   int 	ret;
+  int   tab[((t_server*)(s))->nb_player + 1];
+  int   i;
 
   ret = 0;
+  i = 0;
   while (tmp)
     {
       if (tmp->fd != p->fd)
 	{
-	  tmp->sent = FALSE;
-	  old_dir = tmp->dir;
-	  tmp->dir = p->dir;
-	  up_cmd(((t_server*)(s)), tmp, NULL);
-	  tmp->dir = old_dir;
-	  res = get_dir(p, tmp);
-	  if (res != NULL)
-	    {
-	      add_str_in_buffer(&tmp->buffer_circular, res);
-	      tmp->mode = WRITE;
-	      free(res);
-	    }
-	  ret++;
-	  tmp->sent = TRUE;
+    tab[i] = tmp->fd;
+    i++;
 	}
       tmp = tmp->next_square;
     }
+    tab[i] = 0;
+    move_player(s, p, tab, ret);
   return (ret);
 }

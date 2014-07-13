@@ -15,6 +15,7 @@
 int 	set_cmd_information(t_server *, t_player *, t_cmd *, char *);
 char	**my_str_to_wordtab(char *);
 void	my_free_str_to_wordtab(char **);
+int concat_texte(t_cmd *);
 
 int 	get_cmd_type(t_server *s, char *cmd)
 {
@@ -27,7 +28,7 @@ int 	get_cmd_type(t_server *s, char *cmd)
 	{
 	  if (strncmp(s->cmd_type[i], cmd, strlen(s->cmd_type[i])) == 0)
 	    return (i);
-	}   
+	}
     }
   return (-1);
 }
@@ -43,6 +44,7 @@ int	set_cmd_information(t_server *s, t_player *p, t_cmd *new_cmd, char *cmd)
   new_cmd->team_name = NULL;
   if ((new_cmd->type = get_cmd_type(s, new_cmd->cmd[0])) == -1)
     good = FALSE;
+  (good != FALSE) ? (good = concat_texte(new_cmd)) : 0;
   if (good == TRUE)
     {
       new_cmd->time = s->time_tab[new_cmd->type];

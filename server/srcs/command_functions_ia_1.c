@@ -69,6 +69,7 @@ int	see_cmd(void *s, t_player *p, char *cmd)
   (void)cmd;
   di = 0;
   dj = 0;
+  ((t_server*)(s))->player_fd = p->fd;
   (p->dir == NORTH) ? (dj = 1) : (p->dir == SOUTH) ? (dj = -1) :
     (p->dir == WEST) ? (di = -1) : (p->dir == EAST) ? (di = 1) : 0;
   see_loop(s, p, di, dj);

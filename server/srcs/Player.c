@@ -70,27 +70,6 @@ void	copy_player(t_player *this, t_player *to_copy)
   this->fct_read = to_copy->fct_read;
 }
 
-int		destroy_player(t_player *this, void *p)
-{
-  t_server	*s;
-  t_team	*tmp;
-
-  s = ((t_server *)(p));
-  tmp = s->team;
-  while (tmp)
-    {
-      if (this->team_name && strcmp(tmp->name, this->team_name) == 0)
-	{
-	  if (del_elem(&tmp->player_list, this->fd) == 0)
-	    tmp->nb_player_actu--;
-	}
-      tmp = tmp->next;
-    }
-  free(this->inventory);
-  free(this->team_name);
-  return (0);
-}
-
 static void		set_inventory(t_player *this, t_inventory *i)
 {
   this->inventory = i;
