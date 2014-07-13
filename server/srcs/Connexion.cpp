@@ -119,6 +119,12 @@ void 	Connexion::tryConnect()
     _mainUI->show();
     _mainUI->startGraphic();
   }
+  else
+  {
+    _window->show();
+    _windowteam->hide();
+    _tempTeam = -2;
+  }
 }
 else
  _console->setHtml(_console->toHtml() + "<font color=\"Red\">[ERROR]: Missing Arguments\n</font>");
